@@ -3,8 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AudiobookPlayer"
+        xmlns:local="clr-namespace:Commons"
+        xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls" 
         mc:Ignorable="d"
+        Background="{StaticResource RichBlackBrush}"
+        
         Title="MainWindow" Height="450" Width="800">
   <Grid>
         <Grid.RowDefinitions>
@@ -18,23 +21,21 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Vertical"
-                    Grid.Column="0" Grid.Row="0">
+                    Grid.Column="0" Grid.Row="0"                  >
 
-            <Button Style="{StaticResource MenuButton}" Content="Start" />
+            <lib:MenuButton Content="Start" />
 
-            <Button Style="{StaticResource MenuButton}" Content="Browse" />
+            <lib:MenuButton Content="Browse" />
 
             <Border Style="{StaticResource Separator}"  />
 
-            <Button Style="{StaticResource MenuButton}" Content="Authors" />
+            <lib:MenuButton Content="Authors" />
 
-            <Button Style="{StaticResource MenuButton}" Content="Genre" />
+            <lib:MenuButton Content="Genre" />
 
-            <Button Style="{StaticResource MenuButton}" Content="Favorites" />
+            <lib:MenuButton Content="Favorites" />
+
         </StackPanel>
-        
-        
-        
-        
+      
     </Grid>
 </Window>

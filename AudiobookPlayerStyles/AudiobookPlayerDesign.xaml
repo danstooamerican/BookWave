@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Commons.Controls;assembly=Commons">
+
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="Colors/colors.xaml" />
+        <ResourceDictionary Source="Styles/BorderStyle.xaml" />        
+
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- Default Styles -->
+    <!-- <Style TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}"></Style> -->
+</ResourceDictionary>
