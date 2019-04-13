@@ -12,11 +12,12 @@
         <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="ClickedRectVisibility" Value="Hidden" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MenuButton}">
-                    <Border
+                    <Border 
                         BorderThickness="0"
                         Padding="0 3 10 3"
                         BorderBrush="{StaticResource CharlestonGreenBrush}"                            
@@ -31,22 +32,32 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <Rectangle x:Name="clickedRect" Width="5" Fill="{StaticResource TerraCottaBrush}" 
-                                       Grid.Column="0" Grid.Row="0" Visibility="Hidden"/>
+                            <Rectangle x:Name="ClickedRect" Width="5" Fill="{StaticResource TerraCottaBrush}" 
+                                       Grid.Column="0" Grid.Row="0" Visibility="{TemplateBinding ClickedRectVisibility}"/>
 
                             <ContentPresenter HorizontalAlignment="Left"
                                 VerticalAlignment="Center" Name="content" Margin="15 0 0 0"
                                               Grid.Column="1" Grid.Row="0"/>
                         </Grid>
-                    </Border>
+                    </Border>                   
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="ClickedRectVisibility" Value="Visible" Storyboard.TargetName="ClickedRect">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                            From="0.0" To="1.0" Duration="0:0:0.5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource LightGrayBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}" />
-                        </Trigger>
+                        </Trigger>                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

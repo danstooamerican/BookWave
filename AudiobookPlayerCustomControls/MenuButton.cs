@@ -17,9 +17,21 @@ namespace Commons.Controls
 {
     public class MenuButton : Button
     {
+        public Visibility ClickedRectVisibility
+        {
+            get { return (Visibility)GetValue(ClickedRectVisibilityProperty); }
+            set { SetValue(ClickedRectVisibilityProperty, value); }
+        }
+
+        public static readonly DependencyProperty ClickedRectVisibilityProperty =
+            DependencyProperty.Register("ClickedRectVisibility", typeof(Visibility), typeof(MenuButton), new PropertyMetadata(Visibility.Hidden));
+
+
+
+
         static MenuButton()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuButton), new FrameworkPropertyMetadata(typeof(MenuButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuButton), new FrameworkPropertyMetadata(typeof(MenuButton)));            
         }
     }
 }

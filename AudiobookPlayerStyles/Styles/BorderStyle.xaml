@@ -2,9 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Commons.Styles">
 
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
+
+    </ResourceDictionary.MergedDictionaries>
+
     <Style x:Key="Separator" TargetType="Border">
         <Setter Property="Margin" Value="2" />
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{StaticResource GrayBrush}" />
         <Setter Property="Height" Value="2" />
     </Style>
 

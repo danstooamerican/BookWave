@@ -21,19 +21,20 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Vertical"
-                    Grid.Column="0" Grid.Row="0"                  >
+                    Grid.Column="0" Grid.Row="0"     
+                    lib:MenuButton.Click="MenuButton_Click">
 
-            <lib:MenuButton Content="Start" />
+            <lib:MenuButton Name="btnStart" Content="Start" />
 
-            <lib:MenuButton Content="Browse" />
+            <lib:MenuButton Name="btnBrowse" Content="Browse" />
 
             <Border Style="{StaticResource Separator}"  />
 
-            <lib:MenuButton Content="Authors" />
+            <lib:MenuButton Name="btnAuthors" Content="Authors" />
 
-            <lib:MenuButton Content="Genre" />
+            <lib:MenuButton Name="btnGenres" Content="Genre" />
 
-            <lib:MenuButton Content="Favorites" />
+            <lib:MenuButton Name="btnFavorites" Content="Favorites" />
 
         </StackPanel>
       

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Commons.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,39 @@ namespace AudiobookPlayer
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in ((StackPanel)sender).Children)
+            {
+                if (item.GetType().Equals(typeof(MenuButton)))
+                {
+                    MenuButton btn = (MenuButton)item;
+                    btn.ClickedRectVisibility = Visibility.Hidden;
+                }
+            }
+
+            FrameworkElement feSource = e.Source as FrameworkElement;
+            switch (feSource.Name)
+            {
+                case "btnStart":                    
+                    btnStart.ClickedRectVisibility = Visibility.Visible;
+                    break;
+                case "btnBrowse":
+                    btnBrowse.ClickedRectVisibility = Visibility.Visible;
+                    break;
+                case "btnAuthors":
+                    btnAuthors.ClickedRectVisibility = Visibility.Visible;
+                    break;
+                case "btnGenres":
+                    btnGenres.ClickedRectVisibility = Visibility.Visible;
+                    break;
+                case "btnFavorites":
+                    btnFavorites.ClickedRectVisibility = Visibility.Visible;
+                    break;
+            }
+            e.Handled = true;
         }
     }
 }
