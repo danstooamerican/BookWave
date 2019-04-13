@@ -6,7 +6,35 @@
         xmlns:local="clr-namespace:AudiobookPlayer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+  <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Column="0" Grid.Row="0">
+
+            <Button Style="{StaticResource MenuButton}" Content="Start" />
+
+            <Button Style="{StaticResource MenuButton}" Content="Browse" />
+
+            <Border Style="{StaticResource Separator}"  />
+
+            <Button Style="{StaticResource MenuButton}" Content="Authors" />
+
+            <Button Style="{StaticResource MenuButton}" Content="Genre" />
+
+            <Button Style="{StaticResource MenuButton}" Content="Favorites" />
+        </StackPanel>
+        
+        
+        
         
     </Grid>
 </Window>
