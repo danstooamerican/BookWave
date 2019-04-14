@@ -11,6 +11,7 @@
         Title="MainWindow" Height="450" Width="800">
   <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
@@ -20,8 +21,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <!-- Sidebar -->
         <StackPanel Orientation="Vertical"
-                    Grid.Column="0" Grid.Row="0"
+                    Grid.Column="0" Grid.Row="1"
                     lib:MenuButton.Click="MenuButton_Click">
 
             <lib:MenuButton Name="btnStart" Content="Start" 
@@ -41,16 +43,17 @@
             <lib:MenuButton Name="btnFavorites" Content="Favorites" 
                             Page="/Pages/FavoritesPage.xaml"/>
 
-            <!-- <lib:ImageButton 
-                NormalImage="/Commons.Styles;component/Resources/forward.png"
-                HoverImage="/Commons.Styles;component/Resources/forward.png"
-                PressedImage="/Commons.Styles;component/Resources/backward.png"
-                DisabledImage="/Commons.Styles;component/Resources/forward.png" /> -->     
+        </StackPanel>
+
+        <!-- Topbar -->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1" Grid.Row="0">
 
         </StackPanel>
 
+        <!-- Main Frame -->
         <Frame x:Name="frmPage" Style="{StaticResource PageFrame}"
-               Grid.Column="1" Grid.Row="0"/>
+               Grid.Column="1" Grid.Row="1"/>
 
     </Grid>
 </Window>

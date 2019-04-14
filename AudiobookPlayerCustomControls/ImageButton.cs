@@ -32,7 +32,7 @@ namespace Commons.Controls
 
         public static readonly DependencyProperty ImageSizeProperty =
             DependencyProperty.Register("ImageSize", typeof(double), typeof(ImageButton),
-            new FrameworkPropertyMetadata(30.0, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
+            new FrameworkPropertyMetadata(30.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
         public string NormalImage
         {
