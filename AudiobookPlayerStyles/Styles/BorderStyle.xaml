@@ -9,9 +9,9 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="Separator" TargetType="Border">
-        <Setter Property="Margin" Value="2" />
+        <Setter Property="Margin" Value="0, 2, 0, 2" />
         <Setter Property="Background" Value="{StaticResource GrayBrush}" />
-        <Setter Property="Height" Value="2" />
+        <Setter Property="Height" Value="1" />
     </Style>
 
 </ResourceDictionary>

@@ -1,4 +1,5 @@
 ﻿using Commons.Controls;
+using Commons.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,19 +28,34 @@ namespace AudiobookPlayer
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new MainWindowViewModel();
+
+            //select btnStart by default
+            MenuButton_Click(btnStart, new RoutedEventArgs(Button.ClickEvent, btnStart));
         }
 
+        /// <summary>
+        /// Click Handler for all MenuButtons in the left StackPanel
+        /// </summary>
+        /// <param name="sender"></param> MenuButton that was clicked
+        /// <param name="e"></param> EventArgs of the click event
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuButton clickedMenuBtn = e.Source as MenuButton;
-            if ((menuBtnLastClicked != null) && (!clickedMenuBtn.Equals(menuBtnLastClicked)) )
+            if (e.Source is MenuButton clickedMenuBtn)
             {
-                menuBtnLastClicked.ClickedRectVisibility = Visibility.Hidden;
-            }
-            menuBtnLastClicked = clickedMenuBtn;
-            clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
+                if ((menuBtnLastClicked != null) && (!clickedMenuBtn.Equals(menuBtnLastClicked)))
+                {
+                    menuBtnLastClicked.ClickedRectVisibility = Visibility.Hidden;
+                }
+                menuBtnLastClicked = clickedMenuBtn;
+                clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
 
-            e.Handled = true;
+                frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
+
+                e.Handled = true;
+            }            
         }
+
     }
 }

@@ -21,22 +21,36 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Vertical"
-                    Grid.Column="0" Grid.Row="0"     
+                    Grid.Column="0" Grid.Row="0"
                     lib:MenuButton.Click="MenuButton_Click">
 
-            <lib:MenuButton Name="btnStart" Content="Start" />
+            <lib:MenuButton Name="btnStart" Content="Start" 
+                            Page="/Pages/StartPage.xaml"/>
 
-            <lib:MenuButton Name="btnBrowse" Content="Browse" />
+            <lib:MenuButton Name="btnBrowse" Content="Browse" 
+                            Page="/Pages/BrowsePage.xaml"/>
 
             <Border Style="{StaticResource Separator}"  />
 
-            <lib:MenuButton Name="btnAuthors" Content="Authors" />
+            <lib:MenuButton Name="btnAuthors" Content="Authors" 
+                            Page="/Pages/AuthorsPage.xaml"/>
 
-            <lib:MenuButton Name="btnGenres" Content="Genre" />
+            <lib:MenuButton Name="btnGenres" Content="Genre" 
+                            Page="/Pages/GenresPage.xaml"/>
 
-            <lib:MenuButton Name="btnFavorites" Content="Favorites" />
+            <lib:MenuButton Name="btnFavorites" Content="Favorites" 
+                            Page="/Pages/FavoritesPage.xaml"/>
+
+            <!-- <lib:ImageButton 
+                NormalImage="/Commons.Styles;component/Resources/forward.png"
+                HoverImage="/Commons.Styles;component/Resources/forward.png"
+                PressedImage="/Commons.Styles;component/Resources/backward.png"
+                DisabledImage="/Commons.Styles;component/Resources/forward.png" /> -->     
 
         </StackPanel>
-      
+
+        <Frame x:Name="frmPage" Style="{StaticResource PageFrame}"
+               Grid.Column="1" Grid.Row="0"/>
+
     </Grid>
 </Window>

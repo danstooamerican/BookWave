@@ -9,6 +9,6 @@
       Title="StartPage">
 
     <StackPanel>
-        <TextBlock>Test1</TextBlock>
+        <Button>Start</Button>
     </StackPanel>
 </Page>
