@@ -92,7 +92,7 @@
                                  Background="{StaticResource DarkGrayBrush}"
                                  BorderBrush="{StaticResource DarkGrayBrush}"                                        
                                  BorderThickness="1" CornerRadius="1"
-                                 Margin="5,0" VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
+                                 VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
                             </Border>
                             
                             <Track x:Name="PART_Track" Grid.Row="1">
