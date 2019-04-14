@@ -141,5 +141,8 @@
     <Resource Include="Resources\Player\rewind30_pressed.png" />
     <Resource Include="Resources\Player\skip30_pressed.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

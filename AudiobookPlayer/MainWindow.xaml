@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Commons"
         xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls" 
         mc:Ignorable="d"
+        Icon="/Commons.Styles;component/Resources/icon.ico"
         Background="{StaticResource RichBlackBrush}"
         
         Title="MainWindow" Width="830" Height="620"

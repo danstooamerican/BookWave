@@ -23,13 +23,13 @@
                 Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="0"/>
 
         <StackPanel Orientation="Horizontal" 
-                    Grid.Column="0" Grid.Row="1">
+                    Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
 
             <Image Source="{Binding CoverImage}" 
                MinHeight="50" MinWidth="50" MaxHeight="50" MaxWidth="50"
                Margin="10"/>
 
-            <StackPanel Orientation="Vertical" Margin="0, 10, 0, 10">
+            <StackPanel Orientation="Vertical" Margin="0, 10, 0, 10" VerticalAlignment="Center">
 
                 <TextBlock Style="{StaticResource InformationTextHighlight}" Text="Audiobook Title" />
                 <TextBlock Style="{StaticResource InformationText}" Text="IamAnAuthor, MeToo" />
