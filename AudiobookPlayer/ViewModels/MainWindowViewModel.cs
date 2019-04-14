@@ -10,9 +10,18 @@ namespace Commons.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
+
+        private string mCoverImage;
+
+        public string CoverImage
+        {
+            get { return mCoverImage; }
+            set { mCoverImage = value; }
+        }
+
         public MainWindowViewModel()
         {
-            
+            CoverImage = "/Commons.Styles;component/Resources/Player/sampleCover.jpg";
         }
 
     }

@@ -70,14 +70,16 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ImageButton}">
+                    
                     <Grid x:Name="Grid">
-                        <Border x:Name="Background" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3" />
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Image x:Name="ButtonImage" Source="{Binding NormalImage, RelativeSource={RelativeSource TemplatedParent}}" 
+                        <Border x:Name="Background" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3" />
+
+                        <Image x:Name="ButtonImage" Source="{Binding NormalImage, RelativeSource={RelativeSource TemplatedParent}}" 
                                    Height="{Binding ImageSize, RelativeSource={RelativeSource TemplatedParent}}" 
-                                   Width="{Binding ImageSize, RelativeSource={RelativeSource TemplatedParent}}"/>           
-                            </StackPanel>
+                                   Width="{Binding ImageSize, RelativeSource={RelativeSource TemplatedParent}}"/>
                     </Grid>
+                    
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="ButtonImage" Property="Source" Value="{Binding HoverImage, RelativeSource={RelativeSource TemplatedParent}}" />

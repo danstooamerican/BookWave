@@ -5,10 +5,13 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary>
-            <converters:StringToImageConverter x:Key="stringToImageConverter" />
+            <converters:StringToImageConverter x:Key="StringToImageConverter" />
+            <converters:SecondsToTimeConverter x:Key="SecondsToTimeConverter" />
         </ResourceDictionary>
 
         <ResourceDictionary Source="Colors/colors.xaml" />
+        <ResourceDictionary Source="Styles/TextStyle.xaml" />
+        <ResourceDictionary Source="Styles/SliderStyle.xaml" />
         <ResourceDictionary Source="Styles/BorderStyle.xaml" />
         <ResourceDictionary Source="Styles/ButtonStyle.xaml" />
         <ResourceDictionary Source="Styles/FrameStyle.xaml" />

@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\SecondsToTimeConverter.cs" />
     <Compile Include="Converter\StringToImageConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -92,14 +93,53 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\SliderStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TextStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataTemplates\" />
     <Folder Include="Settings\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\backward.png" />
-    <Resource Include="Resources\forward.png" />
+    <Resource Include="Resources\Player\sampleCover.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Player\rewind30.png" />
+    <Resource Include="Resources\Player\rewind30_hover.png" />
+    <Resource Include="Resources\Player\skip30.png" />
+    <Resource Include="Resources\Player\skip30_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Player\next.png" />
+    <Resource Include="Resources\Player\next_hover.png" />
+    <Resource Include="Resources\Player\pause.png" />
+    <Resource Include="Resources\Player\pause_hover.png" />
+    <Resource Include="Resources\Player\play.png" />
+    <Resource Include="Resources\Player\play_hover.png" />
+    <Resource Include="Resources\Player\previous.png" />
+    <Resource Include="Resources\Player\previous_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Player\speaker.png" />
+    <Resource Include="Resources\Player\speakerOff.png" />
+    <Resource Include="Resources\Player\speakerOff_hover.png" />
+    <Resource Include="Resources\Player\speakerOff_pressed.png" />
+    <Resource Include="Resources\Player\speaker_hover.png" />
+    <Resource Include="Resources\Player\speaker_pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Player\next_pressed.png" />
+    <Resource Include="Resources\Player\pause_pressed.png" />
+    <Resource Include="Resources\Player\play_pressed.png" />
+    <Resource Include="Resources\Player\previous_pressed.png" />
+    <Resource Include="Resources\Player\rewind30_pressed.png" />
+    <Resource Include="Resources\Player\skip30_pressed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

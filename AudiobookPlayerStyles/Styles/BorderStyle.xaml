@@ -8,7 +8,7 @@
 
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="Separator" TargetType="Border">
+    <Style x:Key="HorizontalSeparator" TargetType="Border">
         <Setter Property="Margin" Value="0, 2, 0, 2" />
         <Setter Property="Background" Value="{StaticResource GrayBrush}" />
         <Setter Property="Height" Value="1" />

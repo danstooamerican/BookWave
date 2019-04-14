@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Background="{StaticResource RichBlackBrush}"
         
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Width="830" Height="620"
+        MinWidth="830" MinHeight="620">
   <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -32,7 +33,7 @@
             <lib:MenuButton Name="btnBrowse" Content="Browse" 
                             Page="/Pages/BrowsePage.xaml"/>
 
-            <Border Style="{StaticResource Separator}"  />
+            <Border Style="{StaticResource HorizontalSeparator}"  />
 
             <lib:MenuButton Name="btnAuthors" Content="Authors" 
                             Page="/Pages/AuthorsPage.xaml"/>
@@ -45,7 +46,7 @@
 
         </StackPanel>
 
-        <!-- Topbar -->
+        <!-- Top Bar -->
         <StackPanel Orientation="Horizontal"
                     Grid.Column="1" Grid.Row="0">
 
@@ -54,6 +55,10 @@
         <!-- Main Frame -->
         <Frame x:Name="frmPage" Style="{StaticResource PageFrame}"
                Grid.Column="1" Grid.Row="1"/>
+
+        <!-- Bottom Bar -->
+        <lib:PlayerBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                       CoverImage="{Binding CoverImage}"/>
 
     </Grid>
 </Window>
