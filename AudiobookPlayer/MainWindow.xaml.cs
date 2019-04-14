@@ -21,6 +21,9 @@ namespace AudiobookPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private MenuButton menuBtnLastClicked;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,34 +31,14 @@ namespace AudiobookPlayer
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in ((StackPanel)sender).Children)
+            MenuButton clickedMenuBtn = e.Source as MenuButton;
+            if ((menuBtnLastClicked != null) && (!clickedMenuBtn.Equals(menuBtnLastClicked)) )
             {
-                if (item.GetType().Equals(typeof(MenuButton)))
-                {
-                    MenuButton btn = (MenuButton)item;
-                    btn.ClickedRectVisibility = Visibility.Hidden;
-                }
+                menuBtnLastClicked.ClickedRectVisibility = Visibility.Hidden;
             }
+            menuBtnLastClicked = clickedMenuBtn;
+            clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
 
-            FrameworkElement feSource = e.Source as FrameworkElement;
-            switch (feSource.Name)
-            {
-                case "btnStart":                    
-                    btnStart.ClickedRectVisibility = Visibility.Visible;
-                    break;
-                case "btnBrowse":
-                    btnBrowse.ClickedRectVisibility = Visibility.Visible;
-                    break;
-                case "btnAuthors":
-                    btnAuthors.ClickedRectVisibility = Visibility.Visible;
-                    break;
-                case "btnGenres":
-                    btnGenres.ClickedRectVisibility = Visibility.Visible;
-                    break;
-                case "btnFavorites":
-                    btnFavorites.ClickedRectVisibility = Visibility.Visible;
-                    break;
-            }
             e.Handled = true;
         }
     }

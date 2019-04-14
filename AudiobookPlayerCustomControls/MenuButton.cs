@@ -20,14 +20,17 @@ namespace Commons.Controls
         public Visibility ClickedRectVisibility
         {
             get { return (Visibility)GetValue(ClickedRectVisibilityProperty); }
-            set { SetValue(ClickedRectVisibilityProperty, value); }
+            set {
+                if (!ClickedRectVisibilityProperty.Equals(value))
+                {
+                    SetValue(ClickedRectVisibilityProperty, value);
+                }
+                
+            }
         }
 
         public static readonly DependencyProperty ClickedRectVisibilityProperty =
             DependencyProperty.Register("ClickedRectVisibility", typeof(Visibility), typeof(MenuButton), new PropertyMetadata(Visibility.Hidden));
-
-
-
 
         static MenuButton()
         {

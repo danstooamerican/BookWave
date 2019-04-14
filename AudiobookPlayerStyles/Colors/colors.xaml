@@ -1,23 +1,31 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Commons.Styles">
-
+    
     <Color x:Key="TerraCotta">#DE7C5A</Color>
+    
     <Color x:Key="DarkJungleGreen">#0D2818</Color>
     <Color x:Key="UpForestGreen">#04471C</Color>
     <Color x:Key="CharlestonGreen">#1E2D2F</Color>
+    
     <Color x:Key="RichBlack">#020202</Color>
-    <Color x:Key="Gray">#98999B</Color>
+    
     <Color x:Key="LightGray">#F9F9F9</Color>
+    <Color x:Key="Gray">#98999B</Color>
+    <Color x:Key="LightDarkGray">#656667</Color>    
     <Color x:Key="DarkGray">#433F40</Color>
 
     <SolidColorBrush x:Key="TerraCottaBrush" Color="{StaticResource TerraCotta}" />
+    
     <SolidColorBrush x:Key="DarkJungleGreenBrush" Color="{StaticResource DarkJungleGreen}" />
     <SolidColorBrush x:Key="UpForestGreenBrush" Color="{StaticResource UpForestGreen}" />
     <SolidColorBrush x:Key="CharlestonGreenBrush" Color="{StaticResource CharlestonGreen}" />
+    
     <SolidColorBrush x:Key="RichBlackBrush" Color="{StaticResource RichBlack}" />
-    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}" />
+    
     <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGray}" />
+    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}" />
+    <SolidColorBrush x:Key="LightDarkGrayBrush" Color="{StaticResource LightDarkGray}" />
     <SolidColorBrush x:Key="DarkGrayBrush" Color="{StaticResource DarkGray}" />
 
 </ResourceDictionary>
