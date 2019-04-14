@@ -7,10 +7,11 @@
     <Color x:Key="DarkJungleGreen">#0D2818</Color>
     <Color x:Key="UpForestGreen">#04471C</Color>
     <Color x:Key="CharlestonGreen">#1E2D2F</Color>
-    
-    <Color x:Key="RichBlack">#020202</Color>
-    
+
+    <Color x:Key="RichBlack">#020202</Color> 
+
     <Color x:Key="LightGray">#F9F9F9</Color>
+    <Color x:Key="BackgroundGray">#3A3A3A</Color>
     <Color x:Key="Gray">#98999B</Color>
     <Color x:Key="LightDarkGray">#656667</Color>    
     <Color x:Key="DarkGray">#433F40</Color>
@@ -25,8 +26,41 @@
     <SolidColorBrush x:Key="RichBlackBrush" Color="{StaticResource RichBlack}" />
     
     <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGray}" />
+    <SolidColorBrush x:Key="BackgroundGrayBrush" Color="{StaticResource BackgroundGray}" />
     <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}" />
     <SolidColorBrush x:Key="LightDarkGrayBrush" Color="{StaticResource LightDarkGray}" />
     <SolidColorBrush x:Key="DarkGrayBrush" Color="{StaticResource DarkGray}" />
+
+    <LinearGradientBrush x:Key="MainBackground"
+            StartPoint="0.5, 0" EndPoint="0.5,1">
+
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="{StaticResource RichBlack}" Offset="0" />
+            <GradientStop Color="{StaticResource BackgroundGray}" Offset="2" />
+        </LinearGradientBrush.GradientStops>
+
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PlayerBarBackground"
+            StartPoint="0.5,0" EndPoint="0.5, 1">
+
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="{StaticResource RichBlack}" Offset="0" />
+            <GradientStop Color="{StaticResource BackgroundGray}" Offset="2.5" />
+            
+        </LinearGradientBrush.GradientStops>
+
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SideBarBackground"
+            StartPoint="1,0.5" EndPoint="0, 0.5">
+
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="{StaticResource RichBlack}" Offset="0" />
+            <GradientStop Color="{StaticResource BackgroundGray}" Offset="3.5" />
+
+        </LinearGradientBrush.GradientStops>
+
+    </LinearGradientBrush>
 
 </ResourceDictionary>

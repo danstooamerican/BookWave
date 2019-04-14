@@ -7,7 +7,7 @@
         xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls" 
         mc:Ignorable="d"
         Icon="/Commons.Styles;component/Resources/icon.ico"
-        Background="{StaticResource RichBlackBrush}"
+        Background="{StaticResource MainBackground}"
         
         Title="MainWindow" Width="830" Height="620"
         MinWidth="830" MinHeight="620">
@@ -24,28 +24,31 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <StackPanel Orientation="Vertical"
-                    Grid.Column="0" Grid.Row="1"
+        <Border Padding="0, 5, 15, 0"
+                Grid.Column="0" Grid.Row="1"
+                Background="{StaticResource SideBarBackground}">
+            <StackPanel Orientation="Vertical"                      
                     lib:MenuButton.Click="MenuButton_Click">
 
-            <lib:MenuButton Name="btnStart" Content="Start" 
+                <lib:MenuButton Name="btnStart" Content="Start" 
                             Page="/Pages/StartPage.xaml"/>
 
-            <lib:MenuButton Name="btnBrowse" Content="Browse" 
+                <lib:MenuButton Name="btnBrowse" Content="Browse" 
                             Page="/Pages/BrowsePage.xaml"/>
 
-            <Border Style="{StaticResource HorizontalSeparator}"  />
+                <Border Style="{StaticResource HorizontalSeparator}"  />
 
-            <lib:MenuButton Name="btnAuthors" Content="Authors" 
+                <lib:MenuButton Name="btnAuthors" Content="Authors" 
                             Page="/Pages/AuthorsPage.xaml"/>
 
-            <lib:MenuButton Name="btnGenres" Content="Genre" 
+                <lib:MenuButton Name="btnGenres" Content="Genre" 
                             Page="/Pages/GenresPage.xaml"/>
 
-            <lib:MenuButton Name="btnFavorites" Content="Favorites" 
+                <lib:MenuButton Name="btnFavorites" Content="Favorites" 
                             Page="/Pages/FavoritesPage.xaml"/>
 
-        </StackPanel>
+            </StackPanel>
+        </Border>        
 
         <!-- Top Bar -->
         <StackPanel Orientation="Horizontal"
