@@ -33,9 +33,12 @@
 
             <StackPanel Orientation="Vertical" Margin="0, 10, 0, 10" VerticalAlignment="Center">
 
-                <TextBlock Style="{StaticResource InformationTextHighlight}" Text="Audiobook Title" />
-                <TextBlock Style="{StaticResource InformationText}" Text="IamAnAuthor, MeToo" />
-                <TextBlock Style="{StaticResource InformationText}" Text="Read by: xxxxx, yyyyy" />
+                <TextBlock Style="{StaticResource InformationTextHighlight}" Text="Audiobook Title" 
+                           TextTrimming="WordEllipsis" />
+                <TextBlock Style="{StaticResource InformationText}" Text="IamAnAuthor, MeToo" 
+                           TextTrimming="WordEllipsis" />
+                <TextBlock Style="{StaticResource InformationText}" Text="Read by: xxxxx, yyyyy" 
+                           TextTrimming="WordEllipsis" />
 
             </StackPanel>
         </StackPanel>
@@ -55,10 +58,13 @@
                                HoverImage="/Commons.Styles;component/Resources/Player/previous_hover.png"
                                PressedImage="/Commons.Styles;component/Resources/Player/previous_pressed.png"/>
 
-            <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
+            <local:ToggleImageButton Style="{StaticResource PlayerBarSpacing}"
                                NormalImage="/Commons.Styles;component/Resources/Player/play.png" 
                                HoverImage="/Commons.Styles;component/Resources/Player/play_hover.png"
-                               PressedImage="/Commons.Styles;component/Resources/Player/play_pressed.png"/>
+                               PressedImage="/Commons.Styles;component/Resources/Player/play_pressed.png"
+                               NormalImageToggled="/Commons.Styles;component/Resources/Player/pause.png" 
+                               HoverImageToggled="/Commons.Styles;component/Resources/Player/pause_hover.png"
+                               PressedImageToggled="/Commons.Styles;component/Resources/Player/pause_pressed.png"/>
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
                                NormalImage="/Commons.Styles;component/Resources/Player/next.png" 
@@ -76,15 +82,17 @@
                     Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
                     HorizontalAlignment="Right" Margin="0 0 20 0" Grid.ColumnSpan="2">
 
-            <local:ToggleImageButton NormalImage="/Commons.Styles;component/Resources/Player/speaker.png" 
+            <local:ToggleImageButton x:Name="btnToggleVolume"
+                               NormalImage="/Commons.Styles;component/Resources/Player/speaker.png" 
                                HoverImage="/Commons.Styles;component/Resources/Player/speaker_hover.png"
                                PressedImage="/Commons.Styles;component/Resources/Player/speaker_pressed.png"
                                NormalImageToggled="/Commons.Styles;component/Resources/Player/speakerOff.png" 
                                HoverImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_hover.png"
                                PressedImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_pressed.png"
-                               Margin="0, 0, 10, 0" Click="ToggleImageButton_Click"/>
+                               Margin="0, 0, 10, 0" Click="BtnToggleVolume_Click"
+                               IsChecked="{Binding ElementName=sldVolume, Path=Value, Mode=OneWay, Converter={StaticResource DoubleToBoolConverter}}"/>
 
-            <Slider Style="{StaticResource HighlightedSlider}"  Value="0.75" Maximum="1" MinWidth="80"
+            <Slider x:Name="sldVolume" Style="{StaticResource HighlightedSlider}"  Value="1" Maximum="1" MinWidth="80"
                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         </StackPanel>
@@ -99,14 +107,13 @@
                     Margin="0, 0, 5, 0" Text="{Binding Value, ElementName=sldMedia, Converter={StaticResource SecondsToTimeConverter}}"/>
 
             <Slider x:Name="sldMedia" Style="{StaticResource HighlightedSlider}"                 
-                Value="30" Minimum="0" Maximum="464640" MinWidth="300" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                Value="30" Minimum="0" Maximum="7626" MinWidth="300" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
             <TextBlock Style="{StaticResource InformationText}" 
                     MinWidth="50" MaxWidth="50" TextAlignment="Center"
                     Margin="5, 0, 0, 0" Text="{Binding Maximum, ElementName=sldMedia, Converter={StaticResource SecondsToTimeConverter}}"/>
 
         </StackPanel>
-
 
     </Grid>
 </UserControl>

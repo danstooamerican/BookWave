@@ -35,6 +35,18 @@ namespace Commons.Controls
 
         #endregion
 
+        #region Public Properties
+
+        private double mLastVolume;
+
+        public double LastVolume
+        {
+            get { return mLastVolume; }
+            set { mLastVolume = value; }
+        }
+
+        #endregion
+
         public PlayerBar()
         {
             InitializeComponent();
@@ -42,12 +54,19 @@ namespace Commons.Controls
 
         private static void ImageSourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            Application.GetResourceStream(new Uri("pack://application:,,," + (string)e.NewValue));
+            Application.GetResourceStream(new Uri("pack://application:,,," + (string) e.NewValue));
         }
 
-        private void ToggleImageButton_Click(object sender, RoutedEventArgs e)
+        private void BtnToggleVolume_Click(object sender, RoutedEventArgs e)
         {
-
+            if (sldVolume.Value == 0)
+            {
+                sldVolume.Value = LastVolume;
+            } else
+            {
+                LastVolume = sldVolume.Value;
+                sldVolume.Value = 0;
+            }
         }
     }
 }

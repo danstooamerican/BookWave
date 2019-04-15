@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\DoubleToBoolConverter.cs" />
     <Compile Include="Converter\SecondsToTimeConverter.cs" />
     <Compile Include="Converter\StringToImageConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

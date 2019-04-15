@@ -38,10 +38,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SliderRepeatButtonStyleColor" TargetType="{x:Type RepeatButton}">
-        <Setter Property="OverridesDefaultStyle" Value="true"/>
-        <Setter Property="IsTabStop" Value="false"/>
-        <Setter Property="Focusable" Value="false"/>
+    <Style x:Key="SliderRepeatButtonStyleColor" BasedOn="{StaticResource SliderRepeatButtonStyle}" 
+           TargetType="{x:Type RepeatButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -56,10 +54,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SliderRepeatButtonStyleColorHighlight" TargetType="{x:Type RepeatButton}">
-        <Setter Property="OverridesDefaultStyle" Value="true"/>
-        <Setter Property="IsTabStop" Value="false"/>
-        <Setter Property="Focusable" Value="false"/>
+    <Style x:Key="SliderRepeatButtonStyleColorHighlight" BasedOn="{StaticResource SliderRepeatButtonStyle}" 
+           TargetType="{x:Type RepeatButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -74,10 +70,9 @@
         </Setter>
     </Style>
 
-    <SolidColorBrush x:Key="HorizontalSliderTrackNormalBackground" Color="{StaticResource Gray}"/>
-
     <Style x:Key="HighlightedSlider" TargetType="{x:Type Slider}">
         <Setter Property="IsMoveToPointEnabled" Value="True" />
+        <Setter Property="TickFrequency" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Slider}">
@@ -93,6 +88,7 @@
                                  Background="{StaticResource DarkGrayBrush}"
                                  BorderBrush="{StaticResource DarkGrayBrush}"                                        
                                  BorderThickness="1" CornerRadius="1"
+                                 Margin="0, 0, 6, 0"
                                  VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
                             </Border>
                             

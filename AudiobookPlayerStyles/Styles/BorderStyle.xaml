@@ -14,4 +14,9 @@
         <Setter Property="Height" Value="1" />
     </Style>
 
+    <Style x:Key="VerticalSplitter" TargetType="GridSplitter">
+        <Setter Property="Width" Value="2" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
 </ResourceDictionary>

@@ -13,6 +13,7 @@
         <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
         <Setter Property="FontSize" Value="22" />
         <Setter Property="FontWeight" Value="DemiBold" />
+        
         <Setter Property="ClickedRectVisibility" Value="Hidden" />
 
         <Setter Property="Template">
@@ -36,9 +37,9 @@
                             <Rectangle x:Name="ClickedRect" Width="5" Fill="{StaticResource AccentBrush}" 
                                        Grid.Column="0" Grid.Row="0" Visibility="{TemplateBinding ClickedRectVisibility}"/>
 
-                            <ContentPresenter HorizontalAlignment="Left"
-                                VerticalAlignment="Center" Name="content" Margin="10 0 0 0"
-                                              Grid.Column="1" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Left"
+                                VerticalAlignment="Center" Margin="10 0 0 0"
+                                Grid.Column="1" Grid.Row="0" Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextTrimming="WordEllipsis"/>
                         </Grid>
                     </Border>                   
 
