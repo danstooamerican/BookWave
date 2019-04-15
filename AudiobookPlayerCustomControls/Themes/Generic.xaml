@@ -96,8 +96,8 @@
         </Setter>
         
     </Style>
-    
 
+    <!-- Style for ToggleImageButton -->
     <Style TargetType="{x:Type local:ToggleImageButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -113,9 +113,9 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IsChecked}" Value="true">
+                        <Trigger Property="IsChecked" Value="true">
                             <Setter TargetName="ButtonImage" Property="Source" Value="{Binding NormalImageToggled, RelativeSource={RelativeSource TemplatedParent}}" />
-                        </DataTrigger>
+                        </Trigger>
 
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
