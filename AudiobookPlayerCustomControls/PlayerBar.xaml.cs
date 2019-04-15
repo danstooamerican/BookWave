@@ -44,5 +44,10 @@ namespace Commons.Controls
         {
             Application.GetResourceStream(new Uri("pack://application:,,," + (string)e.NewValue));
         }
+
+        private void ToggleImageButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

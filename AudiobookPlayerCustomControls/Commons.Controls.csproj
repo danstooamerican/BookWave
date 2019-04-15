@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ToggleImageButton.cs" />
     <Compile Include="ImageButton.cs" />
     <Compile Include="MenuButton.cs">
       <SubType>Code</SubType>

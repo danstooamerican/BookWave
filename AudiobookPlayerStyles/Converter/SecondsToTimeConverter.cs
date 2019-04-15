@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
@@ -34,12 +35,9 @@ namespace Commons.Styles.Converter
                         if (seconds < 60 * 60 * 10)
                         {
                             return time.ToString(@"h\:mm\:ss");
-                        } else if (seconds < 60 * 60 * 24)
-                        {
-                            return time.ToString(@"hh\:mm\:ss");
                         } else
                         {
-                            return time.ToString(@"d\d\:hh\:mm");
+                            return (int) time.TotalHours + time.ToString(@"\:mm\:ss");
                         }                        
                     }                    
                 }                

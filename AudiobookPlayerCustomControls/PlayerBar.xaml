@@ -39,11 +39,11 @@
 
             </StackPanel>
         </StackPanel>
-        
-        
+
+
 
         <StackPanel Orientation="Horizontal" 
-                    Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+                    Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="53,0">
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
                                NormalImage="/Commons.Styles;component/Resources/Player/rewind30.png" 
@@ -74,36 +74,39 @@
 
         <StackPanel Orientation="Horizontal"
                     Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
-                    HorizontalAlignment="Right" Margin="0 0 20 0">            
-            
-            <local:ImageButton NormalImage="/Commons.Styles;component/Resources/Player/speaker.png" 
+                    HorizontalAlignment="Right" Margin="0 0 20 0" Grid.ColumnSpan="2">
+
+            <local:ToggleImageButton NormalImage="/Commons.Styles;component/Resources/Player/speaker.png" 
                                HoverImage="/Commons.Styles;component/Resources/Player/speaker_hover.png"
-                               PressedImage="/Commons.Styles;component/Resources/Player/speaker_pressed.png" 
-                               Margin="0 0 10 0"/>
+                               PressedImage="/Commons.Styles;component/Resources/Player/speaker_pressed.png"
+                               NormalImageToggled="/Commons.Styles;component/Resources/Player/speakerOff.png" 
+                               HoverImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_hover.png"
+                               PressedImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_pressed.png"
+                               Margin="0, 0, 10, 0" Click="ToggleImageButton_Click"/>
 
             <Slider Style="{StaticResource HighlightedSlider}"  Value="0.75" Maximum="1" MinWidth="80"
                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            
+
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" 
                     Grid.Column="1" Grid.Row="2"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Margin="0 0 0 6">
+                    Margin="0,0,0,6">
 
             <TextBlock Style="{StaticResource InformationText}" 
                     MinWidth="50" MaxWidth="50" TextAlignment="Center"
                     Margin="0, 0, 5, 0" Text="{Binding Value, ElementName=sldMedia, Converter={StaticResource SecondsToTimeConverter}}"/>
 
             <Slider x:Name="sldMedia" Style="{StaticResource HighlightedSlider}"                 
-                Value="30" Minimum="0" Maximum="7894" MinWidth="300" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                Value="30" Minimum="0" Maximum="464640" MinWidth="300" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <TextBlock Style="{StaticResource InformationText}" 
                     MinWidth="50" MaxWidth="50" TextAlignment="Center"
                     Margin="5, 0, 0, 0" Text="{Binding Maximum, ElementName=sldMedia, Converter={StaticResource SecondsToTimeConverter}}"/>
-            
+
         </StackPanel>
-        
+
 
     </Grid>
 </UserControl>

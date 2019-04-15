@@ -17,7 +17,6 @@ namespace Commons.Controls
 {
     public class MenuButton : Button
     {
-
         #region DependencyProperties
 
         /// <summary>
