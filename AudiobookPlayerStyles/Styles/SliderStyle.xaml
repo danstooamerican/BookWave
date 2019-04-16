@@ -1,0 +1,124 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Commons.Styles.Styles">
+
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
+
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="CustomThumbForSlider" TargetType="{x:Type Thumb}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Ellipse x:Name="ThumbNob" Fill="{StaticResource GrayBrush}" Height="12" Width="12"/>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="ThumbNob" Property="Fill" Value="{StaticResource LightGrayBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Rectangle Fill="Transparent"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SliderRepeatButtonStyleColor" BasedOn="{StaticResource SliderRepeatButtonStyle}" 
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border x:Name="TrackBackground" 
+                        Background="{StaticResource GrayBrush}"
+                        BorderBrush="{StaticResource GrayBrush}"                                        
+                        BorderThickness="1" CornerRadius="1"
+                        VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SliderRepeatButtonStyleColorHighlight" BasedOn="{StaticResource SliderRepeatButtonStyle}" 
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border x:Name="TrackBackground" 
+                        Background="{StaticResource AccentBrush}"
+                        BorderBrush="{StaticResource AccentBrush}"                                        
+                        BorderThickness="1" CornerRadius="1"
+                        VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HighlightedSlider" TargetType="{x:Type Slider}">
+        <Setter Property="IsMoveToPointEnabled" Value="True" />
+        <Setter Property="TickFrequency" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Slider}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <Border x:Name="TrackBackground" 
+                                 Background="{StaticResource DarkGrayBrush}"
+                                 BorderBrush="{StaticResource DarkGrayBrush}"                                        
+                                 BorderThickness="1" CornerRadius="1"
+                                 Margin="0, 0, 6, 0"
+                                 VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
+                            </Border>
+                            
+                            <Track x:Name="PART_Track" Grid.Row="1">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="SelectedPart" Style="{StaticResource SliderRepeatButtonStyleColor}"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Style="{StaticResource SliderRepeatButtonStyle}"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb x:Name="Thumb" Visibility="Hidden" Style="{StaticResource CustomThumbForSlider}" 
+                                           Background="Transparent" Margin="-6, 0, 0, 0"/>
+                                </Track.Thumb>
+                            </Track>
+                            
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Thumb" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="SelectedPart" Property="Style" Value="{StaticResource SliderRepeatButtonStyleColorHighlight}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+
+</ResourceDictionary>

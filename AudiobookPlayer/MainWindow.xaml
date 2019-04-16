@@ -3,10 +3,70 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AudiobookPlayer"
+        xmlns:local="clr-namespace:Commons"
+        xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Icon="/Commons.Styles;component/Resources/icon.ico"
+        Background="{StaticResource MainBackground}"
         
+        Title="MainWindow" Width="830" Height="620"
+        MinWidth="830" MinHeight="620">
+  <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="90" MaxWidth="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Padding="0, 5, 15, 0"
+                Grid.Column="0" Grid.Row="1"
+                Background="{StaticResource SideBarBackground}">
+            <StackPanel Orientation="Vertical"                      
+                    lib:MenuButton.Click="MenuButton_Click">
+
+                <lib:MenuButton Name="btnStart" Content="Start" 
+                            Page="/Pages/StartPage.xaml"/>
+
+                <lib:MenuButton Name="btnBrowse" Content="Browse" 
+                            Page="/Pages/BrowsePage.xaml"/>
+
+                <Border Style="{StaticResource HorizontalSeparator}"  />
+
+                <lib:MenuButton Name="btnAuthors" Content="Authors" 
+                            Page="/Pages/AuthorsPage.xaml"/>
+
+                <lib:MenuButton Name="btnGenres" Content="Genre" 
+                            Page="/Pages/GenresPage.xaml"/>
+
+                <lib:MenuButton Name="btnFavorites" Content="Favorites" 
+                            Page="/Pages/FavoritesPage.xaml"/>
+
+            </StackPanel>
+        </Border>
+
+        <GridSplitter Grid.Column="0" Grid.Row="1" 
+                      Style="{StaticResource VerticalSplitter}"
+                      VerticalAlignment="Stretch" />
+
+        <!-- Top Bar -->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
+
+        </StackPanel>
+
+        <!-- Main Frame -->
+        <Frame x:Name="frmPage" Style="{StaticResource PageFrame}"
+               Grid.Column="2" Grid.Row="1"/>
+
+        <!-- Bottom Bar -->
+        <lib:PlayerBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                       CoverImage="{Binding CoverImage}"/>
+
     </Grid>
 </Window>
