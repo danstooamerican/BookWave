@@ -66,6 +66,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\ContributorsModel.cs" />
+    <Compile Include="Models\MetadataModel.cs" />
     <Compile Include="Pages\AuthorsPage.xaml.cs">
       <DependentUpon>AuthorsPage.xaml</DependentUpon>
     </Compile>
