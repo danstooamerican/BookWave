@@ -12,6 +12,8 @@
 
         <ResourceDictionary Source="Colors/colors.xaml" />
         <ResourceDictionary Source="Styles/TextStyle.xaml" />
+        <ResourceDictionary Source="Styles/TextBoxStyle.xaml" />
+        <ResourceDictionary Source="Styles/ScrollViewerStyle.xaml" />
         <ResourceDictionary Source="Styles/SliderStyle.xaml" />
         <ResourceDictionary Source="Styles/BorderStyle.xaml" />
         <ResourceDictionary Source="Styles/ButtonStyle.xaml" />

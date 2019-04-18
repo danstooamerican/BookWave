@@ -69,7 +69,6 @@
                     Margin="15, 5, 0, 5">
 
                 <Button Style="{StaticResource OptionButton}" Content="Add to Library" 
-                        Command="{Binding AddAudiobookCommand}"
                         Tag="/Pages/AddPage.xaml"/>
 
             </StackPanel>

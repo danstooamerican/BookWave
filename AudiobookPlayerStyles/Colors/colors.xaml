@@ -63,4 +63,16 @@
 
     </LinearGradientBrush>
 
+    <LinearGradientBrush x:Key="PressedBrush"
+            StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#BBB" Offset="0.0"/>
+                    <GradientStop Color="#EEE" Offset="0.1"/>
+                    <GradientStop Color="#EEE" Offset="0.9"/>
+                    <GradientStop Color="#FFF" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
 </ResourceDictionary>
