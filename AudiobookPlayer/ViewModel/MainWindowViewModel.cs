@@ -52,7 +52,7 @@ namespace Commons.ViewModel
 
         private void AddAudiobook()
         {
-
+            MessageBox.Show("Hey");
         }
 
         #endregion

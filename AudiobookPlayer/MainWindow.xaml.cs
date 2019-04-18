@@ -40,17 +40,14 @@ namespace AudiobookPlayer
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             string path = null;
-            Button clickedBtn = null;
 
-            if (e.Source is Button)
+            if (e.Source is Button clickedBtn)
             {
-                clickedBtn = (Button)e.Source;
-
                 if ((menuBtnLastClicked != null) && (!clickedBtn.Equals(menuBtnLastClicked)))
                 {
                     menuBtnLastClicked.ClickedRectVisibility = Visibility.Hidden;
                 }
-                
+
                 if (e.Source is MenuButton clickedMenuBtn)
                 {
                     clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
@@ -65,20 +62,12 @@ namespace AudiobookPlayer
                     }
 
                     menuBtnLastClicked = null;
-                }                             
+                }
             }
-            
+
             if (path != null)
             {
                 frmPage.Navigate(new Uri(path, UriKind.Relative));               
-            }
-
-            if (clickedBtn?.Command != null)
-            {
-                if (clickedBtn.Command.CanExecute(clickedBtn.CommandParameter))
-                {
-                    clickedBtn.Command.Execute(clickedBtn.CommandParameter);
-                }
             }
 
             e.Handled = true;
