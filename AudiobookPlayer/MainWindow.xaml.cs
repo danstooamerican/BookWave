@@ -1,5 +1,4 @@
 ﻿using Commons.Controls;
-using Commons.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +28,6 @@ namespace AudiobookPlayer
         {
             InitializeComponent();
 
-            this.DataContext = new MainWindowViewModel();
-
             //select btnStart by default
             MenuButton_Click(btnStart, new RoutedEventArgs(Button.ClickEvent, btnStart));
         }
@@ -42,19 +39,38 @@ namespace AudiobookPlayer
         /// <param name="e"></param> EventArgs of the click event
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Source is MenuButton clickedMenuBtn)
+            string path = null;
+
+            if (e.Source is Button clickedBtn)
             {
-                if ((menuBtnLastClicked != null) && (!clickedMenuBtn.Equals(menuBtnLastClicked)))
+                if ((menuBtnLastClicked != null) && (!clickedBtn.Equals(menuBtnLastClicked)))
                 {
                     menuBtnLastClicked.ClickedRectVisibility = Visibility.Hidden;
                 }
-                menuBtnLastClicked = clickedMenuBtn;
-                clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
 
-                frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
+                if (e.Source is MenuButton clickedMenuBtn)
+                {
+                    clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
+                    menuBtnLastClicked = clickedMenuBtn;
+                    path = clickedMenuBtn.Page;
+                }
+                else
+                {
+                    if (clickedBtn.Tag is string page)
+                    {
+                        path = page;
+                    }
 
-                e.Handled = true;
-            }            
+                    menuBtnLastClicked = null;
+                }
+            }
+
+            if (path != null)
+            {
+                frmPage.Navigate(new Uri(path, UriKind.Relative));               
+            }
+
+            e.Handled = true;
         }
 
     }

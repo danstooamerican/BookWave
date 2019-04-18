@@ -21,8 +21,7 @@
                 <ControlTemplate TargetType="{x:Type local:MenuButton}">
                     <Border 
                         BorderThickness="0"
-                        Padding="0 3 10 3"
-                        BorderBrush="{StaticResource CharlestonGreenBrush}"                            
+                        Padding="0 3 10 3"                   
                         Background="{TemplateBinding Background}">
 
                         <Grid >
