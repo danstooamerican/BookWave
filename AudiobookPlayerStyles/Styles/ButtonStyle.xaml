@@ -2,8 +2,48 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Commons.Styles.Styles">
 
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
+
+    </ResourceDictionary.MergedDictionaries>
+    
     <Style x:Key="PlayerBarSpacing" TargetType="Control">
         <Setter Property="Margin" Value="20, 0 20, 0" />
     </Style>
-    
+
+    <Style x:Key="OptionButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                        BorderThickness="0"
+                        Padding="0 3 10 3"                           
+                        Background="{TemplateBinding Background}">
+
+                        <Grid >
+                            <TextBlock HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextTrimming="WordEllipsis"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource LightGrayBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource LightDarkGrayBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
