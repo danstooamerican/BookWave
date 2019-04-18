@@ -1,5 +1,4 @@
 ﻿using Commons.Controls;
-using Commons.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +27,6 @@ namespace AudiobookPlayer
         public MainWindow()
         {
             InitializeComponent();
-
-            this.DataContext = new MainWindowViewModel();
 
             //select btnStart by default
             MenuButton_Click(btnStart, new RoutedEventArgs(Button.ClickEvent, btnStart));

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Icon="/Commons.Styles;component/Resources/icon.ico"
         Background="{StaticResource MainBackground}"
-        
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
         Title="MainWindow" Width="830" Height="620"
         MinWidth="830" MinHeight="620">
   <Grid>

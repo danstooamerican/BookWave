@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Commons.Models
 {
-    public class ContributorsModel
+    public class Contributors : ObservableObject
     {
 
         #region Public Properties
@@ -16,7 +17,7 @@ namespace Commons.Models
         public string[] Authors
         {
             get { return mAuthors; }
-            set { mAuthors = value; }
+            set { Set<string[]>(() => this.Authors, ref mAuthors, value); }
         }
 
         private string[] mReaders;
@@ -24,7 +25,7 @@ namespace Commons.Models
         public string[] Readers
         {
             get { return mReaders; }
-            set { mReaders = value; }
+            set { Set<string[]>(() => this.Readers, ref mReaders, value); }
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Commons.Models
 {
-    public abstract class MetadataModel
+    public abstract class Metadata : ObservableObject
     {
         #region Public Properties
 
@@ -14,29 +15,29 @@ namespace Commons.Models
         public string Path
         {
             get { return mPath; }
-            set { mPath = value; }
+            set { Set<string>(() => this.Path, ref mPath, value); }
         }
 
         private string mName;
         public string Name
         {
             get { return mName; }
-            set { mName = value; }
+            set { Set<string>(() => this.Name, ref mName, value); }
         }
 
         private string mDescription;
         public string Description
         {
             get { return mDescription; }
-            set { mDescription = value; }
+            set { Set<string>(() => this.Description, ref mDescription, value); }
         }
 
-        private ContributorsModel mContributors;
+        private Contributors mContributors;
 
-        public ContributorsModel Contributors
+        public Contributors Contributors
         {
             get { return mContributors; }
-            set { mContributors = value; }
+            set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
         }
 
         private DateTime mRelease;
