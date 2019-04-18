@@ -39,19 +39,49 @@ namespace AudiobookPlayer
         /// <param name="e"></param> EventArgs of the click event
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Source is MenuButton clickedMenuBtn)
+            string path = null;
+            Button clickedBtn = null;
+
+            if (e.Source is Button)
             {
-                if ((menuBtnLastClicked != null) && (!clickedMenuBtn.Equals(menuBtnLastClicked)))
+                clickedBtn = (Button)e.Source;
+
+                if ((menuBtnLastClicked != null) && (!clickedBtn.Equals(menuBtnLastClicked)))
                 {
                     menuBtnLastClicked.ClickedRectVisibility = Visibility.Hidden;
                 }
-                menuBtnLastClicked = clickedMenuBtn;
-                clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
+                
+                if (e.Source is MenuButton clickedMenuBtn)
+                {
+                    clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
+                    menuBtnLastClicked = clickedMenuBtn;
+                    path = clickedMenuBtn.Page;
+                }
+                else
+                {
+                    if (clickedBtn.Tag is string page)
+                    {
+                        path = page;
+                    }
 
-                frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
+                    menuBtnLastClicked = null;
+                }                             
+            }
+            
+            if (path != null)
+            {
+                frmPage.Navigate(new Uri(path, UriKind.Relative));               
+            }
 
-                e.Handled = true;
-            }            
+            if (clickedBtn?.Command != null)
+            {
+                if (clickedBtn.Command.CanExecute(clickedBtn.CommandParameter))
+                {
+                    clickedBtn.Command.Execute(clickedBtn.CommandParameter);
+                }
+            }
+
+            e.Handled = true;
         }
 
     }

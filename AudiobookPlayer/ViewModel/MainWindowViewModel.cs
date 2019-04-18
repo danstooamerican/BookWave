@@ -1,11 +1,6 @@
 ﻿using Commons.Logic;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -57,7 +52,7 @@ namespace Commons.ViewModel
 
         private void AddAudiobook()
         {
-            MessageBox.Show("Add Audiobook");
+
         }
 
         #endregion

@@ -23,5 +23,23 @@ namespace Commons.Logic
 
         #endregion
 
+        #region Constructors
+
+        public AudiobookManager()
+        {
+            Audiobooks = new ObservableCollection<Audiobook>();
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void AddAudiobook(string path)
+        {
+
+        }
+
+        #endregion
+
     }
 }
