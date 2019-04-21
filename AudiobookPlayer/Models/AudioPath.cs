@@ -42,11 +42,23 @@ namespace Commons.Models
             }
         }
 
+        /// <summary>
+        /// -1 if EndMark is end of file.
+        /// </summary>
         private int mEndMark;
         public int EndMark
         {
             get { return mEndMark; }
-            set { Set<int>(() => this.EndMark, ref mEndMark, value); }
+            set {
+                if (value >= -1)
+                {
+                    Set<int>(() => this.EndMark, ref mEndMark, value);
+                }
+                else
+                {
+                    throw new InvalidArgumentException(value, "is not a valid mark");
+                }
+            }
         }
 
 
