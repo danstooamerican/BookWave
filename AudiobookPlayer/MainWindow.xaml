@@ -9,7 +9,7 @@
         Icon="/Commons.Styles;component/Resources/icon.ico"
         Background="{StaticResource MainBackground}"
         DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
-        Title="MainWindow" Width="830" Height="620"
+        Title="Audiobook Player" Width="830" Height="620"
         WindowStartupLocation="CenterScreen"
         MinWidth="830" MinHeight="620">
   <Grid>

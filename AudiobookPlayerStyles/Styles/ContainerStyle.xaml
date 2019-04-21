@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Commons.Styles">
+
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
+
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="DragArea" TargetType="Panel">
+        <Setter Property="Background" Value="{StaticResource Gray1Brush}" />
+        <Setter Property="AllowDrop" Value="True" />
+    </Style>
+
+</ResourceDictionary>

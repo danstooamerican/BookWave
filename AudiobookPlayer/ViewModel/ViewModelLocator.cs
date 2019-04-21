@@ -16,6 +16,7 @@ namespace Commons.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainWindowViewModel>();
+            SimpleIoc.Default.Register<AddPageViewModel>();
         }
 
         public MainWindowViewModel MainViewModel
@@ -25,7 +26,15 @@ namespace Commons.ViewModel
                 return ServiceLocator.Current.GetInstance<MainWindowViewModel>();
             }
         }
-        
+
+        public AddPageViewModel AddPageViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddPageViewModel>();
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

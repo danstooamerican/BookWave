@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using ATL;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Commons.Models
 {
-    public abstract class Metadata : ObservableObject
+    public class Metadata : ObservableObject
     {
         #region Public Properties
 
@@ -18,11 +19,11 @@ namespace Commons.Models
             set { Set<string>(() => this.Path, ref mPath, value); }
         }
 
-        private string mName;
-        public string Name
+        private string mTitle;
+        public string Title
         {
-            get { return mName; }
-            set { Set<string>(() => this.Name, ref mName, value); }
+            get { return mTitle; }
+            set { Set<string>(() => this.mTitle, ref mTitle, value); }
         }
 
         private string mDescription;
@@ -40,17 +41,34 @@ namespace Commons.Models
             set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
         }
 
-        private DateTime mRelease;
+        private DateTime mReleaseDate;
 
-        public DateTime Release
+        public DateTime ReleaseDate
         {
-            get { return mRelease; }
-            set { mRelease = value; }
+            get { return mReleaseDate; }
+            set { mReleaseDate = value; }
         }
 
+        #endregion
 
+        #region Constructors
 
+        public Metadata(Track track = null)
+        {
+            Contributors = new Contributors();
+
+            if (track != null)
+            {
+                Path = track.Path;
+                Title = track.Title;
+                Description = track.Description;
+                ReleaseDate = new DateTime(track.Year, 0, 0);
+
+                Contributors.Authors.Add(track.Artist);
+            }
+        }
 
         #endregion
+
     }
 }

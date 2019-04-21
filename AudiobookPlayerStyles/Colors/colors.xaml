@@ -11,8 +11,10 @@
     <Color x:Key="RichBlack">#020202</Color> 
 
     <Color x:Key="LightGray">#F9F9F9</Color>
+    <Color x:Key="LightGray1">#404040</Color>
     <Color x:Key="BackgroundGray">#3A3A3A</Color>
     <Color x:Key="Gray">#98999B</Color>
+    <Color x:Key="Gray1">#282828</Color>
     <Color x:Key="LightDarkGray">#656667</Color>    
     <Color x:Key="DarkGray">#433F40</Color>
 
@@ -26,8 +28,10 @@
     <SolidColorBrush x:Key="RichBlackBrush" Color="{StaticResource RichBlack}" />
     
     <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGray}" />
+    <SolidColorBrush x:Key="LightGray1Brush" Color="{StaticResource LightGray1}" />
     <SolidColorBrush x:Key="BackgroundGrayBrush" Color="{StaticResource BackgroundGray}" />
     <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}" />
+    <SolidColorBrush x:Key="Gray1Brush" Color="{StaticResource Gray1}" />
     <SolidColorBrush x:Key="LightDarkGrayBrush" Color="{StaticResource LightDarkGray}" />
     <SolidColorBrush x:Key="DarkGrayBrush" Color="{StaticResource DarkGray}" />
 

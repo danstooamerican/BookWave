@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,20 +13,45 @@ namespace Commons.Models
 
         #region Public Properties
 
-        private string[] mAuthors;
+        private ObservableCollection<string> mAuthors;
 
-        public string[] Authors
+        public ObservableCollection<string> Authors
         {
             get { return mAuthors; }
-            set { Set<string[]>(() => this.Authors, ref mAuthors, value); }
+            set { Set<ObservableCollection<string>>(() => this.Authors, ref mAuthors, value); }
         }
 
-        private string[] mReaders;
+        private ObservableCollection<string> mReaders;
 
-        public string[] Readers
+        public ObservableCollection<string>  Readers
         {
             get { return mReaders; }
-            set { Set<string[]>(() => this.Readers, ref mReaders, value); }
+            set { Set<ObservableCollection<string>>(() => this.Readers, ref mReaders, value); }
+        }
+
+        public string AuthorString {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var item in Authors)
+                {
+                    sb.Append(item).Append(", ");
+                }
+
+                sb.Length = Math.Max(sb.Length - 2, 0);
+
+                return sb.ToString();
+            }
+        }
+
+        #endregion
+
+        #region Constructors
+
+        public Contributors()
+        {
+            Authors = new ObservableCollection<string>();
+            Readers = new ObservableCollection<string>();
         }
 
         #endregion
