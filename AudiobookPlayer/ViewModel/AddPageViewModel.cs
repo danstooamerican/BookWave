@@ -41,6 +41,14 @@ namespace Commons.ViewModel
             c.Metadata.Contributors.Authors.Add("Author2");
 
             Chapters.Add(c);
+
+            Chapter c1 = new Chapter(null);
+            c1.Metadata.Title = "TestTitle2";
+            c1.Metadata.Description = "Description2";
+            c1.Metadata.Contributors.Authors.Add("Author11");
+            c1.Metadata.Contributors.Authors.Add("Author22");
+
+            Chapters.Add(c1);
         }
 
         #endregion

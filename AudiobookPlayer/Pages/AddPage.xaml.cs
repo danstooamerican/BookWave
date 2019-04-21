@@ -25,9 +25,5 @@ namespace Commons.Pages
             InitializeComponent();
         }
 
-        private void DragArea_Drop(object sender, DragEventArgs e)
-        {
-
-        }
     }
 }

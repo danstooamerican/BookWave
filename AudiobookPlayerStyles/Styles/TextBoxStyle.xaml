@@ -5,7 +5,7 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
-
+        <ResourceDictionary Source="/Commons.Styles;component/Styles/TextStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <Style  x:Key="MaskTextBox" TargetType="{x:Type TextBox}">
@@ -18,14 +18,12 @@
           Value="True" />
         <Setter Property="OverridesDefaultStyle"
           Value="True" />
-        <Setter Property="KeyboardNavigation.TabNavigation"
-          Value="None" />
         <Setter Property="FocusVisualStyle"
           Value="{x:Null}" />
         <Setter Property="MinWidth"
           Value="120" />
         <Setter Property="MinHeight"
-          Value="20" />
+          Value="30" />
         <Setter Property="AllowDrop"
           Value="true" />
 
@@ -39,6 +37,110 @@
                             BorderBrush="{StaticResource LightGray1Brush}"
                             Background="{StaticResource Gray1Brush}">
                          
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource DarkGray}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ReadOnly">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource DarkGray}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="Background" TargetName="Border"
+                                Value="{StaticResource LightGray1Brush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style  x:Key="EditTextBlockDisabled" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Padding" Value="2" />
+
+        <Setter Property="SnapsToDevicePixels"
+          Value="True" />
+        <Setter Property="OverridesDefaultStyle"
+          Value="True" />
+        <Setter Property="MinHeight"
+          Value="30" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border Name="Border"
+                            Padding="{TemplateBinding Padding}"
+                            BorderBrush="{StaticResource LightGray1Brush}"
+                            Background="{StaticResource Gray1Brush}">
+
+                        <TextBlock FontSize="{TemplateBinding FontSize}"
+                                   FontWeight="{TemplateBinding FontWeight}"
+                                   Padding="4, 2, 0, 0"
+                                   Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource InformationText}" />
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="Background" TargetName="Border"
+                                Value="{StaticResource LightDarkGrayBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style  x:Key="EditTextBlockEnabled" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Padding" Value="2" />
+
+        <Setter Property="SnapsToDevicePixels"
+          Value="True" />
+        <Setter Property="OverridesDefaultStyle"
+          Value="True" />
+        <Setter Property="KeyboardNavigation.TabNavigation"
+          Value="None" />
+        <Setter Property="FocusVisualStyle"
+          Value="{x:Null}" />
+        <Setter Property="AllowDrop"
+          Value="true" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border Name="Border"
+                            CornerRadius="0"
+                            Padding="2"
+                            BorderThickness="0"
+                            BorderBrush="{StaticResource LightGray1Brush}"
+                            Background="{StaticResource Gray1Brush}">
+
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />

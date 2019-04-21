@@ -50,9 +50,26 @@
                      />
 
                 <!-- Drag Area -->
-                <DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
-                        ItemsSource="{Binding Chapters}" AutoGenerateColumns="False"
-                        Margin="30" RowHeight="30" ColumnWidth="100" />
+                <ListView Margin="30" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                          HorizontalContentAlignment="Stretch"
+                          ItemsSource="{Binding Chapters}"
+                          KeyboardNavigation.TabNavigation="Cycle">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <lib:EditTextBlock Grid.Column="0" HorizontalAlignment="Stretch"
+                                    Text="{Binding Metadata.Title}" />
+
+                                <lib:EditTextBlock Grid.Column="1" HorizontalAlignment="Stretch"
+                                    Text="{Binding Metadata.Contributors.AuthorString}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Border>       
     </ScrollViewer>
