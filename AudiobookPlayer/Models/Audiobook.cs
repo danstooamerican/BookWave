@@ -20,6 +20,14 @@ namespace Commons.Models
             set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
         }
 
+        private AudiobookMetadata mMetadata;
+
+        public AudiobookMetadata Metadata
+        {
+            get { return mMetadata; }
+            set { Set<AudiobookMetadata>(() => this.Metadata, ref mMetadata, value); }
+        }
+
 
         #endregion
 

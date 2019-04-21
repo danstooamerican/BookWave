@@ -34,7 +34,6 @@ namespace Commons.Models
         }
 
         private Contributors mContributors;
-
         public Contributors Contributors
         {
             get { return mContributors; }
@@ -42,7 +41,6 @@ namespace Commons.Models
         }
 
         private DateTime mReleaseDate;
-
         public DateTime ReleaseDate
         {
             get { return mReleaseDate; }

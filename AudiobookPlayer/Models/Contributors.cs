@@ -14,7 +14,6 @@ namespace Commons.Models
         #region Public Properties
 
         private ObservableCollection<string> mAuthors;
-
         public ObservableCollection<string> Authors
         {
             get { return mAuthors; }
@@ -22,7 +21,6 @@ namespace Commons.Models
         }
 
         private ObservableCollection<string> mReaders;
-
         public ObservableCollection<string>  Readers
         {
             get { return mReaders; }
