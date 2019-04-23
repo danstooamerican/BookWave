@@ -8,10 +8,6 @@ namespace Commons.Util
 {
     class HistoryListElement<T>
     {
-        private HistoryListElement<T> previous;
-        private T element;
-        
-
         private HistoryListElement<T> mNext;
         public HistoryListElement<T> Next
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Commons.Util
 {
-    class HistoryList<T>
+    public class HistoryList<T>
     {
         private HistoryListElement<T> head;
         public HistoryList()
@@ -50,10 +50,17 @@ namespace Commons.Util
         }
 
         public void AddLast(T element)
-        { 
-            HistoryListElement<T> lastElement = this.GetListElement(this.Size() - 1);
+        {
+            int size = this.Size();
+            HistoryListElement<T> lastElement = this.GetListElement(size - 1);
             HistoryListElement<T> newElement = new HistoryListElement<T>(null, lastElement, element);
-            lastElement.Next = newElement;
+            if (lastElement != null)
+            {
+                lastElement.Next = newElement;
+            } else
+            {
+                this.head = newElement;
+            }
         }
         
         public void AddFirst(T element)
