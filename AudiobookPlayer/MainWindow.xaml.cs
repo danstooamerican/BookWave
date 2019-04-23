@@ -26,8 +26,6 @@ namespace AudiobookPlayer
 
         private MainWindowViewModel viewModel;
 
-        private MenuButton menuBtnLastClicked;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -35,7 +33,10 @@ namespace AudiobookPlayer
             viewModel = (MainWindowViewModel) DataContext;
 
             //select btnStart by default
-            MenuButton_Click(btnStart, new RoutedEventArgs(Button.ClickEvent, btnStart));
+            this.UpdateClickRect(btnStart, null);
+            viewModel.SelectPage(btnStart);
+            SetSharedPageTitleTemplate(btnStart.TitleBarTemplate);
+            frmPage.Navigate(new Uri(btnStart.Page, UriKind.Relative));
         }
 
         /// <summary>
@@ -45,40 +46,23 @@ namespace AudiobookPlayer
         /// <param name="e"></param> EventArgs of the click event
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            string path = null;
-
-            if (e.Source is Button clickedBtn)
+            if (e.Source is MenuButton clickedMenuBtn)
             {
-                if ((menuBtnLastClicked != null) && (!clickedBtn.Equals(menuBtnLastClicked)))
-                {
-                    menuBtnLastClicked.ClickedRectVisibility = Visibility.Hidden;
-                }
-
-                if (e.Source is MenuButton clickedMenuBtn)
-                {
-                    clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
-                    menuBtnLastClicked = clickedMenuBtn;
-                    path = clickedMenuBtn.Page;
-                    viewModel.SelectedPageTitle = clickedMenuBtn.PageTitle;
-                    SetSharedPageTitleTemplate(clickedMenuBtn.TitleBarTemplate);
-                }
-                else
-                {
-                    if (clickedBtn.Tag is string page)
-                    {
-                        path = page;
-                    }
-
-                    menuBtnLastClicked = null;
-                }
+                this.UpdateClickRect(clickedMenuBtn, viewModel.NavigationHistory.CurrentElement.Element);
+                viewModel.SelectPage(clickedMenuBtn);
+                SetSharedPageTitleTemplate(clickedMenuBtn.TitleBarTemplate);
+                frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
             }
-
-            if (path != null)
-            {
-                frmPage.Navigate(new Uri(path, UriKind.Relative));               
-            }
-
             e.Handled = true;
+        }
+
+        private void UpdateClickRect(MenuButton clickedMenuBtn, MenuButton previous)
+        {
+            if ((previous != null) && (!clickedMenuBtn.Equals(previous)))
+            {
+                previous.ClickedRectVisibility = Visibility.Hidden;
+            }
+            clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
         }
 
         private void SetSharedPageTitleTemplate(string path)
@@ -96,10 +80,14 @@ namespace AudiobookPlayer
 
         private void PageBack_Click(object sender, RoutedEventArgs e)
         {
+            MenuButton previous = viewModel.NavigationHistory.Back();
+            this.UpdateClickRect(viewModel.NavigationHistory.CurrentElement.Element, previous);
             frmPage.GoBack();
         }
         private void PageForward_Click(object sender, RoutedEventArgs e)
         {
+            MenuButton previous = viewModel.NavigationHistory.Forward();
+            this.UpdateClickRect(viewModel.NavigationHistory.CurrentElement.Element, previous);
             frmPage.GoForward();
         }
     }

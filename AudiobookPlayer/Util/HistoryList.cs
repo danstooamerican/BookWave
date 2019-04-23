@@ -8,78 +8,43 @@ namespace Commons.Util
 {
     public class HistoryList<T>
     {
-        private HistoryListElement<T> head;
         public HistoryList()
         {
-            this.head = null;
+            this.CurrentElement = null;
         }
 
-        private HistoryListElement<T> GetListElement(int index)
+        private HistoryListElement<T> mCurrentElement;
+
+        public HistoryListElement<T> CurrentElement
         {
-            HistoryListElement<T> listElement = head;
-            if (index > this.Size())
-            {
-                return null;
-            }
-            for (int i = 0; i < index; i++)
-            {
-                listElement = listElement.Next;
-            }
-            if (listElement == null)
-            {
-                return null;
-            }
-            return listElement;
+            get { return mCurrentElement; }
+            set { mCurrentElement = value; }
         }
 
-        public T Get(int index)
+        public T Back()
         {
-            HistoryListElement<T> listElement = this.GetListElement(index);
-            if (listElement == null)
-            {
-                return default(T);
-            }
-            return listElement.Element;
+            T temp = CurrentElement.Element;
+            CurrentElement = CurrentElement.Previous;
+            return temp;
         }
 
-        public void AddAtIndexDeleteBehind(T element, int index)
+        public T Forward()
         {
-            HistoryListElement<T> elementAtIndex = this.GetListElement(index);
-            HistoryListElement<T> newElement = new HistoryListElement<T>(null, elementAtIndex, element);
-            elementAtIndex.Next = newElement;
+            T temp = CurrentElement.Element;
+            CurrentElement = CurrentElement.Next;
+            return temp;
         }
 
-        public void AddLast(T element)
+        public void AddAtCurrentElementDeleteBehind(T element)
         {
-            int size = this.Size();
-            HistoryListElement<T> lastElement = this.GetListElement(size - 1);
-            HistoryListElement<T> newElement = new HistoryListElement<T>(null, lastElement, element);
-            if (lastElement != null)
+            if (CurrentElement == null)
             {
-                lastElement.Next = newElement;
+                CurrentElement = new HistoryListElement<T>(null, null, element);
             } else
             {
-                this.head = newElement;
+                CurrentElement.Next = new HistoryListElement<T>(null, CurrentElement, element);
+                CurrentElement = CurrentElement.Next;
             }
-        }
-        
-        public void AddFirst(T element)
-        {
-            HistoryListElement<T> firstElement = this.head;
-            HistoryListElement<T> newElement = new HistoryListElement<T>(firstElement, null, element);
-            this.head = newElement;
-        }
-
-        public int Size()
-        {
-            int i = 0;
-            HistoryListElement<T> element = head;
-            while (element != null)
-            {
-                i++;
-                element = element.Next;
-            }
-            return i;
         }
     }
 }

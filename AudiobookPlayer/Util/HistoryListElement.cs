@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Commons.Util
 {
-    class HistoryListElement<T>
+    public class HistoryListElement<T>
     {
         private HistoryListElement<T> mNext;
         public HistoryListElement<T> Next

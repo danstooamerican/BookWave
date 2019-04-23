@@ -1,4 +1,6 @@
-﻿using Commons.Logic;
+﻿using Commons.Controls;
+using Commons.Logic;
+using Commons.Util;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Windows.Controls;
@@ -34,11 +36,19 @@ namespace Commons.ViewModel
             set { mAudiobookManager = value; }
         }
 
+        private HistoryList<MenuButton> mNavigationHistory;
+        public HistoryList<MenuButton> NavigationHistory
+        {
+            get { return mNavigationHistory; }
+            set { mNavigationHistory = value; }
+        }
+
+
 
         #endregion
 
         #region Commands
-        
+
         #endregion
 
         #region Constructors
@@ -46,12 +56,18 @@ namespace Commons.ViewModel
         public MainWindowViewModel()
         {
             SelectedPageTitle = string.Empty;
+            NavigationHistory = new HistoryList<MenuButton>();
         }
 
         #endregion
 
         #region Methods
 
+        public void SelectPage(MenuButton clickedBtn)
+        {
+            NavigationHistory.AddAtCurrentElementDeleteBehind(clickedBtn);
+            SelectedPageTitle = clickedBtn.PageTitle;
+        }
         
         #endregion
 
