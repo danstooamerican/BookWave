@@ -9,19 +9,19 @@
     </ResourceDictionary.MergedDictionaries>
     
     <Style x:Key="InformationText" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="InputMaskText" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style x:Key="InformationTextHighlight" TargetType="TextBlock" BasedOn="{StaticResource InformationText}">
-        <Setter Property="Foreground" Value="{StaticResource LightGrayBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
         <Setter Property="FontSize" Value="14" />
     </Style>
 
