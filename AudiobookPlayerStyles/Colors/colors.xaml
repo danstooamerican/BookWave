@@ -34,8 +34,8 @@
     <Color x:Key="TextColor">#98999B</Color>
     <Color x:Key="TextHighlightColor">#F9F9F9</Color>
     <Color x:Key="AccentColor">#DE7C5A</Color>
-    <Color x:Key="Background1Color">#98999B</Color>
-    <Color x:Key="Background2Color">#3A3A3A</Color> 
+    <Color x:Key="Background1Color">#3E3E3E</Color>
+    <Color x:Key="Background2Color">#131313</Color>
     <Color x:Key="Background3Color">#282828</Color>
     <Color x:Key="LightBackgroundColor">#656667</Color>
     <Color x:Key="SideBarBackgroundColor">#020202</Color>
