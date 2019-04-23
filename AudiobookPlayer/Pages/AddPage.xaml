@@ -29,9 +29,9 @@
                     Padding="0, 10, 0, 20">
                     <StackPanel>
                         <TextBlock  
-                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                    Style="{StaticResource InformationTextHighlight}" Text="Add New:" 
-                    TextTrimming="WordEllipsis" FontSize="35" />
+                            HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                            Style="{StaticResource InformationTextHighlight}" Text="Add New:" 
+                            TextTrimming="WordEllipsis" FontSize="35" />
                         <Border Style="{StaticResource HorizontalSeparator}" />
                     </StackPanel>
                 </Border>
