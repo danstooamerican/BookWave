@@ -9,6 +9,13 @@
     <Color x:Key="CharlestonGreen">#1E2D2F</Color>
 
     <Color x:Key="RichBlack">#020202</Color> 
+    <Color x:Key="TextColor">#98999B</Color>
+    <Color x:Key="TextHighlightColor">#F9F9F9</Color>
+    <Color x:Key="AccentColor">#DE7C5A</Color>
+    <Color x:Key="Background1Color">#3A3A3A</Color>
+    <Color x:Key="Background2Color">#98999B</Color>
+    <Color x:Key="Background3Color">#282828</Color>
+    <Color x:Key="LightBackgroundColor">#656667</Color>
 
     <Color x:Key="LightGray">#F9F9F9</Color>
     <Color x:Key="LightGray1">#404040</Color>
@@ -17,6 +24,13 @@
     <Color x:Key="Gray1">#282828</Color>
     <Color x:Key="LightDarkGray">#656667</Color>    
     <Color x:Key="DarkGray">#433F40</Color>
+    <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColorBrush}" />
+    <SolidColorBrush x:Key="TextHighlightColorBruch" Color="{StaticResource TextHighlightColor}" />
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" />
+    <SolidColorBrush x:Key="Background1ColorBrush" Color="{StaticResource Background1Color}" />
+    <SolidColorBrush x:Key="Background2ColorBrush" Color="{StaticResource Background2Color}" />
+    <SolidColorBrush x:Key="Background3ColorBrush" Color="{StaticResource Background3Color}" />
+    <SolidColorBrush x:Key="LightBackgroundColorBrush" Color="{StaticResource LightBackgroundColor}" />
 
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource TerraCotta}" />
     <SolidColorBrush x:Key="TerraCottaBrush" Color="{StaticResource TerraCotta}" />
@@ -39,8 +53,8 @@
             StartPoint="0.5, 0" EndPoint="0.5,1">
 
         <LinearGradientBrush.GradientStops>
-            <GradientStop Color="{StaticResource RichBlack}" Offset="0" />
-            <GradientStop Color="{StaticResource BackgroundGray}" Offset="2" />
+            <GradientStop Color="{StaticResource Background2Color}" Offset="0" />
+            <GradientStop Color="{StaticResource Background1Color}" Offset="2" />
         </LinearGradientBrush.GradientStops>
 
     </LinearGradientBrush>
