@@ -118,6 +118,8 @@
     <Compile Include="Pages\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\HistoryList.cs" />
+    <Compile Include="Util\HistoryListElement.cs" />
     <Compile Include="ViewModel\AddPageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
