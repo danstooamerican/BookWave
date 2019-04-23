@@ -3,7 +3,6 @@
                     xmlns:local="clr-namespace:Commons.Styles.Styles">
 
     <ResourceDictionary.MergedDictionaries>
-
         <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
         <ResourceDictionary Source="/Commons.Styles;component/Styles/TextStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
@@ -80,6 +79,7 @@
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="2" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
 
         <Setter Property="SnapsToDevicePixels"
           Value="True" />
@@ -94,7 +94,7 @@
                     <Border Name="Border"
                             Padding="{TemplateBinding Padding}"
                             BorderBrush="{StaticResource LightGray1Brush}"
-                            Background="{StaticResource Gray1Brush}">
+                            Background="Transparent">
 
                         <TextBlock FontSize="{TemplateBinding FontSize}"
                                    FontWeight="{TemplateBinding FontWeight}"
@@ -119,6 +119,7 @@
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="2" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
 
         <Setter Property="SnapsToDevicePixels"
           Value="True" />
