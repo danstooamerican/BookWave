@@ -157,5 +157,13 @@
   <ItemGroup>
     <Resource Include="Resources\icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Navigation\pageBack.png" />
+    <Resource Include="Resources\Navigation\pageBack_hover.png" />
+    <Resource Include="Resources\Navigation\pageBack_pressed.png" />
+    <Resource Include="Resources\Navigation\pageForward.png" />
+    <Resource Include="Resources\Navigation\pageForward_hover.png" />
+    <Resource Include="Resources\Navigation\pageForward_pressed.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
