@@ -19,6 +19,7 @@
         <ResourceDictionary Source="Styles/BorderStyle.xaml" />
         <ResourceDictionary Source="Styles/ButtonStyle.xaml" />
         <ResourceDictionary Source="Styles/FrameStyle.xaml" />
+        <ResourceDictionary Source="Styles/TitleTemplates.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 

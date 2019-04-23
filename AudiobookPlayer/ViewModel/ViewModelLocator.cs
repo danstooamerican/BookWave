@@ -17,6 +17,7 @@ namespace Commons.ViewModel
 
             SimpleIoc.Default.Register<MainWindowViewModel>();
             SimpleIoc.Default.Register<AddPageViewModel>();
+            SimpleIoc.Default.Register<PlayerViewModel>();
         }
 
         public MainWindowViewModel MainViewModel
@@ -24,6 +25,14 @@ namespace Commons.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainWindowViewModel>();
+            }
+        }
+
+        public PlayerViewModel PlayerViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PlayerViewModel>();
             }
         }
 

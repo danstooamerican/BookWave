@@ -71,6 +71,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SharedPageTitle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,6 +82,9 @@
     <Compile Include="EditTextBlock.cs" />
     <Compile Include="LibraryItem.xaml.cs">
       <DependentUpon>LibraryItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SharedPageTitle.xaml.cs">
+      <DependentUpon>SharedPageTitle.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToggleImageButton.cs" />
     <Compile Include="ImageButton.cs" />

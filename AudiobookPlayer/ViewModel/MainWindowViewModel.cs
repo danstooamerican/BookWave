@@ -1,6 +1,7 @@
 ﻿using Commons.Logic;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -11,16 +12,22 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private string mCoverImage;
-
-        public string CoverImage
+        private string mSelectedPageTitle;
+        public string SelectedPageTitle
         {
-            get { return mCoverImage; }
-            set { mCoverImage = value; }
+            get { return mSelectedPageTitle; }
+            set { Set<string>(() => this.SelectedPageTitle, ref mSelectedPageTitle, value); }
         }
 
-        private AudiobookManager mAudiobookManager;
+        private ControlTemplate mSharedPageTitleTemplate;
+        public ControlTemplate SharedPageTitleTemplate
+        {
+            get { return mSharedPageTitleTemplate; }
+            set { Set<ControlTemplate>(() => this.SharedPageTitleTemplate, ref mSharedPageTitleTemplate, value); }
+        }
 
+
+        private AudiobookManager mAudiobookManager;
         public AudiobookManager AudiobookManager
         {
             get { return mAudiobookManager; }
@@ -31,18 +38,14 @@ namespace Commons.ViewModel
         #endregion
 
         #region Commands
-
-        public ICommand PageBackCommand { get; private set; }
-        public ICommand PageForwardCommand { get; private set; }
-
+        
         #endregion
 
         #region Constructors
 
         public MainWindowViewModel()
         {
-            CoverImage = "/Commons.Styles;component/Resources/Player/sampleCover.jpg";
-
+            SelectedPageTitle = string.Empty;
         }
 
         #endregion

@@ -40,29 +40,32 @@
                 lib:MenuButton.Click="MenuButton_Click">
 
                     <lib:MenuButton Name="btnStart" Content="Start" 
-                    Page="/Pages/StartPage.xaml"/>
+                        Page="/Pages/StartPage.xaml" PageTitle="Start"
+                        TitleBarTemplate="DetailPageTitle"/>
 
                     <lib:MenuButton Name="btnBrowse" Content="Browse" 
-                    Page="/Pages/BrowsePage.xaml"/>
+                        Page="/Pages/BrowsePage.xaml" PageTitle="Browse" />
 
                     <Border Style="{StaticResource HorizontalSeparator}" 
-                    Margin="5, 2, 5, 2"/>
+                        Margin="5, 2, 5, 2"/>
 
                     <lib:MenuButton Name="btnAuthors" Content="Authors" 
-                    Page="/Pages/AuthorsPage.xaml"/>
+                        Page="/Pages/AuthorsPage.xaml" PageTitle="Authors" />
 
                     <lib:MenuButton Name="btnGenres" Content="Genre" 
-                    Page="/Pages/GenresPage.xaml"/>
+                        Page="/Pages/GenresPage.xaml" PageTitle="Genre" />
 
                     <lib:MenuButton Name="btnFavorites" Content="Favorites" 
-                    Page="/Pages/FavoritesPage.xaml"/>
+                        Page="/Pages/FavoritesPage.xaml" PageTitle="Favorites" />
                 </StackPanel>
+                
                 <!-- Sidebar bottom -->
                 <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom"
-                            lib:MenuButton.Click="MenuButton_Click"
-                            Margin="0,0,0,5">
+                    lib:MenuButton.Click="MenuButton_Click"
+                    Margin="0,0,0,5">
+                    
                     <lib:MenuButton Name="btnAddToLibrary" Content="Add to Library"
-                    Page="/Pages/AddPage.xaml"/>
+                        Page="/Pages/AddPage.xaml" PageTitle="Add New" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -104,9 +107,12 @@
                     ImageSize="25"
                     Click="PageForward_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoForward}"/>
                 </StackPanel>
-            </Border>            
+            </Border>
 
-            <TextBlock Grid.Column="1" Text="ABCDE" Style="{StaticResource TopbarPageTitle}"/>
+            <TextBlock Grid.Column="1" 
+                       Text="{Binding SelectedPageTitle}" 
+                       Visibility="Collapsed"
+                       Style="{StaticResource TopbarPageTitle}"/>
 
             <Border Style="{StaticResource HorizontalSeparator}" 
                     Grid.Row="1" Grid.ColumnSpan="2"/>
@@ -114,9 +120,7 @@
         </Grid>
 
         <!-- Shared Page Title -->
-        <Border Grid.Column="2" Grid.Row="1" Height="90">
-            
-        </Border>
+        <lib:SharedPageTitle Grid.Column="2" Grid.Row="1" Template="{Binding SharedPageTitleTemplate}" />
 
         <!-- Main Frame -->
         <Frame x:Name="frmPage" Style="{StaticResource PageFrame}"
@@ -124,6 +128,7 @@
 
         <!-- Bottom Bar -->
         <lib:PlayerBar Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+                       DataContext="{Binding PlayerViewModel, Source={StaticResource Locator}}"
                        CoverImage="{Binding CoverImage}"/>
 
     </Grid>

@@ -1,4 +1,6 @@
 ﻿using Commons.Controls;
+using Commons.Exceptions;
+using Commons.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +24,15 @@ namespace AudiobookPlayer
     public partial class MainWindow : Window
     {
 
+        private MainWindowViewModel viewModel;
+
         private MenuButton menuBtnLastClicked;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            viewModel = (MainWindowViewModel) DataContext;
 
             //select btnStart by default
             MenuButton_Click(btnStart, new RoutedEventArgs(Button.ClickEvent, btnStart));
@@ -53,6 +59,8 @@ namespace AudiobookPlayer
                     clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
                     menuBtnLastClicked = clickedMenuBtn;
                     path = clickedMenuBtn.Page;
+                    viewModel.SelectedPageTitle = clickedMenuBtn.PageTitle;
+                    SetSharedPageTitleTemplate(clickedMenuBtn.TitleBarTemplate);
                 }
                 else
                 {
@@ -72,6 +80,20 @@ namespace AudiobookPlayer
 
             e.Handled = true;
         }
+
+        private void SetSharedPageTitleTemplate(string path)
+        {
+            try
+            {
+                viewModel.SharedPageTitleTemplate = (ControlTemplate)App.Current.FindResource(path);
+            }
+            catch (NullReferenceException)
+            {
+                throw new InvalidArgumentException(path, "is invalid");
+            }
+
+        }
+
         private void PageBack_Click(object sender, RoutedEventArgs e)
         {
             frmPage.GoBack();
