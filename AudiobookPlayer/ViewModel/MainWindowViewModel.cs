@@ -32,8 +32,8 @@ namespace Commons.ViewModel
 
         #region Commands
 
-        public ICommand AddAudiobookCommand { get; private set; }
-
+        public ICommand PageBackCommand { get; private set; }
+        public ICommand PageForwardCommand { get; private set; }
 
         #endregion
 
@@ -43,18 +43,13 @@ namespace Commons.ViewModel
         {
             CoverImage = "/Commons.Styles;component/Resources/Player/sampleCover.jpg";
 
-            AddAudiobookCommand = new RelayCommand(AddAudiobook);
         }
 
         #endregion
 
         #region Methods
 
-        private void AddAudiobook()
-        {
-            MessageBox.Show("Add Audiobook Executed");
-        }
-
+        
         #endregion
 
     }

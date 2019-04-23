@@ -72,6 +72,13 @@ namespace AudiobookPlayer
 
             e.Handled = true;
         }
-
+        private void PageBack_Click(object sender, RoutedEventArgs e)
+        {
+            frmPage.GoBack();
+        }
+        private void PageForward_Click(object sender, RoutedEventArgs e)
+        {
+            frmPage.GoForward();
+        }
     }
 }
