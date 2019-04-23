@@ -43,7 +43,7 @@ namespace Commons.Util
             } else
             {
                 CurrentElement.Next = new HistoryListElement<T>(null, CurrentElement, element);
-                CurrentElement = CurrentElement.Next;
+                this.Forward();
             }
         }
     }
