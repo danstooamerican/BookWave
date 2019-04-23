@@ -50,23 +50,36 @@
                      />
 
                 <!-- Drag Area -->
-                <ListView Margin="30" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                <ListView Margin="10 20" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                          Style="{StaticResource DragArea}"
                           HorizontalContentAlignment="Stretch"
                           ItemsSource="{Binding Chapters}"
                           KeyboardNavigation.TabNavigation="Cycle">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <lib:EditTextBlock Grid.Column="0" HorizontalAlignment="Stretch"
+                            <Border Name="DragAreaBackground" Background="AliceBlue">
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <lib:EditTextBlock Grid.Column="0" Grid.Row="0" 
+                                    HorizontalAlignment="Stretch"
                                     Text="{Binding Metadata.Title}" />
 
-                                <lib:EditTextBlock Grid.Column="1" HorizontalAlignment="Stretch"
+                                    <lib:EditTextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"
                                     Text="{Binding Metadata.Contributors.AuthorString}"/>
-                            </Grid>
+
+                                    <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                                    Style="{StaticResource HorizontalSeparator}" />
+
+                                </Grid>
+                            </Border>                            
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
