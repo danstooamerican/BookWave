@@ -12,53 +12,73 @@
         Title="Audiobook Player" Width="830" Height="620"
         WindowStartupLocation="CenterScreen"
         MinWidth="830" MinHeight="620">
-  <Grid>
+    <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" MinWidth="90" MaxWidth="300" />
+            <ColumnDefinition Width="auto" MinWidth="90" MaxWidth="300" SharedSizeGroup="sidebar"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <Border Padding="0, 5, 15, 0"
-                Grid.Column="0" Grid.Row="1"
-                Background="{StaticResource SideBarBackground}">
-            <StackPanel Orientation="Vertical"                      
-                    lib:MenuButton.Click="MenuButton_Click">
+        <Border Padding="0, 5, 0, 0"
+                Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+                Background="{StaticResource SideBarBackgroundColorBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-                <lib:MenuButton Name="btnStart" Content="Start" 
-                            Page="/Pages/StartPage.xaml"/>
+                <!-- Sidebar top -->
+                <StackPanel Grid.Row="0" Orientation="Vertical"
+                lib:MenuButton.Click="MenuButton_Click">
 
-                <lib:MenuButton Name="btnBrowse" Content="Browse" 
-                            Page="/Pages/BrowsePage.xaml"/>
+                    <lib:MenuButton Name="btnStart" Content="Start" 
+                    Page="/Pages/StartPage.xaml"/>
 
-                <Border Style="{StaticResource HorizontalSeparator}" 
-                        Margin="0, 2, 0, 2"/>
+                    <lib:MenuButton Name="btnBrowse" Content="Browse" 
+                    Page="/Pages/BrowsePage.xaml"/>
 
-                <lib:MenuButton Name="btnAuthors" Content="Authors" 
-                            Page="/Pages/AuthorsPage.xaml"/>
+                    <Border Style="{StaticResource HorizontalSeparator}" 
+                    Margin="5, 2, 5, 2"/>
 
-                <lib:MenuButton Name="btnGenres" Content="Genre" 
-                            Page="/Pages/GenresPage.xaml"/>
+                    <lib:MenuButton Name="btnAuthors" Content="Authors" 
+                    Page="/Pages/AuthorsPage.xaml"/>
 
-                <lib:MenuButton Name="btnFavorites" Content="Favorites" 
-                            Page="/Pages/FavoritesPage.xaml"/>
+                    <lib:MenuButton Name="btnGenres" Content="Genre" 
+                    Page="/Pages/GenresPage.xaml"/>
 
-            </StackPanel>
+                    <lib:MenuButton Name="btnFavorites" Content="Favorites" 
+                    Page="/Pages/FavoritesPage.xaml"/>
+                </StackPanel>
+                <!-- Sidebar bottom -->
+                <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom"
+                            lib:MenuButton.Click="MenuButton_Click"
+                            Margin="0,0,0,5">
+                    <lib:MenuButton Name="btnAddToLibrary" Content="Add to Library"
+                    Page="/Pages/AddPage.xaml"/>
+                </StackPanel>
+            </Grid>
         </Border>
 
-        <GridSplitter Grid.Column="0" Grid.Row="1" 
+        <!-- Resize Sidebar -->
+        <GridSplitter Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
                       Style="{StaticResource VerticalSplitter}"
                       VerticalAlignment="Stretch" />
 
-        <!-- Top Bar -->
+        <!-- Topbar -->
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
               ButtonBase.Click="MenuButton_Click">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="sidebar"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
