@@ -25,31 +25,45 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <Border Padding="0, 5, 15, 0"
+        <Border Padding="0, 5, 0, 0"
                 Grid.Column="0" Grid.Row="1"
                 Background="{StaticResource SideBarBackgroundColorBrush}">
-            <StackPanel Orientation="Vertical"                      
-                    lib:MenuButton.Click="MenuButton_Click">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Sidebar top -->
+                <StackPanel Grid.Row="0" Orientation="Vertical"
+                lib:MenuButton.Click="MenuButton_Click">
 
-                <lib:MenuButton Name="btnStart" Content="Start" 
-                            Page="/Pages/StartPage.xaml"/>
+                    <lib:MenuButton Name="btnStart" Content="Start" 
+                    Page="/Pages/StartPage.xaml"/>
 
-                <lib:MenuButton Name="btnBrowse" Content="Browse" 
-                            Page="/Pages/BrowsePage.xaml"/>
+                    <lib:MenuButton Name="btnBrowse" Content="Browse" 
+                    Page="/Pages/BrowsePage.xaml"/>
 
-                <Border Style="{StaticResource HorizontalSeparator}" 
-                        Margin="0, 2, 0, 2"/>
+                    <Border Style="{StaticResource HorizontalSeparator}" 
+                    Margin="5, 2, 5, 2"/>
 
-                <lib:MenuButton Name="btnAuthors" Content="Authors" 
-                            Page="/Pages/AuthorsPage.xaml"/>
+                    <lib:MenuButton Name="btnAuthors" Content="Authors" 
+                    Page="/Pages/AuthorsPage.xaml"/>
 
-                <lib:MenuButton Name="btnGenres" Content="Genre" 
-                            Page="/Pages/GenresPage.xaml"/>
+                    <lib:MenuButton Name="btnGenres" Content="Genre" 
+                    Page="/Pages/GenresPage.xaml"/>
 
-                <lib:MenuButton Name="btnFavorites" Content="Favorites" 
-                            Page="/Pages/FavoritesPage.xaml"/>
-
-            </StackPanel>
+                    <lib:MenuButton Name="btnFavorites" Content="Favorites" 
+                    Page="/Pages/FavoritesPage.xaml"/>
+                </StackPanel>
+                <!-- Sidebar bottom -->
+                <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom"
+                            lib:MenuButton.Click="MenuButton_Click"
+                            Margin="0,0,0,5">
+                    <lib:MenuButton Name="btnAddToLibrary" Content="Add to Library"
+                    Page="/Pages/AddPage.xaml"/>
+                </StackPanel>
+            </Grid>
         </Border>
 
         <GridSplitter Grid.Column="0" Grid.Row="1" 
@@ -64,14 +78,7 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="0"
-                    Margin="15, 5, 0, 5">
-
-                <Button Style="{StaticResource OptionButton}" Content="Add to Library" 
-                        Tag="/Pages/AddPage.xaml"/>
-
-            </StackPanel>
+            
 
             <Border Style="{StaticResource HorizontalSeparator}" 
                     Grid.Row="1"/>
