@@ -7,32 +7,82 @@ using System.Threading.Tasks;
 namespace Commons.Util
 {
     public class HistoryList<T>
-    {
-        public HistoryList()
-        {
-            this.CurrentElement = null;
-        }
+    {        
+
+        #region Properties
 
         private HistoryListElement<T> mCurrentElement;
-
         public HistoryListElement<T> CurrentElement
         {
             get { return mCurrentElement; }
-            set { mCurrentElement = value; }
+            set {
+                PreviousElement = mCurrentElement;
+                mCurrentElement = value;
+
+                CurrentElementChangedEvent?.Invoke();
+            }
         }
 
-        public T Back()
+        private HistoryListElement<T> mPreviousElement;
+        public HistoryListElement<T> PreviousElement
         {
-            T temp = CurrentElement.Element;
+            get { return mPreviousElement; }
+            set { mPreviousElement = value; }
+        }
+
+        #endregion
+
+        #region Events
+
+        public delegate void CurrentElementChanged();
+
+        public event CurrentElementChanged CurrentElementChangedEvent;
+
+        #endregion
+
+        #region Constructor
+
+        public HistoryList()
+        {
+            CurrentElement = null;
+            PreviousElement = null;
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void Back()
+        {
             CurrentElement = CurrentElement.Previous;
-            return temp;
         }
 
-        public T Forward()
+        public void Forward()
         {
-            T temp = CurrentElement.Element;
             CurrentElement = CurrentElement.Next;
-            return temp;
+        }
+
+        public bool IsNotCurrentElement(T element)
+        {
+            if (CurrentElement != null)
+            {
+                return !CurrentElement.Element.Equals(element);
+            } else
+            {
+                return true;
+            }
+        }
+
+        public bool IsRepeatedElement()
+        {
+            if (CurrentElement != null && PreviousElement != null)
+            {
+                return CurrentElement.Element.Equals(PreviousElement.Element);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void AddAtCurrentElementDeleteBehind(T element)
@@ -46,5 +96,8 @@ namespace Commons.Util
                 this.Forward();
             }
         }
+
+        #endregion
+
     }
 }

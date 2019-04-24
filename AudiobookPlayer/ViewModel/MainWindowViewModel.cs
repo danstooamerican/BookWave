@@ -43,8 +43,6 @@ namespace Commons.ViewModel
             set { mNavigationHistory = value; }
         }
 
-
-
         #endregion
 
         #region Commands
@@ -63,11 +61,6 @@ namespace Commons.ViewModel
 
         #region Methods
 
-        public void SelectPage(MenuButton clickedBtn)
-        {
-            NavigationHistory.AddAtCurrentElementDeleteBehind(clickedBtn);
-        }
-        
         #endregion
 
     }

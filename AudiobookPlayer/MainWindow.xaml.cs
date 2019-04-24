@@ -1,5 +1,6 @@
 ﻿using Commons.Controls;
 using Commons.Exceptions;
+using Commons.Util;
 using Commons.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,10 @@ namespace AudiobookPlayer
 
             viewModel = (MainWindowViewModel) DataContext;
 
+            viewModel.NavigationHistory.CurrentElementChangedEvent += UpdateNavigationUI;
+
             //select btnStart by default
-            UpdateNavigationUI(btnStart, null);
-            viewModel.SelectPage(btnStart);
-            frmPage.Navigate(new Uri(btnStart.Page, UriKind.Relative));
+            MenuButton_Click(btnStart, new RoutedEventArgs(MenuButton.ClickEvent, btnStart));
         }
 
         /// <summary>
@@ -47,52 +48,70 @@ namespace AudiobookPlayer
         {
             if (e.Source is MenuButton clickedMenuBtn)
             {
-                UpdateNavigationUI(clickedMenuBtn, viewModel.NavigationHistory.CurrentElement.Element);
-                viewModel.SelectPage(clickedMenuBtn);
-                frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
+                if (viewModel.NavigationHistory.IsNotCurrentElement(clickedMenuBtn))
+                {
+                    viewModel.NavigationHistory.AddAtCurrentElementDeleteBehind(clickedMenuBtn);
+
+                    frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
+                }                
             }
             e.Handled = true;
         }
 
-        private void UpdateNavigationUI(MenuButton clickedMenuBtn, MenuButton previous)
+        private void UpdateNavigationUI()
         {
-            this.UpdateClickRect(clickedMenuBtn, previous);
-            SetSharedPageTitleTemplate(clickedMenuBtn.TitleBarTemplate);
-            viewModel.SelectedPageTitle = clickedMenuBtn.PageTitle;
-        }
+            MenuButton current = viewModel.NavigationHistory.CurrentElement.Element;
 
-        private void UpdateClickRect(MenuButton clickedMenuBtn, MenuButton previous)
-        {
-            if ((previous != null) && (!clickedMenuBtn.Equals(previous)))
+            if (current != null)
             {
-                previous.ClickedRectVisibility = Visibility.Hidden;
-            }
-            clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
-        }
+                UpdateClickRect();
 
-        private void SetSharedPageTitleTemplate(string path)
+                SetSharedPageTitleTemplate();
+
+                viewModel.SelectedPageTitle = current.PageTitle;
+            }                
+        }
+        private void UpdateClickRect()
+        {
+            if (!viewModel.NavigationHistory.IsRepeatedElement())
+            {
+                HistoryListElement<MenuButton> previousElement = viewModel.NavigationHistory.PreviousElement;
+
+                if (previousElement != null)
+                {
+                    previousElement.Element.ClickedRectVisibility = Visibility.Hidden;
+                }                
+            }
+            viewModel.NavigationHistory.CurrentElement.Element.ClickedRectVisibility = Visibility.Visible;
+        }
+        private void SetSharedPageTitleTemplate()
         {
             try
             {
-                viewModel.SharedPageTitleTemplate = (ControlTemplate)App.Current.FindResource(path);
+                MenuButton current = viewModel.NavigationHistory.CurrentElement.Element;
+
+                if (current != null)
+                {
+                    viewModel.SharedPageTitleTemplate = (ControlTemplate)App.Current.FindResource(current.TitleBarTemplate);
+                }
+                
             }
             catch (NullReferenceException)
             {
-                throw new InvalidArgumentException(path, "is invalid");
+                throw new InvalidArgumentException("Could not load Titlebar.");
             }
-
         }
 
         private void PageBack_Click(object sender, RoutedEventArgs e)
         {
-            MenuButton previous = viewModel.NavigationHistory.Back();
-            UpdateNavigationUI(viewModel.NavigationHistory.CurrentElement.Element, previous);
+            viewModel.NavigationHistory.Back();
+
             frmPage.GoBack();
         }
         private void PageForward_Click(object sender, RoutedEventArgs e)
         {
-            MenuButton previous = viewModel.NavigationHistory.Forward();
-            UpdateNavigationUI(viewModel.NavigationHistory.CurrentElement.Element, previous);
+            viewModel.NavigationHistory.Forward();
+
             frmPage.GoForward();
         }
     }
