@@ -33,9 +33,8 @@ namespace AudiobookPlayer
             viewModel = (MainWindowViewModel) DataContext;
 
             //select btnStart by default
-            this.UpdateClickRect(btnStart, null);
+            UpdateNavigationUI(btnStart, null);
             viewModel.SelectPage(btnStart);
-            SetSharedPageTitleTemplate(btnStart.TitleBarTemplate);
             frmPage.Navigate(new Uri(btnStart.Page, UriKind.Relative));
         }
 
@@ -48,12 +47,18 @@ namespace AudiobookPlayer
         {
             if (e.Source is MenuButton clickedMenuBtn)
             {
-                this.UpdateClickRect(clickedMenuBtn, viewModel.NavigationHistory.CurrentElement.Element);
+                UpdateNavigationUI(clickedMenuBtn, viewModel.NavigationHistory.CurrentElement.Element);
                 viewModel.SelectPage(clickedMenuBtn);
-                SetSharedPageTitleTemplate(clickedMenuBtn.TitleBarTemplate);
                 frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
             }
             e.Handled = true;
+        }
+
+        private void UpdateNavigationUI(MenuButton clickedMenuBtn, MenuButton previous)
+        {
+            this.UpdateClickRect(clickedMenuBtn, previous);
+            SetSharedPageTitleTemplate(clickedMenuBtn.TitleBarTemplate);
+            viewModel.SelectedPageTitle = clickedMenuBtn.PageTitle;
         }
 
         private void UpdateClickRect(MenuButton clickedMenuBtn, MenuButton previous)
@@ -81,13 +86,13 @@ namespace AudiobookPlayer
         private void PageBack_Click(object sender, RoutedEventArgs e)
         {
             MenuButton previous = viewModel.NavigationHistory.Back();
-            this.UpdateClickRect(viewModel.NavigationHistory.CurrentElement.Element, previous);
+            UpdateNavigationUI(viewModel.NavigationHistory.CurrentElement.Element, previous);
             frmPage.GoBack();
         }
         private void PageForward_Click(object sender, RoutedEventArgs e)
         {
             MenuButton previous = viewModel.NavigationHistory.Forward();
-            this.UpdateClickRect(viewModel.NavigationHistory.CurrentElement.Element, previous);
+            UpdateNavigationUI(viewModel.NavigationHistory.CurrentElement.Element, previous);
             frmPage.GoForward();
         }
     }

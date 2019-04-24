@@ -66,7 +66,6 @@ namespace Commons.ViewModel
         public void SelectPage(MenuButton clickedBtn)
         {
             NavigationHistory.AddAtCurrentElementDeleteBehind(clickedBtn);
-            SelectedPageTitle = clickedBtn.PageTitle;
         }
         
         #endregion
