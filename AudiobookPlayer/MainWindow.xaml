@@ -15,7 +15,6 @@
     <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
@@ -27,7 +26,7 @@
 
         <!-- Sidebar -->
         <Border Padding="0, 5, 0, 0"
-                Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+                Grid.Column="0" Grid.Row="1"
                 Background="{StaticResource SideBarBackgroundColorBrush}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -71,16 +70,17 @@
         </Border>
 
         <!-- Resize Sidebar -->
-        <GridSplitter Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+        <GridSplitter Grid.Column="0" Grid.Row="1"
                       Style="{StaticResource VerticalSplitter}"
                       VerticalAlignment="Stretch" />
 
         <!-- Topbar -->
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
               ButtonBase.Click="MenuButton_Click">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition SharedSizeGroup="sidebar"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -111,23 +111,41 @@
 
             <TextBlock Grid.Column="1" 
                        Text="{Binding SelectedPageTitle}" 
-                       Visibility="Collapsed"
+                       Visibility="{Binding ElementName=scrollViewer, Path=VerticalOffset, Converter={StaticResource VerticalOffsetVisibilityNegConverter}, ConverterParameter={x:Reference Name=SharedPageTitleHeight}}"
                        Style="{StaticResource TopbarPageTitle}"/>
+            <TextBlock Grid.Column="2" Style="{StaticResource InformationTextHighlight}"
+                       Text="{Binding ElementName=scrollViewer,Path=VerticalOffset}"/>
 
             <Border Style="{StaticResource HorizontalSeparator}" 
                     Grid.Row="1" Grid.ColumnSpan="2"/>
 
         </Grid>
 
-        <!-- Shared Page Title -->
-        <lib:SharedPageTitle Grid.Column="2" Grid.Row="1" Template="{Binding SharedPageTitleTemplate}" />
+        <ScrollViewer Grid.Column="2" Grid.Row="1" x:Name="scrollViewer"
+                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
+                      Style="{StaticResource CustomScrollViewer}">
 
-        <!-- Main Frame -->
-        <Frame x:Name="frmPage" Style="{StaticResource PageFrame}"
-               Grid.Column="2" Grid.Row="2"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Shared Page Title -->
+
+                <lib:SharedPageTitle Grid.Row="0" Template="{Binding SharedPageTitleTemplate}" x:Name="sharedPageTitle"
+                                     Visibility="{Binding ElementName=scrollViewer,Path=VerticalOffset,
+                    Converter={StaticResource VerticalOffsetVisibilityConverter}, ConverterParameter={x:Reference Name=SharedPageTitleHeight}}" />
+
+                <TextBlock Visibility="Collapsed" x:Name="SharedPageTitleHeight" Text="{Binding ElementName=sharedPageTitle, Path=ActualHeight}" />
+
+                <!-- Main Frame -->
+                <Frame Grid.Row="1" x:Name="frmPage" Style="{StaticResource PageFrame}"/>
+            </Grid>
+        </ScrollViewer>        
 
         <!-- Bottom Bar -->
-        <lib:PlayerBar Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+        <lib:PlayerBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
                        DataContext="{Binding PlayerViewModel, Source={StaticResource Locator}}"
                        CoverImage="{Binding CoverImage}"/>
 

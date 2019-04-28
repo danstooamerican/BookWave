@@ -28,7 +28,7 @@
                             VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
                             SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
                     </Border>
-
+                    <!--
                     <ControlTemplate.Triggers>
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
@@ -43,6 +43,7 @@
                             </BeginStoryboard>
                         </EventTrigger>
                     </ControlTemplate.Triggers>
+                    -->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
