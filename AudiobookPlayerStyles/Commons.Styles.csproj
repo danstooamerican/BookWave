@@ -48,8 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\VerticalOffsetVisibilityNegConverter.cs" />
-    <Compile Include="Converter\VerticalOffsetVisibilityConverter.cs" />
+    <Compile Include="Converter\VerticalOffsetTopBarVisibilityConverter.cs" />
     <Compile Include="Converter\DoubleToBoolConverter.cs" />
     <Compile Include="Converter\SecondsToTimeConverter.cs" />
     <Compile Include="Converter\StringToImageConverter.cs" />

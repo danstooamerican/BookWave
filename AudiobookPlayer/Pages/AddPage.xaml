@@ -9,82 +9,82 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AuthorsPage"
       DataContext="{Binding AddPageViewModel, Source={StaticResource Locator}}">
-    
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Style="{StaticResource CustomScrollViewer}">
-        <Border Padding="20, 0, 20, 0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+    <Border Padding="20, 0, 20, 0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                <!-- Add New Title -->
-                <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Add New Title -->
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                     Padding="0, 10, 0, 20">
-                    <StackPanel>
-                        <TextBlock  
+                <StackPanel>
+                    <TextBlock  
                             HorizontalAlignment="Left" VerticalAlignment="Bottom"
                             Style="{StaticResource InformationTextHighlight}" Text="Add New:" 
                             TextTrimming="WordEllipsis" FontSize="35" />
-                        <Border Style="{StaticResource HorizontalSeparator}" />
-                    </StackPanel>
-                </Border>
+                    <Border Style="{StaticResource HorizontalSeparator}" />
+                </StackPanel>
+            </Border>
 
-                <!-- Title -->
-                <TextBlock  Grid.Column="0" Grid.Row="1"
+            <!-- Title -->
+            <TextBlock  Grid.Column="0" Grid.Row="1"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
                     Style="{StaticResource InputMaskText}" Text="Title:" 
                     TextTrimming="WordEllipsis" />
 
-                <TextBox    Grid.Column="1" Grid.Row="1"
+            <TextBox    Grid.Column="1" Grid.Row="1"
                     Margin="10,10,10,0" MinWidth="400"
                     VerticalAlignment="Center" HorizontalAlignment="Left"
                     Style="{StaticResource MaskTextBox}"
                      />
 
-                <!-- Drag Area -->
-                <ListView Margin="10 20" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
-                          Style="{StaticResource DragArea}"
-                          HorizontalContentAlignment="Stretch"
-                          ItemsSource="{Binding Chapters}"
-                          KeyboardNavigation.TabNavigation="Cycle">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Name="DragAreaBackground" Background="AliceBlue">
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="auto" />
-                                    </Grid.RowDefinitions>
+            <!-- Drag Area -->
+            <ListView Margin="10 20" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                MinHeight="500"
+                Style="{StaticResource DragArea}"
+                HorizontalContentAlignment="Stretch"
+                ItemsSource="{Binding Chapters}"
+                KeyboardNavigation.TabNavigation="Cycle">
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Name="DragAreaBackground" Background="AliceBlue">
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
 
-                                    <lib:EditTextBlock Grid.Column="0" Grid.Row="0" 
+                                <lib:EditTextBlock Grid.Column="0" Grid.Row="0" 
                                     HorizontalAlignment="Stretch"
                                     Text="{Binding Metadata.Title}" />
 
-                                    <lib:EditTextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"
+                                <lib:EditTextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"
                                     Text="{Binding Metadata.Contributors.AuthorString}"/>
 
-                                    <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                                <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                                     Style="{StaticResource HorizontalSeparator}" />
 
-                                </Grid>
-                            </Border>                            
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
-        </Border>       
-    </ScrollViewer>
-    
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Border>
+
 </Page>

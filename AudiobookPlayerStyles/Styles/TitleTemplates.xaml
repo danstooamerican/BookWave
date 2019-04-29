@@ -12,12 +12,12 @@
     <ControlTemplate x:Key="DefaultTitle" TargetType="{x:Type ContentControl}">
         <Border 
             BorderThickness="0"
-            Padding="10"                           
+            Padding="10, 10, 10, 0"                           
             Background="Transparent">
 
             <Grid>
                 <TextBlock HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedPageTitle}" 
                     Style="{StaticResource TopbarPageTitle}"/>
             </Grid>
@@ -28,12 +28,20 @@
     <ControlTemplate x:Key="DetailPageTitle" TargetType="{x:Type ContentControl}">
         <Border 
             BorderThickness="0"
-            Padding="10"                           
+            Padding="10, 10, 10, 0"                           
             Background="Transparent">
 
             <Grid>
-                <TextBlock HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Width="150" Height="150"
+                           Fill="{StaticResource CharlestonGreenBrush}"/>
+
+                <TextBlock Grid.Row="1" HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
                     Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedPageTitle}" 
                     Style="{StaticResource TopbarPageTitle}" FontSize="40"/>
             </Grid>

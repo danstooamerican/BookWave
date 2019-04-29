@@ -8,8 +8,7 @@
             <converters:StringToImageConverter x:Key="StringToImageConverter" />
             <converters:SecondsToTimeConverter x:Key="SecondsToTimeConverter" />
             <converters:DoubleToBoolConverter x:Key="DoubleToBoolConverter" />
-            <converters:VerticalOffsetVisibilityConverter x:Key="VerticalOffsetVisibilityConverter" />
-            <converters:VerticalOffsetVisibilityNegConverter x:Key="VerticalOffsetVisibilityNegConverter" />
+            <converters:VerticalOffsetTopBarVisibilityConverter x:Key="VerticalOffsetTopBarVisibilityConverter" />
         </ResourceDictionary>
 
         <ResourceDictionary Source="Colors/colors.xaml" />

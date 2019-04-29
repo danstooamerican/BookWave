@@ -42,6 +42,8 @@ namespace AudiobookPlayer
                     viewModel.NavigationHistory.AddAtCurrentElementDeleteBehind(clickedMenuBtn);
 
                     frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
+                    scrollViewer.ScrollToTop();
+                    lblSelectedPageTitle.Opacity = 0;
                 }                
             }
             e.Handled = true;

@@ -12,6 +12,7 @@
         Title="Audiobook Player" Width="830" Height="620"
         WindowStartupLocation="CenterScreen"
         MinWidth="830" MinHeight="620">
+    
     <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -80,7 +81,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition SharedSizeGroup="sidebar"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -110,11 +110,40 @@
             </Border>
 
             <TextBlock Grid.Column="1" 
-                       Text="{Binding SelectedPageTitle}" 
-                       Visibility="{Binding ElementName=scrollViewer, Path=VerticalOffset, Converter={StaticResource VerticalOffsetVisibilityNegConverter}, ConverterParameter={x:Reference Name=SharedPageTitleHeight}}"
-                       Style="{StaticResource TopbarPageTitle}"/>
-            <TextBlock Grid.Column="2" Style="{StaticResource InformationTextHighlight}"
-                       Text="{Binding ElementName=scrollViewer,Path=VerticalOffset}"/>
+                       Opacity="0"
+                       x:Name="lblSelectedPageTitle"
+                       Text="{Binding SelectedPageTitle}">
+
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource TopbarPageTitle}">
+                        <Style.Triggers>
+                            <DataTrigger Value="0">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource VerticalOffsetTopBarVisibilityConverter}">
+                                        <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                                        <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
 
             <Border Style="{StaticResource HorizontalSeparator}" 
                     Grid.Row="1" Grid.ColumnSpan="2"/>
@@ -133,12 +162,19 @@
 
                 <!-- Shared Page Title -->
 
-                <lib:SharedPageTitle Grid.Row="0" Template="{Binding SharedPageTitleTemplate}" x:Name="sharedPageTitle"
-                                     Visibility="{Binding ElementName=scrollViewer,Path=VerticalOffset,
-                    Converter={StaticResource VerticalOffsetVisibilityConverter}, ConverterParameter={x:Reference Name=SharedPageTitleHeight}}" />
+                <lib:SharedPageTitle Grid.Row="0" Template="{Binding SharedPageTitleTemplate}" 
+                    Margin="0, 0, 0, 30"                 
+                    x:Name="sharedPageTitle">
 
-                <TextBlock Visibility="Collapsed" x:Name="SharedPageTitleHeight" Text="{Binding ElementName=sharedPageTitle, Path=ActualHeight}" />
+                    <lib:SharedPageTitle.Opacity>
+                        <MultiBinding Converter="{StaticResource VerticalOffsetTopBarVisibilityConverter}">
+                            <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                            <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                        </MultiBinding>
+                    </lib:SharedPageTitle.Opacity>
 
+                </lib:SharedPageTitle>
+                
                 <!-- Main Frame -->
                 <Frame Grid.Row="1" x:Name="frmPage" Style="{StaticResource PageFrame}"/>
             </Grid>

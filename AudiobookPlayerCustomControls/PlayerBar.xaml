@@ -34,7 +34,27 @@
             <StackPanel Orientation="Vertical" Margin="0, 10, 0, 10" VerticalAlignment="Center">
 
                 <TextBlock Style="{StaticResource InformationTextHighlight}" Text="Audiobook Title" 
-                           TextTrimming="WordEllipsis" />
+                           TextTrimming="WordEllipsis">
+                    
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform x:Name="translate" />
+                    </TextBlock.RenderTransform>
+                    
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimation
+                                        From="1200" To="-1200"
+                                        Storyboard.TargetName="translate"
+                                        Storyboard.TargetProperty="X"
+                                        Duration="0:0:9" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
+                
                 <TextBlock Style="{StaticResource InformationText}" Text="IamAnAuthor, MeToo" 
                            TextTrimming="WordEllipsis" />
                 <TextBlock Style="{StaticResource InformationText}" Text="Read by: xxxxx, yyyyy" 
