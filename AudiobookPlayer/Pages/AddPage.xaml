@@ -19,34 +19,20 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- Add New Title -->
-            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
-                    Padding="0, 10, 0, 20">
-                <StackPanel>
-                    <TextBlock  
-                            HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                            Style="{StaticResource InformationTextHighlight}" Text="Add New:" 
-                            TextTrimming="WordEllipsis" FontSize="35" />
-                    <Border Style="{StaticResource HorizontalSeparator}" />
-                </StackPanel>
-            </Border>
-
             <!-- Title -->
-            <TextBlock  Grid.Column="0" Grid.Row="1"
+            <TextBlock  Grid.Column="0" Grid.Row="0"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
                     Style="{StaticResource InputMaskText}" Text="Title:" 
                     TextTrimming="WordEllipsis" />
 
-            <TextBox    Grid.Column="1" Grid.Row="1"
-                    Margin="10,10,10,0" MinWidth="400"
-                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                    Style="{StaticResource MaskTextBox}"
-                     />
+            <TextBox Grid.Column="1" Grid.Row="0"
+                Margin="10,10,10,0" MinWidth="400"
+                VerticalAlignment="Center" HorizontalAlignment="Left"
+                Style="{StaticResource MaskTextBox}" />
 
             <!-- Drag Area -->
             <ListView Margin="10 20" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
@@ -54,11 +40,12 @@
                 Style="{StaticResource DragArea}"
                 HorizontalContentAlignment="Stretch"
                 ItemsSource="{Binding Chapters}"
+                AlternationCount="2"
                 KeyboardNavigation.TabNavigation="Cycle">
                 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border Name="DragAreaBackground" Background="AliceBlue">
+                        <Border Name="DragAreaBackground" FocusVisualStyle="{x:Null}">
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -74,12 +61,51 @@
                                     Text="{Binding Metadata.Title}" />
 
                                 <lib:EditTextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"
-                                    Text="{Binding Metadata.Contributors.AuthorString}"/>
+                                    Text="{Binding Metadata.Contributors.AuthorString}"
+                                    FocusVisualStyle="{x:Null}"/>
 
                                 <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                                    Margin="0"
                                     Style="{StaticResource HorizontalSeparator}" />
 
                             </Grid>
+
+                            <Border.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                                <DiscreteObjectKeyFrame.Value>
+                                                                    <SolidColorBrush Color="{StaticResource Background1Color}" />
+                                                                </DiscreteObjectKeyFrame.Value>
+                                                            </DiscreteObjectKeyFrame>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>                                            
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background">
+                                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                                <DiscreteObjectKeyFrame.Value>
+                                                                    <SolidColorBrush Color="Transparent" />
+                                                                </DiscreteObjectKeyFrame.Value>
+                                                            </DiscreteObjectKeyFrame>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
