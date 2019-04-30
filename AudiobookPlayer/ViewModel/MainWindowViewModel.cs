@@ -1,6 +1,9 @@
-﻿using Commons.Logic;
+﻿using Commons.Controls;
+using Commons.Logic;
+using Commons.Util;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -11,29 +14,38 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private string mCoverImage;
-
-        public string CoverImage
+        private string mSelectedPageTitle;
+        public string SelectedPageTitle
         {
-            get { return mCoverImage; }
-            set { mCoverImage = value; }
+            get { return mSelectedPageTitle; }
+            set { Set<string>(() => this.SelectedPageTitle, ref mSelectedPageTitle, value); }
         }
 
-        private AudiobookManager mAudiobookManager;
+        private ControlTemplate mSharedPageTitleTemplate;
+        public ControlTemplate SharedPageTitleTemplate
+        {
+            get { return mSharedPageTitleTemplate; }
+            set { Set<ControlTemplate>(() => this.SharedPageTitleTemplate, ref mSharedPageTitleTemplate, value); }
+        }
 
+
+        private AudiobookManager mAudiobookManager;
         public AudiobookManager AudiobookManager
         {
             get { return mAudiobookManager; }
             set { mAudiobookManager = value; }
         }
 
+        private HistoryList<MenuButton> mNavigationHistory;
+        public HistoryList<MenuButton> NavigationHistory
+        {
+            get { return mNavigationHistory; }
+            set { mNavigationHistory = value; }
+        }
 
         #endregion
 
         #region Commands
-
-        public ICommand AddAudiobookCommand { get; private set; }
-
 
         #endregion
 
@@ -41,19 +53,13 @@ namespace Commons.ViewModel
 
         public MainWindowViewModel()
         {
-            CoverImage = "/Commons.Styles;component/Resources/Player/sampleCover.jpg";
-
-            AddAudiobookCommand = new RelayCommand(AddAudiobook);
+            SelectedPageTitle = string.Empty;
+            NavigationHistory = new HistoryList<MenuButton>();
         }
 
         #endregion
 
         #region Methods
-
-        private void AddAudiobook()
-        {
-            MessageBox.Show("Hey");
-        }
 
         #endregion
 

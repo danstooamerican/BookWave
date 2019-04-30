@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons.Controls", "Audiobo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons.Styles", "AudiobookPlayerStyles\Commons.Styles.csproj", "{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{E70CC389-C8E4-466D-908E-6E6ED9867AF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E70CC389-C8E4-466D-908E-6E6ED9867AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E70CC389-C8E4-466D-908E-6E6ED9867AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E70CC389-C8E4-466D-908E-6E6ED9867AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E70CC389-C8E4-466D-908E-6E6ED9867AF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

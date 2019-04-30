@@ -1,18 +1,10 @@
 ﻿using Commons.Controls;
+using Commons.Exceptions;
+using Commons.Util;
+using Commons.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AudiobookPlayer
 {
@@ -22,14 +14,18 @@ namespace AudiobookPlayer
     public partial class MainWindow : Window
     {
 
-        private MenuButton menuBtnLastClicked;
+        private MainWindowViewModel viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            viewModel = (MainWindowViewModel) DataContext;
+
+            viewModel.NavigationHistory.CurrentElementChangedEvent += UpdateNavigationUI;
+
             //select btnStart by default
-            MenuButton_Click(btnStart, new RoutedEventArgs(Button.ClickEvent, btnStart));
+            MenuButton_Click(btnStart, new RoutedEventArgs(MenuButton.ClickEvent, btnStart));
         }
 
         /// <summary>
@@ -39,39 +35,75 @@ namespace AudiobookPlayer
         /// <param name="e"></param> EventArgs of the click event
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
-            string path = null;
-
-            if (e.Source is Button clickedBtn)
+            if (e.Source is MenuButton clickedMenuBtn)
             {
-                if ((menuBtnLastClicked != null) && (!clickedBtn.Equals(menuBtnLastClicked)))
+                if (viewModel.NavigationHistory.IsNotCurrentElement(clickedMenuBtn))
                 {
-                    menuBtnLastClicked.ClickedRectVisibility = Visibility.Hidden;
-                }
+                    viewModel.NavigationHistory.AddAtCurrentElementDeleteBehind(clickedMenuBtn);
 
-                if (e.Source is MenuButton clickedMenuBtn)
-                {
-                    clickedMenuBtn.ClickedRectVisibility = Visibility.Visible;
-                    menuBtnLastClicked = clickedMenuBtn;
-                    path = clickedMenuBtn.Page;
-                }
-                else
-                {
-                    if (clickedBtn.Tag is string page)
-                    {
-                        path = page;
-                    }
-
-                    menuBtnLastClicked = null;
-                }
+                    frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
+                    scrollViewer.ScrollToTop();
+                    lblSelectedPageTitle.Opacity = 0;
+                }                
             }
-
-            if (path != null)
-            {
-                frmPage.Navigate(new Uri(path, UriKind.Relative));               
-            }
-
             e.Handled = true;
         }
 
+        private void UpdateNavigationUI()
+        {
+            MenuButton current = viewModel.NavigationHistory.CurrentElement.Element;
+
+            if (current != null)
+            {
+                UpdateClickRect();
+
+                SetSharedPageTitleTemplate();
+
+                viewModel.SelectedPageTitle = current.PageTitle;
+            }                
+        }
+        private void UpdateClickRect()
+        {
+            if (!viewModel.NavigationHistory.IsRepeatedElement())
+            {
+                HistoryListElement<MenuButton> previousElement = viewModel.NavigationHistory.PreviousElement;
+
+                if (previousElement != null)
+                {
+                    previousElement.Element.ClickedRectVisibility = Visibility.Hidden;
+                }                
+            }
+            viewModel.NavigationHistory.CurrentElement.Element.ClickedRectVisibility = Visibility.Visible;
+        }
+        private void SetSharedPageTitleTemplate()
+        {
+            try
+            {
+                MenuButton current = viewModel.NavigationHistory.CurrentElement.Element;
+
+                if (current != null)
+                {
+                    viewModel.SharedPageTitleTemplate = (ControlTemplate)App.Current.FindResource(current.TitleBarTemplate);
+                }
+                
+            }
+            catch (NullReferenceException)
+            {
+                throw new InvalidArgumentException("Could not load Titlebar.");
+            }
+        }
+
+        private void PageBack_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.NavigationHistory.Back();
+
+            frmPage.GoBack();
+        }
+        private void PageForward_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.NavigationHistory.Forward();
+
+            frmPage.GoForward();
+        }
     }
 }

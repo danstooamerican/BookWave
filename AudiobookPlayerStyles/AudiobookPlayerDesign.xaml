@@ -8,14 +8,20 @@
             <converters:StringToImageConverter x:Key="StringToImageConverter" />
             <converters:SecondsToTimeConverter x:Key="SecondsToTimeConverter" />
             <converters:DoubleToBoolConverter x:Key="DoubleToBoolConverter" />
+            <converters:VerticalOffsetOpacityConverter x:Key="VerticalOffsetOpacityConverter" />
+            <converters:VerticalOffsetTopBarVisibilityConverter x:Key="VerticalOffsetTopBarVisibilityConverter" />
         </ResourceDictionary>
 
         <ResourceDictionary Source="Colors/colors.xaml" />
         <ResourceDictionary Source="Styles/TextStyle.xaml" />
+        <ResourceDictionary Source="Styles/ContainerStyle.xaml" />
+        <ResourceDictionary Source="Styles/TextBoxStyle.xaml" />
+        <ResourceDictionary Source="Styles/ScrollViewerStyle.xaml" />
         <ResourceDictionary Source="Styles/SliderStyle.xaml" />
         <ResourceDictionary Source="Styles/BorderStyle.xaml" />
         <ResourceDictionary Source="Styles/ButtonStyle.xaml" />
         <ResourceDictionary Source="Styles/FrameStyle.xaml" />
+        <ResourceDictionary Source="Styles/TitleTemplates.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 

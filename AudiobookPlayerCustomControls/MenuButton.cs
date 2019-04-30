@@ -48,6 +48,28 @@ namespace Commons.Controls
         }
         public static readonly DependencyProperty PageProperty =
             DependencyProperty.Register("Page", typeof(string), typeof(MenuButton), new PropertyMetadata(String.Empty));
+               
+        public string PageTitle
+        {
+            get { return (string)GetValue(PageTitleProperty); }
+            set { SetValue(PageTitleProperty, value); }
+        }
+        public static readonly DependencyProperty PageTitleProperty =
+            DependencyProperty.Register("PageTitle", typeof(string), typeof(MenuButton), new PropertyMetadata(String.Empty));
+
+
+
+
+        public string TitleBarTemplate
+        {
+            get { return (string)GetValue(TitleBarTemplateProperty); }
+            set { SetValue(TitleBarTemplateProperty, value); }
+        }
+
+        public static readonly DependencyProperty TitleBarTemplateProperty =
+            DependencyProperty.Register("TitleBarTemplate", typeof(string), typeof(MenuButton), new PropertyMetadata("DefaultTitle"));
+
+
 
         #endregion
 
