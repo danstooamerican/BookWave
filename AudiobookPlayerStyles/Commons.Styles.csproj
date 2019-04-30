@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\VerticalOffsetOpacityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetTopBarVisibilityConverter.cs" />
     <Compile Include="Converter\DoubleToBoolConverter.cs" />
     <Compile Include="Converter\SecondsToTimeConverter.cs" />
@@ -121,8 +122,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataTemplates\" />
     <Folder Include="Settings\" />
+    <Folder Include="Triggers\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Player\sampleCover.jpg" />

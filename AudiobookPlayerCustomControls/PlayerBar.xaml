@@ -43,9 +43,9 @@
                     <TextBlock.Triggers>
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
-                                <Storyboard RepeatBehavior="Forever">
+                                <Storyboard>
                                     <DoubleAnimation
-                                        From="1200" To="-1200"
+                                        From="20" To="-20"
                                         Storyboard.TargetName="translate"
                                         Storyboard.TargetProperty="X"
                                         Duration="0:0:9" />

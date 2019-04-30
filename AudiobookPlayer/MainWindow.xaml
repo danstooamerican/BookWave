@@ -76,8 +76,19 @@
                       VerticalAlignment="Stretch" />
 
         <!-- Topbar -->
-        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
-              ButtonBase.Click="MenuButton_Click">
+        <Border Grid.Column="1" Grid.Row="0" 
+                Background="{StaticResource SideBarBackgroundColorBrush}">
+
+            <Border.Opacity>
+                <MultiBinding Converter="{StaticResource VerticalOffsetOpacityConverter}">
+                    <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                    <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                </MultiBinding>
+            </Border.Opacity>
+        </Border>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+              ButtonBase.Click="MenuButton_Click"
+              Panel.ZIndex="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition SharedSizeGroup="sidebar"/>
                 <ColumnDefinition Width="*"/>
@@ -109,6 +120,7 @@
                 </StackPanel>
             </Border>
 
+            <!-- Shared Page Title Top -->
             <TextBlock Grid.Column="1" 
                        Opacity="0"
                        x:Name="lblSelectedPageTitle"
@@ -128,14 +140,16 @@
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                From="0" To="1" Duration="0:0:0.2"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>
                                 <DataTrigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                From="1" To="0" Duration="0:0:0.2"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.ExitActions>
@@ -146,23 +160,37 @@
             </TextBlock>
 
             <Border Style="{StaticResource HorizontalSeparator}" 
-                    Grid.Row="1" Grid.ColumnSpan="2"/>
+                    Grid.Row="1" />
+
+            <Border Grid.Column="1" Grid.Row="1"                      
+                    Style="{StaticResource HorizontalSeparator}">
+
+                <Border.Opacity>
+                    <MultiBinding Converter="{StaticResource VerticalOffsetOpacityConverter}">
+                        <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                        <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                    </MultiBinding>
+                </Border.Opacity>
+            </Border>
 
         </Grid>
 
-        <ScrollViewer Grid.Column="2" Grid.Row="1" x:Name="scrollViewer"
+        <!-- Main Display -->
+        <ScrollViewer Grid.Column="2" Grid.Row="1"
+                      x:Name="scrollViewer" Panel.ZIndex="0"
                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
                       Style="{StaticResource CustomScrollViewer}">
 
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- Shared Page Title -->
+                <!-- Shared Page Title Main -->
 
-                <lib:SharedPageTitle Grid.Row="0" Template="{Binding SharedPageTitleTemplate}" 
+                <lib:SharedPageTitle Grid.Row="1" Template="{Binding SharedPageTitleTemplate}" 
                     Margin="0, 0, 0, 30"                 
                     x:Name="sharedPageTitle">
 
@@ -176,7 +204,7 @@
                 </lib:SharedPageTitle>
                 
                 <!-- Main Frame -->
-                <Frame Grid.Row="1" x:Name="frmPage" Style="{StaticResource PageFrame}"/>
+                <Frame Grid.Row="2" x:Name="frmPage" Style="{StaticResource PageFrame}"/>
             </Grid>
         </ScrollViewer>        
 
