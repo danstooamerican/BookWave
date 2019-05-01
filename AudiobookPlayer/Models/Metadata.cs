@@ -40,11 +40,11 @@ namespace Commons.Models
             set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
         }
 
-        private DateTime mReleaseDate;
-        public DateTime ReleaseDate
+        private int mReleaseYear;
+        public int ReleaseYear
         {
-            get { return mReleaseDate; }
-            set { mReleaseDate = value; }
+            get { return mReleaseYear; }
+            set { mReleaseYear = value; }
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace Commons.Models
                 Path = track.Path;
                 Title = track.Title;
                 Description = track.Description;
-                ReleaseDate = new DateTime(track.Year, 0, 0);
+                ReleaseYear = track.Year;
 
                 Contributors.Authors.Add(track.Artist);
             }
