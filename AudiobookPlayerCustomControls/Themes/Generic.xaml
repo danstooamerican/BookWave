@@ -181,7 +181,6 @@
                                      Style="{StaticResource EditTextBlockEnabled}">
 
                                 <TextBox.InputBindings>
-                                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EndEditCommand, RelativeSource={RelativeSource TemplatedParent}}" />
                                     <KeyBinding Key="Enter" Command="{Binding EndEditCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
                                     <KeyBinding Key="Esc" Command="{Binding EndEditCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
                                 </TextBox.InputBindings>
