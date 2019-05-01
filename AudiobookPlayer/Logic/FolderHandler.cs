@@ -14,7 +14,16 @@ namespace Commons.Logic
         public string FolderPath
         {
             get { return mFolderPath; }
-            set { Set<string>(() => this.FolderPath, ref mFolderPath, value); }
+            set
+            {
+                if (Directory.Exists(value))
+                {
+                    Set<string>(() => this.FolderPath, ref mFolderPath, value);
+                } else
+                {
+                    Set<string>(() => this.FolderPath, ref mFolderPath, mFolderPath);
+                }
+            }
         }
 
         public FolderHandler()
@@ -24,20 +33,27 @@ namespace Commons.Logic
 
         public ObservableCollection<Chapter> AnalyzeFolder()
         {
-            var allowedExtensions = new[] { ".mp3", ".aac" };
-            List<string> files = Directory
-                .GetFiles(FolderPath)
-                .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
-                .ToList();
+            if (Directory.Exists(FolderPath))
+            {
+                var allowedExtensions = new[] { ".mp3", ".aac" };
+                List<string> files = Directory
+                    .GetFiles(FolderPath)
+                    .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
+                    .ToList();
 
-            var chapters = new ObservableCollection<Chapter>();
+                var chapters = new ObservableCollection<Chapter>();
 
-            foreach (string file in files) {
-                Chapter chapter = new Chapter(new Track(file));
-                chapters.Add(chapter);
-            }
+                foreach (string file in files)
+                {
+                    Chapter chapter = new Chapter(new Track(file));
+                    chapters.Add(chapter);
+                }
 
-            return chapters;
+                return chapters;
+            } else
+            {
+                throw new FileNotFoundException();
+            }            
         }
 
     }
