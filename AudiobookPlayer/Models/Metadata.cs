@@ -44,7 +44,7 @@ namespace Commons.Models
         public int ReleaseYear
         {
             get { return mReleaseYear; }
-            set { mReleaseYear = value; }
+            set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
         }
 
         #endregion
