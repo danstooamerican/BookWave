@@ -50,21 +50,32 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
 
+                                <!-- Title -->
                                 <lib:EditTextBlock Grid.Column="0" Grid.Row="0" 
                                     HorizontalAlignment="Stretch"
-                                    Text="{Binding Metadata.Title}" />
+                                    Text="{Binding Metadata.Title, Mode=TwoWay}" />
 
+                                <!-- Authors -->
                                 <lib:EditTextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"
-                                    Text="{Binding Metadata.Contributors.AuthorString}"
-                                    FocusVisualStyle="{x:Null}"/>
+                                    Text="{Binding Metadata.Contributors.AuthorString, Mode=TwoWay}"/>
 
-                                <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                                <!-- Readers -->
+                                <lib:EditTextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch"
+                                    Text="{Binding Metadata.Contributors.ReaderString, Mode=TwoWay}"/>
+                                
+                                <!-- Release Date -->
+                                <lib:EditTextBlock Grid.Column="3" Grid.Row="0" HorizontalAlignment="Stretch"
+                                    Text="{Binding Metadata.ReleaseDate, Mode=TwoWay}"/>
+
+                                <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"
                                     Margin="0"
                                     Style="{StaticResource HorizontalSeparator}" />
 
