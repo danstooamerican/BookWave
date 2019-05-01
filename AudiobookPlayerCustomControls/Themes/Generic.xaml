@@ -172,9 +172,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:EditTextBlock}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                    <Border Background="{TemplateBinding Background}">
 
                         <Grid>
                             <TextBox x:Name="txb" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" 
@@ -199,7 +197,8 @@
                             <TextBox x:Name="lbl" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" 
                                 Visibility="{Binding TextBlockVisibility, RelativeSource={RelativeSource TemplatedParent}}"
                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                IsReadOnly="True" Style="{StaticResource EditTextBlockDisabled}">
+                                IsReadOnly="True" Style="{StaticResource EditTextBlockDisabled}"
+                                Cursor="Hand">
 
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding StartEditCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
