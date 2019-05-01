@@ -177,7 +177,6 @@
                         <Grid>
                             <TextBox x:Name="txb" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" 
                                      Visibility="{Binding TextBoxVisibility, RelativeSource={RelativeSource TemplatedParent}}"
-                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                      Style="{StaticResource EditTextBlockEnabled}">
 
                                 <TextBox.InputBindings>
@@ -195,7 +194,6 @@
 
                             <TextBox x:Name="lbl" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" 
                                 Visibility="{Binding TextBlockVisibility, RelativeSource={RelativeSource TemplatedParent}}"
-                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                 IsReadOnly="True" Style="{StaticResource EditTextBlockDisabled}"
                                 Cursor="Hand">
 
