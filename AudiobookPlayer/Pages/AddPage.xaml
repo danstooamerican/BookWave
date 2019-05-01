@@ -40,7 +40,7 @@
             <StackPanel Orientation="Horizontal" 
                         Grid.Column="2" Grid.Row="0">
                 <Button Content="Select" Command="{Binding SelectFolderCommand}"/>
-                <Button Content="OK" />
+                <Button Content="OK" Command="{Binding AnalyzeFolderCommand}"/>
             </StackPanel>
             
             <!-- Title -->

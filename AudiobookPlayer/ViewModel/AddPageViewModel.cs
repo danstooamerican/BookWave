@@ -23,7 +23,7 @@ namespace Commons.ViewModel
         public ObservableCollection<Chapter> Chapters
         {
             get { return mChapters; }
-            set { mChapters = value; }
+            set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
         }
 
         private FolderHandler mFolderHandler;
