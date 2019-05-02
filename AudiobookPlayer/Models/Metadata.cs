@@ -23,7 +23,7 @@ namespace Commons.Models
         public string Title
         {
             get { return mTitle; }
-            set { Set<string>(() => this.mTitle, ref mTitle, value); }
+            set { Set<string>(() => this.Title, ref mTitle, value); }
         }
 
         private string mDescription;
@@ -44,7 +44,7 @@ namespace Commons.Models
         public int ReleaseYear
         {
             get { return mReleaseYear; }
-            set { mReleaseYear = value; }
+            set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
         }
 
         #endregion

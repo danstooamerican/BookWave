@@ -171,5 +171,15 @@
     <Resource Include="Resources\Navigation\pageForward_hover.png" />
     <Resource Include="Resources\Navigation\pageForward_pressed.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\check.png" />
+    <Resource Include="Resources\Misc\check_hover.png" />
+    <Resource Include="Resources\Misc\check_pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\folder.png" />
+    <Resource Include="Resources\Misc\folder_hover.png" />
+    <Resource Include="Resources\Misc\folder_pressed.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -112,7 +112,7 @@
     </Style>
 
     <Style  x:Key="EditTextBlockEnabled" TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="{StaticResource TextColorBruch}" />
+        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="5" />
@@ -138,13 +138,6 @@
 
                         <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
                     </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused" Value="true">
-                            <Setter Property="Foreground"
-                                Value="{StaticResource TextHighlightColorBruch}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

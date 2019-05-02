@@ -177,11 +177,10 @@
                         <Grid>
                             <TextBox x:Name="txb" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" 
                                      Visibility="{Binding TextBoxVisibility, RelativeSource={RelativeSource TemplatedParent}}"
-                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                     Style="{StaticResource EditTextBlockEnabled}">
+                                     Style="{StaticResource EditTextBlockEnabled}"
+                                     TextWrapping="Wrap">
 
                                 <TextBox.InputBindings>
-                                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EndEditCommand, RelativeSource={RelativeSource TemplatedParent}}" />
                                     <KeyBinding Key="Enter" Command="{Binding EndEditCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
                                     <KeyBinding Key="Esc" Command="{Binding EndEditCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
                                 </TextBox.InputBindings>
@@ -196,9 +195,8 @@
 
                             <TextBox x:Name="lbl" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" 
                                 Visibility="{Binding TextBlockVisibility, RelativeSource={RelativeSource TemplatedParent}}"
-                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                 IsReadOnly="True" Style="{StaticResource EditTextBlockDisabled}"
-                                Cursor="Hand">
+                                Cursor="Hand" TextWrapping="Wrap">
 
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding StartEditCommand, RelativeSource={RelativeSource TemplatedParent}}"/>

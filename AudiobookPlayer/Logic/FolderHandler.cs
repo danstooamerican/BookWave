@@ -14,7 +14,16 @@ namespace Commons.Logic
         public string FolderPath
         {
             get { return mFolderPath; }
-            set { Set<string>(() => this.FolderPath, ref mFolderPath, value); }
+            set
+            {
+                if (Directory.Exists(value))
+                {
+                    Set<string>(() => this.FolderPath, ref mFolderPath, value);
+                } else
+                {
+                    Set<string>(() => this.FolderPath, ref mFolderPath, mFolderPath);
+                }
+            }
         }
 
         public FolderHandler()
