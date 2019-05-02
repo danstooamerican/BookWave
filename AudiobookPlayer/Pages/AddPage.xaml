@@ -76,16 +76,26 @@
                 Margin="10 20">
 
                 <DataGrid ItemsSource="{Binding Chapters}" 
-                    AutoGenerateColumns="False" CanUserAddRows="False"
-                    dgx:DataGridFilter.IsAutoFilterEnabled="True">
+                    Width="{Binding Path=ActualWidth, 
+                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}"
+                    AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="#"
+                            Width="0.2*"
+                            MaxWidth="55"
+                            Binding="{Binding Metadata.ReleaseYear}" />
                         <DataGridTextColumn Header="Title" 
-                            Binding="{Binding Metadata.Title}" />
-                        <DataGridTextColumn Header="Authors" 
-                            Binding="{Binding Metadata.Contributors.AuthorString}" />
-                        <DataGridTextColumn Header="Readers" 
-                            Binding="{Binding Metadata.Contributors.ReaderString}" />
-                        <DataGridTextColumn Header="Release" 
+                            Binding="{Binding Metadata.Title}" 
+                            Width="2*" />
+                        <DataGridTextColumn Header="Author" 
+                            Binding="{Binding Metadata.Contributors.AuthorString}"
+                            Width="*" />
+                        <DataGridTextColumn Header="Reader" 
+                            Binding="{Binding Metadata.Contributors.ReaderString}" 
+                            Width="*" />
+                        <DataGridTextColumn Header="Release"
+                            Width="0.75*"
+                            MaxWidth="100"
                             Binding="{Binding Metadata.ReleaseYear}" />
                     </DataGrid.Columns>
                 </DataGrid>
