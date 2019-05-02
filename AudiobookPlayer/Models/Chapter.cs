@@ -1,6 +1,7 @@
 ﻿using ATL;
 using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
+using System.Xml.Linq;
 
 namespace Commons.Models
 {
@@ -31,6 +32,40 @@ namespace Commons.Models
         {
             AudioPaths = new ObservableCollection<AudioPath>();
             Metadata = new Metadata(track);
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void ToXML()
+        {
+            XElement metadataXML = new XElement("Metadata");
+            metadataXML.Add(new XElement("Path", Metadata.Path));
+
+            if (!Metadata.Title.Equals(string.Empty)) //TODO maybe != null?
+            {
+                metadataXML.Add(new XElement("Title", Metadata.Title));
+            } 
+            if (!Metadata.Description.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Description", Metadata.Description));
+            }
+            if (Metadata.ReleaseYear != 0) //TODO what is standard value?
+            {
+                metadataXML.Add(new XElement("ReleaseYear", Metadata.ReleaseYear));
+            }
+            if (Metadata.Contributors.Authors.Count != 0)
+            {
+                metadataXML.Add(new XElement("Authors", Metadata.Contributors.Authors));
+            }
+            if (Metadata.Contributors.Readers.Count != 0)
+            {
+                metadataXML.Add(new XElement("Readers", Metadata.Contributors.Readers));
+            }
+
+            System.Console.WriteLine(metadataXML);
+            
         }
 
         #endregion

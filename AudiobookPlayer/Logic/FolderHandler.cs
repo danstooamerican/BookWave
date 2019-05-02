@@ -24,21 +24,28 @@ namespace Commons.Logic
 
         public ObservableCollection<Chapter> AnalyzeFolder()
         {
-            var allowedExtensions = new[] { ".mp3", ".aac" };
-            List<string> files = Directory
-                .GetFiles(FolderPath)
-                .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
-                .ToList();
+            if (Directory.Exists(FolderPath + @"\metadata"))
+            {
+                //TODO
+                return null;
+            } else
+            {
+                var allowedExtensions = new[] { ".mp3", ".aac" };
+                List<string> files = Directory
+                    .GetFiles(FolderPath)
+                    .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
+                    .ToList();
 
-            var chapters = new ObservableCollection<Chapter>();
+                var chapters = new ObservableCollection<Chapter>();
 
-            foreach (string file in files) {
-                Chapter chapter = new Chapter(new Track(file));
-                chapters.Add(chapter);
+                foreach (string file in files)
+                {
+                    Chapter chapter = new Chapter(new Track(file));
+                    chapter.ToXML();
+                    chapters.Add(chapter);
+                }
+                return chapters;
             }
-
-            return chapters;
         }
-
     }
 }
