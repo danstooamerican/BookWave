@@ -26,6 +26,13 @@ namespace Commons.Models
             set { Set<string>(() => this.Title, ref mTitle, value); }
         }
 
+        private int mTrackNumber;
+        public int TrackNumber
+        {
+            get { return mTrackNumber; }
+            set { Set<int>(() => this.TrackNumber, ref mTrackNumber, value); }
+        }
+
         private string mDescription;
         public string Description
         {
@@ -59,6 +66,7 @@ namespace Commons.Models
             {
                 Path = track.Path;
                 Title = track.Title;
+                TrackNumber = track.TrackNumber;
                 Description = track.Description;
                 ReleaseYear = track.Year;
 

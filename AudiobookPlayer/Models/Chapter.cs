@@ -47,6 +47,10 @@ namespace Commons.Models
             {
                 metadataXML.Add(new XElement("Title", Metadata.Title));
             } 
+            if (Metadata.TrackNumber != 0)
+            {
+                metadataXML.Add(new XElement("TrackNumber", Metadata.TrackNumber));
+            }
             if (!Metadata.Description.Equals(string.Empty))
             {
                 metadataXML.Add(new XElement("Description", Metadata.Description));
