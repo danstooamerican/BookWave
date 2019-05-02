@@ -39,7 +39,7 @@ namespace Commons.Models
 
         #region Methods
 
-        public void ToXML()
+        public void ToXML(string path)
         {
             var metadataXML = new XElement("Metadata");
             var audioPaths = new XElement("AudioPaths");
@@ -87,9 +87,9 @@ namespace Commons.Models
                 }
                 metadataXML.Add(readers);
             }
-
-            System.Console.WriteLine(metadataXML);
-            
+            XDocument xdoc = new XDocument();
+            xdoc.Add(metadataXML);
+            xdoc.Save(path);
         }
 
         #endregion

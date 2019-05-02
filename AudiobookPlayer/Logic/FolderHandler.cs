@@ -33,7 +33,8 @@ namespace Commons.Logic
 
         public ObservableCollection<Chapter> AnalyzeFolder()
         {
-            if (Directory.Exists(FolderPath + @"\metadata"))
+            string metadataDirectory = FolderPath + @"\metadata\";
+            if (Directory.Exists(metadataDirectory))
             {
                 //TODO
                 return null;
@@ -50,7 +51,11 @@ namespace Commons.Logic
                 foreach (string file in files)
                 {
                     Chapter chapter = new Chapter(new Track(file));
-                    chapter.ToXML();
+                    if (!Directory.Exists(metadataDirectory))
+                    {
+                        Directory.CreateDirectory(metadataDirectory);
+                    }
+                    chapter.ToXML(metadataDirectory + chapter.Metadata.TrackNumber + "-" + chapter.Metadata.Title + ".nfo");
                     chapters.Add(chapter);
                 }
                 return chapters;
