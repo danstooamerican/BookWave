@@ -9,41 +9,5 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-    <Style x:Key="ListBoxItemCustom" TargetType="{x:Type ListBoxItem}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ListBoxItem">
-                    <Border
-                        Name="Border"
-                        Background="{TemplateBinding Panel.Background}"
-                        SnapsToDevicePixels="True">
-
-                        <ContentPresenter
-                            Content="{TemplateBinding ContentControl.Content}"
-                            ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
-                            HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
-                            SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                <Setter Property="Background" Value="{StaticResource LightDarkGrayBrush}"></Setter>
-            </Trigger>
-            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                <Setter Property="Background" Value="{StaticResource Background1ColorBrush}"></Setter>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="DragArea" TargetType="ListView">
-        <Setter Property="Background" Value="{StaticResource Gray1Brush}" />
-        <Setter Property="AllowDrop" Value="True" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemCustom}" />        
-    </Style>   
 
 </ResourceDictionary>
