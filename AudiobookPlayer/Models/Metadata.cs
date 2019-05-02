@@ -62,7 +62,7 @@ namespace Commons.Models
                 Description = track.Description;
                 ReleaseYear = track.Year;
 
-                Contributors.Authors.Add(track.Artist);
+                Contributors.AuthorString = track.Artist;
             }
         }
 

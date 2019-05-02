@@ -57,11 +57,21 @@ namespace Commons.Models
             }
             if (Metadata.Contributors.Authors.Count != 0)
             {
-                metadataXML.Add(new XElement("Authors", Metadata.Contributors.Authors));
+                XElement authors = new XElement("Authors");
+                foreach (string author in Metadata.Contributors.Authors)
+                {
+                    authors.Add(new XElement("Author", author));
+                }
+                metadataXML.Add(authors);
             }
             if (Metadata.Contributors.Readers.Count != 0)
             {
-                metadataXML.Add(new XElement("Readers", Metadata.Contributors.Readers));
+                XElement readers = new XElement("Readers");
+                foreach (string reader in Metadata.Contributors.Authors)
+                {
+                    readers.Add(new XElement("Reader", reader));
+                }
+                metadataXML.Add(readers);
             }
 
             System.Console.WriteLine(metadataXML);
