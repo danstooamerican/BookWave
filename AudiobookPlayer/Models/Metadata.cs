@@ -1,23 +1,11 @@
 ﻿using ATL;
 using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Commons.Models
 {
     public class Metadata : ObservableObject
     {
         #region Public Properties
-
-        private string mPath;
-        public string Path
-        {
-            get { return mPath; }
-            set { Set<string>(() => this.Path, ref mPath, value); }
-        }
 
         private string mTitle;
         public string Title
@@ -64,7 +52,6 @@ namespace Commons.Models
 
             if (track != null)
             {
-                Path = track.Path;
                 Title = track.Title;
                 TrackNumber = track.TrackNumber;
                 Description = track.Description;

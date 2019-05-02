@@ -61,6 +61,16 @@ namespace Commons.Models
             }
         }
 
+        #endregion
+
+        #region Constructors
+
+        public AudioPath(string path, int startMark, int endMark)
+        {
+            Path = path;
+            StartMark = startMark;
+            EndMark = endMark;
+        }
 
         #endregion
 

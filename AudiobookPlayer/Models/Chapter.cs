@@ -31,6 +31,7 @@ namespace Commons.Models
         public Chapter(Track track)
         {
             AudioPaths = new ObservableCollection<AudioPath>();
+            AudioPaths.Add(new AudioPath(track.Path, 0, -1));
             Metadata = new Metadata(track);
         }
 
@@ -40,8 +41,17 @@ namespace Commons.Models
 
         public void ToXML()
         {
-            XElement metadataXML = new XElement("Metadata");
-            metadataXML.Add(new XElement("Path", Metadata.Path));
+            var metadataXML = new XElement("Metadata");
+            var audioPaths = new XElement("AudioPaths");
+            foreach (AudioPath audioPath in AudioPaths)
+            {
+                var pathXML = new XElement("AudioPath");
+                pathXML.Add(new XElement("FilePath", audioPath.Path));
+                pathXML.Add(new XElement("StartMark", audioPath.StartMark));
+                pathXML.Add(new XElement("EndMark", audioPath.EndMark));
+                audioPaths.Add(pathXML);
+            }
+            metadataXML.Add(audioPaths);
 
             if (!Metadata.Title.Equals(string.Empty)) //TODO maybe != null?
             {
