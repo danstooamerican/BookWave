@@ -76,6 +76,7 @@
                 Margin="10 20">
 
                 <DataGrid ItemsSource="{Binding Chapters}" 
+                    Style="{StaticResource DataGrid}"
                     Width="{Binding Path=ActualWidth, 
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}"
                     AutoGenerateColumns="False" CanUserAddRows="False">
