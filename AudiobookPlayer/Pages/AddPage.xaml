@@ -80,24 +80,40 @@
                     Width="{Binding Path=ActualWidth, 
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}"
                     AutoGenerateColumns="False" CanUserAddRows="False">
+
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#"
+                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
+                            ElementStyle="{StaticResource InformationText}"                                            
+                            Binding="{Binding Metadata.ReleaseYear}" 
                             Width="0.2*"
-                            MaxWidth="55"
-                            Binding="{Binding Metadata.ReleaseYear}" />
+                            MaxWidth="55"/>
+                        
                         <DataGridTextColumn Header="Title" 
+                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
+                            ElementStyle="{StaticResource InformationText}"
                             Binding="{Binding Metadata.Title}" 
                             Width="2*" />
+                        
                         <DataGridTextColumn Header="Author" 
+                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
+                            ElementStyle="{StaticResource InformationText}"
                             Binding="{Binding Metadata.Contributors.AuthorString}"
                             Width="*" />
+                        
                         <DataGridTextColumn Header="Reader" 
+                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
+                            ElementStyle="{StaticResource InformationText}"
                             Binding="{Binding Metadata.Contributors.ReaderString}" 
                             Width="*" />
+                        
                         <DataGridTextColumn Header="Release"
+                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
+                            ElementStyle="{StaticResource InformationText}"                            
+                            Binding="{Binding Metadata.ReleaseYear}" 
                             Width="0.75*"
-                            MaxWidth="100"
-                            Binding="{Binding Metadata.ReleaseYear}" />
+                            MaxWidth="100" />
+                        
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>            

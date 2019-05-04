@@ -135,7 +135,7 @@
                 <Style TargetType="DataGridCell">
 
                     <!-- Add some padding around the contents of a cell -->
-                    <Setter Property="Padding" Value="4, 12" />
+                    <Setter Property="Padding" Value="4, 9" />
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Template">
                         <Setter.Value>
