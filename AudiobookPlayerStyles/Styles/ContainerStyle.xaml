@@ -20,13 +20,55 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <Style x:Key="DataGrid" TargetType="DataGrid">
+
+    <Style x:Key="DataGridRow" TargetType="{x:Type DataGridRow}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
+        <Setter Property="FontSize" Value="12"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                    <Border x:Name="DGR_Border" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                        BorderThickness="0">
+
+                        <SelectiveScrollingGrid>
+                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </SelectiveScrollingGrid.ColumnDefinitions>
+                            <SelectiveScrollingGrid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </SelectiveScrollingGrid.RowDefinitions>
+                            
+                            <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        </SelectiveScrollingGrid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <!-- Highlight a grid row as the mouse passes over -->
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource GridBackgroundSelectedBrush}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource GridBackgroundHoverBrush}" />
+            </Trigger>            
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DataGrid" TargetType="DataGrid">       
         <!-- Make the border and grid lines a little less imposing -->
-        <Setter Property="BorderBrush" Value="#DDDDDD" />
-        <Setter Property="HorizontalGridLinesBrush" Value="#DDDDDD" />
+        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource TextPressedColorBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource GridBackgroundSelectedBrush}" />
         <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
 
         <Setter Property="ColumnHeaderStyle">
             <Setter.Value>
@@ -34,7 +76,8 @@
                     <Setter Property="SnapsToDevicePixels" Value="True" />
                     <Setter Property="MinWidth" Value="0" />
                     <Setter Property="MinHeight" Value="28" />
-                    <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                    <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
                     <Setter Property="Cursor" Value="Hand" />
                     <Setter Property="Template">
                         <Setter.Value>
@@ -51,11 +94,8 @@
                                     <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
                                     
                                     <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
-                                        Grid.Column="1" Width="8" Height="6" Fill="{TemplateBinding Foreground}" Margin="0,0,8,0" 
+                                        Grid.Column="1" Width="8" Height="6" Fill="{StaticResource AccentColorBrush}" Margin="0,0,8,0" 
                                         VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
-                                    
-                                    <Rectangle Width="1" Margin="0,0,1,0" Fill="{TemplateBinding Foreground}" 
-                                        HorizontalAlignment="Right" Grid.ColumnSpan="2" />
                                     
                                     <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" 
                                         Style="{StaticResource ColumnHeaderGripperStyle}"/>
@@ -88,43 +128,19 @@
             </Setter.Value>
         </Setter>
 
-        <Setter Property="RowStyle">
-            <Setter.Value>
-                <Style TargetType="DataGridRow">
-                    <Style.Triggers>
-                        <!-- Highlight a grid row as the mouse passes over -->
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource GrayBrush}" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="RowStyle" Value="{StaticResource DataGridRow}"/>
+        
         <Setter Property="CellStyle">
             <Setter.Value>
                 <Style TargetType="DataGridCell">
-                    <Style.Triggers>
-                        <!-- Highlight selected rows -->
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{StaticResource Gray1Brush}" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
-                        </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" Value="{StaticResource Gray1Brush}" />
-                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
-                        </Trigger>
-                    </Style.Triggers>
+
                     <!-- Add some padding around the contents of a cell -->
-                    <Setter Property="Padding" Value="4,3,4,3" />
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Padding" Value="4, 12" />
+                    <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="DataGridCell">
                                 <Border Padding="{TemplateBinding Padding}" 
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
                                     Background="{TemplateBinding Background}">
                                     
                                     <ContentPresenter />
