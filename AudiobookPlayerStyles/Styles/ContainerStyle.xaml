@@ -74,9 +74,10 @@
             <Setter.Value>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="SnapsToDevicePixels" Value="True" />
-                    <Setter Property="MinWidth" Value="0" />
+                    <Setter Property="MinWidth" Value="25" />
                     <Setter Property="MinHeight" Value="28" />
                     <Setter Property="FontWeight" Value="SemiBold" />
+                    <Setter Property="FontSize" Value="14" />
                     <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
                     <Setter Property="Cursor" Value="Hand" />
                     <Setter Property="Template">
@@ -87,6 +88,11 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    
                                     <Border x:Name="BackgroundBorder"
                                         Background="{StaticResource GridBackgroundBrush}"
                                         Grid.ColumnSpan="2" />       
@@ -102,7 +108,8 @@
                                     
                                     <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" 
                                         Style="{StaticResource ColumnHeaderGripperStyle}"/>
-                                    
+
+                                    <Rectangle Grid.Row="1" Height="1" HorizontalAlignment="Stretch" Stroke="{StaticResource TextPressedColorBrush}"/>
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="SortDirection" Value="Ascending">

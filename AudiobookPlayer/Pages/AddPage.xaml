@@ -11,7 +11,7 @@
       Title="AuthorsPage"
       DataContext="{Binding AddPageViewModel, Source={StaticResource Locator}}">
 
-    <Border Padding="20, 0, 20, 0">
+    <Border Padding="10, 0, 10, 0">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -72,21 +72,21 @@
                 Style="{StaticResource MaskTextBox}" />
 
             <!-- Drag Area -->
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"
-                Margin="10 20">
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"
+                Margin="5, 20, 0, 20">
 
                 <DataGrid ItemsSource="{Binding Chapters}" 
                     Style="{StaticResource DataGrid}"
                     Width="{Binding Path=ActualWidth, 
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}"
-                    AutoGenerateColumns="False" CanUserAddRows="False">
+                    AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#"
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"                                            
                             Binding="{Binding Metadata.ReleaseYear}" 
-                            Width="0.2*"
+                            Width="auto"
                             MaxWidth="55"/>
                         
                         <DataGridTextColumn Header="Title" 
@@ -111,7 +111,7 @@
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"                            
                             Binding="{Binding Metadata.ReleaseYear}" 
-                            Width="0.75*"
+                            Width="auto"
                             MaxWidth="100" />
                         
                     </DataGrid.Columns>
