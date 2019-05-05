@@ -74,9 +74,9 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBruch}" />
+        <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBrush}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
+        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
 
         <Setter Property="Template">
             <Setter.Value>
