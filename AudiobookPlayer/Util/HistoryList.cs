@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace Commons.Util
 {
+    /// <summary>
+    /// Helper class which implements a simple linked list to keep track of elements
+    /// which have been visited. This class also allows to go backwards and forwards
+    /// through the list. There is no jumpTo option yet.
+    /// </summary>
+    /// <typeparam name="T">Type of element the HistoryList tracks.</typeparam>
     public class HistoryList<T>
     {
 
         #region Properties
 
         private HistoryListElement<T> mCurrentElement;
+        /// <summary>
+        /// Element which is currently selected in the list.
+        /// </summary>
         public HistoryListElement<T> CurrentElement
         {
             get { return mCurrentElement; }
@@ -25,6 +34,10 @@ namespace Commons.Util
         }
 
         private HistoryListElement<T> mPreviousElement;
+        /// <summary>
+        /// Previously selected element. This allows to check whether an entry
+        /// gets added twice in a row. 
+        /// </summary>
         public HistoryListElement<T> PreviousElement
         {
             get { return mPreviousElement; }
@@ -37,12 +50,19 @@ namespace Commons.Util
 
         public delegate void CurrentElementChanged();
 
+        /// <summary>
+        /// Event which gets fired every time the current element is set.
+        /// </summary>
         public event CurrentElementChanged CurrentElementChangedEvent;
 
         #endregion
 
         #region Constructor
 
+        /// <summary>
+        /// Creates an empty HistoryList with CurrentElement and PreviousElement set
+        /// to null.
+        /// </summary>
         public HistoryList()
         {
             CurrentElement = null;
@@ -53,6 +73,9 @@ namespace Commons.Util
 
         #region Methods
 
+        /// <summary>
+        /// If the CurrentElement has a predecessor the CurrentElement is set to it.
+        /// </summary>
         public void Back()
         {
             if (CurrentElement != null && CurrentElement.Previous != null)
@@ -61,6 +84,9 @@ namespace Commons.Util
             }
         }
 
+        /// <summary>
+        /// If the CurrentElement has a successor the CurrentElement is set to it.
+        /// </summary>
         public void Forward()
         {
             if (CurrentElement != null && CurrentElement.Next != null)
@@ -69,6 +95,12 @@ namespace Commons.Util
             }
         }
 
+        /// <summary>
+        /// Checks if the passed element is equal to the CurrentElement. If the list is empty
+        /// the check always returns true.
+        /// </summary>
+        /// <param name="element">Element to check</param>
+        /// <returns>If the two elemens are equal.</returns>
         public bool IsNotCurrentElement(T element)
         {
             if (CurrentElement != null)
@@ -81,6 +113,10 @@ namespace Commons.Util
             }
         }
 
+        /// <summary>
+        /// Checks if the CurrentElement and the PreviousElement are equal.
+        /// </summary>
+        /// <returns>If the two elemens are equal.</returns>
         public bool IsRepeatedElement()
         {
             if (CurrentElement != null && PreviousElement != null)
@@ -93,6 +129,13 @@ namespace Commons.Util
             }
         }
 
+        /// <summary>
+        /// Inserts a new element behind the CurrentElement and moves the CurrentElement to the
+        /// new element. 
+        /// This method removes all elements which came after CurrentElement and leaves
+        /// the inserted element as the new end of the list.
+        /// </summary>
+        /// <param name="element">Element to insert.</param>
         public void AddAtCurrentElementDeleteBehind(T element)
         {
             if (CurrentElement == null)
