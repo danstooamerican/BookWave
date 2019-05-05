@@ -72,7 +72,7 @@
                 Style="{StaticResource MaskTextBox}" />
 
             <!-- Drag Area -->
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"
+            <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"
                 Margin="5, 20, 0, 20">
 
                 <DataGrid ItemsSource="{Binding Chapters}" 
@@ -116,7 +116,7 @@
                         
                     </DataGrid.Columns>
                 </DataGrid>
-            </StackPanel>            
+            </Grid>            
         </Grid>
     </Border>
 
