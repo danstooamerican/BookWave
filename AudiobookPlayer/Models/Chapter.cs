@@ -35,13 +35,19 @@ namespace Commons.Models
             Metadata = new Metadata(track);
         }
 
+        public Chapter(XDocument metadataDoc)
+        {
+            
+            //metadata
+        }
+
         #endregion
 
         #region Methods
 
-        public void ToXML(string path)
+        public XDocument ToXML()
         {
-            var metadataXML = new XElement("Metadata");
+            var chapter = new XElement("Chapter");
             var audioPaths = new XElement("AudioPaths");
             foreach (AudioPath audioPath in AudioPaths)
             {
@@ -51,23 +57,23 @@ namespace Commons.Models
                 pathXML.Add(new XElement("EndMark", audioPath.EndMark));
                 audioPaths.Add(pathXML);
             }
-            metadataXML.Add(audioPaths);
+            chapter.Add(audioPaths);
 
             if (!Metadata.Title.Equals(string.Empty)) //TODO maybe != null?
             {
-                metadataXML.Add(new XElement("Title", Metadata.Title));
+                chapter.Add(new XElement("Title", Metadata.Title));
             } 
             if (Metadata.TrackNumber != 0)
             {
-                metadataXML.Add(new XElement("TrackNumber", Metadata.TrackNumber));
+                chapter.Add(new XElement("TrackNumber", Metadata.TrackNumber));
             }
             if (!Metadata.Description.Equals(string.Empty))
             {
-                metadataXML.Add(new XElement("Description", Metadata.Description));
+                chapter.Add(new XElement("Description", Metadata.Description));
             }
             if (Metadata.ReleaseYear != 0) //TODO what is standard value?
             {
-                metadataXML.Add(new XElement("ReleaseYear", Metadata.ReleaseYear));
+                chapter.Add(new XElement("ReleaseYear", Metadata.ReleaseYear));
             }
             if (Metadata.Contributors.Authors.Count != 0)
             {
@@ -76,7 +82,7 @@ namespace Commons.Models
                 {
                     authors.Add(new XElement("Author", author));
                 }
-                metadataXML.Add(authors);
+                chapter.Add(authors);
             }
             if (Metadata.Contributors.Readers.Count != 0)
             {
@@ -85,14 +91,12 @@ namespace Commons.Models
                 {
                     readers.Add(new XElement("Reader", reader));
                 }
-                metadataXML.Add(readers);
+                chapter.Add(readers);
             }
-            XDocument xdoc = new XDocument();
-            xdoc.Add(metadataXML);
-            xdoc.Save(path);
+            var metadataXML = new XDocument();
+            metadataXML.Add(chapter);
+            return metadataXML;
         }
-
         #endregion
-
     }
 }
