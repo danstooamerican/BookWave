@@ -42,7 +42,7 @@
     <Color x:Key="SideBarBackgroundColor">#020202</Color>
     
     <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}" />
-    <SolidColorBrush x:Key="TextHighlightColorBruch" Color="{StaticResource TextHighlightColor}" />
+    <SolidColorBrush x:Key="TextHighlightColorBrush" Color="{StaticResource TextHighlightColor}" />
     <SolidColorBrush x:Key="TextPressedColorBrush" Color="{StaticResource TextPressedColor}" />
     <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" />
     <SolidColorBrush x:Key="Background1ColorBrush" Color="{StaticResource Background1Color}" />
