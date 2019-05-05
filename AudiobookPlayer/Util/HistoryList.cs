@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Commons.Util
 {
     public class HistoryList<T>
-    {        
+    {
 
         #region Properties
 
@@ -15,7 +15,8 @@ namespace Commons.Util
         public HistoryListElement<T> CurrentElement
         {
             get { return mCurrentElement; }
-            set {
+            private set
+            {
                 PreviousElement = mCurrentElement;
                 mCurrentElement = value;
 
@@ -27,7 +28,7 @@ namespace Commons.Util
         public HistoryListElement<T> PreviousElement
         {
             get { return mPreviousElement; }
-            set { mPreviousElement = value; }
+            private set { mPreviousElement = value; }
         }
 
         #endregion
@@ -54,12 +55,18 @@ namespace Commons.Util
 
         public void Back()
         {
-            CurrentElement = CurrentElement.Previous;
+            if (CurrentElement != null && CurrentElement.Previous != null)
+            {
+                CurrentElement = CurrentElement.Previous;
+            }
         }
 
         public void Forward()
         {
-            CurrentElement = CurrentElement.Next;
+            if (CurrentElement != null && CurrentElement.Next != null)
+            {
+                CurrentElement = CurrentElement.Next;
+            }
         }
 
         public bool IsNotCurrentElement(T element)
@@ -67,7 +74,8 @@ namespace Commons.Util
             if (CurrentElement != null)
             {
                 return !CurrentElement.Element.Equals(element);
-            } else
+            }
+            else
             {
                 return true;
             }
@@ -90,7 +98,8 @@ namespace Commons.Util
             if (CurrentElement == null)
             {
                 CurrentElement = new HistoryListElement<T>(null, null, element);
-            } else
+            }
+            else
             {
                 CurrentElement.Next = new HistoryListElement<T>(null, CurrentElement, element);
                 this.Forward();
