@@ -13,7 +13,7 @@
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBruch}" />
+        <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBrush}" />
         
         <Setter Property="SnapsToDevicePixels"
           Value="True" />
@@ -88,7 +88,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
 
 </ResourceDictionary>
