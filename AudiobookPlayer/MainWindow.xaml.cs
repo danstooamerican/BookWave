@@ -9,13 +9,17 @@ using System.Windows.Controls;
 namespace AudiobookPlayer
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Code behind for the MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
 
         private MainWindowViewModel viewModel;
 
+        /// <summary>
+        /// Creates a new Code behind for the MainWindow. 
+        /// The MenuButton btnStart is preselected.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -29,10 +33,11 @@ namespace AudiobookPlayer
         }
 
         /// <summary>
-        /// Click Handler for all MenuButtons in the left StackPanel
+        /// Handles a click on a MenuButton. Only changes the CurrentElement in
+        /// the HistoryList if the clicked button is not the CurrentElement at the moment.
         /// </summary>
-        /// <param name="sender"></param> MenuButton that was clicked
-        /// <param name="e"></param> EventArgs of the click event
+        /// <param name="sender">MenuButton which was clicked.</param> 
+        /// <param name="e">EventArgs of the click event.</param> 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             if (e.Source is MenuButton clickedMenuBtn)
@@ -49,6 +54,9 @@ namespace AudiobookPlayer
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Updates the MenuBar (sidebar) to select the CurrentElement in the HistoryList.
+        /// </summary>
         private void UpdateNavigationUI()
         {
             MenuButton current = viewModel.NavigationHistory.CurrentElement.Element;
@@ -57,11 +65,15 @@ namespace AudiobookPlayer
             {
                 UpdateClickRect();
 
-                SetSharedPageTitleTemplate();
-
-                viewModel.SelectedPageTitle = current.PageTitle;
+                SetSharedPageTitleTemplate();                
             }                
         }
+        /// <summary>
+        /// Hides the CllickedRect of the previous element if it was set and shows it on the 
+        /// CurrentElement of the HistoryList.
+        /// If the button is set as the PreviousElement in the HistoryList the animation 
+        /// is not played by omitting to set the ClickedRect to hidden.
+        /// </summary>
         private void UpdateClickRect()
         {
             if (!viewModel.NavigationHistory.IsRepeatedElement())
@@ -75,6 +87,12 @@ namespace AudiobookPlayer
             }
             viewModel.NavigationHistory.CurrentElement.Element.ClickedRectVisibility = Visibility.Visible;
         }
+        /// <summary>
+        /// Loads the custom TitleTemplate of the CurrentElement into the SharedPageTitle by setting the
+        /// SharedPageTitleTemplate property in the viewModel.
+        /// 
+        /// <throws>InvalidArgumentException if the template could not be located.</throws>
+        /// </summary>
         private void SetSharedPageTitleTemplate()
         {
             try
@@ -84,21 +102,34 @@ namespace AudiobookPlayer
                 if (current != null)
                 {
                     viewModel.SharedPageTitleTemplate = (ControlTemplate)App.Current.FindResource(current.TitleBarTemplate);
+                    viewModel.SelectedPageTitle = current.PageTitle;
                 }
                 
             }
             catch (NullReferenceException)
             {
-                throw new InvalidArgumentException("Could not load Titlebar.");
+                throw new InvalidArgumentException("Could not load titlebar.");
             }
         }
 
+        /// <summary>
+        /// Performs a PageBack by updating the HistoryList and using the frame navigation.
+        /// This method triggers the UpdateNavigationUI method.
+        /// </summary>
+        /// <param name="sender">Clicked element.</param>
+        /// <param name="e">EventArgs of the click event.</param>
         private void PageBack_Click(object sender, RoutedEventArgs e)
         {
             viewModel.NavigationHistory.Back();
 
             frmPage.GoBack();
         }
+        /// <summary>
+        /// Performs a PageForward by updating the HistoryList and using the frame navigation.
+        /// This method triggers the UpdateNavigationUI method.
+        /// </summary>
+        /// <param name="sender">Clicked element.</param>
+        /// <param name="e">EventArgs of the click event.</param>
         private void PageForward_Click(object sender, RoutedEventArgs e)
         {
             viewModel.NavigationHistory.Forward();

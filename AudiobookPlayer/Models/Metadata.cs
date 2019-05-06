@@ -8,11 +8,17 @@ using System.Threading.Tasks;
 
 namespace Commons.Models
 {
+    /// <summary>
+    /// Basis metadata for audio files.
+    /// </summary>
     public class Metadata : ObservableObject
     {
         #region Public Properties
 
         private string mPath;
+        /// <summary>
+        /// Path of the audio file.
+        /// </summary>
         public string Path
         {
             get { return mPath; }
@@ -20,6 +26,9 @@ namespace Commons.Models
         }
 
         private string mTitle;
+        /// <summary>
+        /// Title of the file.
+        /// </summary>
         public string Title
         {
             get { return mTitle; }
@@ -27,6 +36,9 @@ namespace Commons.Models
         }
 
         private string mDescription;
+        /// <summary>
+        /// Description of the file.
+        /// </summary>
         public string Description
         {
             get { return mDescription; }
@@ -34,6 +46,9 @@ namespace Commons.Models
         }
 
         private Contributors mContributors;
+        /// <summary>
+        /// All contributors.
+        /// </summary>
         public Contributors Contributors
         {
             get { return mContributors; }
@@ -41,6 +56,9 @@ namespace Commons.Models
         }
 
         private DateTime mReleaseDate;
+        /// <summary>
+        /// Release information.
+        /// </summary>
         public DateTime ReleaseDate
         {
             get { return mReleaseDate; }
@@ -51,6 +69,10 @@ namespace Commons.Models
 
         #region Constructors
 
+        /// <summary>
+        /// Creates a new Metadata object off a track.
+        /// </summary>
+        /// <param name="track">Track to reference.</param>
         public Metadata(Track track = null)
         {
             Contributors = new Contributors();
