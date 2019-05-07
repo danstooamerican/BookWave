@@ -3,12 +3,16 @@ using Commons.Models;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
 namespace Commons.Logic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FolderHandler : ObservableObject
     {
         private string mFolderPath;
@@ -35,13 +39,14 @@ namespace Commons.Logic
         public ObservableCollection<Chapter> AnalyzeFolder()
         {
             var chapters = new ObservableCollection<Chapter>();
-            string metadataDirectory = FolderPath + @"\metadata\";
-            if (!Directory.Exists(metadataDirectory))
-            {
-                Directory.CreateDirectory(metadataDirectory);
-            }
-            List<string> metadataFiles = Directory.GetFiles(metadataDirectory, "*.nfo").ToList();
-            var allowedExtensions = new[] { ".mp3", ".aac" };
+            string metadataDirectory = FolderPath + ConfigurationManager.AppSettings.Get("metadata_folder");
+
+            Directory.CreateDirectory(metadataDirectory);
+
+            List<string> metadataFiles = Directory.GetFiles(metadataDirectory, "*." + ConfigurationManager.AppSettings.Get("metadata_extensions")).ToList();
+
+            var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_extensions").Split(',');
+
             List<string> files = Directory
                     .GetFiles(FolderPath)
                     .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
@@ -51,9 +56,12 @@ namespace Commons.Logic
             {
                 // creates new XML file or reads existing XML file to chapter
                 string fileName = Path.GetFileNameWithoutExtension(file);
+
                 var correspondingXMLPath = getFileFromFileName(metadataFiles, fileName);
+
                 XDocument metadataXML;
                 Chapter chapter;
+
                 if (correspondingXMLPath != null)
                 {
                     metadataXML = XDocument.Load(correspondingXMLPath);
@@ -62,12 +70,18 @@ namespace Commons.Logic
                 {
                     chapter = new Chapter(new Track(file));
                     metadataXML = chapter.ToXML();
-                    metadataXML.Save(metadataDirectory + fileName + ".nfo");
+
+                    //TODO: dont save before user finishes editing
+                    metadataXML.Save(metadataDirectory + fileName + "." + ConfigurationManager.AppSettings.Get("metadata_extensions"));
                 }
+
                 chapters.Add(chapter);
             }
+
             return chapters;
         }
+
+
 
         private static string getFileFromFileName(List<string> files, string search)
         {
