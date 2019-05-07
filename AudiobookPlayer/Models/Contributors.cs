@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,6 @@ namespace Commons.Models
     /// </summary>
     public class Contributors : ObservableObject
     {
-
-        #region Private Properties
-
-        private const char DELIMITER = ',';
-        private readonly string DELIM_TEXT = DELIMITER + " ";
-
-        #endregion
 
         #region Public Properties
 
@@ -99,7 +93,7 @@ namespace Commons.Models
         /// <returns></returns>
         private List<string> ParseNameList(string value)
         {
-            string[] split = value.Split(DELIMITER);
+            string[] split = value.Split(char.Parse(ConfigurationManager.AppSettings.Get("text_delimiter")));
 
             List<string> list = new List<string>();
             foreach (string name in split)
@@ -122,6 +116,8 @@ namespace Commons.Models
         /// <returns>string seperated by DELIMITER with the values from the list.</returns>
         private string BuildNameListString(List<string> list)
         {
+            string DELIM_TEXT = ConfigurationManager.AppSettings.Get("text_delimiter") + " ";
+
             StringBuilder sb = new StringBuilder();
             foreach (var item in list)
             {
