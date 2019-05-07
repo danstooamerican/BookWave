@@ -91,24 +91,28 @@
                             ElementStyle="{StaticResource InformationText}"                                            
                             Binding="{Binding Metadata.ReleaseYear}" 
                             Width="auto"
+                            MinWidth="20"                
                             MaxWidth="55"/>
                         
                         <DataGridTextColumn Header="Title" 
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"
                             Binding="{Binding Metadata.Title}" 
+                            MinWidth="80" 
                             Width="2*" />
                         
                         <DataGridTextColumn Header="Author" 
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"
                             Binding="{Binding Metadata.Contributors.AuthorString}"
+                            MinWidth="80" 
                             Width="*" />
                         
                         <DataGridTextColumn Header="Reader" 
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"
                             Binding="{Binding Metadata.Contributors.ReaderString}" 
+                            MinWidth="80" 
                             Width="*" />
                         
                         <DataGridTextColumn Header="Release"
@@ -116,6 +120,7 @@
                             ElementStyle="{StaticResource InformationText}"                            
                             Binding="{Binding Metadata.ReleaseYear}" 
                             Width="auto"
+                            MinWidth="60" 
                             MaxWidth="100" />
                         
                     </DataGrid.Columns>
