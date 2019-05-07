@@ -66,13 +66,7 @@ namespace Commons.ViewModel
 
         public void AnalyzeFolder()
         {
-            try
-            {
-                Chapters = FolderHandler.AnalyzeFolder();
-            } catch (FileNotFoundException)
-            {
-                MessageBox.Show("Selected folder could not be found.");
-            }            
+            Chapters = FolderHandler.AnalyzeFolder();
         }
 
         #endregion

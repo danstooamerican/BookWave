@@ -13,7 +13,7 @@
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBruch}" />
+        <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBrush}" />
         
         <Setter Property="SnapsToDevicePixels"
           Value="True" />
@@ -70,73 +70,19 @@
         </Setter>
     </Style>
 
-    <Style  x:Key="EditTextBlockDisabled" TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
-        <Setter Property="FontWeight" Value="DemiBold" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="Padding" Value="5" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-
-        <Setter Property="SnapsToDevicePixels"
-          Value="True" />
-        <Setter Property="OverridesDefaultStyle"
-          Value="True" />
-        <Setter Property="MinHeight"
-          Value="30" />
+    <Style x:Key="DataGridTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                    <Border Name="Border"
-                            Padding="{TemplateBinding Padding}"
-                            Background="{TemplateBinding Background}">
-
-                        <TextBlock x:Name="lblText"
-                            FontSize="{TemplateBinding FontSize}"
-                            FontWeight="{TemplateBinding FontWeight}"
-                            Padding="4, 2, 0, 0"
-                            Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" 
-                            Style="{StaticResource InformationText}" />
-
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused" Value="true">
-                            <Setter TargetName="lblText" Property="Foreground"
-                                Value="{StaticResource TextHighlightColorBruch}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style  x:Key="EditTextBlockEnabled" TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
-        <Setter Property="FontWeight" Value="DemiBold" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="Padding" Value="5" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBruch}" />
-        <Setter Property="SnapsToDevicePixels"
-          Value="True" />
-        <Setter Property="OverridesDefaultStyle"
-          Value="True" />
-        <Setter Property="KeyboardNavigation.TabNavigation"
-          Value="None" />
-        <Setter Property="FocusVisualStyle"
-          Value="{x:Null}" />
-        <Setter Property="AllowDrop"
-          Value="true" />
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                    <Border Name="Border"
-                            Padding="2"
-                            Background="{TemplateBinding Background}">
-
-                        <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                    <Border Name="Border">
+                        <ScrollViewer VerticalAlignment="Center" Margin="0" x:Name="PART_ContentHost" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
