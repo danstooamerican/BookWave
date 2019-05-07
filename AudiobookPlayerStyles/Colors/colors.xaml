@@ -40,6 +40,9 @@
     <Color x:Key="Background3Color">#282828</Color>
     <Color x:Key="LightBackgroundColor">#656667</Color>
     <Color x:Key="SideBarBackgroundColor">#020202</Color>
+    <Color x:Key="GridBackgroundColor">#181818</Color>
+    <Color x:Key="GridBackgroundHoverColor">#282828</Color>
+    <Color x:Key="GridBackgroundSelectedColor">#333333</Color>
     
     <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}" />
     <SolidColorBrush x:Key="TextHighlightColorBrush" Color="{StaticResource TextHighlightColor}" />
@@ -50,6 +53,9 @@
     <SolidColorBrush x:Key="Background3ColorBrush" Color="{StaticResource Background3Color}" />
     <SolidColorBrush x:Key="LightBackgroundColorBrush" Color="{StaticResource LightBackgroundColor}" />
     <SolidColorBrush x:Key="SideBarBackgroundColorBrush" Color="{StaticResource SideBarBackgroundColor}" />
+    <SolidColorBrush x:Key="GridBackgroundBrush" Color="{StaticResource GridBackgroundColor}" />
+    <SolidColorBrush x:Key="GridBackgroundHoverBrush" Color="{StaticResource GridBackgroundHoverColor}" />
+    <SolidColorBrush x:Key="GridBackgroundSelectedBrush" Color="{StaticResource GridBackgroundSelectedColor}" />
 
     
     <LinearGradientBrush x:Key="MainBackground"

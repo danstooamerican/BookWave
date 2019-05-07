@@ -32,7 +32,7 @@ namespace Commons.Models
         public string Title
         {
             get { return mTitle; }
-            set { Set<string>(() => this.mTitle, ref mTitle, value); }
+            set { Set<string>(() => this.Title, ref mTitle, value); }
         }
 
         private string mDescription;
@@ -55,14 +55,14 @@ namespace Commons.Models
             set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
         }
 
-        private DateTime mReleaseDate;
+        private int mReleaseYear;
         /// <summary>
-        /// Release information.
+        /// Release Year.
         /// </summary>
-        public DateTime ReleaseDate
+        public int ReleaseYear
         {
-            get { return mReleaseDate; }
-            set { mReleaseDate = value; }
+            get { return mReleaseYear; }
+            set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
         }
 
         #endregion
@@ -82,7 +82,7 @@ namespace Commons.Models
                 Path = track.Path;
                 Title = track.Title;
                 Description = track.Description;
-                ReleaseDate = new DateTime(track.Year, 0, 0);
+                ReleaseYear = track.Year;
 
                 Contributors.Authors.Add(track.Artist);
             }

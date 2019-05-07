@@ -14,6 +14,13 @@ namespace Commons.Models
     public class Contributors : ObservableObject
     {
 
+        #region Private Properties
+
+        private const char DELIMITER = ',';
+        private readonly string DELIM_TEXT = DELIMITER + " ";
+
+        #endregion
+
         #region Public Properties
 
         private ObservableCollection<string> mAuthors;
@@ -44,15 +51,23 @@ namespace Commons.Models
         public string AuthorString {
             get
             {
-                StringBuilder sb = new StringBuilder();
-                foreach (var item in Authors)
-                {
-                    sb.Append(item).Append(", ");
-                }
+                return BuildNameListString(Authors);
+            }
+            set
+            {
+                Authors = ParseNameList(value);
+            }
+        }
 
-                sb.Length = Math.Max(sb.Length - 2, 0);
-
-                return sb.ToString();
+        public string ReaderString
+        {
+            get
+            {
+                return BuildNameListString(Readers);
+            }
+            set
+            {
+                Readers = ParseNameList(value);
             }
         }
 
@@ -68,6 +83,40 @@ namespace Commons.Models
         {
             Authors = new ObservableCollection<string>();
             Readers = new ObservableCollection<string>();
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        private ObservableCollection<string> ParseNameList(string value)
+        {
+            string[] split = value.Split(DELIMITER);
+
+            ObservableCollection<string> list = new ObservableCollection<string>();
+            foreach (string name in split)
+            {
+                if (!name.Trim().Equals(string.Empty)
+                    && !list.Contains(name.Trim()))
+                {
+                    list.Add(name.Trim());
+                }
+            }
+
+            return list;
+        }
+
+        private string BuildNameListString(ObservableCollection<string> list)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in list)
+            {
+                sb.Append(item).Append(DELIM_TEXT);
+            }
+
+            sb.Length = Math.Max(sb.Length - DELIM_TEXT.Length, 0);
+
+            return sb.ToString();
         }
 
         #endregion
