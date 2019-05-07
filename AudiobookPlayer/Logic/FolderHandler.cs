@@ -16,7 +16,7 @@ namespace Commons.Logic
             get { return mFolderPath; }
             set
             {
-                if (Directory.Exists(value))
+                if (value != null && (Directory.Exists(value) || value.Equals(string.Empty)))
                 {
                     Set<string>(() => this.FolderPath, ref mFolderPath, value);
                 } else
@@ -28,7 +28,7 @@ namespace Commons.Logic
 
         public FolderHandler()
         {
-            FolderPath = string.Empty;
+            mFolderPath = string.Empty;
         }
 
         public ObservableCollection<Chapter> AnalyzeFolder()
@@ -52,7 +52,7 @@ namespace Commons.Logic
                 return chapters;
             } else
             {
-                throw new FileNotFoundException();
+                return new ObservableCollection<Chapter>();
             }            
         }
 
