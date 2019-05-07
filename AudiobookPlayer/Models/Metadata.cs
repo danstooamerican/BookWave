@@ -1,10 +1,5 @@
 ﻿using ATL;
 using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Commons.Models
 {
@@ -15,16 +10,6 @@ namespace Commons.Models
     {
         #region Public Properties
 
-        private string mPath;
-        /// <summary>
-        /// Path of the audio file.
-        /// </summary>
-        public string Path
-        {
-            get { return mPath; }
-            set { Set<string>(() => this.Path, ref mPath, value); }
-        }
-
         private string mTitle;
         /// <summary>
         /// Title of the file.
@@ -33,6 +18,13 @@ namespace Commons.Models
         {
             get { return mTitle; }
             set { Set<string>(() => this.Title, ref mTitle, value); }
+        }
+
+        private int mTrackNumber;
+        public int TrackNumber
+        {
+            get { return mTrackNumber; }
+            set { Set<int>(() => this.TrackNumber, ref mTrackNumber, value); }
         }
 
         private string mDescription;
@@ -79,12 +71,12 @@ namespace Commons.Models
 
             if (track != null)
             {
-                Path = track.Path;
                 Title = track.Title;
+                TrackNumber = track.TrackNumber;
                 Description = track.Description;
                 ReleaseYear = track.Year;
 
-                Contributors.Authors.Add(track.Artist);
+                Contributors.AuthorString = track.Artist;
             }
         }
 
