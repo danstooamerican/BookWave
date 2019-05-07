@@ -43,6 +43,11 @@ namespace Commons.Pages
             parent.RaiseEvent(eventArg);
         }
 
+        /// <summary>
+        /// Handle drop of folder in datagrid. Only one folder at a time is allowed.
+        /// </summary>
+        /// <param name="sender">sender of the drop event</param>
+        /// <param name="e">event args</param>
         private void DtgChapters_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))

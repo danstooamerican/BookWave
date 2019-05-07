@@ -55,6 +55,9 @@ namespace Commons.ViewModel
 
         #region Methods
 
+        /// <summary>
+        /// Opens a FolderBrowserDialog and sets the FolderPath of the FolderHandler.
+        /// </summary>
         public void SelectFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
@@ -64,6 +67,9 @@ namespace Commons.ViewModel
             }
         }
 
+        /// <summary>
+        /// Analyzes the selected folder and updates the chapter list.
+        /// </summary>
         public void AnalyzeFolder()
         {
             Chapters = FolderHandler.AnalyzeFolder();

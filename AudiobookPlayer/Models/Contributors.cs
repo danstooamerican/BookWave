@@ -89,6 +89,14 @@ namespace Commons.Models
 
         #region Helper Methods
 
+        //TODO: move this logic to the view model or a converter
+
+        /// <summary>
+        /// Turns a string which is seperated by the DELIMITER into a
+        /// List of strings.
+        /// </summary>
+        /// <param name="value">string with a DELIMITER seperated list of values.</param>
+        /// <returns></returns>
         private List<string> ParseNameList(string value)
         {
             string[] split = value.Split(DELIMITER);
@@ -106,6 +114,12 @@ namespace Commons.Models
             return list;
         }
 
+        /// <summary>
+        /// Creates a string representation of a List with strings.
+        /// The values of DELIMITER is used to seperate the values.
+        /// </summary>
+        /// <param name="list">List with the elements to be included in the string.</param>
+        /// <returns>string seperated by DELIMITER with the values from the list.</returns>
         private string BuildNameListString(List<string> list)
         {
             StringBuilder sb = new StringBuilder();
