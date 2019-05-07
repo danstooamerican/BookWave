@@ -25,5 +25,20 @@ namespace Commons.Pages
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Capture the MouseWheel event of the DataGrid and pass it to the parent
+        /// so it can be boubbled to the scroll viewer in the MainWindow.
+        /// </summary>
+        /// <param name="sender">mouse wheel event sender</param>
+        /// <param name="e">event args</param>
+        private void DtgChapters_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            e.Handled = true;
+            var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
+            eventArg.RoutedEvent = UIElement.MouseWheelEvent;
+            eventArg.Source = sender;
+            var parent = ((Control)sender).Parent as UIElement;
+            parent.RaiseEvent(eventArg);
+        }
     }
 }
