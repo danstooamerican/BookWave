@@ -89,7 +89,7 @@
                         <DataGridTextColumn Header="#"
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"                                            
-                            Binding="{Binding Metadata.ReleaseYear}" 
+                            Binding="{Binding Metadata.TrackNumber}" 
                             Width="auto"
                             MaxWidth="55"/>
                         
