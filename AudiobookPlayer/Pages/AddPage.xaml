@@ -77,6 +77,8 @@
 
                 <DataGrid ItemsSource="{Binding Chapters}" 
                     x:Name="dtgChapters"
+                    AllowDrop="True"
+                    Drop="DtgChapters_Drop"
                     PreviewMouseWheel="DtgChapters_PreviewMouseWheel"
                     Style="{StaticResource DataGrid}"
                     Width="{Binding Path=ActualWidth, 
