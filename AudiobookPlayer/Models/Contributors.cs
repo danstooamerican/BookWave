@@ -23,24 +23,24 @@ namespace Commons.Models
 
         #region Public Properties
 
-        private ObservableCollection<string> mAuthors;
+        private List<string> mAuthors;
         /// <summary>
         /// List of authors.
         /// </summary>
-        public ObservableCollection<string> Authors
+        public List<string> Authors
         {
             get { return mAuthors; }
-            set { Set<ObservableCollection<string>>(() => this.Authors, ref mAuthors, value); }
+            set { Set<List<string>>(() => this.Authors, ref mAuthors, value); }
         }
 
-        private ObservableCollection<string> mReaders;
+        private List<string> mReaders;
         /// <summary>
         /// List of readers.
         /// </summary>
-        public ObservableCollection<string>  Readers
+        public List<string>  Readers
         {
             get { return mReaders; }
-            set { Set<ObservableCollection<string>>(() => this.Readers, ref mReaders, value); }
+            set { Set<List<string>>(() => this.Readers, ref mReaders, value); }
         }
 
         /// <summary>
@@ -81,19 +81,19 @@ namespace Commons.Models
         /// </summary>
         public Contributors()
         {
-            Authors = new ObservableCollection<string>();
-            Readers = new ObservableCollection<string>();
+            Authors = new List<string>();
+            Readers = new List<string>();
         }
 
         #endregion
 
         #region Helper Methods
 
-        private ObservableCollection<string> ParseNameList(string value)
+        private List<string> ParseNameList(string value)
         {
             string[] split = value.Split(DELIMITER);
 
-            ObservableCollection<string> list = new ObservableCollection<string>();
+            List<string> list = new List<string>();
             foreach (string name in split)
             {
                 if (!name.Trim().Equals(string.Empty)
@@ -106,7 +106,7 @@ namespace Commons.Models
             return list;
         }
 
-        private string BuildNameListString(ObservableCollection<string> list)
+        private string BuildNameListString(List<string> list)
         {
             StringBuilder sb = new StringBuilder();
             foreach (var item in list)

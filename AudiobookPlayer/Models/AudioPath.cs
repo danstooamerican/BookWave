@@ -87,6 +87,10 @@ namespace Commons.Models
             EndMark = endMark;
         }
 
+        public AudioPath()
+        {
+        }
+
         #endregion
 
     }

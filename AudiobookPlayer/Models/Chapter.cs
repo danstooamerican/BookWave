@@ -1,6 +1,10 @@
 ﻿using ATL;
 using GalaSoft.MvvmLight;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace Commons.Models
@@ -13,15 +17,15 @@ namespace Commons.Models
 
         #region Public Properties
 
-        private ObservableCollection<AudioPath> mAudioPaths;
+        private List<AudioPath> mAudioPaths;
         /// <summary>
         /// List of AudioPaths to allow a chapter to include more than 
         /// one audio file or just a part of it.
         /// </summary>
-        public ObservableCollection<AudioPath> AudioPaths
+        public List<AudioPath> AudioPaths
         {
             get { return mAudioPaths; }
-            set { Set<ObservableCollection<AudioPath>>(() => this.AudioPaths, ref mAudioPaths, value); }
+            set { Set<List<AudioPath>>(() => this.AudioPaths, ref mAudioPaths, value); }
         }
 
         private Metadata mMetadata;
@@ -38,22 +42,65 @@ namespace Commons.Models
 
         #region Constructors
 
+        private Chapter()
+        {
+            AudioPaths = new List<AudioPath>();
+            Metadata = new Metadata();
+        }
+
         /// <summary>
         /// Creates a chapter off a single audio file and initializes 
         /// the metadata with the track's metadata.
         /// </summary>
         /// <param name="track">Track to reference</param>
-        public Chapter(Track track)
+        public Chapter(Track track) : this()
         {
-            AudioPaths = new ObservableCollection<AudioPath>();
             AudioPaths.Add(new AudioPath(track.Path, 0, -1));
             Metadata = new Metadata(track);
         }
 
-        public Chapter(XDocument metadataDoc)
+        public Chapter(XDocument metadataDoc) : this()
         {
             
-            //metadata
+            IEnumerable<AudioPath> audioPath = from c in metadataDoc.Descendants("AudioPath")
+            select new AudioPath()
+            {
+                Path = (string) c.Element("FilePath"),
+                StartMark = (int) c.Element("StartMark"),
+                EndMark = (int) c.Element("EndMark")
+            };
+
+            IEnumerable<string> authors = from c in metadataDoc.Descendants("Author")
+                                          select (string) c.Value;
+
+            IEnumerable<string> readers = from c in metadataDoc.Descendants("Reader")
+                                          select (string)c.Value;
+
+            Metadata.Contributors.Authors.AddRange(authors);
+            Metadata.Contributors.Readers.AddRange(readers);
+            Metadata.Title = GetSingleElement(metadataDoc, "Title");
+
+            //TODO regex move to GetSingleElement
+            string strTrackNumber = GetSingleElement(metadataDoc, "TrackNumber");
+            if (Regex.IsMatch(strTrackNumber, "[0-9]+"))
+            {
+                Metadata.TrackNumber = int.Parse(strTrackNumber);
+            }
+            string strReleaseYear = GetSingleElement(metadataDoc, "ReleaseYear");
+            if (Regex.IsMatch(strTrackNumber, "[0-9]+"))
+            {
+                Metadata.ReleaseYear = int.Parse(strReleaseYear);
+            }
+        }
+
+        private static string GetSingleElement(XDocument doc, string name)
+        {
+            var descendents = doc.Descendants(name);
+            if (descendents.Count() > 0)
+            {
+                return descendents.First().Value;
+            }
+            return string.Empty;
         }
 
         #endregion
