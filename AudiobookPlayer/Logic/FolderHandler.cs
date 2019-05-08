@@ -41,6 +41,8 @@ namespace Commons.Logic
             }
         }
 
+        #endregion
+
         #region Events
 
         public delegate void FolderPathCleared();
