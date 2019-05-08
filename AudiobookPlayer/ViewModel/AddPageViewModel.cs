@@ -2,13 +2,7 @@
 using Commons.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -19,12 +13,12 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private ObservableCollection<Chapter> mChapters;
+        private List<Chapter> mChapters;
 
-        public ObservableCollection<Chapter> Chapters
+        public List<Chapter> Chapters
         {
             get { return mChapters; }
-            set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
+            set { Set<List<Chapter>>(() => this.Chapters, ref mChapters, value); }
         }
 
         public FolderHandler FolderHandler { get; set; }
@@ -48,7 +42,7 @@ namespace Commons.ViewModel
             SelectFolderCommand = new RelayCommand(SelectFolder);
             AnalyzeFolderCommand = new RelayCommand(AnalyzeFolder);
 
-            Chapters = new ObservableCollection<Chapter>();
+            Chapters = new List<Chapter>();
         }
 
         #endregion
