@@ -2,10 +2,7 @@
 using Commons.Logic;
 using Commons.Util;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace Commons.ViewModel
 {
