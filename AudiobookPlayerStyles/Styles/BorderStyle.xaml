@@ -23,4 +23,10 @@
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
+    <Style x:Key="DropArea" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource GridBackgroundSelectedBrush}" />
+        <Setter Property="Opacity" Value="0.8" />
+    </Style>
+
 </ResourceDictionary>

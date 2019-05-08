@@ -27,7 +27,6 @@ namespace Commons.ViewModel
             set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
         }
 
-        private FolderHandler mFolderHandler;
         public FolderHandler FolderHandler { get; set; }
 
         #endregion
@@ -44,6 +43,7 @@ namespace Commons.ViewModel
         public AddPageViewModel()
         {
             FolderHandler = new FolderHandler();
+            FolderHandler.FolderPathClearedEvent += ClearChapters;
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             AnalyzeFolderCommand = new RelayCommand(AnalyzeFolder);
@@ -54,6 +54,11 @@ namespace Commons.ViewModel
         #endregion
 
         #region Methods
+
+        private void ClearChapters()
+        {
+            Chapters.Clear();
+        }
 
         /// <summary>
         /// Opens a FolderBrowserDialog and sets the FolderPath of the FolderHandler.

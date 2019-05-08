@@ -78,7 +78,7 @@
                 <DataGrid ItemsSource="{Binding Chapters}" 
                     x:Name="dtgChapters"
                     AllowDrop="True"
-                    Drop="DtgChapters_Drop"
+                    Drop="PerformDrop"
                     PreviewMouseWheel="DtgChapters_PreviewMouseWheel"
                     Style="{StaticResource DataGrid}"
                     Width="{Binding Path=ActualWidth, 
@@ -125,6 +125,11 @@
                         
                     </DataGrid.Columns>
                 </DataGrid>
+
+                <Border x:Name="dropArea" Visibility="{Binding Chapters.Count, Converter={StaticResource ChaptersToVisibleConverter}}"
+                    Style="{StaticResource DropArea}" AllowDrop="True" Drop="PerformDrop">
+                    <TextBlock Text="Drop Folder" Style="{StaticResource DropText}" />
+                </Border>
             </Grid>            
         </Grid>
     </Border>

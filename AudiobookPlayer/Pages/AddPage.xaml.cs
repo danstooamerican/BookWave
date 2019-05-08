@@ -48,7 +48,7 @@ namespace Commons.Pages
         /// </summary>
         /// <param name="sender">sender of the drop event</param>
         /// <param name="e">event args</param>
-        private void DtgChapters_Drop(object sender, DragEventArgs e)
+        private void PerformDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -62,7 +62,7 @@ namespace Commons.Pages
 
                         viewModel.FolderHandler.FolderPath = files[0];
                         viewModel.AnalyzeFolder();
-                    }                    
+                    }
                 }
             }
         }
