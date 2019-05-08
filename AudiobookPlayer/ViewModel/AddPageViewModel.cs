@@ -19,15 +19,14 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private ObservableCollection<Chapter> mChapters;
+        private List<Chapter> mChapters;
 
-        public ObservableCollection<Chapter> Chapters
+        public List<Chapter> Chapters
         {
             get { return mChapters; }
-            set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
+            set { Set<List<Chapter>>(() => this.Chapters, ref mChapters, value); }
         }
 
-        private FolderHandler mFolderHandler;
         public FolderHandler FolderHandler { get; set; }
 
         #endregion
@@ -48,7 +47,7 @@ namespace Commons.ViewModel
             SelectFolderCommand = new RelayCommand(SelectFolder);
             AnalyzeFolderCommand = new RelayCommand(AnalyzeFolder);
 
-            Chapters = new ObservableCollection<Chapter>();
+            Chapters = new List<Chapter>();
         }
 
         #endregion

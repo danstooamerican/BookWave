@@ -1,20 +1,21 @@
 ﻿using ATL;
 using Commons.Models;
+using Commons.Util;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace Commons.Logic
 {
     /// <summary>
-    /// 
+    /// Can analyze a folder and scan for audiofiles and metadata.
     /// </summary>
     public class FolderHandler : ObservableObject
     {
+
+        #region Public Properties
         private string mFolderPath;
         public string FolderPath
         {
@@ -31,14 +32,25 @@ namespace Commons.Logic
             }
         }
 
+        #endregion
+
         public FolderHandler()
         {
             mFolderPath = string.Empty;
         }
 
-        public ObservableCollection<Chapter> AnalyzeFolder()
+        #region Methods
+
+        /// <summary>
+        /// Analyzes the folder of the FolderHandler.
+        /// Searches for audiofiles and metadata and 
+        /// creates metadata for the audiofiles with 
+        /// no metadata.
+        /// </summary>
+        /// <returns>List of chapters in the folder.</returns>
+        public List<Chapter> AnalyzeFolder()
         {
-            var chapters = new ObservableCollection<Chapter>();
+            var chapters = new List<Chapter>();
             string metadataDirectory = FolderPath + ConfigurationManager.AppSettings.Get("metadata_folder");
 
             Directory.CreateDirectory(metadataDirectory);
@@ -57,33 +69,32 @@ namespace Commons.Logic
                 // creates new XML file or reads existing XML file to chapter
                 string fileName = Path.GetFileNameWithoutExtension(file);
 
-                var correspondingXMLPath = getFileFromFileName(metadataFiles, fileName);
-
-                XDocument metadataXML;
+                var correspondingXMLPath = GetFileFromFileName(metadataFiles, fileName);
                 Chapter chapter;
 
                 if (correspondingXMLPath != null)
                 {
-                    metadataXML = XDocument.Load(correspondingXMLPath);
-                    chapter = new Chapter(metadataXML);
+                    chapter = XMLHelper.XMLToChapter(correspondingXMLPath);
                 } else
                 {
                     chapter = new Chapter(new Track(file));
-                    metadataXML = chapter.ToXML();
-
-                    //TODO: dont save before user finishes editing
-                    metadataXML.Save(metadataDirectory + fileName + "." + ConfigurationManager.AppSettings.Get("metadata_extensions"));
+                    XMLHelper.SaveChapterToXML(chapter, metadataDirectory + fileName + "."
+                + ConfigurationManager.AppSettings.Get("metadata_extensions"));
                 }
 
                 chapters.Add(chapter);
             }
-
             return chapters;
         }
 
 
-
-        private static string getFileFromFileName(List<string> files, string search)
+        /// <summary>
+        /// Searches in a List of file paths for a specific file name.
+        /// </summary>
+        /// <param name="files">is the List of file paths.</param>
+        /// <param name="search">is the file name.</param>
+        /// <returns></returns>
+        private static string GetFileFromFileName(List<string> files, string search)
         {
             foreach (string file in files)
             {
@@ -94,5 +105,6 @@ namespace Commons.Logic
             }
             return null;
         }
+        #endregion
     }
 }
