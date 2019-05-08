@@ -16,20 +16,40 @@ namespace Commons.Logic
     public class FolderHandler : ObservableObject
     {
         private string mFolderPath;
+        /// <summary>
+        /// Path of the currently selected folder. Only valid Directories and string.Empty
+        /// are allowed values. This property does not recognize if the folder gets deleted
+        /// after it has been selected.
+        /// </summary>
         public string FolderPath
         {
             get { return mFolderPath; }
             set
             {
-                if (value != null && (Directory.Exists(value) || value.Equals(string.Empty)))
+                if (Directory.Exists(value))
                 {
                     Set<string>(() => this.FolderPath, ref mFolderPath, value);
                 } else
                 {
-                    Set<string>(() => this.FolderPath, ref mFolderPath, mFolderPath);
+                    if (value != null && value.Equals(string.Empty))
+                    {
+                         Set<string>(() => this.FolderPath, ref mFolderPath, value);
+                         FolderPathClearedEvent?.Invoke();
+                    }                    
                 }
             }
         }
+
+        #region Events
+
+        public delegate void FolderPathCleared();
+
+        /// <summary>
+        /// Event which gets fired every time the FolderPath is empty.
+        /// </summary>
+        public event FolderPathCleared FolderPathClearedEvent;
+
+        #endregion
 
         public FolderHandler()
         {
