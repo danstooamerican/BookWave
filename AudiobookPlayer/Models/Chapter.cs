@@ -1,11 +1,6 @@
 ﻿using ATL;
 using GalaSoft.MvvmLight;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
 
 namespace Commons.Models
 {
