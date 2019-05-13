@@ -70,6 +70,10 @@ namespace Commons.Logic
         /// <returns>List of chapters in the folder.</returns>
         public List<Chapter> AnalyzeFolder()
         {
+            if (FolderPath.Equals(string.Empty))
+            {
+                return new List<Chapter>();
+            }
             var chapters = new List<Chapter>();
             string metadataDirectory = FolderPath + ConfigurationManager.AppSettings.Get("metadata_folder");
 
