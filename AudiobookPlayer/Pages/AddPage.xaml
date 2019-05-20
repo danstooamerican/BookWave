@@ -51,15 +51,6 @@
                     Margin="0, 0, 15, 0"/>
 
                 <lib:ImageButton
-                    NormalImage="/Commons.Styles;component/Resources/Misc/check.png"
-                    HoverImage="/Commons.Styles;component/Resources/Misc/check_hover.png"
-                    PressedImage="/Commons.Styles;component/Resources/Misc/check_pressed.png"
-                    DisabledImage="/Commons.Styles;component/Resources/Misc/check_pressed.png"
-                    ImageSize="25"
-                    Command="{Binding AnalyzeFolderCommand}"
-                    Margin="0, 0, 15, 0"/>
-                
-                <lib:ImageButton
                     NormalImage="/Commons.Styles;component/Resources/Misc/save.png"
                     HoverImage="/Commons.Styles;component/Resources/Misc/save_hover.png"
                     PressedImage="/Commons.Styles;component/Resources/Misc/save_pressed.png"

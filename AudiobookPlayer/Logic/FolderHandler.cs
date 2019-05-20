@@ -32,6 +32,7 @@ namespace Commons.Logic
                 if (Directory.Exists(value))
                 {
                     Set<string>(() => this.FolderPath, ref mFolderPath, value);
+                    FolderPathSetEvent?.Invoke();
                 } else
                 {
                     if (value != null && value.Equals(string.Empty))
@@ -53,6 +54,13 @@ namespace Commons.Logic
         /// Event which gets fired every time the FolderPath is empty.
         /// </summary>
         public event FolderPathCleared FolderPathClearedEvent;
+
+        public delegate void FolderPathSet();
+
+        /// <summary>
+        /// Event which gets fired every time the FolderPath is set.
+        /// </summary>
+        public event FolderPathCleared FolderPathSetEvent;
 
         #endregion
 

@@ -30,8 +30,6 @@ namespace Commons.ViewModel
         #region Commands
         public ICommand SelectFolderCommand { private set; get; }
 
-        public ICommand AnalyzeFolderCommand { private set; get; }
-
         public ICommand SaveAudiobookCommand { private set; get; }
 
         #endregion
@@ -43,9 +41,9 @@ namespace Commons.ViewModel
             FolderHandler = new FolderHandler();
             Audiobook = new Audiobook();
             FolderHandler.FolderPathClearedEvent += Audiobook.ClearChapters;
+            FolderHandler.FolderPathSetEvent += AnalyzeFolder;
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
-            AnalyzeFolderCommand = new RelayCommand(AnalyzeFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
         }
 
@@ -68,7 +66,7 @@ namespace Commons.ViewModel
         /// <summary>
         /// Analyzes the selected folder and updates the chapter list.
         /// </summary>
-        public void AnalyzeFolder()
+        private void AnalyzeFolder()
         {
             Audiobook.Chapters =
                 new ObservableCollection<Chapter>(FolderHandler.AnalyzeFolder());
