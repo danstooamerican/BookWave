@@ -11,8 +11,6 @@ namespace Commons.Util
     /// </summary>
     public class XMLHelper
     {
-        public static IEnumerable<AudioPath> AudioPaths { get; private set; }
-
         /// <summary>
         /// Creates a chapter from an XML file.
         /// </summary>
@@ -22,7 +20,7 @@ namespace Commons.Util
         {
             XDocument metadataDoc = XDocument.Load(path);
 
-            IEnumerable<AudioPath> audioPath = from c in metadataDoc.Descendants("AudioPath")
+            IEnumerable<AudioPath> audioPaths = from c in metadataDoc.Descendants("AudioPath")
                                                select new AudioPath()
                                                {
                                                    Path = (string)c.Element("FilePath"),
@@ -54,7 +52,7 @@ namespace Commons.Util
                 metadata.ReleaseYear = int.Parse(strReleaseYear);
             }
 
-            return new Chapter(metadata);
+            return new Chapter(metadata, new List<AudioPath>(audioPaths));
         }
 
         /// <summary>
@@ -65,7 +63,6 @@ namespace Commons.Util
         public static void SaveChapterToXML(Chapter chapter, string path)
         {
             var metadataXML = ChapterToXML(chapter);
-            //TODO: dont save before user finishes editing
             metadataXML.Save(path);
         }
 
@@ -78,7 +75,7 @@ namespace Commons.Util
         {
             var chapterXML = new XElement("Chapter");
             var audioPaths = new XElement("AudioPaths");
-            foreach (AudioPath audioPath in AudioPaths)
+            foreach (AudioPath audioPath in chapter.AudioPaths)
             {
                 var pathXML = new XElement("AudioPath");
                 pathXML.Add(new XElement("FilePath", audioPath.Path));
@@ -116,7 +113,7 @@ namespace Commons.Util
             if (chapter.Metadata.Contributors.Readers.Count != 0)
             {
                 XElement readers = new XElement("Readers");
-                foreach (string reader in chapter.Metadata.Contributors.Authors)
+                foreach (string reader in chapter.Metadata.Contributors.Readers)
                 {
                     readers.Add(new XElement("Reader", reader));
                 }

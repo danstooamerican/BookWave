@@ -182,5 +182,14 @@
     <Resource Include="Resources\Misc\folder_hover.png" />
     <Resource Include="Resources\Misc\folder_pressed.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\save_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\save_pressed.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

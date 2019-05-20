@@ -68,6 +68,10 @@ namespace Commons.Models
         public Metadata(Track track = null)
         {
             Contributors = new Contributors();
+            Title = string.Empty;
+            Description = string.Empty;
+            TrackNumber = -1;
+            ReleaseYear = -1;
 
             if (track != null)
             {

@@ -2,7 +2,9 @@
 using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -77,9 +79,10 @@ namespace Commons.Logic
             var chapters = new List<Chapter>();
             string metadataDirectory = FolderPath + ConfigurationManager.AppSettings.Get("metadata_folder");
 
-            Directory.CreateDirectory(metadataDirectory);
-
-            List<string> metadataFiles = Directory.GetFiles(metadataDirectory, "*." + ConfigurationManager.AppSettings.Get("metadata_extensions")).ToList();
+            List<string> metadataFiles =
+                Directory.Exists(metadataDirectory) 
+                ? Directory.GetFiles(metadataDirectory, "*." + ConfigurationManager.AppSettings.Get("metadata_extensions")).ToList() 
+                : new List<string>();
 
             var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_extensions").Split(',');
 
@@ -102,13 +105,26 @@ namespace Commons.Logic
                 } else
                 {
                     chapter = new Chapter(new Track(file));
-                    XMLHelper.SaveChapterToXML(chapter, metadataDirectory + fileName + "."
-                + ConfigurationManager.AppSettings.Get("metadata_extensions"));
                 }
 
                 chapters.Add(chapter);
             }
             return chapters;
+        }
+
+        public void SaveAudiobook(ObservableCollection<Chapter> chapters)
+        {
+            string metadataDirectory = FolderPath + ConfigurationManager.AppSettings.Get("metadata_folder");
+            Directory.CreateDirectory(metadataDirectory);
+            foreach (Chapter chapter in chapters)
+            {
+                foreach (AudioPath audioPath in chapter.AudioPaths)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(audioPath.Path);
+                    XMLHelper.SaveChapterToXML(chapter, metadataDirectory + fileName + "."
+                        + ConfigurationManager.AppSettings.Get("metadata_extensions"));
+                }
+            }
         }
 
 

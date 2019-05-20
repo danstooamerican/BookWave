@@ -14,13 +14,14 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private ObservableCollection<Chapter> mChapters;
+        private Audiobook mAudiobook;
 
-        public ObservableCollection<Chapter> Chapters
+        public Audiobook Audiobook
         {
-            get { return mChapters; }
-            set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
+            get { return mAudiobook; }
+            set { Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value); }
         }
+
 
         public FolderHandler FolderHandler { get; set; }
 
@@ -31,6 +32,8 @@ namespace Commons.ViewModel
 
         public ICommand AnalyzeFolderCommand { private set; get; }
 
+        public ICommand SaveAudiobookCommand { private set; get; }
+
         #endregion
 
         #region Constructors
@@ -38,27 +41,22 @@ namespace Commons.ViewModel
         public AddPageViewModel()
         {
             FolderHandler = new FolderHandler();
-            FolderHandler.FolderPathClearedEvent += ClearChapters;
+            Audiobook = new Audiobook();
+            FolderHandler.FolderPathClearedEvent += Audiobook.ClearChapters;
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             AnalyzeFolderCommand = new RelayCommand(AnalyzeFolder);
-
-            Chapters = new ObservableCollection<Chapter>();
+            SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
         }
 
         #endregion
 
         #region Methods
 
-        private void ClearChapters()
-        {
-            Chapters.Clear();
-        }
-
         /// <summary>
         /// Opens a FolderBrowserDialog and sets the FolderPath of the FolderHandler.
         /// </summary>
-        public void SelectFolder()
+        private void SelectFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
@@ -72,7 +70,19 @@ namespace Commons.ViewModel
         /// </summary>
         public void AnalyzeFolder()
         {
-            Chapters = new ObservableCollection<Chapter>(FolderHandler.AnalyzeFolder());
+            Audiobook.Chapters =
+                new ObservableCollection<Chapter>(FolderHandler.AnalyzeFolder());
+        }
+
+
+        private void SaveAudiobook()
+        {
+            FolderHandler.SaveAudiobook(Audiobook.Chapters);
+        }
+
+        private bool CanSaveAudiobook()
+        {
+            return Audiobook.Chapters.Count > 0;
         }
 
         #endregion

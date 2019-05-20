@@ -56,7 +56,16 @@
                     PressedImage="/Commons.Styles;component/Resources/Misc/check_pressed.png"
                     DisabledImage="/Commons.Styles;component/Resources/Misc/check_pressed.png"
                     ImageSize="25"
-                    Command="{Binding AnalyzeFolderCommand}"/>
+                    Command="{Binding AnalyzeFolderCommand}"
+                    Margin="0, 0, 15, 0"/>
+                
+                <lib:ImageButton
+                    NormalImage="/Commons.Styles;component/Resources/Misc/save.png"
+                    HoverImage="/Commons.Styles;component/Resources/Misc/save_hover.png"
+                    PressedImage="/Commons.Styles;component/Resources/Misc/save_pressed.png"
+                    DisabledImage="/Commons.Styles;component/Resources/Misc/save_pressed.png"
+                    ImageSize="25"
+                    Command="{Binding SaveAudiobookCommand}"/>
             </StackPanel>
             
             <!-- Title -->
@@ -75,7 +84,7 @@
             <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"
                 Margin="5, 20, 0, 20">
 
-                <DataGrid ItemsSource="{Binding Chapters}" 
+                <DataGrid ItemsSource="{Binding Audiobook.Chapters}" 
                     x:Name="dtgChapters"
                     AllowDrop="True"
                     Drop="PerformDrop"
@@ -126,7 +135,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Border x:Name="dropArea" Visibility="{Binding Chapters.Count, Converter={StaticResource ChaptersToVisibleConverter}}"
+                <Border x:Name="dropArea" Visibility="{Binding Audiobook.Chapters.Count, Converter={StaticResource ChaptersToVisibleConverter}}"
                     Style="{StaticResource DropArea}" AllowDrop="True" Drop="PerformDrop">
                     <TextBlock Text="Drop Folder" Style="{StaticResource DropText}" />
                 </Border>

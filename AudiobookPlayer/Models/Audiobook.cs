@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Commons.Models
@@ -34,6 +35,16 @@ namespace Commons.Models
 
 
         #endregion
+
+        public Audiobook()
+        {
+            Chapters = new ObservableCollection<Chapter>();
+        }
+
+        public void ClearChapters()
+        {
+            Chapters.Clear();
+        }
 
     }
 }

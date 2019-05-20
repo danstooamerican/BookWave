@@ -37,26 +37,22 @@ namespace Commons.Models
 
         #region Constructors
 
-        private Chapter()
-        {
-            AudioPaths = new List<AudioPath>();
-            Metadata = new Metadata();
-        }
-
         /// <summary>
         /// Creates a chapter off a single audio file and initializes 
         /// the metadata with the track's metadata.
         /// </summary>
         /// <param name="track">Track to reference</param>
-        public Chapter(Track track) : this()
+        public Chapter(Track track)
         {
+            AudioPaths = new List<AudioPath>();
             AudioPaths.Add(new AudioPath(track.Path, 0, -1));
             Metadata = new Metadata(track);
         }
 
-        public Chapter(Metadata metadata) : this()
+        public Chapter(Metadata metadata, List<AudioPath> audioPaths)
         {
             Metadata = metadata;
+            AudioPaths = audioPaths;
         }
 
         #endregion
