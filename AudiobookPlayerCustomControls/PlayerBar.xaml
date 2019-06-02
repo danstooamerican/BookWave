@@ -63,38 +63,41 @@
             </StackPanel>
         </StackPanel>
 
-
-
         <StackPanel Orientation="Horizontal" 
                     Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="53,0">
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
-                               NormalImage="/Commons.Styles;component/Resources/Player/rewind30.png" 
-                               HoverImage="/Commons.Styles;component/Resources/Player/rewind30_hover.png"
-                               PressedImage="/Commons.Styles;component/Resources/Player/rewind30_pressed.png"/>
+                ImageSize="25"
+                NormalImage="/Commons.Styles;component/Resources/Player/rewind30.png" 
+                HoverImage="/Commons.Styles;component/Resources/Player/rewind30_hover.png"
+                PressedImage="/Commons.Styles;component/Resources/Player/rewind30_pressed.png"/>
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
-                               NormalImage="/Commons.Styles;component/Resources/Player/previous.png" 
-                               HoverImage="/Commons.Styles;component/Resources/Player/previous_hover.png"
-                               PressedImage="/Commons.Styles;component/Resources/Player/previous_pressed.png"/>
+                ImageSize="25"
+                NormalImage="/Commons.Styles;component/Resources/Player/previous.png" 
+                HoverImage="/Commons.Styles;component/Resources/Player/previous_hover.png"
+                PressedImage="/Commons.Styles;component/Resources/Player/previous_pressed.png"/>
 
             <local:ToggleImageButton Style="{StaticResource PlayerBarSpacing}"
-                               NormalImage="/Commons.Styles;component/Resources/Player/play.png" 
-                               HoverImage="/Commons.Styles;component/Resources/Player/play_hover.png"
-                               PressedImage="/Commons.Styles;component/Resources/Player/play_pressed.png"
-                               NormalImageToggled="/Commons.Styles;component/Resources/Player/pause.png" 
-                               HoverImageToggled="/Commons.Styles;component/Resources/Player/pause_hover.png"
-                               PressedImageToggled="/Commons.Styles;component/Resources/Player/pause_pressed.png"/>
+                ImageSize="25"
+                NormalImage="/Commons.Styles;component/Resources/Player/play.png" 
+                HoverImage="/Commons.Styles;component/Resources/Player/play_hover.png"
+                PressedImage="/Commons.Styles;component/Resources/Player/play_pressed.png"
+                NormalImageToggled="/Commons.Styles;component/Resources/Player/pause.png" 
+                HoverImageToggled="/Commons.Styles;component/Resources/Player/pause_hover.png"
+                PressedImageToggled="/Commons.Styles;component/Resources/Player/pause_pressed.png"/>
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
-                               NormalImage="/Commons.Styles;component/Resources/Player/next.png" 
-                               HoverImage="/Commons.Styles;component/Resources/Player/next_hover.png"
-                               PressedImage="/Commons.Styles;component/Resources/Player/next_pressed.png"/>
+                ImageSize="25"
+                NormalImage="/Commons.Styles;component/Resources/Player/next.png" 
+                HoverImage="/Commons.Styles;component/Resources/Player/next_hover.png"
+                PressedImage="/Commons.Styles;component/Resources/Player/next_pressed.png"/>
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
-                               NormalImage="/Commons.Styles;component/Resources/Player/skip30.png" 
-                               HoverImage="/Commons.Styles;component/Resources/Player/skip30_hover.png"
-                               PressedImage="/Commons.Styles;component/Resources/Player/skip30_pressed.png"/>
+                ImageSize="25"
+                NormalImage="/Commons.Styles;component/Resources/Player/skip30.png" 
+                HoverImage="/Commons.Styles;component/Resources/Player/skip30_hover.png"
+                PressedImage="/Commons.Styles;component/Resources/Player/skip30_pressed.png"/>
 
         </StackPanel>
 
@@ -103,14 +106,16 @@
                     HorizontalAlignment="Right" Margin="0 0 20 0" Grid.ColumnSpan="2">
 
             <local:ToggleImageButton x:Name="btnToggleVolume"
-                               NormalImage="/Commons.Styles;component/Resources/Player/speaker.png" 
-                               HoverImage="/Commons.Styles;component/Resources/Player/speaker_hover.png"
-                               PressedImage="/Commons.Styles;component/Resources/Player/speaker_pressed.png"
-                               NormalImageToggled="/Commons.Styles;component/Resources/Player/speakerOff.png" 
-                               HoverImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_hover.png"
-                               PressedImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_pressed.png"
-                               Margin="0, 0, 10, 0" Click="BtnToggleVolume_Click"
-                               IsChecked="{Binding ElementName=sldVolume, Path=Value, Mode=OneWay, Converter={StaticResource DoubleToBoolConverter}}"/>
+                ImageSize="25"
+                NormalImage="/Commons.Styles;component/Resources/Player/speaker.png" 
+                HoverImage="/Commons.Styles;component/Resources/Player/speaker_hover.png"
+                PressedImage="/Commons.Styles;component/Resources/Player/speaker_pressed.png"
+                NormalImageToggled="/Commons.Styles;component/Resources/Player/speakerOff.png" 
+                HoverImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_hover.png"
+                PressedImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_pressed.png"
+                Margin="0, 0, 10, 0" Click="BtnToggleVolume_Click"
+                IsChecked="{Binding ElementName=sldVolume, Path=Value, Mode=OneWay, 
+                    Converter={StaticResource DoubleToBoolConverter}}"/>
 
             <Slider x:Name="sldVolume" Style="{StaticResource HighlightedSlider}"  Value="1" Maximum="1" MinWidth="80"
                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
