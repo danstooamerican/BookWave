@@ -1,11 +1,11 @@
-﻿using Commons.Models;
+﻿using Commons.Logic;
+using Commons.Models;
 using GalaSoft.MvvmLight;
-using System;
+using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace Commons.ViewModel
 {
@@ -14,47 +14,75 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private ObservableCollection<Chapter> mChapters;
+        private Audiobook mAudiobook;
 
-        public ObservableCollection<Chapter> Chapters
+        public Audiobook Audiobook
         {
-            get { return mChapters; }
-            set { mChapters = value; }
+            get { return mAudiobook; }
+            set { Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value); }
         }
+
+
+        public FolderHandler FolderHandler { get; set; }
 
         #endregion
 
         #region Commands
+        public ICommand SelectFolderCommand { private set; get; }
+
+        public ICommand SaveAudiobookCommand { private set; get; }
 
         #endregion
 
         #region Constructors
-
+        
         public AddPageViewModel()
         {
-            Chapters = new ObservableCollection<Chapter>();
+            FolderHandler = new FolderHandler();
+            Audiobook = new Audiobook();
+            FolderHandler.FolderPathClearedEvent += Audiobook.ClearChapters;
+            FolderHandler.FolderPathSetEvent += AnalyzeFolder;
 
-            Chapter c = new Chapter(null);
-            c.Metadata.Title = "TestTitle";
-            c.Metadata.Description = "Description";
-            c.Metadata.Contributors.Authors.Add("Author1");
-            c.Metadata.Contributors.Authors.Add("Author2");
-
-            Chapters.Add(c);
-
-            Chapter c1 = new Chapter(null);
-            c1.Metadata.Title = "TestTitle2";
-            c1.Metadata.Description = "Description2";
-            c1.Metadata.Contributors.Authors.Add("Author11");
-            c1.Metadata.Contributors.Authors.Add("Author22");
-
-            Chapters.Add(c1);
+            SelectFolderCommand = new RelayCommand(SelectFolder);
+            SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
         }
 
         #endregion
 
         #region Methods
 
+        /// <summary>
+        /// Opens a FolderBrowserDialog and sets the FolderPath of the FolderHandler.
+        /// </summary>
+        private void SelectFolder()
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                FolderHandler.FolderPath = folderBrowserDialog.SelectedPath;                
+            }
+        }
+
+        /// <summary>
+        /// Analyzes the selected folder and updates the chapter list.
+        /// </summary>
+        private void AnalyzeFolder()
+        {
+            Audiobook.Chapters =
+                new ObservableCollection<Chapter>(FolderHandler.AnalyzeFolder());
+        }
+
+
+        private void SaveAudiobook()
+        {
+            FolderHandler.SaveAudiobook(Audiobook.Chapters);
+            // TODO add audiobook to audiobookmanager
+        }
+
+        private bool CanSaveAudiobook()
+        {
+            return Audiobook.Chapters.Count > 0;
+        }
 
         #endregion
 

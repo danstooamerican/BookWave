@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\ChaptersToVisibleConverter.cs" />
     <Compile Include="Converter\VerticalOffsetOpacityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetTopBarVisibilityConverter.cs" />
     <Compile Include="Converter\DoubleToBoolConverter.cs" />
@@ -170,6 +171,20 @@
     <Resource Include="Resources\Navigation\pageForward.png" />
     <Resource Include="Resources\Navigation\pageForward_hover.png" />
     <Resource Include="Resources\Navigation\pageForward_pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\folder.png" />
+    <Resource Include="Resources\Misc\folder_hover.png" />
+    <Resource Include="Resources\Misc\folder_pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\save_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\save_pressed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

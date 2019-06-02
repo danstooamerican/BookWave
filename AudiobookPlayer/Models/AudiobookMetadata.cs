@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Commons.Models
+﻿namespace Commons.Models
 {
     /// <summary>
     /// Metadata for audiobooks which adds a Genre Option.

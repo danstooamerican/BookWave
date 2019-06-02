@@ -1,10 +1,5 @@
 ﻿using ATL;
 using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Commons.Models
 {
@@ -15,16 +10,6 @@ namespace Commons.Models
     {
         #region Public Properties
 
-        private string mPath;
-        /// <summary>
-        /// Path of the audio file.
-        /// </summary>
-        public string Path
-        {
-            get { return mPath; }
-            set { Set<string>(() => this.Path, ref mPath, value); }
-        }
-
         private string mTitle;
         /// <summary>
         /// Title of the file.
@@ -32,7 +17,14 @@ namespace Commons.Models
         public string Title
         {
             get { return mTitle; }
-            set { Set<string>(() => this.mTitle, ref mTitle, value); }
+            set { Set<string>(() => this.Title, ref mTitle, value); }
+        }
+
+        private int mTrackNumber;
+        public int TrackNumber
+        {
+            get { return mTrackNumber; }
+            set { Set<int>(() => this.TrackNumber, ref mTrackNumber, value); }
         }
 
         private string mDescription;
@@ -55,14 +47,14 @@ namespace Commons.Models
             set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
         }
 
-        private DateTime mReleaseDate;
+        private int mReleaseYear;
         /// <summary>
-        /// Release information.
+        /// Release Year.
         /// </summary>
-        public DateTime ReleaseDate
+        public int ReleaseYear
         {
-            get { return mReleaseDate; }
-            set { mReleaseDate = value; }
+            get { return mReleaseYear; }
+            set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
         }
 
         #endregion
@@ -76,15 +68,19 @@ namespace Commons.Models
         public Metadata(Track track = null)
         {
             Contributors = new Contributors();
+            Title = string.Empty;
+            Description = string.Empty;
+            TrackNumber = -1;
+            ReleaseYear = -1;
 
             if (track != null)
             {
-                Path = track.Path;
                 Title = track.Title;
+                TrackNumber = track.TrackNumber;
                 Description = track.Description;
-                ReleaseDate = new DateTime(track.Year, 0, 0);
+                ReleaseYear = track.Year;
 
-                Contributors.Authors.Add(track.Artist);
+                Contributors.AuthorString = track.Artist;
             }
         }
 

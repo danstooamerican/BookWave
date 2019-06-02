@@ -8,42 +8,165 @@
 
     </ResourceDictionary.MergedDictionaries>
 
-
-    <Style x:Key="ListBoxItemCustom" TargetType="{x:Type ListBoxItem}">
+    <Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="Width" Value="5"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="SizeWE"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="ListBoxItem">
-                    <Border
-                        Name="Border"
-                        Background="{TemplateBinding Panel.Background}"
-                        SnapsToDevicePixels="True">
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-                        <ContentPresenter
-                            Content="{TemplateBinding ContentControl.Content}"
-                            ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
-                            HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
-                            SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+    <Style x:Key="DataGridRow" TargetType="{x:Type DataGridRow}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
+        <Setter Property="FontSize" Value="12"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridRow}">
+                    <Border x:Name="DGR_Border" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                        BorderThickness="0">
+
+                        <SelectiveScrollingGrid>
+                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </SelectiveScrollingGrid.ColumnDefinitions>
+                            <SelectiveScrollingGrid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </SelectiveScrollingGrid.RowDefinitions>
+                            
+                            <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        </SelectiveScrollingGrid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
 
         <Style.Triggers>
-            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                <Setter Property="Background" Value="{StaticResource LightDarkGrayBrush}"></Setter>
+            <!-- Highlight a grid row as the mouse passes over -->
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource GridBackgroundSelectedBrush}" />
             </Trigger>
-            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                <Setter Property="Background" Value="{StaticResource Background1ColorBrush}"></Setter>
-            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource GridBackgroundHoverBrush}" />
+            </Trigger>            
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="DragArea" TargetType="ListView">
-        <Setter Property="Background" Value="{StaticResource Gray1Brush}" />
-        <Setter Property="AllowDrop" Value="True" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemCustom}" />        
-    </Style>   
+    <Style x:Key="DataGrid" TargetType="DataGrid">       
+        <!-- Make the border and grid lines a little less imposing -->
+        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource TextPressedColorBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource GridBackgroundSelectedBrush}" />
+        <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
+
+        <Setter Property="ColumnHeaderStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="MinWidth" Value="25" />
+                    <Setter Property="MinHeight" Value="28" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
+                    <Setter Property="Cursor" Value="Hand" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <Border x:Name="BackgroundBorder"
+                                        Background="{StaticResource GridBackgroundBrush}"
+                                        Grid.ColumnSpan="2" />       
+                                    
+                                    <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
+                                    
+                                    <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
+                                        Grid.Column="1" Width="8" Height="6" Fill="{StaticResource AccentColorBrush}" Margin="0,0,8,0" 
+                                        VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
+                                    
+                                    <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" 
+                                        Style="{StaticResource ColumnHeaderGripperStyle}"/>
+                                    
+                                    <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" 
+                                        Style="{StaticResource ColumnHeaderGripperStyle}"/>
+
+                                    <Rectangle Grid.Row="1" Height="1" HorizontalAlignment="Stretch" Stroke="{StaticResource TextPressedColorBrush}"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="SortDirection" Value="Ascending">
+                                        <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="SortArrow" Property="RenderTransform">
+                                            <Setter.Value>
+                                                <RotateTransform Angle="180" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="SortDirection" Value="Descending">
+                                        <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                    </Trigger>
+                                    <Trigger Property="DisplayIndex" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" 
+                                            TargetName="PART_LeftHeaderGripper"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="RowStyle" Value="{StaticResource DataGridRow}"/>
+        
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridCell">
+
+                    <!-- Add some padding around the contents of a cell -->
+                    <Setter Property="Padding" Value="4, 9" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridCell">
+                                <Border Padding="{TemplateBinding Padding}" 
+                                    Background="{TemplateBinding Background}">
+                                    
+                                    <ContentPresenter />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="FocusVisualStyle">
+                        <Setter.Value>
+                            <Style TargetType="Control">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
 
 </ResourceDictionary>

@@ -8,6 +8,7 @@
             <converters:StringToImageConverter x:Key="StringToImageConverter" />
             <converters:SecondsToTimeConverter x:Key="SecondsToTimeConverter" />
             <converters:DoubleToBoolConverter x:Key="DoubleToBoolConverter" />
+            <converters:ChaptersToVisibleConverter x:Key="ChaptersToVisibleConverter" />
             <converters:VerticalOffsetOpacityConverter x:Key="VerticalOffsetOpacityConverter" />
             <converters:VerticalOffsetTopBarVisibilityConverter x:Key="VerticalOffsetTopBarVisibilityConverter" />
         </ResourceDictionary>

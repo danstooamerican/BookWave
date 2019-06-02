@@ -13,9 +13,20 @@
         <Setter Property="Height" Value="1" />
     </Style>
 
+    <Style x:Key="VerticalSeparator" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource GrayBrush}" />
+        <Setter Property="Width" Value="1" />
+    </Style>
+
     <Style x:Key="VerticalSplitter" TargetType="GridSplitter">
         <Setter Property="Width" Value="2" />
         <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style x:Key="DropArea" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource GridBackgroundSelectedBrush}" />
+        <Setter Property="Opacity" Value="0.8" />
     </Style>
 
 </ResourceDictionary>

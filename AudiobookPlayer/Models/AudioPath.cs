@@ -1,11 +1,6 @@
 ﻿using Commons.Exceptions;
 using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Commons.Models
 {
@@ -76,6 +71,20 @@ namespace Commons.Models
             }
         }
 
+        #endregion
+
+        #region Constructors
+
+        public AudioPath(string path, int startMark, int endMark)
+        {
+            Path = path;
+            StartMark = startMark;
+            EndMark = endMark;
+        }
+
+        public AudioPath()
+        {
+        }
 
         #endregion
 

@@ -1,31 +1,26 @@
 ﻿using ATL;
 using GalaSoft.MvvmLight;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Commons.Models
 {
     /// <summary>
-    /// A single chapter in an audiobook with a list of AudioPaths and metadata.
+    /// A single chapter in an audiobook with a list of AudioPaths and Metadata.
     /// </summary>
     public class Chapter : ObservableObject
     {
 
         #region Public Properties
 
-        private ObservableCollection<AudioPath> mAudioPaths;
+        private List<AudioPath> mAudioPaths;
         /// <summary>
         /// List of AudioPaths to allow a chapter to include more than 
         /// one audio file or just a part of it.
         /// </summary>
-        public ObservableCollection<AudioPath> AudioPaths
+        public List<AudioPath> AudioPaths
         {
             get { return mAudioPaths; }
-            set { Set<ObservableCollection<AudioPath>>(() => this.AudioPaths, ref mAudioPaths, value); }
+            set { Set<List<AudioPath>>(() => this.AudioPaths, ref mAudioPaths, value); }
         }
 
         private Metadata mMetadata;
@@ -49,13 +44,17 @@ namespace Commons.Models
         /// <param name="track">Track to reference</param>
         public Chapter(Track track)
         {
-            AudioPaths = new ObservableCollection<AudioPath>();
-            //TODO: add track as an AudioPath
-
+            AudioPaths = new List<AudioPath>();
+            AudioPaths.Add(new AudioPath(track.Path, 0, -1));
             Metadata = new Metadata(track);
         }
 
-        #endregion
+        public Chapter(Metadata metadata, List<AudioPath> audioPaths)
+        {
+            Metadata = metadata;
+            AudioPaths = audioPaths;
+        }
 
+        #endregion
     }
 }
