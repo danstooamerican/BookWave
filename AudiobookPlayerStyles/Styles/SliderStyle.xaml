@@ -79,9 +79,7 @@
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             
                             <Border x:Name="TrackBackground" 
@@ -89,10 +87,10 @@
                                  BorderBrush="{StaticResource DarkGrayBrush}"                                        
                                  BorderThickness="1" CornerRadius="1"
                                  Margin="0, 0, 6, 0"
-                                 VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
+                                 VerticalAlignment="Center" Height="4.0" Grid.Row="0" >
                             </Border>
                             
-                            <Track x:Name="PART_Track" Grid.Row="1">
+                            <Track x:Name="PART_Track" Grid.Row="0">
                                 <Track.DecreaseRepeatButton>
                                     <RepeatButton x:Name="SelectedPart" Style="{StaticResource SliderRepeatButtonStyleColor}"/>
                                 </Track.DecreaseRepeatButton>

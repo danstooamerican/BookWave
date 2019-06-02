@@ -116,24 +116,33 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         </StackPanel>
+        <Border Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center"
+            Margin="15,0,15,6">
 
-        <StackPanel Orientation="Horizontal" 
-                    Grid.Column="1" Grid.Row="2"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Margin="0,0,0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*" MaxWidth="1920"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Style="{StaticResource InformationText}" 
+                <TextBlock Grid.Column="0" Style="{StaticResource InformationText}" 
                     MinWidth="50" MaxWidth="50" TextAlignment="Center"
-                    Margin="0, 0, 5, 0" Text="{Binding Value, ElementName=sldMedia, Converter={StaticResource SecondsToTimeConverter}}"/>
+                    Margin="0, 0, 5, 0" Text="{Binding Value, ElementName=sldMedia, 
+                        Converter={StaticResource SecondsToTimeConverter}}"/>
 
-            <Slider x:Name="sldMedia" Style="{StaticResource HighlightedSlider}"                 
-                Value="30" Minimum="0" Maximum="7626" MinWidth="300" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Slider Grid.Column="1" x:Name="sldMedia" Style="{StaticResource HighlightedSlider}"
+                Value="0" Minimum="0" Maximum="3544" MinWidth="300"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center" />
 
-            <TextBlock Style="{StaticResource InformationText}" 
-                    MinWidth="50" MaxWidth="50" TextAlignment="Center"
-                    Margin="5, 0, 0, 0" Text="{Binding Maximum, ElementName=sldMedia, Converter={StaticResource SecondsToTimeConverter}}"/>
+                <TextBlock Grid.Column="2" Style="{StaticResource InformationText}" 
+                    MinWidth="50" MaxWidth="50" TextAlignment="Center" 
+                       Text="{Binding Maximum, ElementName=sldMedia, 
+                        Converter={StaticResource SecondsToTimeConverter}}"/>
 
-        </StackPanel>
-
+            </Grid>
+        </Border>
+        
+        
     </Grid>
 </UserControl>

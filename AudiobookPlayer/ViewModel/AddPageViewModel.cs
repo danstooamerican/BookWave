@@ -76,6 +76,7 @@ namespace Commons.ViewModel
         private void SaveAudiobook()
         {
             FolderHandler.SaveAudiobook(Audiobook.Chapters);
+            // TODO add audiobook to audiobookmanager
         }
 
         private bool CanSaveAudiobook()
