@@ -106,7 +106,7 @@
     </ApplicationDefinition>
     <Compile Include="Exceptions\InvalidArgumentException.cs" />
     <Compile Include="Logic\AudiobookManager.cs" />
-    <Compile Include="Logic\FolderHandler.cs" />
+    <Compile Include="Logic\AudiobookFolder.cs" />
     <Compile Include="Models\Audiobook.cs" />
     <Compile Include="Models\AudiobookMetadata.cs" />
     <Compile Include="Models\AudioPath.cs" />

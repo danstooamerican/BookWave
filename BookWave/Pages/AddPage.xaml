@@ -34,7 +34,7 @@
 
             <TextBox Grid.Column="1" Grid.Row="0"
                 Margin="10,10,10,0" MinWidth="400"
-                Text="{Binding FolderHandler.FolderPath, Mode=TwoWay}"
+                Text="{Binding AudiobookFolder.FolderPath, Mode=TwoWay}"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Style="{StaticResource MaskTextBox}" />
 

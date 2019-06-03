@@ -72,7 +72,7 @@ namespace Commons.Logic
         #region Methods
 
         /// <summary>
-        /// Analyzes the folder of the FolderHandler.
+        /// Analyzes the folder of the AudiobookFolder.
         /// Searches for audiofiles and metadata and 
         /// creates metadata for the audiofiles with 
         /// no metadata.

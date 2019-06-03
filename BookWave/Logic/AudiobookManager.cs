@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
 
 namespace Commons.Logic
@@ -39,14 +40,6 @@ namespace Commons.Logic
             set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
-
-        private Dictionary<string, Audiobook> mAudiobookSet;
-        public Dictionary<string, Audiobook> AudiobookSet
-        {
-            get { return mAudiobookSet; }
-            set { Set<Dictionary<string, Audiobook>>(() => this.AudiobookSet, ref mAudiobookSet, value); }
-        }
-
         #endregion
 
         #region Constructors
@@ -62,25 +55,34 @@ namespace Commons.Logic
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "BookWave"), "audiobookPaths.bw");
 
-            AudiobookSet = new Dictionary<string, Audiobook>();
-
             Audiobooks = new ObservableCollection<Audiobook>();
 
             LoadRepository();
-            //TODO use files
         }
 
         #endregion
 
         #region Methods
 
+        /// <summary>
+        /// Loads the AudiobookRepo and creates a new audiobook for each
+        /// path in the repository.
+        /// </summary>
         private void LoadRepository()
         {
             AudiobookRepo.LoadFromFile();
 
             foreach (string path in AudiobookRepo.Items)
             {
-                //TODO: folderHandler call
+                string metadataPath = Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"));
+
+                // only add Audiobook if metadata files exist in the metadata folder
+                if (Directory.Exists(metadataPath) 
+                    && Directory.GetFiles(Path.Combine(metadataPath, 
+                    "*." + ConfigurationManager.AppSettings.Get("metadata_extension"))).Length > 0)
+                {
+                    Audiobooks.Add(new Audiobook(path));
+                }                
             }
         }
 

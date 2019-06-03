@@ -52,7 +52,7 @@ namespace Commons.ViewModel
         #region Methods
 
         /// <summary>
-        /// Opens a FolderBrowserDialog and sets the FolderPath of the FolderHandler.
+        /// Opens a FolderBrowserDialog and sets the FolderPath of the AudiobookFolder.
         /// </summary>
         private void SelectFolder()
         {
