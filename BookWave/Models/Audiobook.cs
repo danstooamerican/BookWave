@@ -33,7 +33,6 @@ namespace Commons.Models
             set { Set<AudiobookMetadata>(() => this.Metadata, ref mMetadata, value); }
         }
 
-
         #endregion
 
         public Audiobook()
@@ -46,11 +45,14 @@ namespace Commons.Models
         {
             Chapters = new ObservableCollection<Chapter>();
             Metadata = new AudiobookMetadata();
+            Metadata.Path = path;
+
+
         }
 
         public void ClearChapters()
         {
-            Chapters.Clear();
+            
         }
 
     }

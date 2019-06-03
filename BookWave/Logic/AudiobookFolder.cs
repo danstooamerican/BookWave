@@ -14,11 +14,11 @@ namespace Commons.Logic
     /// <summary>
     /// Can analyze a folder and scan for audiofiles and metadata.
     /// </summary>
-    public class AudiobookFolder : ObservableObject
+    public class AudiobookFolder
     {
 
         #region Public Properties
-        private string mFolderPath;
+        /*private string mFolderPath;
         /// <summary>
         /// Path of the currently selected folder. Only valid Directories and string.Empty
         /// are allowed values. This property does not recognize if the folder gets deleted
@@ -42,31 +42,30 @@ namespace Commons.Logic
                     }                    
                 }
             }
-        }
+        }*/
 
         #endregion
 
         #region Events
 
-        public delegate void FolderPathCleared();
+        //public delegate void FolderPathCleared();
 
         /// <summary>
         /// Event which gets fired every time the FolderPath is empty.
         /// </summary>
-        public event FolderPathCleared FolderPathClearedEvent;
+        //public event FolderPathCleared FolderPathClearedEvent;
 
-        public delegate void FolderPathSet();
+        //public delegate void FolderPathSet();
 
         /// <summary>
         /// Event which gets fired every time the FolderPath is set.
         /// </summary>
-        public event FolderPathCleared FolderPathSetEvent;
+        //public event FolderPathCleared FolderPathSetEvent;
 
         #endregion
-
-        public AudiobookFolder()
+        private AudiobookFolder()
         {
-            mFolderPath = string.Empty;
+
         }
 
         #region Methods
@@ -78,14 +77,14 @@ namespace Commons.Logic
         /// no metadata.
         /// </summary>
         /// <returns>List of chapters in the folder.</returns>
-        public List<Chapter> AnalyzeFolder()
+        public static List<Chapter> AnalyzeFolder(string folderPath)
         {
-            if (FolderPath.Equals(string.Empty))
+            if (folderPath.Equals(string.Empty))
             {
                 return new List<Chapter>();
             }
             var chapters = new List<Chapter>();
-            string metadataDirectory = Path.Combine(FolderPath, ConfigurationManager.AppSettings.Get("metadata_folder"));
+            string metadataDirectory = Path.Combine(folderPath, ConfigurationManager.AppSettings.Get("metadata_folder"));
 
             List<string> metadataFiles =
                 Directory.Exists(metadataDirectory) 
@@ -95,7 +94,7 @@ namespace Commons.Logic
             var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_extensions").Split(',');
 
             List<string> files = Directory
-                    .GetFiles(FolderPath)
+                    .GetFiles(folderPath)
                     .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
                     .ToList();
 
@@ -124,11 +123,11 @@ namespace Commons.Logic
         /// Saves metadata for each chapter in an audiobook
         /// </summary>
         /// <param name="chapters"></param>
-        public void SaveAudiobookMetadata(ObservableCollection<Chapter> chapters)
+        public static void SaveAudiobookMetadata(string folderPath, ObservableCollection<Chapter> chapters)
         {
             //TODO: change parameter to Audiobook
 
-            string metadataDirectory = Path.Combine(FolderPath, ConfigurationManager.AppSettings.Get("metadata_folder"));
+            string metadataDirectory = Path.Combine(folderPath, ConfigurationManager.AppSettings.Get("metadata_folder"));
             Directory.CreateDirectory(metadataDirectory);
             foreach (Chapter chapter in chapters)
             {

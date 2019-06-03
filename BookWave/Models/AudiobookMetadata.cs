@@ -20,13 +20,16 @@ namespace Commons.Models
             get { return mPath; }
             set
             {
-                if (File.Exists(value))
+                if (Directory.Exists(value))
                 {
                     Set<string>(() => this.Path, ref mPath, value);
                 }
                 else
                 {
-                    throw new InvalidArgumentException(value, "is not a valid path.");
+                    if (value != null && value.Equals(string.Empty))
+                    {
+                        Set<string>(() => this.Path, ref mPath, value);
+                    }
                 }
             }
         }
@@ -42,6 +45,14 @@ namespace Commons.Models
         }
 
 
+        #endregion
+
+        #region Constructor
+        public AudiobookMetadata()
+        {
+            Path = string.Empty;
+            Genre = string.Empty;
+        }
         #endregion
 
     }

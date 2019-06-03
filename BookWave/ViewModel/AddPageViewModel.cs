@@ -22,9 +22,6 @@ namespace Commons.ViewModel
             set { Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value); }
         }
 
-
-        public AudiobookFolder AudiobookFolder { get; set; }
-
         #endregion
 
         #region Commands
@@ -38,10 +35,7 @@ namespace Commons.ViewModel
         
         public AddPageViewModel()
         {
-            AudiobookFolder = new AudiobookFolder();
             Audiobook = new Audiobook();
-            AudiobookFolder.FolderPathClearedEvent += Audiobook.ClearChapters;
-            AudiobookFolder.FolderPathSetEvent += AnalyzeFolder;
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
@@ -59,23 +53,18 @@ namespace Commons.ViewModel
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                AudiobookFolder.FolderPath = folderBrowserDialog.SelectedPath;                
+                Audiobook.Metadata.Path = folderBrowserDialog.SelectedPath;
             }
         }
 
-        /// <summary>
-        /// Analyzes the selected folder and updates the chapter list.
-        /// </summary>
-        private void AnalyzeFolder()
+        public void AnalyzeFolder()
         {
-            Audiobook.Chapters =
-                new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder());
+            Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
         }
-
 
         private void SaveAudiobook()
         {
-            AudiobookFolder.SaveAudiobookMetadata(Audiobook.Chapters);
+            AudiobookFolder.SaveAudiobookMetadata(Audiobook.Metadata.Path, Audiobook.Chapters);
             // TODO add audiobook to audiobookmanager
         }
 

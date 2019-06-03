@@ -22,9 +22,12 @@ namespace Commons.Pages
     /// </summary>
     public partial class AddPage : Page
     {
+        private AddPageViewModel viewModel;
+
         public AddPage()
         {
             InitializeComponent();
+            viewModel = (AddPageViewModel)DataContext;
         }
 
         /// <summary>
@@ -60,10 +63,15 @@ namespace Commons.Pages
                     {
                         AddPageViewModel viewModel = DataContext as AddPageViewModel;
 
-                        viewModel.AudiobookFolder.FolderPath = files[0];
+                        viewModel.Audiobook.Metadata.Path = files[0];
                     }
                 }
             }
+        }
+
+        private void Destination_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            viewModel.AnalyzeFolder();
         }
     }
 }
