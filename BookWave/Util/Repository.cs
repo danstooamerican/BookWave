@@ -15,24 +15,25 @@ namespace Commons.Util
 
         #region Private Properties
 
-        private string repositoryPath;
+        public string FolderPath { get; private set; }
+
+        public string FilePath { get; private set; }
 
         private HashSet<string> mItem;
-
         public HashSet<string> Items
         {
             get { return mItem; }
             set { mItem = value; }
         }
 
-
         #endregion
 
         #region Constructor
 
-        public Repository(string path)
+        public Repository(string folderPath, string fileName)
         {
-            this.repositoryPath = path;
+            FolderPath = folderPath;            
+            FilePath = Path.Combine(folderPath, fileName);
             this.Items = new HashSet<string>();
         }
 
@@ -42,19 +43,19 @@ namespace Commons.Util
 
         public void SaveToFile()
         {
-            if (File.Exists(repositoryPath))
-            {
-                File.WriteAllLines(repositoryPath, Items);
-            }
+            Directory.CreateDirectory(FolderPath);
+            File.Create(FilePath);
+
+            File.WriteAllLines(FilePath, Items);
         }
 
         public void LoadFromFile()
         {
             Items.Clear();
 
-            if (File.Exists(repositoryPath))
+            if (File.Exists(FilePath))
             {
-                foreach (string item in File.ReadLines(repositoryPath))
+                foreach (string item in File.ReadLines(FilePath))
                 {
                     Items.Add(item);
                 }

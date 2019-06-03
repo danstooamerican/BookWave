@@ -36,9 +36,11 @@ namespace Commons.Models
 
         #endregion
 
-        public Audiobook()
+        public Audiobook(string path)
         {
             Chapters = new ObservableCollection<Chapter>();
+            Metadata = new AudiobookMetadata();
+            Metadata.Path = path;
         }
 
         public void ClearChapters()

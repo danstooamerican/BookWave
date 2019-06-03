@@ -1,4 +1,5 @@
 ﻿using Commons.Models;
+using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,12 @@ namespace Commons.Logic
             private set { mInstance = value; }
         }
 
-
-        private static readonly string UserDataPath
-            = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
-                "Bookwave");
-
-        private static readonly string FilePath = Path.Combine(UserDataPath, "paths.txt");
+        private Repository mAudiobookRepo;
+        public Repository AudiobookRepo
+        {
+            get { return mAudiobookRepo; }
+            set { mAudiobookRepo = value; }
+        }
 
         #region Public Properties
 
@@ -57,12 +58,15 @@ namespace Commons.Logic
         /// </summary>
         private AudiobookManager()
         {
+            AudiobookRepo = new Repository(Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "BookWave"), "audiobookPaths.bw");
+
             AudiobookSet = new Dictionary<string, Audiobook>();
 
             Audiobooks = new ObservableCollection<Audiobook>();
-            Directory.CreateDirectory(UserDataPath);
 
-            CreateMissingAudiobooksFromUserData();
+            LoadRepository();
             //TODO use files
         }
 
@@ -70,48 +74,40 @@ namespace Commons.Logic
 
         #region Methods
 
-        private void CreateMissingAudiobooksFromUserData()
+        private void LoadRepository()
         {
-            if (File.Exists(FilePath))
-            {
-                foreach (string path in File.ReadLines(FilePath)) {
-                    //TODO: folderHandler call
-                }
-            }
-        }
+            AudiobookRepo.LoadFromFile();
 
-        private void VerifyFilePathsData()
-        {
-            if (!File.Exists(FilePath))
+            foreach (string path in AudiobookRepo.Items)
             {
-                File.Create(FilePath);
-                //TODO save current audiobooks
-            }
-            HashSet<string> audioPaths = new HashSet<string>(AudiobookSet.Keys);
-            foreach (string path in File.ReadLines(FilePath))
-            {
-                audioPaths.Remove(path);
-            }
-            foreach (string path in audioPaths)
-            {
-                
+                //TODO: folderHandler call
             }
         }
 
         /// <summary>
-        /// Adds an AudioBook to the AudioBookManager 
-        /// and saves the path where the AudioBook is 
-        /// stored.
+        /// Adds an audiobook to the AudiobookManager 
+        /// and adds the path to the AudiobookRepo.
         /// </summary>
-        /// <param name="audiobook">is the audiobook being added</param>
-        public void AddAudioBook(Audiobook audiobook, string audiobookPath)
+        /// <param name="audiobook">the audiobook being added</param>
+        public void AddAudioBook(Audiobook audiobook)
         {
-            VerifyFilePathsData();
+            AudiobookRepo.Items.Add(audiobook.Metadata.Path);
+            AudiobookRepo.SaveToFile();
 
             Audiobooks.Add(audiobook);
-            
-            // saves the paths to file
+        }
 
+        /// <summary>
+        /// Removes an audiobook from the AudiobookManager 
+        /// and removes the path from the AudiobookRepo.
+        /// </summary>
+        /// <param name="audiobook">the audiobook being removed</param>
+        public void RemoveAudioBook(Audiobook audiobook)
+        {
+            AudiobookRepo.Items.Remove(audiobook.Metadata.Path);
+            AudiobookRepo.SaveToFile();
+
+            Audiobooks.Remove(audiobook);
         }
 
         #endregion
