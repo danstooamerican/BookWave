@@ -81,6 +81,9 @@ namespace Commons.ViewModel
                 WindowResized();
             };
 
+            window.Height = WindowMinimumHeight;
+            window.Width = WindowMinimumWidth;
+
             // Create commands
             MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);

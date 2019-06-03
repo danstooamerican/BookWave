@@ -204,16 +204,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AudiobookPlayerCustomControls\Commons.Controls.csproj">
-      <Project>{3c911c9e-41cb-4aca-8f0f-c69a311014f3}</Project>
-      <Name>Commons.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AudiobookPlayerStyles\Commons.Styles.csproj">
-      <Project>{ef5f5f8b-4fef-4019-8cec-28354b90fd82}</Project>
-      <Name>Commons.Styles</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -224,6 +214,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BookWaveCustomControls\Commons.Controls.csproj">
+      <Project>{3c911c9e-41cb-4aca-8f0f-c69a311014f3}</Project>
+      <Name>Commons.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookWaveStyles\Commons.Styles.csproj">
+      <Project>{ef5f5f8b-4fef-4019-8cec-28354b90fd82}</Project>
+      <Name>Commons.Styles</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -119,7 +119,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AudiobookPlayerStyles\Commons.Styles.csproj">
+    <ProjectReference Include="..\BookWaveStyles\Commons.Styles.csproj">
       <Project>{ef5f5f8b-4fef-4019-8cec-28354b90fd82}</Project>
       <Name>Commons.Styles</Name>
     </ProjectReference>
