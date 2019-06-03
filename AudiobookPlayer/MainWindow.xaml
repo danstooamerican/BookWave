@@ -4,14 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Commons"
+        xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
         xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls" 
         mc:Ignorable="d"
         Icon="/Commons.Styles;component/Resources/icon.ico"
-        Background="{StaticResource MainBackground}"
-        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
-        Title="Audiobook Player" Width="830" Height="620"
+        Background="{StaticResource MainBackground}"        
+        Title="Audiobook Player"
+        MinWidth="{Binding WindowMinimumWidth}"
+        MinHeight="{Binding WindowMinimumHeight}"
+        WindowStyle="None"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
-        MinWidth="830" MinHeight="620">
+        x:Name="AppWindow">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="20"
+            
+            />
+    </WindowChrome.WindowChrome>
     
     <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
@@ -103,61 +115,98 @@
                 
                 <StackPanel Orientation="Horizontal">
                     <lib:ImageButton
-                    NormalImage="/Commons.Styles;component/Resources/Navigation/pageBack.png"
-                    HoverImage="/Commons.Styles;component/Resources/Navigation/pageBack_hover.png"
-                    PressedImage="/Commons.Styles;component/Resources/Navigation/pageBack_pressed.png"
-                    DisabledImage="/Commons.Styles;component/Resources/Navigation/pageBack_pressed.png"
-                    ImageSize="25"
-                    Click="PageBack_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoBack}"/>
+                        NormalImage="/Commons.Styles;component/Resources/Navigation/pageBack.png"
+                        HoverImage="/Commons.Styles;component/Resources/Navigation/pageBack_hover.png"
+                        PressedImage="/Commons.Styles;component/Resources/Navigation/pageBack_pressed.png"
+                        DisabledImage="/Commons.Styles;component/Resources/Navigation/pageBack_pressed.png"
+                        ImageSize="20"
+                        Click="PageBack_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoBack}"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
 
                     <lib:ImageButton
-                    NormalImage="/Commons.Styles;component/Resources/Navigation/pageForward.png"
-                    HoverImage="/Commons.Styles;component/Resources/Navigation/pageForward_hover.png"
-                    PressedImage="/Commons.Styles;component/Resources/Navigation/pageForward_pressed.png"
-                    DisabledImage="/Commons.Styles;component/Resources/Navigation/pageForward_pressed.png"
-                    ImageSize="25"
-                    Click="PageForward_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoForward}"/>
+                        NormalImage="/Commons.Styles;component/Resources/Navigation/pageForward.png"
+                        HoverImage="/Commons.Styles;component/Resources/Navigation/pageForward_hover.png"
+                        PressedImage="/Commons.Styles;component/Resources/Navigation/pageForward_pressed.png"
+                        DisabledImage="/Commons.Styles;component/Resources/Navigation/pageForward_pressed.png"
+                        ImageSize="20"
+                        Click="PageForward_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoForward}"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
                 </StackPanel>
             </Border>
 
             <!-- Shared Page Title Top -->
-            <TextBlock Grid.Column="1" 
-                       Opacity="0"
-                       x:Name="lblSelectedPageTitle"
-                       Text="{Binding SelectedPageTitle}">
+            <Grid Grid.Column="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0"
+                    Opacity="0"
+                    x:Name="lblSelectedPageTitle"
+                    Text="{Binding SelectedPageTitle}">
 
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource TopbarPageTitle}">
-                        <Style.Triggers>
-                            <DataTrigger Value="0">
-                                <DataTrigger.Binding>
-                                    <MultiBinding Converter="{StaticResource VerticalOffsetTopBarVisibilityConverter}">
-                                        <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
-                                        <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
-                                    </MultiBinding>
-                                </DataTrigger.Binding>
-                                
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource TopbarPageTitle}">
+                            <Style.Triggers>
+                                <DataTrigger Value="0">
+                                    <DataTrigger.Binding>
+                                        <MultiBinding Converter="{StaticResource VerticalOffsetTopBarVisibilityConverter}">
+                                            <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                                            <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                                        </MultiBinding>
+                                    </DataTrigger.Binding>
+
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
                                                 From="0" To="1" Duration="0:0:0.2"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
                                                 From="1" To="0" Duration="0:0:0.2"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <lib:ImageButton
+                        NormalImage="/Commons.Styles;component/Resources/Misc/folder.png"
+                        HoverImage="/Commons.Styles;component/Resources/Misc/folder_hover.png"
+                        PressedImage="/Commons.Styles;component/Resources/Misc/folder_pressed.png"
+                        ImageSize="20"
+                        Command="{Binding MinimizeCommand}"
+                        Margin="0, 0, 10, 0"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
+                    <lib:ImageButton
+                        NormalImage="/Commons.Styles;component/Resources/Navigation/maximize.png"
+                        HoverImage="/Commons.Styles;component/Resources/Navigation/maximize_hover.png"
+                        PressedImage="/Commons.Styles;component/Resources/Navigation/maximize_pressed.png"
+                        ImageSize="20"
+                        Command="{Binding MaximizeCommand}"
+                        Margin="0, 0, 10, 0"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
+                    <lib:ImageButton
+                        NormalImage="/Commons.Styles;component/Resources/Navigation/close.png"
+                        HoverImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
+                        PressedImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
+                        ImageSize="20"
+                        Command="{Binding CloseCommand}"
+                        Margin="0, 0, 5, 0"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
+                </StackPanel>
+            </Grid>
+            
 
             <Border Style="{StaticResource HorizontalSeparator}" 
                     Grid.Row="1" />
