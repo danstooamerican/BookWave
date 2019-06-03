@@ -9,11 +9,25 @@ namespace Commons.Logic
 {
     public class AudiobookManager : ObservableObject
     {
-        private static readonly string UserData
+        private static AudiobookManager mInstance;
+        public static AudiobookManager Instance
+        {
+            get {
+                if (mInstance == null)
+                {
+                    Instance = new AudiobookManager();
+                }
+                return mInstance;
+            }
+            private set { mInstance = value; }
+        }
+
+
+        private static readonly string UserDataPath
             = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
                 "Bookwave");
 
-        private static readonly string FilePath = Path.Combine(UserData, "paths.txt");
+        private static readonly string FilePath = Path.Combine(UserDataPath, "paths.txt");
 
         #region Public Properties
 
@@ -22,6 +36,14 @@ namespace Commons.Logic
         {
             get { return mAudiobooks; }
             set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
+        }
+
+
+        private Dictionary<string, Audiobook> mAudiobookSet;
+        public Dictionary<string, Audiobook> AudiobookSet
+        {
+            get { return mAudiobookSet; }
+            set { Set<Dictionary<string, Audiobook>>(() => this.AudiobookSet, ref mAudiobookSet, value); }
         }
 
         #endregion
@@ -33,25 +55,48 @@ namespace Commons.Logic
         /// Reads the Path where the files are stored and 
         /// then reads the audiobooks.
         /// </summary>
-        /// <param name="path">is the file where the different 
-        /// repositories are stored in</param>
-        public AudiobookManager(string path)
+        private AudiobookManager()
         {
+            AudiobookSet = new Dictionary<string, Audiobook>();
+
             Audiobooks = new ObservableCollection<Audiobook>();
-            path = UserData; //TODO
-            Directory.CreateDirectory(path);
-            if (File.Exists(FilePath))
-            {
-                List<string> files = new List<string>(File.ReadLines(FilePath));
-            } else
-            {
-                File.Create(FilePath);
-            }
+            Directory.CreateDirectory(UserDataPath);
+
+            CreateMissingAudiobooksFromUserData();
+            //TODO use files
         }
 
         #endregion
 
         #region Methods
+
+        private void CreateMissingAudiobooksFromUserData()
+        {
+            if (File.Exists(FilePath))
+            {
+                foreach (string path in File.ReadLines(FilePath)) {
+                    //TODO: folderHandler call
+                }
+            }
+        }
+
+        private void VerifyFilePathsData()
+        {
+            if (!File.Exists(FilePath))
+            {
+                File.Create(FilePath);
+                //TODO save current audiobooks
+            }
+            HashSet<string> audioPaths = new HashSet<string>(AudiobookSet.Keys);
+            foreach (string path in File.ReadLines(FilePath))
+            {
+                audioPaths.Remove(path);
+            }
+            foreach (string path in audioPaths)
+            {
+                
+            }
+        }
 
         /// <summary>
         /// Adds an AudioBook to the AudioBookManager 
@@ -59,28 +104,14 @@ namespace Commons.Logic
         /// stored.
         /// </summary>
         /// <param name="audiobook">is the audiobook being added</param>
-        public void AddAudioBook(Audiobook audiobook)
+        public void AddAudioBook(Audiobook audiobook, string audiobookPath)
         {
-            // saves the paths to file
-            using (StreamWriter sw = File.AppendText(FilePath))
-            {
-                // gets all paths for the audiobook
-                // usually just one path
-                HashSet<string> audioPaths = new HashSet<string>();
-                foreach (Chapter chapter in audiobook.Chapters)
-                {
-                    foreach (AudioPath path in chapter.AudioPaths)
-                    {
-                        audioPaths.Add(Path.GetDirectoryName(path.Path));
-                    }
-                }
-                foreach (string path in audioPaths)
-                {
-                    sw.WriteLine(path);
-                }
-            }
+            VerifyFilePathsData();
 
             Audiobooks.Add(audiobook);
+            
+            // saves the paths to file
+
         }
 
         #endregion

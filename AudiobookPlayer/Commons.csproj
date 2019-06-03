@@ -55,11 +55,11 @@
     <StartupObject>AudiobookPlayer.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ATL, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\z440.atl.core.2.8.0\lib\net30\ATL.dll</HintPath>
+    <Reference Include="ATL, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\z440.atl.core.2.10.0\lib\net30\ATL.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="DataGridExtensions, Version=1.0.41.0, Culture=neutral, PublicKeyToken=43de855f87de903a, processorArchitecture=MSIL">
       <HintPath>..\packages\DataGridExtensions.1.0.41\lib\net45\DataGridExtensions.dll</HintPath>
