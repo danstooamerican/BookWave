@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="Util\HistoryList.cs" />
     <Compile Include="Util\HistoryListElement.cs" />
+    <Compile Include="Util\Repository.cs" />
     <Compile Include="Util\WindowResizer.cs" />
     <Compile Include="Util\XMLHelper.cs" />
     <Compile Include="ViewModel\AddPageViewModel.cs" />

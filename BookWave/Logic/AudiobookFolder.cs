@@ -14,7 +14,7 @@ namespace Commons.Logic
     /// <summary>
     /// Can analyze a folder and scan for audiofiles and metadata.
     /// </summary>
-    public class FolderHandler : ObservableObject
+    public class AudiobookFolder : ObservableObject
     {
 
         #region Public Properties
@@ -64,7 +64,7 @@ namespace Commons.Logic
 
         #endregion
 
-        public FolderHandler()
+        public AudiobookFolder()
         {
             mFolderPath = string.Empty;
         }
@@ -85,7 +85,7 @@ namespace Commons.Logic
                 return new List<Chapter>();
             }
             var chapters = new List<Chapter>();
-            string metadataDirectory = FolderPath + ConfigurationManager.AppSettings.Get("metadata_folder");
+            string metadataDirectory = Path.Combine(FolderPath, ConfigurationManager.AppSettings.Get("metadata_folder"));
 
             List<string> metadataFiles =
                 Directory.Exists(metadataDirectory) 
@@ -120,9 +120,15 @@ namespace Commons.Logic
             return chapters;
         }
 
-        public void SaveAudiobook(ObservableCollection<Chapter> chapters)
+        /// <summary>
+        /// Saves metadata for each chapter in an audiobook
+        /// </summary>
+        /// <param name="chapters"></param>
+        public void SaveAudiobookMetadata(ObservableCollection<Chapter> chapters)
         {
-            string metadataDirectory = FolderPath + ConfigurationManager.AppSettings.Get("metadata_folder");
+            //TODO: change parameter to Audiobook
+
+            string metadataDirectory = Path.Combine(FolderPath, ConfigurationManager.AppSettings.Get("metadata_folder"));
             Directory.CreateDirectory(metadataDirectory);
             foreach (Chapter chapter in chapters)
             {
@@ -153,6 +159,7 @@ namespace Commons.Logic
             }
             return null;
         }
+
         #endregion
     }
 }

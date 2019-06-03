@@ -60,7 +60,7 @@ namespace Commons.Pages
                     {
                         AddPageViewModel viewModel = DataContext as AddPageViewModel;
 
-                        viewModel.FolderHandler.FolderPath = files[0];
+                        viewModel.AudiobookFolder.FolderPath = files[0];
                     }
                 }
             }
