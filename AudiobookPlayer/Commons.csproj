@@ -73,6 +73,9 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -124,6 +127,7 @@
     </Compile>
     <Compile Include="Util\HistoryList.cs" />
     <Compile Include="Util\HistoryListElement.cs" />
+    <Compile Include="Util\WindowResizer.cs" />
     <Compile Include="Util\XMLHelper.cs" />
     <Compile Include="ViewModel\AddPageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

@@ -186,5 +186,14 @@
   <ItemGroup>
     <Resource Include="Resources\Misc\save_pressed.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Navigation\close.png" />
+    <Resource Include="Resources\Navigation\close_pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Navigation\maximize.png" />
+    <Resource Include="Resources\Navigation\maximize_hover.png" />
+    <Resource Include="Resources\Navigation\maximize_pressed.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

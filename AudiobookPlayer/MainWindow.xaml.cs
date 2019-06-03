@@ -2,6 +2,7 @@
 using Commons.Exceptions;
 using Commons.Util;
 using Commons.ViewModel;
+using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,9 +23,12 @@ namespace AudiobookPlayer
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
+            ViewModelLocator locator = new ViewModelLocator();
+            viewModel = locator.MainViewModel;
+            viewModel.SetupBorderlessWindow(this);
+            this.DataContext = viewModel;
 
-            viewModel = (MainWindowViewModel) DataContext;
+            InitializeComponent();           
 
             viewModel.NavigationHistory.CurrentElementChangedEvent += UpdateNavigationUI;
 
