@@ -44,7 +44,6 @@ namespace Commons.Util
         public void SaveToFile()
         {
             Directory.CreateDirectory(FolderPath);
-            File.Create(FilePath);
 
             File.WriteAllLines(FilePath, Items);
         }

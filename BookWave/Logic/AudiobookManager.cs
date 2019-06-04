@@ -56,8 +56,6 @@ namespace Commons.Logic
                 "BookWave"), "audiobookPaths.bw");
 
             Audiobooks = new ObservableCollection<Audiobook>();
-
-            LoadRepository();
         }
 
         #endregion
@@ -68,21 +66,18 @@ namespace Commons.Logic
         /// Loads the AudiobookRepo and creates a new audiobook for each
         /// path in the repository.
         /// </summary>
-        private void LoadRepository()
+        public void LoadRepository()
         {
             AudiobookRepo.LoadFromFile();
 
             foreach (string path in AudiobookRepo.Items)
             {
-                string metadataPath = Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"));
-
                 // only add Audiobook if metadata files exist in the metadata folder
-                if (Directory.Exists(metadataPath) 
-                    && Directory.GetFiles(Path.Combine(metadataPath, 
-                    "*." + ConfigurationManager.AppSettings.Get("metadata_extension"))).Length > 0)
+                Audiobook audiobook = new Audiobook(path);
+                if (audiobook.Chapters.Count > 0)
                 {
-                    Audiobooks.Add(new Audiobook(path));
-                }                
+                    Audiobooks.Add(audiobook);
+                }
             }
         }
 

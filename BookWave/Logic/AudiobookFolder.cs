@@ -17,52 +17,6 @@ namespace Commons.Logic
     public class AudiobookFolder
     {
 
-        #region Public Properties
-        /*private string mFolderPath;
-        /// <summary>
-        /// Path of the currently selected folder. Only valid Directories and string.Empty
-        /// are allowed values. This property does not recognize if the folder gets deleted
-        /// after it has been selected.
-        /// </summary>
-        public string FolderPath
-        {
-            get { return mFolderPath; }
-            set
-            {
-                if (Directory.Exists(value))
-                {
-                    Set<string>(() => this.FolderPath, ref mFolderPath, value);
-                    FolderPathSetEvent?.Invoke();
-                } else
-                {
-                    if (value != null && value.Equals(string.Empty))
-                    {
-                         Set<string>(() => this.FolderPath, ref mFolderPath, value);
-                         FolderPathClearedEvent?.Invoke();
-                    }                    
-                }
-            }
-        }*/
-
-        #endregion
-
-        #region Events
-
-        //public delegate void FolderPathCleared();
-
-        /// <summary>
-        /// Event which gets fired every time the FolderPath is empty.
-        /// </summary>
-        //public event FolderPathCleared FolderPathClearedEvent;
-
-        //public delegate void FolderPathSet();
-
-        /// <summary>
-        /// Event which gets fired every time the FolderPath is set.
-        /// </summary>
-        //public event FolderPathCleared FolderPathSetEvent;
-
-        #endregion
         private AudiobookFolder()
         {
 
@@ -116,6 +70,32 @@ namespace Commons.Logic
 
                 chapters.Add(chapter);
             }
+            return chapters;
+        }
+
+        /// <summary>
+        /// Loads all metadata files in the given directory and returns a list
+        /// of chapters based on the metadata.
+        /// </summary>
+        /// <returns>List of chapters in the folder.</returns>
+        public static List<Chapter> LoadAudiobookChapters(string metadataFolder)
+        {
+            List<Chapter> chapters = new List<Chapter>();
+
+            if (!Directory.Exists(metadataFolder))
+            {
+                return chapters;
+            }            
+
+            List<string> metadataFiles = Directory.GetFiles(metadataFolder, "*." + ConfigurationManager.AppSettings.Get("metadata_extensions")).ToList();
+
+            foreach (string file in metadataFiles)
+            {
+                Chapter chapter = XMLHelper.XMLToChapter(file);
+
+                chapters.Add(chapter);
+            }
+
             return chapters;
         }
 
