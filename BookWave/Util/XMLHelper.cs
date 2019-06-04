@@ -20,94 +20,29 @@ namespace Commons.Util
         {
             XDocument metadataDoc = XDocument.Load(path);
 
-            IEnumerable<AudioPath> audioPaths = from c in metadataDoc.Descendants("AudioPath")
-                                               select new AudioPath()
-                                               {
-                                                   Path = (string)c.Element("FilePath"),
-                                                   StartMark = (int)c.Element("StartMark"),
-                                                   EndMark = (int)c.Element("EndMark")
-                                               };
+            Chapter chapter = new Chapter();
+            chapter.FromXML(metadataDoc.Descendants("Chapter").First());            
 
-            ChapterMetadata metadata = new ChapterMetadata();
-
-            metadata.Title = GetSingleElement(metadataDoc, "Title");
-
-            // TODO regex move to GetSingleElement
-            string strTrackNumber = GetSingleElement(metadataDoc, "TrackNumber");
-            if (Regex.IsMatch(strTrackNumber, "[0-9]+"))
-            {
-                metadata.TrackNumber = int.Parse(strTrackNumber);
-            }
-            string strReleaseYear = GetSingleElement(metadataDoc, "ReleaseYear");
-            if (Regex.IsMatch(strTrackNumber, "[0-9]+"))
-            {
-                metadata.ReleaseYear = int.Parse(strReleaseYear);
-            }
-
-            return new Chapter(metadata, new List<AudioPath>(audioPaths));
+            return chapter;
         }
 
-        /// <summary>
-        /// Saves the metadata from a chapter to an XML file.
-        /// </summary>
-        /// <param name="chapter"></param>
-        /// <param name="path"></param>
-        public static void SaveChapterToXML(Chapter chapter, string path)
+        public static void SaveToXML(XMLSaveObject toSave, string path)
         {
-            var metadataXML = ChapterToXML(chapter);
-            metadataXML.Save(path);
-        }
-
-        /// <summary>
-        /// Converts the metadata of a chapter into an XDocument.
-        /// </summary>
-        /// <param name="chapter"></param>
-        /// <returns></returns>
-        private static XDocument ChapterToXML(Chapter chapter)
-        {
-            var chapterXML = new XElement("Chapter");
-            var audioPaths = new XElement("AudioPaths");
-            foreach (AudioPath audioPath in chapter.AudioPaths)
-            {
-                var pathXML = new XElement("AudioPath");
-                pathXML.Add(new XElement("FilePath", audioPath.Path));
-                pathXML.Add(new XElement("StartMark", audioPath.StartMark));
-                pathXML.Add(new XElement("EndMark", audioPath.EndMark));
-                audioPaths.Add(pathXML);
-            }
-            chapterXML.Add(audioPaths);
-
-            if (!chapter.Metadata.Title.Equals(string.Empty)) //TODO maybe != null?
-            {
-                chapterXML.Add(new XElement("Title", chapter.Metadata.Title));
-            }
-            if (chapter.Metadata.TrackNumber != 0)
-            {
-                chapterXML.Add(new XElement("TrackNumber", chapter.Metadata.TrackNumber));
-            }
-            if (!chapter.Metadata.Description.Equals(string.Empty))
-            {
-                chapterXML.Add(new XElement("Description", chapter.Metadata.Description));
-            }
-            if (chapter.Metadata.ReleaseYear != 0) //TODO what is standard value?
-            {
-                chapterXML.Add(new XElement("ReleaseYear", chapter.Metadata.ReleaseYear));
-            }
-
             var metadataXML = new XDocument();
-            metadataXML.Add(chapterXML);
-            return metadataXML;
+            metadataXML.Add(toSave.ToXML());
+
+            metadataXML.Save(path);
         }
 
         /// <summary>
         /// Returns a single element of an XML document.
         /// </summary>
-        /// <param name="doc"></param>
+        /// <param name="element"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        private static string GetSingleElement(XDocument doc, string name)
+        public static string GetSingleElement(XElement element, string name)
         {
-            var descendents = doc.Descendants(name);
+            var descendents = element.Descendants(name);
             if (descendents.Count() > 0)
             {
                 return descendents.First().Value;

@@ -114,7 +114,7 @@ namespace Commons.Logic
                 foreach (AudioPath audioPath in chapter.AudioPaths)
                 {
                     string fileName = Path.GetFileNameWithoutExtension(audioPath.Path);
-                    XMLHelper.SaveChapterToXML(chapter, Path.Combine(metadataDirectory, fileName + "."
+                    XMLHelper.SaveToXML(chapter, Path.Combine(metadataDirectory, fileName + "."
                         + ConfigurationManager.AppSettings.Get("metadata_extensions")));
                 }
             }

@@ -131,6 +131,7 @@
     <Compile Include="Util\Repository.cs" />
     <Compile Include="Util\WindowResizer.cs" />
     <Compile Include="Util\XMLHelper.cs" />
+    <Compile Include="Util\XMLSaveObject.cs" />
     <Compile Include="ViewModel\AddPageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />

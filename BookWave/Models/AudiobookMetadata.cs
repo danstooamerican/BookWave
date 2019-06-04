@@ -1,6 +1,7 @@
 ﻿using Commons.Exceptions;
 using GalaSoft.MvvmLight;
 using System.IO;
+using System.Xml.Linq;
 
 namespace Commons.Models
 {
@@ -62,6 +63,16 @@ namespace Commons.Models
         {
             Path = string.Empty;
             Genre = string.Empty;
+        }
+
+        public override XElement ToXML()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void FromXML(XElement xmlElement)
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
 

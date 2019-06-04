@@ -1,13 +1,15 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Commons.Util;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Commons.Models
 {
-    public abstract class Metadata : ObservableObject
+    public abstract class Metadata : ObservableObject, XMLSaveObject
     {
 
         #region Public Properties
@@ -49,6 +51,9 @@ namespace Commons.Models
             Description = string.Empty;
             ReleaseYear = 0;
         }
+
+        public abstract XElement ToXML();
+        public abstract void FromXML(XElement xmlElement);
 
         #endregion
 
