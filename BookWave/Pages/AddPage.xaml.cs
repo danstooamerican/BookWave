@@ -71,6 +71,8 @@ namespace Commons.Pages
 
         private void Destination_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //TODO make this pretty
+            viewModel.Audiobook.Metadata.Path = txbDestination.Text;
             viewModel.AnalyzeFolder();
         }
     }

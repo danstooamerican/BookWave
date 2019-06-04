@@ -32,7 +32,7 @@
                     Style="{StaticResource InputMaskText}" Text="Destination:" 
                     TextTrimming="WordEllipsis" />
 
-            <TextBox Grid.Column="1" Grid.Row="0"
+            <TextBox Grid.Column="1" Grid.Row="0" x:Name="txbDestination"
                 Margin="10,10,10,0" MinWidth="400"
                 Text="{Binding Audiobook.Metadata.Path, Mode=TwoWay}"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
