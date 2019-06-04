@@ -1,13 +1,16 @@
 ﻿using ATL;
+using Commons.Util;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace Commons.Models
 {
     /// <summary>
     /// A single chapter in an audiobook with a list of AudioPaths and Metadata.
     /// </summary>
-    public class Chapter : ObservableObject
+    public class Chapter : ObservableObject, XMLSaveObject
     {
 
         #region Public Properties
@@ -23,11 +26,11 @@ namespace Commons.Models
             set { Set<List<AudioPath>>(() => this.AudioPaths, ref mAudioPaths, value); }
         }
 
-        private Metadata mMetadata;
+        private ChapterMetadata mMetadata;
         /// <summary>
         /// Metadata of the chapter.
         /// </summary>
-        public Metadata Metadata
+        public ChapterMetadata Metadata
         {
             get { return mMetadata; }
             set { mMetadata = value; }
@@ -46,13 +49,47 @@ namespace Commons.Models
         {
             AudioPaths = new List<AudioPath>();
             AudioPaths.Add(new AudioPath(track.Path, 0, -1));
-            Metadata = new Metadata(track);
+            Metadata = new ChapterMetadata(track);
         }
 
-        public Chapter(Metadata metadata, List<AudioPath> audioPaths)
+        public Chapter()
+        {
+            AudioPaths = new List<AudioPath>();
+            Metadata = new ChapterMetadata();
+        }
+
+        public Chapter(ChapterMetadata metadata, List<AudioPath> audioPaths)
         {
             Metadata = metadata;
             AudioPaths = audioPaths;
+        }
+
+        public XElement ToXML()
+        {
+            var chapterXML = new XElement("Chapter");
+            var audioPaths = new XElement("AudioPaths");
+
+            foreach (AudioPath audioPath in AudioPaths)
+            {                
+                audioPaths.Add(audioPath.ToXML());
+            }
+            chapterXML.Add(audioPaths);
+
+            chapterXML.Add(Metadata.ToXML());
+
+            return chapterXML;
+        }
+
+        public void FromXML(XElement xmlElement)
+        {
+            foreach (var element in xmlElement.Descendants("AudioPath"))
+            {
+                AudioPath audioPath = new AudioPath();
+                audioPath.FromXML(element);
+                AudioPaths.Add(audioPath);
+            }
+
+            Metadata.FromXML(xmlElement);            
         }
 
         #endregion

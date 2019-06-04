@@ -1,5 +1,6 @@
 ﻿using Commons.Controls;
 using Commons.Exceptions;
+using Commons.Logic;
 using Commons.Util;
 using Commons.ViewModel;
 using GalaSoft.MvvmLight.Ioc;
@@ -139,6 +140,11 @@ namespace AudiobookPlayer
             viewModel.NavigationHistory.Forward();
 
             frmPage.GoForward();
+        }
+
+        private void AppWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            AudiobookManager.Instance.LoadRepository();
         }
     }
 }

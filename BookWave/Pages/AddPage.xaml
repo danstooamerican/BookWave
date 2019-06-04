@@ -32,11 +32,12 @@
                     Style="{StaticResource InputMaskText}" Text="Destination:" 
                     TextTrimming="WordEllipsis" />
 
-            <TextBox Grid.Column="1" Grid.Row="0"
+            <TextBox Grid.Column="1" Grid.Row="0" x:Name="txbDestination"
                 Margin="10,10,10,0" MinWidth="400"
-                Text="{Binding FolderHandler.FolderPath, Mode=TwoWay}"
+                Text="{Binding Audiobook.Metadata.Path, Mode=TwoWay}"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Style="{StaticResource MaskTextBox}" />
+                Style="{StaticResource MaskTextBox}"
+                TextChanged="Destination_TextChanged"/>
 
             <StackPanel Orientation="Horizontal" 
                 Grid.Column="2" Grid.Row="0"
@@ -69,6 +70,7 @@
             <TextBox Grid.Column="1" Grid.Row="1"
                 Margin="10,10,10,0" MinWidth="400"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
+                Text="{Binding Audiobook.Metadata.Title}"
                 Style="{StaticResource MaskTextBox}" />
 
             <!-- Drag Area -->
@@ -93,28 +95,14 @@
                             Width="auto"
                             MinWidth="20"                
                             MaxWidth="55"/>
-                        
+
                         <DataGridTextColumn Header="Title" 
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"
                             Binding="{Binding Metadata.Title}" 
                             MinWidth="80" 
                             Width="2*" />
-                        
-                        <DataGridTextColumn Header="Author" 
-                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
-                            ElementStyle="{StaticResource InformationText}"
-                            Binding="{Binding Metadata.Contributors.AuthorString}"
-                            MinWidth="80" 
-                            Width="*" />
-                        
-                        <DataGridTextColumn Header="Reader" 
-                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
-                            ElementStyle="{StaticResource InformationText}"
-                            Binding="{Binding Metadata.Contributors.ReaderString}" 
-                            MinWidth="80" 
-                            Width="*" />
-                        
+
                         <DataGridTextColumn Header="Release"
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"                            

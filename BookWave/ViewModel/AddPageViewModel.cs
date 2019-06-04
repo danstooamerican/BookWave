@@ -1,9 +1,11 @@
-﻿using Commons.Logic;
+﻿using Commons.Exceptions;
+using Commons.Logic;
 using Commons.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -22,9 +24,6 @@ namespace Commons.ViewModel
             set { Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value); }
         }
 
-
-        public FolderHandler FolderHandler { get; set; }
-
         #endregion
 
         #region Commands
@@ -38,10 +37,7 @@ namespace Commons.ViewModel
         
         public AddPageViewModel()
         {
-            FolderHandler = new FolderHandler();
             Audiobook = new Audiobook();
-            FolderHandler.FolderPathClearedEvent += Audiobook.ClearChapters;
-            FolderHandler.FolderPathSetEvent += AnalyzeFolder;
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
@@ -52,31 +48,37 @@ namespace Commons.ViewModel
         #region Methods
 
         /// <summary>
-        /// Opens a FolderBrowserDialog and sets the FolderPath of the FolderHandler.
+        /// Opens a FolderBrowserDialog and sets the FolderPath of the AudiobookFolder.
         /// </summary>
         private void SelectFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                FolderHandler.FolderPath = folderBrowserDialog.SelectedPath;                
+                Audiobook.Metadata.Path = folderBrowserDialog.SelectedPath;
             }
         }
 
-        /// <summary>
-        /// Analyzes the selected folder and updates the chapter list.
-        /// </summary>
-        private void AnalyzeFolder()
+        public void AnalyzeFolder()
         {
-            Audiobook.Chapters =
-                new ObservableCollection<Chapter>(FolderHandler.AnalyzeFolder());
-        }
+            Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
 
+            Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
+        }
 
         private void SaveAudiobook()
         {
-            FolderHandler.SaveAudiobook(Audiobook.Chapters);
-            // TODO add audiobook to audiobookmanager
+            AudiobookFolder.SaveAudiobookMetadata(Audiobook.Metadata.Path, Audiobook.Chapters);
+            if (!AudiobookManager.Instance.Audiobooks.Contains(Audiobook))
+            {
+                if (!Audiobook.Metadata.Title.Equals(string.Empty))
+                {
+                    AudiobookManager.Instance.AddAudioBook(Audiobook);
+                } else
+                {
+                    throw new InvalidArgumentException("audiobook title is required");
+                }                
+            }                        
         }
 
         private bool CanSaveAudiobook()

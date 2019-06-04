@@ -55,11 +55,6 @@ namespace Commons.ViewModel
         /// </summary>
         public ICommand CloseCommand { get; set; }
 
-        /// <summary>
-        /// The command to show the system menu of the window
-        /// </summary>
-        public ICommand MenuCommand { get; set; }
-
         #endregion
 
         #region Constructors
@@ -81,11 +76,13 @@ namespace Commons.ViewModel
                 WindowResized();
             };
 
+            window.Height = WindowMinimumHeight;
+            window.Width = WindowMinimumWidth;
+
             // Create commands
             MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => mWindow.Close());
-            MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
 
             // Fix window resize issue
             var resizer = new WindowResizer(mWindow);

@@ -13,6 +13,7 @@
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
         WindowStyle="None"
+        Loaded="AppWindow_Loaded"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         x:Name="AppWindow">
@@ -76,8 +77,8 @@
                     lib:MenuButton.Click="MenuButton_Click"
                     Margin="0,0,0,5">
                     
-                    <lib:MenuButton Name="btnAddToLibrary" Content="Add to Library"
-                        Page="/Pages/AddPage.xaml" PageTitle="Add New" />
+                    <lib:MenuButton Name="btnAddToLibrary" Content="Edit Library"
+                        Page="/Pages/AddPage.xaml" PageTitle="Edit Library" />
                 </StackPanel>
             </Grid>
         </Border>
