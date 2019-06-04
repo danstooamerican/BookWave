@@ -1,4 +1,5 @@
 ﻿using Commons.Exceptions;
+using GalaSoft.MvvmLight;
 using System.IO;
 
 namespace Commons.Models
@@ -44,11 +45,20 @@ namespace Commons.Models
             set { mGenre = value; }
         }
 
+        private Contributors mContributors;
+        /// <summary>
+        /// All contributors.
+        /// </summary>
+        public Contributors Contributors
+        {
+            get { return mContributors; }
+            set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
+        }
 
         #endregion
 
         #region Constructor
-        public AudiobookMetadata()
+        public AudiobookMetadata() : base()
         {
             Path = string.Empty;
             Genre = string.Empty;

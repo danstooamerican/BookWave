@@ -1,9 +1,11 @@
-﻿using Commons.Logic;
+﻿using Commons.Exceptions;
+using Commons.Logic;
 using Commons.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -60,12 +62,23 @@ namespace Commons.ViewModel
         public void AnalyzeFolder()
         {
             Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
+
+            Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
         }
 
         private void SaveAudiobook()
         {
             AudiobookFolder.SaveAudiobookMetadata(Audiobook.Metadata.Path, Audiobook.Chapters);
-            // TODO add audiobook to audiobookmanager
+            if (!AudiobookManager.Instance.Audiobooks.Contains(Audiobook))
+            {
+                if (!Audiobook.Metadata.Title.Equals(string.Empty))
+                {
+                    AudiobookManager.Instance.AddAudioBook(Audiobook);
+                } else
+                {
+                    throw new InvalidArgumentException("audiobook title is required");
+                }                
+            }                        
         }
 
         private bool CanSaveAudiobook()

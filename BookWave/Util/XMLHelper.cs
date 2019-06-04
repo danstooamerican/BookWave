@@ -28,16 +28,8 @@ namespace Commons.Util
                                                    EndMark = (int)c.Element("EndMark")
                                                };
 
-            IEnumerable<string> authors = from c in metadataDoc.Descendants("Author")
-                                          select (string)c.Value;
+            ChapterMetadata metadata = new ChapterMetadata();
 
-            IEnumerable<string> readers = from c in metadataDoc.Descendants("Reader")
-                                          select (string)c.Value;
-
-            Metadata metadata = new Metadata();
-
-            metadata.Contributors.Authors.AddRange(authors);
-            metadata.Contributors.Readers.AddRange(readers);
             metadata.Title = GetSingleElement(metadataDoc, "Title");
 
             // TODO regex move to GetSingleElement
@@ -101,24 +93,7 @@ namespace Commons.Util
             {
                 chapterXML.Add(new XElement("ReleaseYear", chapter.Metadata.ReleaseYear));
             }
-            if (chapter.Metadata.Contributors.Authors.Count != 0)
-            {
-                XElement authors = new XElement("Authors");
-                foreach (string author in chapter.Metadata.Contributors.Authors)
-                {
-                    authors.Add(new XElement("Author", author));
-                }
-                chapterXML.Add(authors);
-            }
-            if (chapter.Metadata.Contributors.Readers.Count != 0)
-            {
-                XElement readers = new XElement("Readers");
-                foreach (string reader in chapter.Metadata.Contributors.Readers)
-                {
-                    readers.Add(new XElement("Reader", reader));
-                }
-                chapterXML.Add(readers);
-            }
+
             var metadataXML = new XDocument();
             metadataXML.Add(chapterXML);
             return metadataXML;
