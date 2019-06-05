@@ -59,7 +59,7 @@ namespace Commons.Util
         /// </summary>
         /// <param name="element"></param>
         /// <param name="name"></param>
-        /// <returns></returns>
+        /// <returns>the element. Returns string.empty if it doesn't exist.</returns>
         public static string GetSingleElement(XElement element, string name)
         {
             var descendents = element.Descendants(name);

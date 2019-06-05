@@ -66,6 +66,16 @@ namespace Commons.Models
             set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
         }
 
+        /// <summary>
+        /// The path for the cover image.
+        /// </summary>
+        private string mCoverPath;
+        public string CoverPath
+        {
+            get { return mCoverPath; }
+            set { mCoverPath = value; }
+        }
+
         #endregion
 
         #region Constructor
@@ -105,6 +115,11 @@ namespace Commons.Models
                 metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
             }
 
+            if (!CoverPath.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Cover", CoverPath));
+            }
+
             return metadataXML;
         }
 
@@ -114,6 +129,7 @@ namespace Commons.Models
 
             Path = XMLHelper.GetSingleElement(xmlElement, "Path");
             Genre = XMLHelper.GetSingleElement(xmlElement, "Genre");
+            CoverPath = XMLHelper.GetSingleElement(xmlElement, "Cover");
 
             Contributors.FromXML(xmlElement);
 
