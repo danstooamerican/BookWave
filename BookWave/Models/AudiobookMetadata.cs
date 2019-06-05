@@ -64,6 +64,7 @@ namespace Commons.Models
         {
             Path = string.Empty;
             Genre = string.Empty;
+            Contributors = new Contributors();
         }
 
         public new XElement ToXML()

@@ -61,14 +61,24 @@ namespace Commons.ViewModel
 
         public void AnalyzeFolder()
         {
-            Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
+            var tmpAudiobook = Audiobook = AudiobookManager.Instance.GetAudiobook(Audiobook.Metadata.Path);
+            if (tmpAudiobook != null)
+            {
+                Audiobook = tmpAudiobook;
+            }
 
-            Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
+            Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
+            if (Audiobook.Metadata.Title.Equals(string.Empty))
+            {
+                Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
+            }
+            
         }
 
         private void SaveAudiobook()
         {
-            AudiobookFolder.SaveAudiobookMetadata(Audiobook.Metadata.Path, Audiobook.Chapters);
+            AudiobookFolder.SaveAudiobookMetadata(Audiobook);
+
             if (!AudiobookManager.Instance.Audiobooks.Contains(Audiobook))
             {
                 if (!Audiobook.Metadata.Title.Equals(string.Empty))

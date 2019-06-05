@@ -49,19 +49,12 @@ namespace Commons.Models
             Metadata = new AudiobookMetadata();
         }
 
-        /// <summary>
-        /// Creates a new audiobook based on a directory. It scans the metadata
-        /// folder and creates for each metadata file a chapter.
-        /// </summary>
-        /// <param name="path">Path to the main audiobook directory.</param>
-        public Audiobook(string path)
+        public void LoadChapters()
         {
             List<Chapter> chapters = AudiobookFolder.LoadAudiobookChapters(
-                Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder")));
+                    Path.Combine(Metadata.Path, ConfigurationManager.AppSettings.Get("metadata_folder")));
 
             Chapters = new ObservableCollection<Chapter>(chapters);
-            Metadata = new AudiobookMetadata();
-            Metadata.Path = path;
         }
 
         public XElement ToXML()

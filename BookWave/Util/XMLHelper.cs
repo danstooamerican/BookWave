@@ -31,6 +31,21 @@ namespace Commons.Util
             return chapter;
         }
 
+        public static Audiobook XMLToAudiobook(string path)
+        {
+            XDocument metadataDoc = XDocument.Load(path);
+
+            Audiobook audiobook = null;
+            var audiobookXML = metadataDoc.Descendants("Audiobook");
+            if (audiobookXML.Count() > 0)
+            {
+                audiobook = new Audiobook();
+                audiobook.FromXML(audiobookXML.First());
+            }
+
+            return audiobook;
+        }
+
         public static void SaveToXML(XMLSaveObject toSave, string path)
         {
             var metadataXML = new XDocument();
