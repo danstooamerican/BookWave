@@ -103,14 +103,6 @@
                             MinWidth="80" 
                             Width="2*" />
 
-                        <DataGridTextColumn Header="Release"
-                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
-                            ElementStyle="{StaticResource InformationText}"                            
-                            Binding="{Binding Metadata.ReleaseYear}" 
-                            Width="auto"
-                            MinWidth="60" 
-                            MaxWidth="100" />
-                        
                     </DataGrid.Columns>
                 </DataGrid>
 

@@ -1,7 +1,6 @@
-﻿using Commons.Exceptions;
-using Commons.Util;
-using GalaSoft.MvvmLight;
+﻿using Commons.Util;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace Commons.Models
@@ -57,6 +56,16 @@ namespace Commons.Models
             set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
         }
 
+        private int mReleaseYear;
+        /// <summary>
+        /// Release Year.
+        /// </summary>
+        public int ReleaseYear
+        {
+            get { return mReleaseYear; }
+            set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
+        }
+
         #endregion
 
         #region Constructor
@@ -65,6 +74,7 @@ namespace Commons.Models
             Path = string.Empty;
             Genre = string.Empty;
             Contributors = new Contributors();
+            ReleaseYear = 0;
         }
 
         public new XElement ToXML()
@@ -90,6 +100,11 @@ namespace Commons.Models
                 }
             }
 
+            if (ReleaseYear != 0) //TODO what is standard value?
+            {
+                metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
+            }
+
             return metadataXML;
         }
 
@@ -101,7 +116,12 @@ namespace Commons.Models
             Genre = XMLHelper.GetSingleElement(xmlElement, "Genre");
 
             Contributors.FromXML(xmlElement);
-            
+
+            string strReleaseYear = XMLHelper.GetSingleElement(xmlElement, "ReleaseYear");
+            if (Regex.IsMatch(strReleaseYear, "[0-9]+"))
+            {
+                ReleaseYear = int.Parse(strReleaseYear);
+            }
         }
         #endregion
 

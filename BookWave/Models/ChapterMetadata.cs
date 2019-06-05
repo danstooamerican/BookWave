@@ -2,7 +2,6 @@
 using System.Xml.Linq;
 using ATL;
 using Commons.Util;
-using GalaSoft.MvvmLight;
 
 namespace Commons.Models
 {
@@ -33,14 +32,12 @@ namespace Commons.Models
             Title = string.Empty;
             Description = string.Empty;
             TrackNumber = -1;
-            ReleaseYear = -1;
 
             if (track != null)
             {
                 Title = track.Title;
                 TrackNumber = track.TrackNumber;
                 Description = track.Description;
-                ReleaseYear = track.Year;
             }
         }
         
