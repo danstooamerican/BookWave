@@ -182,9 +182,9 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
                     <lib:ImageButton
-                        NormalImage="/Commons.Styles;component/Resources/Misc/folder.png"
-                        HoverImage="/Commons.Styles;component/Resources/Misc/folder_hover.png"
-                        PressedImage="/Commons.Styles;component/Resources/Misc/folder_pressed.png"
+                        NormalImage="/Commons.Styles;component/Resources/Navigation/minimize.png"
+                        HoverImage="/Commons.Styles;component/Resources/Navigation/minimize_hover.png"
+                        PressedImage="/Commons.Styles;component/Resources/Navigation/minimize_pressed.png"
                         ImageSize="20"
                         Command="{Binding MinimizeCommand}"
                         Margin="0, 0, 10, 0"
