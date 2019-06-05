@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -52,8 +53,38 @@ namespace Commons.Models
             ReleaseYear = 0;
         }
 
-        public abstract XElement ToXML();
-        public abstract void FromXML(XElement xmlElement);
+        public XElement ToXML()
+        {
+            XElement metadataXML = new XElement("Metadata");
+
+            if (!Title.Equals(string.Empty)) //TODO maybe != null?
+            {
+                metadataXML.Add(new XElement("Title", Title));
+            }
+            
+            if (!Description.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Description", Description));
+            }
+            if (ReleaseYear != 0) //TODO what is standard value?
+            {
+                metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
+            }
+
+            return metadataXML;
+        }
+        public void FromXML(XElement xmlElement)
+        {
+            Title = XMLHelper.GetSingleElement(xmlElement, "Title");
+
+            Description = XMLHelper.GetSingleElement(xmlElement, "Description");
+
+            string strReleaseYear = XMLHelper.GetSingleElement(xmlElement, "ReleaseYear");
+            if (Regex.IsMatch(strReleaseYear, "[0-9]+"))
+            {
+                ReleaseYear = int.Parse(strReleaseYear);
+            }
+        }
 
         #endregion
 

@@ -20,8 +20,13 @@ namespace Commons.Util
         {
             XDocument metadataDoc = XDocument.Load(path);
 
-            Chapter chapter = new Chapter();
-            chapter.FromXML(metadataDoc.Descendants("Chapter").First());            
+            Chapter chapter = null;
+            var chapterXML = metadataDoc.Descendants("Chapter");
+            if (chapterXML.Count() > 0)
+            {
+                chapter = new Chapter();
+                chapter.FromXML(chapterXML.First());
+            }
 
             return chapter;
         }

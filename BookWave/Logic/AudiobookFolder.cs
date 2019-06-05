@@ -85,15 +85,17 @@ namespace Commons.Logic
             if (!Directory.Exists(metadataFolder))
             {
                 return chapters;
-            }            
+            }
 
             List<string> metadataFiles = Directory.GetFiles(metadataFolder, "*." + ConfigurationManager.AppSettings.Get("metadata_extensions")).ToList();
 
             foreach (string file in metadataFiles)
             {
                 Chapter chapter = XMLHelper.XMLToChapter(file);
-
-                chapters.Add(chapter);
+                if (chapter != null)
+                {
+                    chapters.Add(chapter);
+                }
             }
 
             return chapters;

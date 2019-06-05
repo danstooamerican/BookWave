@@ -1,4 +1,5 @@
 ﻿using Commons.Exceptions;
+using Commons.Util;
 using GalaSoft.MvvmLight;
 using System.IO;
 using System.Xml.Linq;
@@ -65,14 +66,41 @@ namespace Commons.Models
             Genre = string.Empty;
         }
 
-        public override XElement ToXML()
+        public new XElement ToXML()
         {
-            throw new System.NotImplementedException();
+            XElement metadataXML = base.ToXML();
+
+            if (!Path.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Path", Path));
+            }
+
+            if (!Genre.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Genre", Genre));
+            }
+
+            if (Contributors != null)
+            {
+                XElement contributorsXML = Contributors.ToXML();
+                if (contributorsXML != null)
+                {
+                    metadataXML.Add();
+                }
+            }
+
+            return metadataXML;
         }
 
-        public override void FromXML(XElement xmlElement)
+        public new void FromXML(XElement xmlElement)
         {
-            throw new System.NotImplementedException();
+            base.FromXML(xmlElement);
+
+            Path = XMLHelper.GetSingleElement(xmlElement, "Path");
+            Genre = XMLHelper.GetSingleElement(xmlElement, "Genre");
+
+            Contributors.FromXML(xmlElement);
+            
         }
         #endregion
 

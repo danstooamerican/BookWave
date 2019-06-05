@@ -1,16 +1,18 @@
 ﻿using Commons.Logic;
+using Commons.Util;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
+using System.Xml.Linq;
 
 namespace Commons.Models
 {
     /// <summary>
     /// Represents a single audiobook with a list of chapters and metadata.
     /// </summary>
-    public class Audiobook : ObservableObject
+    public class Audiobook : ObservableObject, XMLSaveObject
     {
 
         #region Public Properties
@@ -62,5 +64,18 @@ namespace Commons.Models
             Metadata.Path = path;
         }
 
+        public XElement ToXML()
+        {
+            var audiobookXML = new XElement("Audiobook");
+
+            audiobookXML.Add(Metadata.ToXML());
+
+            return audiobookXML;
+        }
+
+        public void FromXML(XElement xmlElement)
+        {
+            Metadata.FromXML(xmlElement);
+        }
     }
 }
