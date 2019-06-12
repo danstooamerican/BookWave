@@ -83,6 +83,7 @@ namespace Commons.Models
         {
             Path = string.Empty;
             Genre = string.Empty;
+            CoverPath = string.Empty;
             Contributors = new Contributors();
             ReleaseYear = 0;
         }

@@ -61,7 +61,7 @@ namespace Commons.ViewModel
 
         public void AnalyzeFolder()
         {
-            var tmpAudiobook = Audiobook = AudiobookManager.Instance.GetAudiobook(Audiobook.Metadata.Path);
+            var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Audiobook.Metadata.Path);
             if (tmpAudiobook != null)
             {
                 Audiobook = tmpAudiobook;
