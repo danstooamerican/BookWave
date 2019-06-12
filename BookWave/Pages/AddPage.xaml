@@ -43,8 +43,9 @@
             </StackPanel>
             
             <!-- Advanced Options -->
+            <!-- https://www.codeproject.com/Articles/248112/Templating-WPF-Expander-Control -->
             <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" 
-                Header="Advanced">
+                Header="Advanced" Foreground="{StaticResource TextHighlightColorBrush}">
 
             </Expander>
             
