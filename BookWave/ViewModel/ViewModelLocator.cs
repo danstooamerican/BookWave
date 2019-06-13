@@ -16,7 +16,7 @@ namespace Commons.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainWindowViewModel>();
-            SimpleIoc.Default.Register<AddPageViewModel>();
+            SimpleIoc.Default.Register<EditLibraryViewModel>();
             SimpleIoc.Default.Register<PlayerViewModel>();
         }
 
@@ -36,11 +36,11 @@ namespace Commons.ViewModel
             }
         }
 
-        public AddPageViewModel AddPageViewModel
+        public EditLibraryViewModel EditLibraryViewModel
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<AddPageViewModel>();
+                return ServiceLocator.Current.GetInstance<EditLibraryViewModel>();
             }
         }
 

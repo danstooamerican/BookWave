@@ -9,14 +9,14 @@ namespace Commons.Pages
     /// <summary>
     /// Interaction logic for AuthorsPage.xaml
     /// </summary>
-    public partial class AddPage : Page
+    public partial class EditLibrary : Page
     {
-        private AddPageViewModel viewModel;
+        private EditLibraryViewModel viewModel;
 
-        public AddPage()
+        public EditLibrary()
         {
             InitializeComponent();
-            viewModel = (AddPageViewModel)DataContext;
+            viewModel = (EditLibraryViewModel)DataContext;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Commons.Pages
                 {
                     if (Directory.Exists(files[0]))
                     {
-                        AddPageViewModel viewModel = DataContext as AddPageViewModel;
+                        EditLibraryViewModel viewModel = DataContext as EditLibraryViewModel;
 
                         viewModel.Audiobook.Metadata.Path = files[0];
                     }

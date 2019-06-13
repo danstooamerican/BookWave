@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Commons.ViewModel
 {
-    public class AddPageViewModel : ViewModelBase
+    public class EditLibraryViewModel : ViewModelBase
     {
 
         #region Public Properties
@@ -42,7 +42,7 @@ namespace Commons.ViewModel
 
         #region Constructors
         
-        public AddPageViewModel()
+        public EditLibraryViewModel()
         {
             Audiobook = new Audiobook();
 
