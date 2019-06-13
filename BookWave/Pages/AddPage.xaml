@@ -17,6 +17,7 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -31,7 +32,20 @@
             <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
                 Orientation="Horizontal" Margin="0, 0, 0, 0">
 
-                <Button Grid.Column="0" Grid.Row="0" Content="Open" 
+                <Button Grid.Column="0" Grid.Row="0" Content="Browse Library" 
+                    x:Name="btnBrowseLibrary"
+                    MinHeight="28" MinWidth="120" Margin="0, 0, 20, 0" 
+                    Style="{StaticResource RoundedButton}"
+                    Click="BtnBrowseLibrary_Click"
+                        MouseRightButtonUp="BtnBrowseLibrary_MouseRightButtonUp">
+
+                    <Button.ContextMenu>
+                        <ContextMenu ItemsSource="{Binding AudiobookLibrary}"
+                            Placement="Bottom"/>
+                    </Button.ContextMenu>
+                </Button>
+
+                <Button Grid.Column="0" Grid.Row="0" Content="Open Folder" 
                     MinHeight="28" MinWidth="120" Margin="0, 0, 20, 0" 
                     Style="{StaticResource RoundedButton}"
                     Command="{Binding SelectFolderCommand}"/>
@@ -46,7 +60,7 @@
             <!-- https://www.codeproject.com/Articles/248112/Templating-WPF-Expander-Control -->
             <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" 
                 Header="Advanced" Foreground="{StaticResource TextHighlightColorBrush}">
-
+                <Button>Test</Button>
             </Expander>
             
             <!-- Cover Image -->
@@ -79,13 +93,15 @@
                 Text="{Binding Audiobook.Metadata.Title}"
                 Style="{StaticResource MaskTextBox}" />
 
-            <!-- Advanced Settings -->
+            <!-- Audiobook List -->
             
+
             <!-- Drag Area -->
             <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
                 Margin="5, 20, 0, 20">
 
                 <DataGrid ItemsSource="{Binding Audiobook.Chapters}" 
+                    HorizontalScrollBarVisibility="Hidden"
                     x:Name="dtgChapters"
                     AllowDrop="True"
                     Drop="PerformDrop"

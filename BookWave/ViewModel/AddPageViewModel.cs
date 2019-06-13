@@ -24,6 +24,13 @@ namespace Commons.ViewModel
             set { Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value); }
         }
 
+        public List<Audiobook> AudiobookLibrary {
+            get
+            {
+                return new List<Audiobook>(AudiobookManager.Instance.Audiobooks);
+            }
+        }
+
         #endregion
 
         #region Commands
