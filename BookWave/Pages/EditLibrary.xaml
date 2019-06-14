@@ -39,9 +39,17 @@
                     Click="BtnBrowseLibrary_Click"
                         MouseRightButtonUp="BtnBrowseLibrary_MouseRightButtonUp">
 
+                    <!-- https://stevemdev.wordpress.com/2013/02/16/wpf-dynamic-context-menu-revisited/ -->
                     <Button.ContextMenu>
                         <ContextMenu ItemsSource="{Binding AudiobookLibrary}"
-                            Placement="Bottom"/>
+                            Style="{StaticResource ContextMenuStyle}">
+
+                            <ContextMenu.ItemContainerStyle>
+                                <Style TargetType="{x:Type MenuItem}" >
+                                    <Setter Property="Command" Value="{Binding SelectFolderCommand}" />
+                                </Style>
+                            </ContextMenu.ItemContainerStyle>
+                        </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
 
