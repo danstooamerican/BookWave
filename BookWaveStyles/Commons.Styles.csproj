@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\AddUpdateConverter.cs" />
     <Compile Include="Converter\ChaptersToVisibleConverter.cs" />
     <Compile Include="Converter\VerticalOffsetOpacityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetTopBarVisibilityConverter.cs" />

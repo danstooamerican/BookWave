@@ -57,7 +57,8 @@
                     Style="{StaticResource RoundedButton}"
                     Command="{Binding SelectFolderCommand}"/>
                 
-                <Button Grid.Column="0" Grid.Row="0" Content="Add" 
+                <Button Grid.Column="0" Grid.Row="0" 
+                    Content="{Binding IsInLibrary, Converter={StaticResource AddUpdateConverter}}" 
                     MinHeight="28" MinWidth="120"
                     Style="{StaticResource RoundedButton}"
                     Command="{Binding SaveAudiobookCommand}"/>

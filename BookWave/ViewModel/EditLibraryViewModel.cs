@@ -21,7 +21,11 @@ namespace Commons.ViewModel
         public Audiobook Audiobook
         {
             get { return mAudiobook; }
-            set { Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value); }
+            set
+            {
+                Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value);
+                IsInLibrary = Audiobook != null && AudiobookManager.Instance.Audiobooks.Contains(Audiobook);
+            }
         }
 
         public List<Audiobook> AudiobookLibrary {
@@ -30,6 +34,14 @@ namespace Commons.ViewModel
                 return new List<Audiobook>(AudiobookManager.Instance.Audiobooks);
             }
         }
+
+        private bool mIsInLibrary;
+        public bool IsInLibrary
+        {
+            get { return mIsInLibrary; }
+            set { Set<bool>(() => this.IsInLibrary, ref mIsInLibrary, value); }
+        }
+
 
         #endregion
 
