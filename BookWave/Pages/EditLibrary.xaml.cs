@@ -11,12 +11,11 @@ namespace Commons.Pages
     /// </summary>
     public partial class EditLibrary : Page
     {
-        private EditLibraryViewModel viewModel;
 
         public EditLibrary()
         {
+            DataContext = ViewModelLocator.Instance.EditLibraryViewModel;
             InitializeComponent();
-            viewModel = (EditLibraryViewModel)DataContext;
         }
 
         /// <summary>
@@ -50,9 +49,7 @@ namespace Commons.Pages
                 {
                     if (Directory.Exists(files[0]))
                     {
-                        EditLibraryViewModel viewModel = DataContext as EditLibraryViewModel;
-
-                        viewModel.Audiobook.Metadata.Path = files[0];
+                        ViewModelLocator.Instance.EditLibraryViewModel.Audiobook.Metadata.Path = files[0];
                     }
                 }
             }
@@ -61,6 +58,7 @@ namespace Commons.Pages
         private void Destination_TextChanged(object sender, TextChangedEventArgs e)
         {
             //TODO make this pretty
+            EditLibraryViewModel viewModel = ViewModelLocator.Instance.EditLibraryViewModel;
             viewModel.Audiobook.Metadata.Path = txbDestination.Text;
             viewModel.AnalyzeFolder();
         }
