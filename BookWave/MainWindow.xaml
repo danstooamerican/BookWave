@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Commons"
-        xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
         xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls" 
         mc:Ignorable="d"
         Icon="/Commons.Styles;component/Resources/icon.ico"
@@ -78,7 +76,7 @@
                     Margin="0,0,0,5">
                     
                     <lib:MenuButton Name="btnAddToLibrary" Content="Edit Library"
-                        Page="/Pages/AddPage.xaml" PageTitle="Edit Library" />
+                        Page="/Pages/EditLibrary.xaml" PageTitle="Edit Library" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -182,9 +180,9 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
                     <lib:ImageButton
-                        NormalImage="/Commons.Styles;component/Resources/Misc/folder.png"
-                        HoverImage="/Commons.Styles;component/Resources/Misc/folder_hover.png"
-                        PressedImage="/Commons.Styles;component/Resources/Misc/folder_pressed.png"
+                        NormalImage="/Commons.Styles;component/Resources/Navigation/minimize.png"
+                        HoverImage="/Commons.Styles;component/Resources/Navigation/minimize_hover.png"
+                        PressedImage="/Commons.Styles;component/Resources/Navigation/minimize_pressed.png"
                         ImageSize="20"
                         Command="{Binding MinimizeCommand}"
                         Margin="0, 0, 10, 0"
@@ -260,7 +258,7 @@
 
         <!-- Bottom Bar -->
         <lib:PlayerBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
-                       DataContext="{Binding PlayerViewModel, Source={StaticResource Locator}}"
+                       DataContext="{Binding PlayerViewModel}"
                        CoverImage="{Binding CoverImage}"/>
 
     </Grid>

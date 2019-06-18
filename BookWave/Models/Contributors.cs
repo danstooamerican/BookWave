@@ -1,15 +1,17 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Commons.Util;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Commons.Models
 {
     /// <summary>
     /// Includes lists of people who contribute to an audiobook.
     /// </summary>
-    public class Contributors : ObservableObject
+    public class Contributors : ObservableObject, XMLSaveObject
     {
 
         #region Public Properties
@@ -124,6 +126,53 @@ namespace Commons.Models
             sb.Length = Math.Max(sb.Length - DELIM_TEXT.Length, 0);
 
             return sb.ToString();
+        }
+
+        public XElement ToXML()
+        {
+            var contributorsXML = new XElement("Contributors");
+
+            if (Authors.Count > 0)
+            {
+                var authorsXML = new XElement("Authors");
+                foreach (string author in Authors)
+                {
+                    var authorXML = new XElement("Author");
+                    authorXML.Add(author);
+                    authorsXML.Add(authorXML);
+                }
+                contributorsXML.Add(authorsXML);
+            }
+
+            if (Readers.Count > 0)
+            {
+                var readersXML = new XElement("Readers");
+                foreach (string reader in Readers)
+                {
+                    var readerXML = new XElement("Reader");
+                    readerXML.Add(reader);
+                    readersXML.Add(readerXML);
+                }
+                contributorsXML.Add(readersXML);
+            }
+            
+            if (Authors.Count > 0 || Readers.Count > 0)
+            {
+                return contributorsXML;
+            }
+            return null;
+        }
+
+        public void FromXML(XElement xmlElement)
+        {
+            foreach (var element in xmlElement.Descendants("Author"))
+            {
+                Authors.Add((string) element.Value);
+            }
+            foreach (var element in xmlElement.Descendants("Reader"))
+            {
+                Readers.Add((string) element.Value);
+            }
         }
 
         #endregion

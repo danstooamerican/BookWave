@@ -1,33 +1,21 @@
 ﻿using Commons.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Commons.Pages
 {
     /// <summary>
     /// Interaction logic for AuthorsPage.xaml
     /// </summary>
-    public partial class AddPage : Page
+    public partial class EditLibrary : Page
     {
-        private AddPageViewModel viewModel;
 
-        public AddPage()
+        public EditLibrary()
         {
+            DataContext = ViewModelLocator.Instance.EditLibraryViewModel;
             InitializeComponent();
-            viewModel = (AddPageViewModel)DataContext;
         }
 
         /// <summary>
@@ -61,9 +49,7 @@ namespace Commons.Pages
                 {
                     if (Directory.Exists(files[0]))
                     {
-                        AddPageViewModel viewModel = DataContext as AddPageViewModel;
-
-                        viewModel.Audiobook.Metadata.Path = files[0];
+                        ViewModelLocator.Instance.EditLibraryViewModel.Audiobook.Metadata.Path = files[0];
                     }
                 }
             }
@@ -72,8 +58,24 @@ namespace Commons.Pages
         private void Destination_TextChanged(object sender, TextChangedEventArgs e)
         {
             //TODO make this pretty
+            EditLibraryViewModel viewModel = ViewModelLocator.Instance.EditLibraryViewModel;
             viewModel.Audiobook.Metadata.Path = txbDestination.Text;
             viewModel.AnalyzeFolder();
+        }
+
+        private void BtnBrowseLibrary_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            ContextMenu contextMenu = btn.ContextMenu;
+            contextMenu.PlacementTarget = btn;
+            contextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            contextMenu.IsOpen = true;
+            e.Handled = true;
+        }
+
+        private void BtnBrowseLibrary_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

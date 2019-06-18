@@ -36,6 +36,12 @@ namespace Commons.ViewModel
             set { mNavigationHistory = value; }
         }
 
+        public PlayerViewModel PlayerViewModel
+        {
+            get { return ViewModelLocator.Instance.PlayerViewModel; }
+        }
+
+
         #endregion
 
         #region Commands

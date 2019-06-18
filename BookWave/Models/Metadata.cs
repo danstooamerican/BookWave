@@ -1,10 +1,5 @@
 ﻿using Commons.Util;
 using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Commons.Models
@@ -31,16 +26,6 @@ namespace Commons.Models
             set { Set<string>(() => this.Description, ref mDescription, value); }
         }
 
-        private int mReleaseYear;
-        /// <summary>
-        /// Release Year.
-        /// </summary>
-        public int ReleaseYear
-        {
-            get { return mReleaseYear; }
-            set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
-        }
-
         #endregion
 
         #region Constructor
@@ -49,11 +34,31 @@ namespace Commons.Models
         {
             Title = string.Empty;
             Description = string.Empty;
-            ReleaseYear = 0;
+            
         }
 
-        public abstract XElement ToXML();
-        public abstract void FromXML(XElement xmlElement);
+        public XElement ToXML()
+        {
+            XElement metadataXML = new XElement("Metadata");
+
+            if (!Title.Equals(string.Empty)) //TODO maybe != null?
+            {
+                metadataXML.Add(new XElement("Title", Title));
+            }
+            
+            if (!Description.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Description", Description));
+            }
+
+            return metadataXML;
+        }
+        public void FromXML(XElement xmlElement)
+        {
+            Title = XMLHelper.GetSingleElement(xmlElement, "Title");
+
+            Description = XMLHelper.GetSingleElement(xmlElement, "Description");
+        }
 
         #endregion
 

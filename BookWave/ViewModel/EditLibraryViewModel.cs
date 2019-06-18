@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Commons.ViewModel
 {
-    public class AddPageViewModel : ViewModelBase
+    public class EditLibraryViewModel : ViewModelBase
     {
 
         #region Public Properties
@@ -21,8 +21,27 @@ namespace Commons.ViewModel
         public Audiobook Audiobook
         {
             get { return mAudiobook; }
-            set { Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value); }
+            set
+            {
+                Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value);
+                IsInLibrary = Audiobook != null && AudiobookManager.Instance.Audiobooks.Contains(Audiobook);
+            }
         }
+
+        public List<Audiobook> AudiobookLibrary {
+            get
+            {
+                return new List<Audiobook>(AudiobookManager.Instance.Audiobooks);
+            }
+        }
+
+        private bool mIsInLibrary;
+        public bool IsInLibrary
+        {
+            get { return mIsInLibrary; }
+            set { Set<bool>(() => this.IsInLibrary, ref mIsInLibrary, value); }
+        }
+
 
         #endregion
 
@@ -35,7 +54,7 @@ namespace Commons.ViewModel
 
         #region Constructors
         
-        public AddPageViewModel()
+        public EditLibraryViewModel()
         {
             Audiobook = new Audiobook();
 
@@ -61,14 +80,24 @@ namespace Commons.ViewModel
 
         public void AnalyzeFolder()
         {
-            Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
+            var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Audiobook.Metadata.Path);
+            if (tmpAudiobook != null)
+            {
+                Audiobook = tmpAudiobook;
+            }
 
-            Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
+            Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
+            if (Audiobook.Metadata.Title.Equals(string.Empty))
+            {
+                Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
+            }
+            
         }
 
         private void SaveAudiobook()
         {
-            AudiobookFolder.SaveAudiobookMetadata(Audiobook.Metadata.Path, Audiobook.Chapters);
+            AudiobookFolder.SaveAudiobookMetadata(Audiobook);
+
             if (!AudiobookManager.Instance.Audiobooks.Contains(Audiobook))
             {
                 if (!Audiobook.Metadata.Title.Equals(string.Empty))

@@ -1,6 +1,6 @@
-﻿using Commons.Exceptions;
-using GalaSoft.MvvmLight;
+﻿using Commons.Util;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace Commons.Models
@@ -56,6 +56,26 @@ namespace Commons.Models
             set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
         }
 
+        private int mReleaseYear;
+        /// <summary>
+        /// Release Year.
+        /// </summary>
+        public int ReleaseYear
+        {
+            get { return mReleaseYear; }
+            set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
+        }
+
+        /// <summary>
+        /// The path for the cover image.
+        /// </summary>
+        private string mCoverPath;
+        public string CoverPath
+        {
+            get { return mCoverPath; }
+            set { mCoverPath = value; }
+        }
+
         #endregion
 
         #region Constructor
@@ -63,16 +83,62 @@ namespace Commons.Models
         {
             Path = string.Empty;
             Genre = string.Empty;
+            CoverPath = string.Empty;
+            Contributors = new Contributors();
+            ReleaseYear = 0;
         }
 
-        public override XElement ToXML()
+        public new XElement ToXML()
         {
-            throw new System.NotImplementedException();
+            XElement metadataXML = base.ToXML();
+
+            if (!Path.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Path", Path));
+            }
+
+            if (!Genre.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Genre", Genre));
+            }
+
+            if (Contributors != null)
+            {
+                XElement contributorsXML = Contributors.ToXML();
+                if (contributorsXML != null)
+                {
+                    metadataXML.Add(contributorsXML);
+                }
+            }
+
+            if (ReleaseYear != 0) //TODO what is standard value?
+            {
+                metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
+            }
+
+            if (!CoverPath.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("Cover", CoverPath));
+            }
+
+            return metadataXML;
         }
 
-        public override void FromXML(XElement xmlElement)
+        public new void FromXML(XElement xmlElement)
         {
-            throw new System.NotImplementedException();
+            base.FromXML(xmlElement);
+
+            Path = XMLHelper.GetSingleElement(xmlElement, "Path");
+            Genre = XMLHelper.GetSingleElement(xmlElement, "Genre");
+            CoverPath = XMLHelper.GetSingleElement(xmlElement, "Cover");
+
+            Contributors.FromXML(xmlElement);
+
+            string strReleaseYear = XMLHelper.GetSingleElement(xmlElement, "ReleaseYear");
+            if (Regex.IsMatch(strReleaseYear, "[0-9]+"))
+            {
+                ReleaseYear = int.Parse(strReleaseYear);
+            }
         }
         #endregion
 

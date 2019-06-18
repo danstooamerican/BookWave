@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 
 namespace Commons.Logic
 {
@@ -73,12 +74,32 @@ namespace Commons.Logic
             foreach (string path in AudiobookRepo.Items)
             {
                 // only add Audiobook if metadata files exist in the metadata folder
-                Audiobook audiobook = new Audiobook(path);
+
+                Audiobook audiobook = XMLHelper.XMLToAudiobook(
+                    Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"), 
+                    ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "." 
+                    + ConfigurationManager.AppSettings.Get("metadata_extensions")));
+
+                audiobook.LoadChapters();
                 if (audiobook.Chapters.Count > 0)
                 {
                     Audiobooks.Add(audiobook);
                 }
             }
+        }
+
+        /// <summary>
+        /// Searches for an audiobook with the given path.
+        /// </summary>
+        /// <param name="path">is the path of the audiobook</param>
+        /// <returns>audiobook</returns>
+        public Audiobook GetAudiobook(string path)
+        {
+            if (AudiobookRepo.Items.Contains(path))
+            {
+                 return Audiobooks.FirstOrDefault(audiobook => audiobook.Metadata.Path.Equals(path));
+            }
+            return null;
         }
 
         /// <summary>
@@ -91,6 +112,7 @@ namespace Commons.Logic
             AudiobookRepo.Items.Add(audiobook.Metadata.Path);
             AudiobookRepo.SaveToFile();
 
+            
             Audiobooks.Add(audiobook);
         }
 

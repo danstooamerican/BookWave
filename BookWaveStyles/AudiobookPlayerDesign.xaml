@@ -11,6 +11,7 @@
             <converters:ChaptersToVisibleConverter x:Key="ChaptersToVisibleConverter" />
             <converters:VerticalOffsetOpacityConverter x:Key="VerticalOffsetOpacityConverter" />
             <converters:VerticalOffsetTopBarVisibilityConverter x:Key="VerticalOffsetTopBarVisibilityConverter" />
+            <converters:AddUpdateConverter x:Key="AddUpdateConverter" />
         </ResourceDictionary>
 
         <ResourceDictionary Source="Colors/colors.xaml" />
@@ -23,6 +24,7 @@
         <ResourceDictionary Source="Styles/ButtonStyle.xaml" />
         <ResourceDictionary Source="Styles/FrameStyle.xaml" />
         <ResourceDictionary Source="Styles/TitleTemplates.xaml" />
+        <ResourceDictionary Source="Styles/ContextMenuStyle.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 

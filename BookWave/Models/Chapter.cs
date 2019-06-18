@@ -89,7 +89,7 @@ namespace Commons.Models
                 AudioPaths.Add(audioPath);
             }
 
-            Metadata.FromXML(xmlElement);            
+            Metadata.FromXML(xmlElement);
         }
 
         #endregion

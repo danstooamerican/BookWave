@@ -20,10 +20,30 @@ namespace Commons.Util
         {
             XDocument metadataDoc = XDocument.Load(path);
 
-            Chapter chapter = new Chapter();
-            chapter.FromXML(metadataDoc.Descendants("Chapter").First());            
+            Chapter chapter = null;
+            var chapterXML = metadataDoc.Descendants("Chapter");
+            if (chapterXML.Count() > 0)
+            {
+                chapter = new Chapter();
+                chapter.FromXML(chapterXML.First());
+            }
 
             return chapter;
+        }
+
+        public static Audiobook XMLToAudiobook(string path)
+        {
+            XDocument metadataDoc = XDocument.Load(path);
+
+            Audiobook audiobook = null;
+            var audiobookXML = metadataDoc.Descendants("Audiobook");
+            if (audiobookXML.Count() > 0)
+            {
+                audiobook = new Audiobook();
+                audiobook.FromXML(audiobookXML.First());
+            }
+
+            return audiobook;
         }
 
         public static void SaveToXML(XMLSaveObject toSave, string path)
@@ -39,7 +59,7 @@ namespace Commons.Util
         /// </summary>
         /// <param name="element"></param>
         /// <param name="name"></param>
-        /// <returns></returns>
+        /// <returns>the element. Returns string.empty if it doesn't exist.</returns>
         public static string GetSingleElement(XElement element, string name)
         {
             var descendents = element.Descendants(name);

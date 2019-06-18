@@ -85,15 +85,17 @@ namespace Commons.Logic
             if (!Directory.Exists(metadataFolder))
             {
                 return chapters;
-            }            
+            }
 
             List<string> metadataFiles = Directory.GetFiles(metadataFolder, "*." + ConfigurationManager.AppSettings.Get("metadata_extensions")).ToList();
 
             foreach (string file in metadataFiles)
             {
                 Chapter chapter = XMLHelper.XMLToChapter(file);
-
-                chapters.Add(chapter);
+                if (chapter != null)
+                {
+                    chapters.Add(chapter);
+                }
             }
 
             return chapters;
@@ -103,13 +105,11 @@ namespace Commons.Logic
         /// Saves metadata for each chapter in an audiobook
         /// </summary>
         /// <param name="chapters"></param>
-        public static void SaveAudiobookMetadata(string folderPath, ObservableCollection<Chapter> chapters)
+        public static void SaveAudiobookMetadata(Audiobook audiobook)
         {
-            //TODO: change parameter to Audiobook
-
-            string metadataDirectory = Path.Combine(folderPath, ConfigurationManager.AppSettings.Get("metadata_folder"));
+            string metadataDirectory = Path.Combine(audiobook.Metadata.Path, ConfigurationManager.AppSettings.Get("metadata_folder"));
             Directory.CreateDirectory(metadataDirectory);
-            foreach (Chapter chapter in chapters)
+            foreach (Chapter chapter in audiobook.Chapters)
             {
                 foreach (AudioPath audioPath in chapter.AudioPaths)
                 {
@@ -118,6 +118,8 @@ namespace Commons.Logic
                         + ConfigurationManager.AppSettings.Get("metadata_extensions")));
                 }
             }
+            XMLHelper.SaveToXML(audiobook, Path.Combine(metadataDirectory, "audiobook."
+                        + ConfigurationManager.AppSettings.Get("metadata_extensions")));
         }
 
 
