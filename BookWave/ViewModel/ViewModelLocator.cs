@@ -10,8 +10,20 @@ namespace Commons.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        private static ViewModelLocator mInstance;
+        public static ViewModelLocator Instance
+        {
+            get
+            {
+                if (mInstance == null)
+                {
+                    mInstance = new ViewModelLocator();
+                }
+                return mInstance;
+            }
+        }
 
-        public ViewModelLocator()
+        private ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
