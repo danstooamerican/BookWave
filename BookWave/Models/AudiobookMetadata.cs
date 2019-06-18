@@ -107,7 +107,7 @@ namespace Commons.Models
                 XElement contributorsXML = Contributors.ToXML();
                 if (contributorsXML != null)
                 {
-                    metadataXML.Add();
+                    metadataXML.Add(contributorsXML);
                 }
             }
 
