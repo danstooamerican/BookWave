@@ -24,7 +24,7 @@ namespace Commons.ViewModel
             set
             {
                 Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value);
-                updateIsInLibrary();
+                UpdateIsInLibrary();
             }
         }
 
@@ -66,7 +66,7 @@ namespace Commons.ViewModel
 
         #region Methods
 
-        private void updateIsInLibrary()
+        private void UpdateIsInLibrary()
         {
             IsInLibrary = Audiobook != null && AudiobookManager.Instance.Audiobooks.Contains(Audiobook);
         }
@@ -97,7 +97,7 @@ namespace Commons.ViewModel
                 Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
             }
 
-            updateIsInLibrary();
+            UpdateIsInLibrary();
         }
 
         private void SaveAudiobook()
@@ -115,7 +115,7 @@ namespace Commons.ViewModel
                 }                
             }
 
-            updateIsInLibrary();
+            UpdateIsInLibrary();
         }
 
         private bool CanSaveAudiobook()
