@@ -12,6 +12,9 @@ namespace Commons.Models
     public class AudioPath : ObservableObject, XMLSaveObject
     {
 
+        private static readonly int DefaultStartMark = 0;
+        private static readonly int DefaultEndMark = -1;
+
         #region Public Properties
 
         private string mPath;
@@ -99,12 +102,12 @@ namespace Commons.Models
                 pathXML.Add(new XElement("FilePath", Path));
             }
 
-            if (StartMark != 0)
+            if (StartMark != DefaultStartMark)
             {
                 pathXML.Add(new XElement("StartMark", StartMark));
             }
 
-            if (EndMark != -1)
+            if (EndMark != DefaultEndMark)
             {
                 pathXML.Add(new XElement("EndMark", EndMark));
             }           
@@ -115,8 +118,8 @@ namespace Commons.Models
         public void FromXML(XElement xmlElement)
         {
             Path = XMLHelper.GetSingleElement(xmlElement, "FilePath");
-            StartMark = (int)XMLHelper.GetSingleElement(xmlElement, "StartMark", 0);
-            EndMark = (int)XMLHelper.GetSingleElement(xmlElement, "EndMark", -1);
+            StartMark = (int)XMLHelper.GetSingleElement(xmlElement, "StartMark", DefaultStartMark);
+            EndMark = (int)XMLHelper.GetSingleElement(xmlElement, "EndMark", DefaultEndMark);
         }
 
         #endregion
