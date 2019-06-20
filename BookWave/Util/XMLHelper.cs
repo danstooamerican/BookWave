@@ -57,8 +57,8 @@ namespace Commons.Util
         /// <summary>
         /// Returns a single element of an XML document.
         /// </summary>
-        /// <param name="element"></param>
-        /// <param name="name"></param>
+        /// <param name="element">Element the property is searched in</param>
+        /// <param name="name">Name of the property</param>
         /// <returns>the element. Returns string.empty if it doesn't exist.</returns>
         public static string GetSingleElement(XElement element, string name)
         {
@@ -68,6 +68,24 @@ namespace Commons.Util
                 return descendents.First().Value;
             }
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Returns a single element of an XML document or the defaultValue if nothing was found.
+        /// </summary>
+        /// <param name="element">Element the property is searched in</param>
+        /// <param name="name">Name of the property</param>
+        /// <param name="defaultValue">Value which is returned if no element was found.</param>
+        /// <returns>the element. Returns string.empty if it doesn't exist.</returns>
+        public static object GetSingleElement<T>(XElement element, string name, T defaultValue)
+        {
+            var descendents = element.Descendants(name);
+            if (descendents.Count() > 0)
+            {
+                return descendents.First().Value;
+            }
+
+            return defaultValue;
         }
 
     }

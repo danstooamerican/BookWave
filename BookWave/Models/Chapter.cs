@@ -64,13 +64,16 @@ namespace Commons.Models
             AudioPaths = audioPaths;
         }
 
+        #endregion
+
+        #region Methods
         public XElement ToXML()
         {
             var chapterXML = new XElement("Chapter");
             var audioPaths = new XElement("AudioPaths");
 
             foreach (AudioPath audioPath in AudioPaths)
-            {                
+            {
                 audioPaths.Add(audioPath.ToXML());
             }
             chapterXML.Add(audioPaths);

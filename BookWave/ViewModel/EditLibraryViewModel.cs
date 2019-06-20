@@ -24,7 +24,7 @@ namespace Commons.ViewModel
             set
             {
                 Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value);
-                IsInLibrary = Audiobook != null && AudiobookManager.Instance.Audiobooks.Contains(Audiobook);
+                updateIsInLibrary();
             }
         }
 
@@ -66,6 +66,11 @@ namespace Commons.ViewModel
 
         #region Methods
 
+        private void updateIsInLibrary()
+        {
+            IsInLibrary = Audiobook != null && AudiobookManager.Instance.Audiobooks.Contains(Audiobook);
+        }
+
         /// <summary>
         /// Opens a FolderBrowserDialog and sets the FolderPath of the AudiobookFolder.
         /// </summary>
@@ -91,7 +96,8 @@ namespace Commons.ViewModel
             {
                 Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
             }
-            
+
+            updateIsInLibrary();
         }
 
         private void SaveAudiobook()
@@ -107,7 +113,9 @@ namespace Commons.ViewModel
                 {
                     throw new InvalidArgumentException("audiobook title is required");
                 }                
-            }                        
+            }
+
+            updateIsInLibrary();
         }
 
         private bool CanSaveAudiobook()

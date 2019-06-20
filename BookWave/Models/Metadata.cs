@@ -37,6 +37,9 @@ namespace Commons.Models
             
         }
 
+        #endregion
+
+        #region Methods
         public XElement ToXML()
         {
             XElement metadataXML = new XElement("Metadata");
@@ -45,7 +48,7 @@ namespace Commons.Models
             {
                 metadataXML.Add(new XElement("Title", Title));
             }
-            
+
             if (!Description.Equals(string.Empty))
             {
                 metadataXML.Add(new XElement("Description", Description));
@@ -61,6 +64,5 @@ namespace Commons.Models
         }
 
         #endregion
-
     }
 }

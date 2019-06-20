@@ -65,7 +65,7 @@ namespace Commons.Logic
 
         /// <summary>
         /// Loads the AudiobookRepo and creates a new audiobook for each
-        /// path in the repository.
+        /// path in the repository if metadata files exists in the metadata folder.
         /// </summary>
         public void LoadRepository()
         {
@@ -73,14 +73,14 @@ namespace Commons.Logic
 
             foreach (string path in AudiobookRepo.Items)
             {
-                // only add Audiobook if metadata files exist in the metadata folder
-
                 Audiobook audiobook = XMLHelper.XMLToAudiobook(
                     Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"), 
                     ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "." 
                     + ConfigurationManager.AppSettings.Get("metadata_extensions")));
 
                 audiobook.LoadChapters();
+
+                // only add Audiobook if metadata files exist in the metadata folder
                 if (audiobook.Chapters.Count > 0)
                 {
                     Audiobooks.Add(audiobook);

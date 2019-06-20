@@ -93,18 +93,30 @@ namespace Commons.Models
         public XElement ToXML()
         {
             var pathXML = new XElement("AudioPath");
-            pathXML.Add(new XElement("FilePath", Path));
-            pathXML.Add(new XElement("StartMark", StartMark));
-            pathXML.Add(new XElement("EndMark", EndMark));
+
+            if (!Path.Equals(string.Empty))
+            {
+                pathXML.Add(new XElement("FilePath", Path));
+            }
+
+            if (StartMark != 0)
+            {
+                pathXML.Add(new XElement("StartMark", StartMark));
+            }
+
+            if (EndMark != -1)
+            {
+                pathXML.Add(new XElement("EndMark", EndMark));
+            }           
 
             return pathXML;
         }
 
         public void FromXML(XElement xmlElement)
         {
-            Path = (string)xmlElement.Element("FilePath");
-            StartMark = (int)xmlElement.Element("StartMark");
-            EndMark = (int)xmlElement.Element("EndMark");
+            Path = XMLHelper.GetSingleElement(xmlElement, "FilePath");
+            StartMark = (int)XMLHelper.GetSingleElement(xmlElement, "StartMark", 0);
+            EndMark = (int)XMLHelper.GetSingleElement(xmlElement, "EndMark", -1);
         }
 
         #endregion
