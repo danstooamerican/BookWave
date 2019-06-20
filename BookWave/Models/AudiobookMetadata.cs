@@ -73,7 +73,7 @@ namespace Commons.Models
         public string CoverPath
         {
             get { return mCoverPath; }
-            set { mCoverPath = value; }
+            set { Set<string>(() => this.CoverPath, ref mCoverPath, value); }
         }
 
         #endregion
