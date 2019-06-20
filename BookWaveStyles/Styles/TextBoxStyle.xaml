@@ -11,26 +11,23 @@
         <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="FontSize" Value="12" />
-        <Setter Property="Padding" Value="5" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="BorderThickness" Value="0.4" />
-        <Setter Property="BorderBrush" Value="{StaticResource TextColorBrush}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="{StaticResource TextColorBrush}" />
         <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBrush}" />
-        
-        <Setter Property="SnapsToDevicePixels"
-          Value="True" />
-        <Setter Property="OverridesDefaultStyle"
-          Value="True" />
-        <Setter Property="FocusVisualStyle"
-          Value="{x:Null}" />
-        <Setter Property="MinWidth"
-          Value="120" />
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
                     <Border Name="Border"
                         CornerRadius="5"
+                        Padding="{TemplateBinding Padding}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         Background="{StaticResource Gray1Brush}">
@@ -59,11 +56,12 @@
                                 <VisualState x:Name="MouseOver" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <ScrollViewer VerticalAlignment="Center" Margin="0" x:Name="PART_ContentHost" />
+
+                        <ScrollViewer VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Focusable="False" x:Name="PART_ContentHost" />
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused" Value="true">
+                        <Trigger Property="IsFocused" Value="True">
                             <Setter Property="Background" TargetName="Border"
                                 Value="{StaticResource LightGray1Brush}"/>
                         </Trigger>
