@@ -77,7 +77,7 @@ namespace Commons.Util
         /// <param name="name">Name of the property</param>
         /// <param name="defaultValue">Value which is returned if no element was found.</param>
         /// <returns>the element. Returns string.empty if it doesn't exist.</returns>
-        public static object GetSingleElement<T>(XElement element, string name, T defaultValue)
+        public static string GetSingleElement(XElement element, string name, string defaultValue)
         {
             var descendents = element.Descendants(name);
             if (descendents.Count() > 0)

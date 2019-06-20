@@ -118,8 +118,8 @@ namespace Commons.Models
         public void FromXML(XElement xmlElement)
         {
             Path = XMLHelper.GetSingleElement(xmlElement, "FilePath");
-            StartMark = (int)XMLHelper.GetSingleElement(xmlElement, "StartMark", DefaultStartMark);
-            EndMark = (int)XMLHelper.GetSingleElement(xmlElement, "EndMark", DefaultEndMark);
+            StartMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "StartMark", DefaultStartMark.ToString()));
+            EndMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "EndMark", DefaultEndMark.ToString()));
         }
 
         #endregion
