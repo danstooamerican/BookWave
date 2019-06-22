@@ -91,7 +91,7 @@ namespace Commons.ViewModel
         /// </summary>
         private void UpdateIsInLibrary()
         {
-            IsInLibrary = Audiobook != null && AudiobookManager.Instance.Audiobooks.Contains(Audiobook);
+            IsInLibrary = Audiobook != null && AudiobookManager.Instance.AudiobookRepo.Items.Contains(Audiobook.Metadata.Path);
         }
 
         /// <summary>
