@@ -1,5 +1,6 @@
 ﻿using Commons.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -34,19 +35,23 @@ namespace Commons.Util
 
         /// <summary>
         /// Takes an audiobook metadata file and creates an audiobook from it.
+        /// If the file does not exist an empty Audiobook is returned.
         /// </summary>
         /// <param name="path">path to the xml file</param>
-        /// <returns>audiobook parsed from the file</returns>
+        /// <returns>a new audiobook</returns>
         public static Audiobook XMLToAudiobook(string path)
         {
-            XDocument metadataDoc = XDocument.Load(path);
-
             Audiobook audiobook = new Audiobook();
 
-            var audiobookXML = metadataDoc.Descendants("Audiobook");
-            if (audiobookXML.Count() > 0)
+            if (File.Exists(path))
             {
-                audiobook.FromXML(audiobookXML.First());
+                XDocument metadataDoc = XDocument.Load(path);
+
+                var audiobookXML = metadataDoc.Descendants("Audiobook");
+                if (audiobookXML.Count() > 0)
+                {
+                    audiobook.FromXML(audiobookXML.First());
+                }
             }
 
             return audiobook;
