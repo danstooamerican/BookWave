@@ -1,4 +1,4 @@
-using Commons.Models;
+﻿using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
@@ -66,6 +66,7 @@ namespace Commons.Logic
         /// <summary>
         /// Loads the AudiobookRepo and creates a new audiobook for each
         /// path in the repository if metadata files exists in the metadata folder.
+        /// If no metadata files exist the path is removed from the repository.
         /// </summary>
         public void LoadRepository()
         {
@@ -74,17 +75,23 @@ namespace Commons.Logic
             foreach (string path in AudiobookRepo.Items)
             {
                 Audiobook audiobook = LoadAudiobookFromFile(path);
+                audiobook.LoadChapters();
 
                 // only add Audiobook if metadata files exist in the metadata folder
                 if (audiobook.Chapters.Count > 0)
                 {
                     Audiobooks.Add(audiobook);
+                } else
+                {
+                    AudiobookRepo.Items.Remove(path);
                 }
             }
+
+            AudiobookRepo.SaveToFile();
         }
 
         /// <summary>
-        /// Loads an audiobook from a folder path.
+        /// Parses an audiobook from a xml file. No chapters are loaded.
         /// </summary>
         /// <param name="path">path to the audiobook folder</param>
         /// <returns>audiobook created from the folder</returns>
@@ -101,8 +108,6 @@ namespace Commons.Logic
             {
                 audiobook.Metadata.Path = path;
             }
-
-            audiobook.LoadChapters();
 
             return audiobook;
         }
