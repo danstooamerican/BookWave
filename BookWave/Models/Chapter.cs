@@ -1,6 +1,7 @@
 ﻿using ATL;
 using Commons.Util;
 using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -10,7 +11,7 @@ namespace Commons.Models
     /// <summary>
     /// A single chapter in an audiobook with a list of AudioPaths and Metadata.
     /// </summary>
-    public class Chapter : ObservableObject, XMLSaveObject
+    public class Chapter : ObservableObject, XMLSaveObject, ICloneable
     {
 
         #region Public Properties
@@ -93,6 +94,22 @@ namespace Commons.Models
             }
 
             Metadata.FromXML(xmlElement);
+        }
+
+        public object Clone()
+        {
+            Chapter copy = new Chapter();
+
+            copy.Metadata = (ChapterMetadata)Metadata.Clone();
+
+            List<AudioPath> audioPathCopy = new List<AudioPath>();
+            foreach (AudioPath audioPath in AudioPaths)
+            {
+                audioPathCopy.Add((AudioPath)audioPath.Clone());
+            }
+            copy.AudioPaths = audioPathCopy;
+
+            return copy;
         }
 
         #endregion

@@ -1,10 +1,11 @@
 ﻿using Commons.Util;
 using GalaSoft.MvvmLight;
+using System;
 using System.Xml.Linq;
 
 namespace Commons.Models
 {
-    public abstract class Metadata : ObservableObject, XMLSaveObject
+    public abstract class Metadata : ObservableObject, XMLSaveObject, ICloneable
     {
 
         #region Public Properties
@@ -33,8 +34,7 @@ namespace Commons.Models
         public Metadata()
         {
             Title = string.Empty;
-            Description = string.Empty;
-            
+            Description = string.Empty;            
         }
 
         #endregion
@@ -62,6 +62,8 @@ namespace Commons.Models
 
             Description = XMLHelper.GetSingleElement(xmlElement, "Description");
         }
+
+        public abstract object Clone();
 
         #endregion
     }

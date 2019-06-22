@@ -1,6 +1,7 @@
 ﻿using Commons.Exceptions;
 using Commons.Util;
 using GalaSoft.MvvmLight;
+using System;
 using System.IO;
 using System.Xml.Linq;
 
@@ -9,7 +10,7 @@ namespace Commons.Models
     /// <summary>
     /// Stores a path to an audio file with a startMark and an endMark.
     /// </summary>
-    public class AudioPath : ObservableObject, XMLSaveObject
+    public class AudioPath : ObservableObject, XMLSaveObject, ICloneable
     {
 
         private static readonly int DefaultStartMark = 0;
@@ -120,6 +121,17 @@ namespace Commons.Models
             Path = XMLHelper.GetSingleElement(xmlElement, "FilePath");
             StartMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "StartMark", DefaultStartMark.ToString()));
             EndMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "EndMark", DefaultEndMark.ToString()));
+        }
+
+        public object Clone()
+        {
+            AudioPath copy = new AudioPath();
+
+            copy.EndMark = EndMark;
+            copy.StartMark = StartMark;
+            copy.Path = Path;
+
+            return copy;
         }
 
         #endregion

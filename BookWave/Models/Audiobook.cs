@@ -1,6 +1,7 @@
 ﻿using Commons.Logic;
 using Commons.Util;
 using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
@@ -12,7 +13,7 @@ namespace Commons.Models
     /// <summary>
     /// Represents a single audiobook with a list of chapters and metadata.
     /// </summary>
-    public class Audiobook : ObservableObject, XMLSaveObject
+    public class Audiobook : ObservableObject, XMLSaveObject, ICloneable
     {
 
         #region Public Properties
@@ -49,6 +50,8 @@ namespace Commons.Models
             Metadata = new AudiobookMetadata();
         }
 
+        #region Methods
+
         public void LoadChapters()
         {
             List<Chapter> chapters = AudiobookFolder.LoadAudiobookChapters(
@@ -71,5 +74,15 @@ namespace Commons.Models
             Metadata.FromXML(xmlElement);
         }
 
+        public object Clone()
+        {
+            Audiobook copy = new Audiobook();
+
+            copy.Metadata = (AudiobookMetadata)Metadata.Clone();
+
+            return copy;
+        }
+
+        #endregion
     }
 }

@@ -6,7 +6,7 @@ using System.Xml.Linq;
 namespace Commons.Models
 {
     /// <summary>
-    /// Metadata for audiobooks which adds a Genre Option.
+    /// Metadata for audiobooks which adds a Genre, Contributors, ReleaseYear and a CoverPath.
     /// </summary>
     public class AudiobookMetadata : Metadata
     {
@@ -140,6 +140,22 @@ namespace Commons.Models
                 ReleaseYear = int.Parse(strReleaseYear);
             }
         }
+
+        public override object Clone()
+        {
+            AudiobookMetadata copy = new AudiobookMetadata();
+
+            copy.Title = Title;
+            copy.CoverPath = CoverPath;
+            copy.Description = Description;
+            copy.Genre = Genre;
+            copy.Path = Path;
+            copy.ReleaseYear = ReleaseYear;
+            copy.Contributors = (Contributors)Contributors.Clone();
+
+            return copy;
+        }
+
         #endregion
 
     }

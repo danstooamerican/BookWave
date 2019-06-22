@@ -11,7 +11,7 @@ namespace Commons.Models
     /// <summary>
     /// Includes lists of people who contribute to an audiobook.
     /// </summary>
-    public class Contributors : ObservableObject, XMLSaveObject
+    public class Contributors : ObservableObject, XMLSaveObject, ICloneable
     {
 
         #region Public Properties
@@ -173,6 +173,27 @@ namespace Commons.Models
             {
                 Readers.Add((string) element.Value);
             }
+        }
+
+        public object Clone()
+        {
+            Contributors copy = new Contributors();
+
+            List<string> authorCopy = new List<string>();
+            foreach (string author in Authors)
+            {
+                authorCopy.Add(author);
+            }
+            copy.Authors = authorCopy;
+
+            List<string> readersCopy = new List<string>();
+            foreach (string reader in Readers)
+            {
+                readersCopy.Add(reader);
+            }
+            copy.Readers = readersCopy;
+
+            return copy;
         }
 
         #endregion
