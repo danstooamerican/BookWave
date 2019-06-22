@@ -1,4 +1,4 @@
-﻿using Commons.Models;
+using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
@@ -122,17 +122,25 @@ namespace Commons.Logic
         }
 
         /// <summary>
-        /// Adds an audiobook to the AudiobookManager 
-        /// and adds the path to the AudiobookRepo.
+        /// Adds an audiobook to the AudiobookManager and adds the path to the AudiobookRepo if it is not added already. 
+        /// If it is already added the audiobook is updated.
         /// </summary>
         /// <param name="audiobook">the audiobook being added</param>
-        public void AddAudioBook(Audiobook audiobook)
+        public void UpdateAudioBook(Audiobook toAdd)
         {
-            AudiobookRepo.Items.Add(audiobook.Metadata.Path);
-            AudiobookRepo.SaveToFile();
+            Audiobook audiobook = GetAudiobook(toAdd.Metadata.Path);
+
+            if (audiobook != null)
+            {
+                Audiobooks.Remove(audiobook);
+            } else
+            {
+                AudiobookRepo.Items.Add(toAdd.Metadata.Path);
+                AudiobookRepo.SaveToFile();
+            }            
 
             
-            Audiobooks.Add(audiobook);
+            Audiobooks.Add(toAdd);
         }
 
         /// <summary>

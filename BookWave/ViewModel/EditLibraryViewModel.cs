@@ -135,7 +135,7 @@ namespace Commons.ViewModel
             {
                 if (!Audiobook.Metadata.Title.Equals(string.Empty))
                 {
-                    AudiobookManager.Instance.AddAudioBook(Audiobook);
+                    AudiobookManager.Instance.UpdateAudioBook(Audiobook);
                 } else
                 {
                     throw new InvalidArgumentException("audiobook title is required");
