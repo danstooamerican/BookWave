@@ -8,5 +8,15 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FavoritesPage">
 
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+    
     <Rectangle MinHeight="2000" Fill="{StaticResource UpForestGreenBrush}" />
 </Page>

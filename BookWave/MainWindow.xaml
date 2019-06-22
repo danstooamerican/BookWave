@@ -26,6 +26,16 @@
         <BlurEffect KernelType="Gaussian" Radius="0" />
     </Window.Effect>
 
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
     <Window.Style>
         <Style>
             <Style.Triggers>
@@ -34,7 +44,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
-                                            From="0" To="4" Duration="0:0:0.3" />
+                                            From="0" To="4" Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.EnterActions>

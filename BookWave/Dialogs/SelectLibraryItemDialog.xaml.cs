@@ -22,17 +22,19 @@ namespace Commons.Dialogs
     public partial class SelectLibraryItemDialog : Window
     {
         public static bool ITEM_SELECTED = true;
-        private Page parent;
+        private static double WINDOW_RATIO = 0.8;
 
         public SelectLibraryItemDialog(Page parent)
         {
             InitializeComponent();
 
             this.Owner = Window.GetWindow(parent);
-            this.parent = parent;            
+
+            this.Width = Owner.Width * WINDOW_RATIO;
+            this.Height = Owner.Height * WINDOW_RATIO;       
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Select_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = ITEM_SELECTED;
         }
