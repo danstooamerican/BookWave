@@ -11,6 +11,7 @@ namespace Commons.Util
     /// </summary>
     public class XMLHelper
     {
+
         /// <summary>
         /// Creates a chapter from an XML file.
         /// </summary>
@@ -31,27 +32,37 @@ namespace Commons.Util
             return chapter;
         }
 
+        /// <summary>
+        /// Takes an audiobook metadata file and creates an audiobook from it.
+        /// </summary>
+        /// <param name="path">path to the xml file</param>
+        /// <returns>audiobook parsed from the file</returns>
         public static Audiobook XMLToAudiobook(string path)
         {
             XDocument metadataDoc = XDocument.Load(path);
 
-            Audiobook audiobook = null;
+            Audiobook audiobook = new Audiobook();
+
             var audiobookXML = metadataDoc.Descendants("Audiobook");
             if (audiobookXML.Count() > 0)
             {
-                audiobook = new Audiobook();
                 audiobook.FromXML(audiobookXML.First());
             }
 
             return audiobook;
         }
 
+        /// <summary>
+        /// Creates a new xml file at the given path with the toSave data.
+        /// </summary>
+        /// <param name="toSave">object to save</param>
+        /// <param name="path">path to save the file at</param>
         public static void SaveToXML(XMLSaveObject toSave, string path)
         {
-            var metadataXML = new XDocument();
-            metadataXML.Add(toSave.ToXML());
+            var xml = new XDocument();
+            xml.Add(toSave.ToXML());
 
-            metadataXML.Save(path);
+            xml.Save(path);
         }
 
         /// <summary>

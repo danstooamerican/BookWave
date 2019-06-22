@@ -24,7 +24,7 @@ namespace Commons.Models
             {
                 if (Directory.Exists(value))
                 {
-                    Set<string>(() => this.Path, ref mPath, value);
+                    Set<string>(() => this.Path, ref mPath, value.Trim());
                 }
                 else
                 {

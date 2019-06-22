@@ -167,10 +167,9 @@
 
                 <TextBox Grid.Column="1" Grid.Row="1" x:Name="txbDestination"
                     Margin="10,10,10,0"
-                    Text="{Binding Audiobook.Metadata.Path, Mode=TwoWay}"
+                    Text="{Binding Destination, Mode=TwoWay}"
                     VerticalAlignment="Center"
-                    Style="{StaticResource MaskTextBox}"
-                    TextChanged="Destination_TextChanged"/>
+                    Style="{StaticResource MaskTextBox}"/>
 
                 <!-- Title -->
                 <TextBlock  Grid.Column="0" Grid.Row="2"

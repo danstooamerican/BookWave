@@ -16,8 +16,29 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private Audiobook mAudiobook;
+        private string mDestination;
+        public string Destination
+        {
+            get { return mDestination; }
+            set
+            {
+                if (Directory.Exists(value))
+                {
+                    Set<string>(() => this.Destination, ref mDestination, value.Trim());
+                    AnalyzeFolder();
+                }
+                else
+                {
+                    if (value != null && value.Equals(string.Empty))
+                    {
+                        Set<string>(() => this.Destination, ref mDestination, value);
+                    }
+                }
+            }
+        }
 
+
+        private Audiobook mAudiobook;
         public Audiobook Audiobook
         {
             get { return mAudiobook; }
@@ -42,7 +63,6 @@ namespace Commons.ViewModel
             set { Set<bool>(() => this.IsInLibrary, ref mIsInLibrary, value); }
         }
 
-
         #endregion
 
         #region Commands
@@ -66,6 +86,9 @@ namespace Commons.ViewModel
 
         #region Methods
 
+        /// <summary>
+        /// Checks whether the current audiobook is in the library and sets the IsInLibrary property.
+        /// </summary>
         private void UpdateIsInLibrary()
         {
             IsInLibrary = Audiobook != null && AudiobookManager.Instance.Audiobooks.Contains(Audiobook);
@@ -79,16 +102,20 @@ namespace Commons.ViewModel
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                Audiobook.Metadata.Path = folderBrowserDialog.SelectedPath;
+                Destination = folderBrowserDialog.SelectedPath;
             }
         }
 
         public void AnalyzeFolder()
         {
-            var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Audiobook.Metadata.Path);
+            var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Destination);
             if (tmpAudiobook != null)
             {
-                Audiobook = tmpAudiobook;
+                Audiobook = (Audiobook)tmpAudiobook.Clone();
+            }
+            else
+            {
+                Audiobook = AudiobookManager.Instance.LoadAudiobookFromFile(Destination);
             }
 
             Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));

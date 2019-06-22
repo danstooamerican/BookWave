@@ -73,12 +73,7 @@ namespace Commons.Logic
 
             foreach (string path in AudiobookRepo.Items)
             {
-                Audiobook audiobook = XMLHelper.XMLToAudiobook(
-                    Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"), 
-                    ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "." 
-                    + ConfigurationManager.AppSettings.Get("metadata_extensions")));
-
-                audiobook.LoadChapters();
+                Audiobook audiobook = LoadAudiobookFromFile(path);
 
                 // only add Audiobook if metadata files exist in the metadata folder
                 if (audiobook.Chapters.Count > 0)
@@ -86,6 +81,30 @@ namespace Commons.Logic
                     Audiobooks.Add(audiobook);
                 }
             }
+        }
+
+        /// <summary>
+        /// Loads an audiobook from a folder path.
+        /// </summary>
+        /// <param name="path">path to the audiobook folder</param>
+        /// <returns>audiobook created from the folder</returns>
+        public Audiobook LoadAudiobookFromFile(string path)
+        {
+            // parse audiobook from xml file
+            string audiobookMetadataPath = Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"),
+                ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "."
+                + ConfigurationManager.AppSettings.Get("metadata_extensions"));
+
+            Audiobook audiobook = XMLHelper.XMLToAudiobook(audiobookMetadataPath);
+
+            if (audiobook.Metadata.Path.Equals(string.Empty))
+            {
+                audiobook.Metadata.Path = path;
+            }
+
+            audiobook.LoadChapters();
+
+            return audiobook;
         }
 
         /// <summary>

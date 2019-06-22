@@ -58,14 +58,6 @@ namespace Commons.Pages
             }
         }
 
-        private void Destination_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //TODO make this pretty
-            EditLibraryViewModel viewModel = ViewModelLocator.Instance.EditLibraryViewModel;
-            viewModel.Audiobook.Metadata.Path = txbDestination.Text;
-            viewModel.AnalyzeFolder();
-        }
-
         private void BtnBrowseLibrary_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
