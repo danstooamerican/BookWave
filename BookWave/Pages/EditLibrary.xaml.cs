@@ -1,4 +1,6 @@
-﻿using Commons.ViewModel;
+﻿using Commons.Dialogs;
+using Commons.ViewModel;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,9 +14,12 @@ namespace Commons.Pages
     public partial class EditLibrary : Page
     {
 
+        private EditLibraryViewModel viewModel;
+
         public EditLibrary()
         {
-            DataContext = ViewModelLocator.Instance.EditLibraryViewModel;
+            viewModel = ViewModelLocator.Instance.EditLibraryViewModel;
+            DataContext = viewModel;
             InitializeComponent();
         }
 
@@ -52,7 +57,7 @@ namespace Commons.Pages
                 {
                     if (Directory.Exists(files[0]))
                     {
-                        ViewModelLocator.Instance.EditLibraryViewModel.Audiobook.Metadata.Path = files[0];
+                        viewModel.Audiobook.Metadata.Path = files[0];
                     }
                 }
             }
@@ -60,17 +65,13 @@ namespace Commons.Pages
 
         private void BtnBrowseLibrary_Click(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button;
-            ContextMenu contextMenu = btn.ContextMenu;
-            contextMenu.PlacementTarget = btn;
-            contextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            contextMenu.IsOpen = true;
-            e.Handled = true;
+            SelectLibraryItemDialog dialog = new SelectLibraryItemDialog(this);
+
+            if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
+            {
+                Console.WriteLine("yay");
+            }
         }
 
-        private void BtnBrowseLibrary_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
-        }
     }
 }

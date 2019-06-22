@@ -36,23 +36,8 @@
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0" 
                     Style="{StaticResource RoundedButton}"
-                    Click="BtnBrowseLibrary_Click"
-                        MouseRightButtonUp="BtnBrowseLibrary_MouseRightButtonUp">
-
-                    <!-- https://stevemdev.wordpress.com/2013/02/16/wpf-dynamic-context-menu-revisited/ -->
-                    <Button.ContextMenu>
-                        <ContextMenu ItemsSource="{Binding AudiobookLibrary}"
-                            Style="{StaticResource ContextMenuStyle}">
-
-                            <ContextMenu.ItemContainerStyle>
-                                <Style TargetType="{x:Type MenuItem}" >
-                                    <Setter Property="Command" Value="{Binding SelectFolderCommand}" />
-                                </Style>
-                            </ContextMenu.ItemContainerStyle>
-                        </ContextMenu>
-                    </Button.ContextMenu>
-                </Button>
-
+                    Click="BtnBrowseLibrary_Click" />
+                
                 <Button Grid.Column="0" Grid.Row="0" Content="Open Folder" 
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0" 

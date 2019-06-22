@@ -19,10 +19,37 @@
     <WindowChrome.WindowChrome>
         <WindowChrome
             ResizeBorderThickness="{Binding ResizeBorderThickness}"
-            CaptionHeight="20"
-            
-            />
+            CaptionHeight="20" />
     </WindowChrome.WindowChrome>
+
+    <Window.Effect>
+        <BlurEffect KernelType="Gaussian" Radius="0" />
+    </Window.Effect>
+
+    <Window.Style>
+        <Style>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DarkenBackground}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
+                                            From="0" To="4" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
+                                            From="4" To="0" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
     
     <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
@@ -35,6 +62,11 @@
             <ColumnDefinition Width="auto" MinWidth="90" MaxWidth="300" SharedSizeGroup="sidebar"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <!-- Darken Effect -->
+        <Control Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"
+            Panel.ZIndex="2" Style="{StaticResource DarkenEffect}"
+            IsEnabled="{Binding DarkenBackground}" />
 
         <!-- Sidebar -->
         <Border Padding="0, 5, 0, 0"

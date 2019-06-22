@@ -36,6 +36,14 @@ namespace Commons.ViewModel
             set { mNavigationHistory = value; }
         }
 
+        private bool mDarkenBackground;
+        public bool DarkenBackground
+        {
+            get { return mDarkenBackground; }
+            set { Set<bool>(() => this.DarkenBackground, ref mDarkenBackground, value); }
+        }
+
+
         public PlayerViewModel PlayerViewModel
         {
             get { return ViewModelLocator.Instance.PlayerViewModel; }
