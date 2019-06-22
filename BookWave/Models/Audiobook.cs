@@ -52,6 +52,9 @@ namespace Commons.Models
 
         #region Methods
 
+        /// <summary>
+        /// Loads all chapter xml files in the metadata folder.
+        /// </summary>
         public void LoadChapters()
         {
             List<Chapter> chapters = AudiobookFolder.LoadAudiobookChapters(
