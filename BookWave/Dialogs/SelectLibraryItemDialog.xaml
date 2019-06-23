@@ -10,23 +10,8 @@
         AllowsTransparency="True"
         Loaded="Window_Loaded"
         Closed="Window_Closed"
-        Opacity="0"
         WindowStartupLocation="CenterOwner"
         Title="SelectLibraryItemDialog" Height="400" Width="600">
-
-    <Window.Effect>
-        <DropShadowEffect Color="Black" BlurRadius="50" />
-    </Window.Effect>
-
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="Window.Loaded">
-            <BeginStoryboard>
-                <Storyboard BeginTime="0:0:0.15">
-                    <DoubleAnimation Duration="0:0:0.05" Storyboard.TargetProperty="Opacity" From="0" To="1" />
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </Window.Triggers>
 
     <Border BorderBrush="{StaticResource Background1ColorBrush}" BorderThickness="1">
         <Grid Background="{StaticResource Background2ColorBrush}">

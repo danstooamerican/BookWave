@@ -26,6 +26,7 @@
         <BlurEffect KernelType="Gaussian" Radius="0" />
     </Window.Effect>
 
+    <!-- FadeIn animation on startup -->
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
@@ -36,6 +37,7 @@
         </EventTrigger>
     </Window.Triggers>
 
+    <!-- Blur Effect -->
     <Window.Style>
         <Style>
             <Style.Triggers>
@@ -44,7 +46,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
-                                            From="0" To="4" Duration="0:0:0.2" />
+                                            From="0" To="4" Duration="0:0:0" />
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.EnterActions>
