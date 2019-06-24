@@ -27,7 +27,7 @@ namespace Commons.ViewModel
             set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
-        public SelectLibraryViewModel()
+        public void ReloadLibrary()
         {
             Audiobooks = new ObservableCollection<Audiobook>();
 
