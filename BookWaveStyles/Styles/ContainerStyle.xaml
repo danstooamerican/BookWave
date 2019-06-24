@@ -520,4 +520,35 @@
         </Setter>
     </Style>
     
+    <!-- Library Item -->
+    <DataTemplate x:Key="LibraryItemTemplate">
+        <Border BorderBrush="{StaticResource Background2ColorBrush}" BorderThickness="1"
+            MinHeight="250" MinWidth="250" MaxHeight="350" MaxWidth="250">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Image Grid.Column="0" Grid.Row="0" MinWidth="250" MinHeight="250" 
+                    MaxWidth="250" MaxHeight="250"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="{Binding Metadata.CoverPath}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Metadata.Title}" 
+                    Foreground="{StaticResource TextHighlightColorBrush}" 
+                    FontSize="20" FontWeight="SemiBold" TextWrapping="Wrap" />
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Metadata.Description}" 
+                    Foreground="{StaticResource TextColorBrush}" 
+                    FontSize="16" TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+    </DataTemplate>    
+    
 </ResourceDictionary>

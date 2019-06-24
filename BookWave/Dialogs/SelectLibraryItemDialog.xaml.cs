@@ -1,4 +1,5 @@
-﻿using Commons.Util;
+﻿using Commons.Models;
+using Commons.Util;
 using Commons.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,21 @@ namespace Commons.Dialogs
         public static bool ITEM_SELECTED = true;
         private static double WINDOW_RATIO = 0.8;
 
+        private SelectLibraryViewModel viewModel;
+
+        public Audiobook Selected {
+            get
+            {
+                return viewModel.Selected;
+            }
+        }
+
         public SelectLibraryItemDialog(Page parent)
         {
             InitializeComponent();
 
+            viewModel = ViewModelLocator.Instance.SelectLibraryViewModel;
+            this.DataContext = viewModel;
             this.Owner = Window.GetWindow(parent);
 
             this.Width = Owner.Width * WINDOW_RATIO;

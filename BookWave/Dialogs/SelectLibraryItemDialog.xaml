@@ -25,6 +25,20 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
+            <ListView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="Transparent"
+                      VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ItemsSource="{Binding Audiobooks}"
+                      SelectedItem="{Binding Selected}"
+                      Padding="20" ItemTemplate="{StaticResource LibraryItemTemplate}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Width="{Binding Path=ActualWidth, 
+                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" Orientation="Horizontal"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
             <Button Grid.Column="1" Grid.Row="1" MinHeight="28" MinWidth="120" MaxWidth="130"
                 Margin="0, 0, 10, 5"
                 Content="Cancel" IsCancel="True" Style="{StaticResource RoundedButton}" />

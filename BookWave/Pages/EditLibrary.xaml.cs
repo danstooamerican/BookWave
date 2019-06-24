@@ -72,7 +72,7 @@ namespace Commons.Pages
 
             if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
             {
-                Console.WriteLine("yay");
+                viewModel.Destination = dialog.Selected.Metadata.Path;
             }
         }
 
