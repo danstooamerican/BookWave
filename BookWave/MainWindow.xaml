@@ -11,6 +11,7 @@
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
         WindowStyle="None"
+        WindowState="Maximized"
         Loaded="AppWindow_Loaded"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"

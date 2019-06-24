@@ -60,12 +60,12 @@
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
                                 <BeginStoryboard>
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames BeginTime="0:0:0.3" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                    <Storyboard Timeline.DesiredFrameRate="90">
+                                        <ObjectAnimationUsingKeyFrames BeginTime="0:0:0.7" Storyboard.TargetProperty="(UIElement.Visibility)">
                                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Collapsed}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                            From="0.75" To="0.0" Duration="0:0:0.2" />
+                                            From="0.75" To="0.0" Duration="0:0:0.7" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
