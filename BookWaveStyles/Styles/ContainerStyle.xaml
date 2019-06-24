@@ -522,8 +522,7 @@
     
     <!-- Library Item -->
     <DataTemplate x:Key="LibraryItemTemplate">
-        <Border BorderBrush="{StaticResource Background2ColorBrush}" BorderThickness="1"
-            MinHeight="250" MinWidth="250" MaxHeight="350" MaxWidth="250">
+        <Border MinHeight="250" MinWidth="250" MaxHeight="350" MaxWidth="250">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -546,7 +545,7 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Metadata.Description}" 
                     Foreground="{StaticResource TextColorBrush}" 
-                    FontSize="16" TextWrapping="Wrap" />
+                    FontSize="16" TextWrapping="Wrap" TextTrimming="WordEllipsis" MaxHeight="100" />
             </Grid>
         </Border>
     </DataTemplate>    
