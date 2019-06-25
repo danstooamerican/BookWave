@@ -42,7 +42,7 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 ItemsSource="{Binding Audiobooks}"
                 SelectedItem="{Binding Selected}"
-                Padding="20" ItemTemplate="{StaticResource LibraryItemTemplate}"
+                Padding="20" ItemContainerStyle="{StaticResource LibraryItemStyle}"
                 MouseDoubleClick="ListView_MouseDoubleClick">
 
             <ListView.ItemsPanel>

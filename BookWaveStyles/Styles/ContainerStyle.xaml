@@ -521,33 +521,64 @@
     </Style>
     
     <!-- Library Item -->
-    <DataTemplate x:Key="LibraryItemTemplate">
-        <Border MinHeight="250" MinWidth="250" MaxHeight="350" MaxWidth="250">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+    <Style x:Key="LibraryItemStyle" TargetType="ListViewItem">
+        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border MinHeight="350" MinWidth="250" MaxHeight="350" MaxWidth="250" Margin="6, 0"
+                        Padding="10, 6" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="250" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
 
-                <Image Grid.Column="0" Grid.Row="0" MinWidth="250" MinHeight="250" 
-                    MaxWidth="250" MaxHeight="250"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                    RenderOptions.BitmapScalingMode="HighQuality"
-                    Source="{Binding Metadata.CoverPath}"/>
+                            <Image Grid.Column="0" Grid.Row="0" MinWidth="250" MinHeight="250" 
+                                MaxWidth="250" MaxHeight="250"
+                                VerticalAlignment="Top" HorizontalAlignment="Center"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="{Binding Metadata.CoverPath}"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Metadata.Title}" 
-                    Foreground="{StaticResource TextHighlightColorBrush}" 
-                    FontSize="20" FontWeight="SemiBold" TextWrapping="Wrap" />
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Metadata.Title}" 
+                                Foreground="{StaticResource TextHighlightColorBrush}" 
+                                VerticalAlignment="Top" HorizontalAlignment="Left"
+                                FontSize="20" FontWeight="SemiBold" TextWrapping="Wrap" />
 
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Metadata.Description}" 
-                    Foreground="{StaticResource TextColorBrush}" 
-                    FontSize="16" TextWrapping="Wrap" TextTrimming="WordEllipsis" MaxHeight="100" />
-            </Grid>
-        </Border>
-    </DataTemplate>    
-    
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Metadata.Description}" 
+                                Foreground="{StaticResource TextColorBrush}" 
+                                VerticalAlignment="Top" HorizontalAlignment="Left"
+                                FontSize="16" TextWrapping="Wrap" TextTrimming="WordEllipsis" MaxHeight="100" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation From="{StaticResource GridBackgroundColor}" To="{StaticResource GridBackgroundHoverColor}" 
+                                            Duration="0:0:0.15" Storyboard.TargetProperty="Background.Color"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation From="{StaticResource GridBackgroundHoverColor}" To="{StaticResource GridBackgroundColor}"  
+                                            Duration="0:0:0.15" Storyboard.TargetProperty="Background.Color"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
