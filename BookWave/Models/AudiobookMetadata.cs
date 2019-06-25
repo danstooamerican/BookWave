@@ -13,6 +13,8 @@ namespace Commons.Models
 
         #region Public Properties
 
+        public static readonly string StandardCover = @"/Commons.Styles;component/Resources/Player/sampleCover.png";
+
         private string mPath;
         /// <summary>
         /// Path to the audiobook folder.
@@ -72,7 +74,10 @@ namespace Commons.Models
         private string mCoverPath;
         public string CoverPath
         {
-            get { return mCoverPath; }
+            get {
+                return mCoverPath.Equals(string.Empty) ? StandardCover :
+                mCoverPath;
+            }
             set { Set<string>(() => this.CoverPath, ref mCoverPath, value); }
         }
 
