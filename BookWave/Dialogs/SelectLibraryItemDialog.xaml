@@ -4,49 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Commons.Dialogs"
+        xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls" 
         mc:Ignorable="d"
         Icon="/Commons.Styles;component/Resources/icon.ico"
         WindowStyle="None"
         AllowsTransparency="True"
         Loaded="Window_Loaded"
         Closed="Window_Closed"
+        Background="{StaticResource Background2ColorBrush}"
+        BorderThickness="1"
+        BorderBrush="{StaticResource TextHighlightColorBrush}"
         WindowStartupLocation="CenterOwner"
         Title="SelectLibraryItemDialog" Height="400" Width="600">
 
-    <Border BorderBrush="{StaticResource Background1ColorBrush}" BorderThickness="1">
-        <Grid Background="{StaticResource Background2ColorBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <ListView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="Transparent"
-                      VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      ItemsSource="{Binding Audiobooks}"
-                      SelectedItem="{Binding Selected}"
-                      Padding="20" ItemTemplate="{StaticResource LibraryItemTemplate}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Width="{Binding Path=ActualWidth, 
-                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" Orientation="Horizontal"></WrapPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
+        <lib:ImageButton Grid.Column="0" Grid.Row="0"
+                NormalImage="/Commons.Styles;component/Resources/Navigation/close.png"
+                HoverImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
+                PressedImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
+                ImageSize="20"
+                HorizontalAlignment="Right"
+                IsCancel="True"
+                Margin="5"
+                WindowChrome.IsHitTestVisibleInChrome="True"/>
 
-            <Button Grid.Column="1" Grid.Row="1" MinHeight="28" MinWidth="120" MaxWidth="130"
-                Margin="0, 0, 10, 5"
-                Content="Cancel" IsCancel="True" Style="{StaticResource RoundedButton}" />
-            
-            <Button Grid.Column="2" Grid.Row="1" MinHeight="28" MinWidth="120" MaxWidth="130"
-                Margin="0, 0, 5, 5" Click="Select_Click"
-                Content="Select" IsDefault="True" Style="{StaticResource RoundedButton}" />
-        </Grid>
-    </Border>
-    
+        <ListView Grid.Column="0" Grid.Row="1" 
+                BorderBrush="Transparent" Background="Transparent"
+                VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                ItemsSource="{Binding Audiobooks}"
+                SelectedItem="{Binding Selected}"
+                Padding="20" ItemTemplate="{StaticResource LibraryItemTemplate}"
+                MouseDoubleClick="ListView_MouseDoubleClick">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="{Binding Path=ActualWidth, 
+                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
+                            Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+    </Grid>
+
 </Window>

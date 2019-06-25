@@ -61,5 +61,10 @@ namespace Commons.Dialogs
         {
             ViewModelLocator.Instance.MainViewModel.DarkenBackground = false;
         }
+
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            this.DialogResult = ITEM_SELECTED;
+        }
     }
 }
