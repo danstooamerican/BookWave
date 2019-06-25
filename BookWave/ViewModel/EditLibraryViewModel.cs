@@ -70,16 +70,25 @@ namespace Commons.ViewModel
 
         public ICommand SaveAudiobookCommand { private set; get; }
 
+        public ICommand SelectCoverImageCommand { private set; get; }
+
+        public ICommand RemoveCoverImageCommand { private set; get; }
+
+        public ICommand CopyCoverImageFromClipboardCommand { private set; get; }
+
         #endregion
 
         #region Constructors
-        
+
         public EditLibraryViewModel()
         {
             Audiobook = new Audiobook();
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
+            SelectCoverImageCommand = new RelayCommand(SelectCoverImage);
+            RemoveCoverImageCommand = new RelayCommand(RemoveCoverImage, CanRemoveCoverImage);
+            CopyCoverImageFromClipboardCommand = new RelayCommand(CopyCoverImageFromClipboard, CanCopyCoverImageFromClipboard);
         }
 
         #endregion
@@ -145,9 +154,49 @@ namespace Commons.ViewModel
             UpdateIsInLibrary();
         }
 
+        public void SelectCoverImage()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                if (!Audiobook.Metadata.Path.Equals(string.Empty))
+                {
+                    openFileDialog.InitialDirectory = Audiobook.Metadata.Path;
+                }
+                openFileDialog.Filter = "JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff|BMP|*.bmp|GIF|*.gif";
+                openFileDialog.Title = "Choose a cover image";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    // Get the path of specified file
+                    Audiobook.Metadata.CoverPath = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void RemoveCoverImage()
+        {
+            Audiobook.Metadata.CoverPath = string.Empty;
+        }
+
+        private void CopyCoverImageFromClipboard()
+        {
+            //TODO implement this method
+        }
+
+        private bool CanRemoveCoverImage()
+        {
+            return Audiobook.Metadata.HasCoverPath;
+        }
+
         private bool CanSaveAudiobook()
         {
             return Audiobook.Chapters.Count > 0;
+        }
+
+        private bool CanCopyCoverImageFromClipboard()
+        {
+            return Clipboard.ContainsImage();
         }
 
         #endregion

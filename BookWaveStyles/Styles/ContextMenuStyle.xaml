@@ -53,6 +53,9 @@
                                     <Trigger Property="IsPressed" Value="True">
                                         <Setter Property="Background" Value="{StaticResource GridBackgroundSelectedBrush}" />
                                     </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.7" />
+                                    </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>

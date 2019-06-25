@@ -145,9 +145,12 @@
 
                 <Image.ContextMenu>
                     <ContextMenu Style="{StaticResource ContextMenuStyle}">
-                        <MenuItem Header="Select" />
-                        <MenuItem Header="From Clipboard" />
-                        <MenuItem Header="Remove" />
+                        <MenuItem Header="Select" 
+                            Command="{Binding SelectCoverImageCommand}" />
+                        <MenuItem Header="From Clipboard" 
+                            Command="{Binding CopyCoverImageFromClipboardCommand}" />
+                        <MenuItem Header="Remove"
+                            Command="{Binding RemoveCoverImageCommand}"/>
                     </ContextMenu>                    
                 </Image.ContextMenu>
             </Image>

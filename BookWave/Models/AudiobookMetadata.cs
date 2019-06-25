@@ -75,10 +75,22 @@ namespace Commons.Models
         public string CoverPath
         {
             get {
-                return mCoverPath.Equals(string.Empty) ? StandardCover :
-                mCoverPath;
+                if (HasCoverPath)
+                {
+                    return mCoverPath;
+                } else
+                {
+                    return StandardCover; 
+                }
             }
             set { Set<string>(() => this.CoverPath, ref mCoverPath, value); }
+        }
+
+        public bool HasCoverPath {
+            get
+            {
+                return !mCoverPath.Equals(string.Empty);
+            }
         }
 
         #endregion

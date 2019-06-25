@@ -76,22 +76,7 @@ namespace Commons.Pages
 
         private void ImgCoverImage_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
-            {
-                if (!viewModel.Audiobook.Metadata.Path.Equals(string.Empty))
-                {
-                    openFileDialog.InitialDirectory = viewModel.Audiobook.Metadata.Path;
-                }
-                openFileDialog.Filter = "JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff|BMP|*.bmp|GIF|*.gif";
-                openFileDialog.Title = "Choose a cover image";
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    // Get the path of specified file
-                    viewModel.Audiobook.Metadata.CoverPath = openFileDialog.FileName;
-                }
-            }
+            viewModel.SelectCoverImage();
         }
     }
 }
