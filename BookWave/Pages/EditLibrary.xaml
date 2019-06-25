@@ -138,6 +138,7 @@
             <!-- Cover Container -->
             <Grid Grid.Column="0" Grid.Row="1" MinWidth="150" MinHeight="150" 
                 MaxWidth="150" MaxHeight="150" Margin="10" VerticalAlignment="Bottom"
+                Cursor="Hand"
                 MouseLeftButtonUp="ImgCoverImage_MouseUp">
 
                 <Grid.ContextMenu>
@@ -152,11 +153,13 @@
                 </Grid.ContextMenu>
 
                 <!-- Cover Image -->
-                <Image RenderOptions.BitmapScalingMode="HighQuality"
+                <Image RenderOptions.BitmapScalingMode="HighQuality" x:Name="imgCover"
                     Source="{Binding Audiobook.Metadata.CoverPath}" />
 
                 <Rectangle x:Name="coverDarken" Opacity="0"
-                    Fill="{StaticResource Background1ColorBrush}" />
+                    Width="{Binding ActualWidth, ElementName=imgCover}"
+                    Height="{Binding ActualHeight, ElementName=imgCover}"
+                    Fill="{StaticResource GridBackgroundBrush}" />
 
                 <!-- Edit Icon -->
                 <Image RenderOptions.BitmapScalingMode="HighQuality"
@@ -198,9 +201,9 @@
                     <EventTrigger RoutedEvent="MouseEnter">
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Duration="0:0:0.15" Storyboard.TargetName="coverDarken"
-                                    Storyboard.TargetProperty="Opacity" From="0" To="0.6" />
-                                <DoubleAnimation Duration="0:0:0.15" Storyboard.TargetName="coverEditIcon"
+                                <DoubleAnimation Duration="0:0:0.06" Storyboard.TargetName="coverDarken"
+                                    Storyboard.TargetProperty="Opacity" From="0" To="0.8" />
+                                <DoubleAnimation Duration="0:0:0.06" Storyboard.TargetName="coverEditIcon"
                                     Storyboard.TargetProperty="Opacity" From="0" To="1" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -208,9 +211,9 @@
                     <EventTrigger RoutedEvent="MouseLeave">
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Duration="0:0:0.15" Storyboard.TargetName="coverDarken"
-                                    Storyboard.TargetProperty="Opacity" From="0.6" To="0" />
-                                <DoubleAnimation Duration="0:0:0.15" Storyboard.TargetName="coverEditIcon"
+                                <DoubleAnimation Duration="0:0:0.06" Storyboard.TargetName="coverDarken"
+                                    Storyboard.TargetProperty="Opacity" From="0.8" To="0" />
+                                <DoubleAnimation Duration="0:0:0.06" Storyboard.TargetName="coverEditIcon"
                                     Storyboard.TargetProperty="Opacity" From="1" To="0" />
                             </Storyboard>
                         </BeginStoryboard>
