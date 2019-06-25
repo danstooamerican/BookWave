@@ -1,4 +1,4 @@
-using Commons.Models;
+﻿using Commons.Models;
 using Commons.Util;
 using Commons.ViewModel;
 using System;
@@ -55,8 +55,8 @@ namespace Commons.Dialogs
             this.DataContext = viewModel;
             this.Owner = Window.GetWindow(parent);
 
-            this.Width = Owner.Width * WINDOW_RATIO;
-            this.Height = Owner.Height * WINDOW_RATIO;       
+            this.Width = Owner.ActualWidth * WINDOW_RATIO;
+            this.Height = Owner.ActualHeight * WINDOW_RATIO;       
         }
 
         /// <summary>
