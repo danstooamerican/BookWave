@@ -212,5 +212,11 @@
   <ItemGroup>
     <Resource Include="Resources\Player\sampleCover.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\pencil_pressed.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

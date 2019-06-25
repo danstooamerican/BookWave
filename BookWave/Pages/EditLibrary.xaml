@@ -133,17 +133,14 @@
                         Text="{Binding Audiobook.Metadata.Description, Mode=TwoWay}"
                         Style="{StaticResource MaskTextBox}" />
                 </Grid>
-            </Expander>
+            </Expander>            
             
-            <!-- Cover Image -->
-            <Image Grid.Column="0" Grid.Row="1" MinWidth="150" MinHeight="150" 
-                MaxWidth="150" MaxHeight="150" Margin="10"
-                VerticalAlignment="Bottom" x:Name="imgCoverImage"
-                RenderOptions.BitmapScalingMode="HighQuality"
-                Source="{Binding Audiobook.Metadata.CoverPath}"
+            <!-- Cover Container -->
+            <Grid Grid.Column="0" Grid.Row="1" MinWidth="150" MinHeight="150" 
+                MaxWidth="150" MaxHeight="150" Margin="10" VerticalAlignment="Bottom"
                 MouseLeftButtonUp="ImgCoverImage_MouseUp">
 
-                <Image.ContextMenu>
+                <Grid.ContextMenu>
                     <ContextMenu Style="{StaticResource ContextMenuStyle}">
                         <MenuItem Header="Select" 
                             Command="{Binding SelectCoverImageCommand}" />
@@ -151,9 +148,75 @@
                             Command="{Binding CopyCoverImageFromClipboardCommand}" />
                         <MenuItem Header="Remove"
                             Command="{Binding RemoveCoverImageCommand}"/>
-                    </ContextMenu>                    
-                </Image.ContextMenu>
-            </Image>
+                    </ContextMenu>
+                </Grid.ContextMenu>
+
+                <!-- Cover Image -->
+                <Image RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="{Binding Audiobook.Metadata.CoverPath}" />
+
+                <Rectangle x:Name="coverDarken" Opacity="0"
+                    Fill="{StaticResource Background1ColorBrush}" />
+
+                <!-- Edit Icon -->
+                <Image RenderOptions.BitmapScalingMode="HighQuality"
+                    Opacity="0"
+                    x:Name="coverEditIcon"
+                    Height="40" Width="40"
+                    Source="/Commons.Styles;component/Resources/Misc/pencil.png" 
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image.Effect>
+                        <DropShadowEffect BlurRadius="3"/>
+                    </Image.Effect>
+
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0"
+                                        Storyboard.TargetProperty="Width" From="40" To="45" />
+                                    <DoubleAnimation Duration="0:0:0"
+                                        Storyboard.TargetProperty="Height" From="40" To="45" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0"
+                                        Storyboard.TargetProperty="Width" From="45" To="40" />
+                                    <DoubleAnimation Duration="0:0:0"
+                                        Storyboard.TargetProperty="Height" From="45" To="40" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+
+
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.15" Storyboard.TargetName="coverDarken"
+                                    Storyboard.TargetProperty="Opacity" From="0" To="0.6" />
+                                <DoubleAnimation Duration="0:0:0.15" Storyboard.TargetName="coverEditIcon"
+                                    Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.15" Storyboard.TargetName="coverDarken"
+                                    Storyboard.TargetProperty="Opacity" From="0.6" To="0" />
+                                <DoubleAnimation Duration="0:0:0.15" Storyboard.TargetName="coverEditIcon"
+                                    Storyboard.TargetProperty="Opacity" From="1" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
+            </Grid>
 
             <Grid Grid.Column="2" Grid.Row="1" Margin="0, 0, 0, 15">
                 <Grid.ColumnDefinitions>
