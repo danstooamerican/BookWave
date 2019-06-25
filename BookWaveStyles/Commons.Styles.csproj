@@ -132,7 +132,7 @@
     <Folder Include="Triggers\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Player\sampleCover.jpg" />
+    <Resource Include="Resources\Player\sampleCoverOld.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Player\rewind30.png" />
@@ -208,6 +208,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Navigation\minimize_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Player\sampleCover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

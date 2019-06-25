@@ -21,7 +21,7 @@ namespace Commons.ViewModel
 
         public PlayerViewModel()
         {
-            CoverImage = "/Commons.Styles;component/Resources/Player/sampleCover.jpg";
+            CoverImage = "/Commons.Styles;component/Resources/Player/sampleCover.png";
         }
 
         #endregion

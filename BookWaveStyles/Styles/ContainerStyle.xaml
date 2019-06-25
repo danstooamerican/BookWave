@@ -28,7 +28,7 @@
     <Style x:Key="DataGridRow" TargetType="{x:Type DataGridRow}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBruch}" />
+        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
         <Setter Property="FontSize" Value="12"/>
 
         <Setter Property="Template">
