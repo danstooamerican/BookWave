@@ -9,13 +9,16 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
-        <Setter Property="Background" Value="{StaticResource Background1ColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="{StaticResource Background2ColorBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TextColorBrush}"/>        
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContextMenu}">
-                    <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                    <Border x:Name="Border" Background="{TemplateBinding Background}" 
+                        Padding="{TemplateBinding Padding}"
+                        BorderBrush="{TemplateBinding BorderBrush}" 
                         BorderThickness="{TemplateBinding BorderThickness}">
 
                         <StackPanel ClipToBounds="True" Orientation="Vertical" IsItemsHost="True"
@@ -24,29 +27,38 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ItemTemplate">
+        <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Header}">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
-                                <Setter Property="FontSize" Value="14" />
-                                <Setter Property="Padding" Value="0, 5"/>
+                <Style TargetType="{x:Type MenuItem}">
+                    <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Padding" Value="20, 8"/>
 
-                                <Style.Triggers>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type MenuItem}">
+                                <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                    <TextBlock FontSize="{TemplateBinding FontSize}" 
+                                        Foreground="{TemplateBinding Foreground}">
+                                        
+                                        <ContentPresenter ContentSource="Header"/>
+                                    </TextBlock>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}"/>
+                                        <Setter Property="Background" Value="{StaticResource GridBackgroundHoverBrush}" />
                                     </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </DataTemplate>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource GridBackgroundSelectedBrush}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
             </Setter.Value>
         </Setter>
     </Style>
-
-    
-
 </ResourceDictionary>
