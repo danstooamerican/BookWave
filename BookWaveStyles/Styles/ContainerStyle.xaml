@@ -525,7 +525,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
-                    <Border MinHeight="350" MinWidth="250" MaxHeight="350" MaxWidth="250" Margin="6, 0"
+                    <Border MinHeight="350" MinWidth="250" MaxHeight="350" MaxWidth="250" Margin="6, 6"
                         Padding="10, 6" Background="{TemplateBinding Background}">
                         <Grid>
                             <Grid.ColumnDefinitions>
