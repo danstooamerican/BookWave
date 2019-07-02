@@ -26,7 +26,7 @@ namespace Commons.Pages
 
         /// <summary>
         /// Capture the MouseWheel event of the DataGrid and pass it to the parent
-        /// so it can be boubbled to the scroll viewer in the MainWindow.
+        /// so it can be bubbled to the scroll viewer in the MainWindow.
         /// </summary>
         /// <param name="sender">mouse wheel event sender</param>
         /// <param name="e">event args</param>

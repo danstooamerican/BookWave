@@ -31,6 +31,7 @@ namespace Commons.ViewModel
             SimpleIoc.Default.Register<EditLibraryViewModel>();
             SimpleIoc.Default.Register<SelectLibraryViewModel>();
             SimpleIoc.Default.Register<PlayerViewModel>();
+            SimpleIoc.Default.Register<BrowseViewModel>();
         }
 
         public MainWindowViewModel MainViewModel
@@ -46,6 +47,14 @@ namespace Commons.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SelectLibraryViewModel>();
+            }
+        }
+
+        public BrowseViewModel BrowseViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<BrowseViewModel>();
             }
         }
 
