@@ -50,5 +50,10 @@ namespace AudiobookPlayer.Pages
                 parent.RaiseEvent(eventArg);
             }
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            viewModel.ReloadLibrary();
+        }
     }
 }
