@@ -41,24 +41,32 @@
             <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
                 Orientation="Horizontal" Margin="0, 0, 0, 0">
 
-                <Button Grid.Column="0" Grid.Row="0" Content="Browse Library" 
+                <Button Content="Browse Library" 
                     x:Name="btnBrowseLibrary"
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0" 
                     Style="{StaticResource RoundedButton}"
                     Click="BtnBrowseLibrary_Click" />
                 
-                <Button Grid.Column="0" Grid.Row="0" Content="Open Folder" 
+                <Button Content="Open Folder" 
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0" 
                     Style="{StaticResource RoundedButton}"
                     Command="{Binding SelectFolderCommand}"/>
-                
-                <Button Grid.Column="0" Grid.Row="0" 
+
+                <Button 
                     Content="{Binding IsInLibrary, Converter={StaticResource AddUpdateConverter}}" 
                     MinHeight="28" MinWidth="130" MaxWidth="130"
+                    Margin="0, 0, 20, 0"
                     Style="{StaticResource RoundedButton}"
                     Command="{Binding SaveAudiobookCommand}"/>
+
+                <Button 
+                    Content="Remove" 
+                    MinHeight="28" MinWidth="130" MaxWidth="130"
+                    Visibility="{Binding IsInLibrary, Converter={StaticResource RemoveVisibilityConverter}}"
+                    Style="{StaticResource RoundedButton}"
+                    Command="{Binding RemoveAudiobookCommand}"/>
             </StackPanel>
             
             <!-- Advanced Options -->

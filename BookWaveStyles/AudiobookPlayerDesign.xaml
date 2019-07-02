@@ -12,6 +12,7 @@
             <converters:VerticalOffsetOpacityConverter x:Key="VerticalOffsetOpacityConverter" />
             <converters:VerticalOffsetTopBarVisibilityConverter x:Key="VerticalOffsetTopBarVisibilityConverter" />
             <converters:AddUpdateConverter x:Key="AddUpdateConverter" />
+            <converters:RemoveVisibilityConverter x:Key="RemoveVisibilityConverter" />
         </ResourceDictionary>
 
         <ResourceDictionary Source="Colors/colors.xaml" />

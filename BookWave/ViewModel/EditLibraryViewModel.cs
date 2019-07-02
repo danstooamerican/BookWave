@@ -70,6 +70,8 @@ namespace Commons.ViewModel
 
         public ICommand SaveAudiobookCommand { private set; get; }
 
+        public ICommand RemoveAudiobookCommand { private set; get; }
+
         public ICommand SelectCoverImageCommand { private set; get; }
 
         public ICommand RemoveCoverImageCommand { private set; get; }
@@ -89,6 +91,7 @@ namespace Commons.ViewModel
             SelectCoverImageCommand = new RelayCommand(SelectCoverImage);
             RemoveCoverImageCommand = new RelayCommand(RemoveCoverImage, CanRemoveCoverImage);
             CopyCoverImageFromClipboardCommand = new RelayCommand(CopyCoverImageFromClipboard, CanCopyCoverImageFromClipboard);
+            RemoveAudiobookCommand = new RelayCommand(RemoveAudiobook);
         }
 
         #endregion
@@ -154,6 +157,13 @@ namespace Commons.ViewModel
             UpdateIsInLibrary();
         }
 
+        public void RemoveAudiobook()
+        {
+            AudiobookManager.Instance.RemoveAudioBook(Audiobook);
+            Destination = string.Empty;
+            AnalyzeFolder();
+        }
+
         public void SelectCoverImage()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -177,6 +187,7 @@ namespace Commons.ViewModel
         private void RemoveCoverImage()
         {
             Audiobook.Metadata.CoverPath = string.Empty;
+            Destination = string.Empty;
         }
 
         private void CopyCoverImageFromClipboard()

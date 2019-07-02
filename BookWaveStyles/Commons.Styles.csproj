@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Converter\AddUpdateConverter.cs" />
     <Compile Include="Converter\ChaptersToVisibleConverter.cs" />
+    <Compile Include="Converter\RemoveVisibilityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetOpacityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetTopBarVisibilityConverter.cs" />
     <Compile Include="Converter\DoubleToBoolConverter.cs" />
