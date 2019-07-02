@@ -139,6 +139,7 @@
     <Compile Include="ViewModel\EditLibraryViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
+    <Compile Include="ViewModel\BrowseViewModel.cs" />
     <Compile Include="ViewModel\SelectLibraryViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Dialogs\SelectLibraryItemDialog.xaml">
