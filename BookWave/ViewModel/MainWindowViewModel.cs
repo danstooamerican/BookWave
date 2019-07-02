@@ -1,4 +1,5 @@
-﻿using Commons.Controls;
+﻿using AudiobookPlayer;
+using Commons.Controls;
 using Commons.Logic;
 using Commons.Util;
 using GalaSoft.MvvmLight;
@@ -6,6 +7,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using MediaPlayer;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace Commons.ViewModel
@@ -41,6 +43,14 @@ namespace Commons.ViewModel
         {
             get { return mDarkenBackground; }
             set { Set<bool>(() => this.DarkenBackground, ref mDarkenBackground, value); }
+        }
+
+        private MainWindow mMainWindow;
+
+        public MainWindow MainWindow
+        {
+            get { return mMainWindow; }
+            set { mMainWindow = value; }
         }
 
 
@@ -110,6 +120,11 @@ namespace Commons.ViewModel
                 // Fire off resize events
                 WindowResized();
             };
+        }
+
+        public void SwitchToEditLibraryPage()
+        {
+            MainWindow.btnAddToLibrary.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
         }
 
         #endregion

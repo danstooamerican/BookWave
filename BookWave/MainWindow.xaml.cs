@@ -27,6 +27,9 @@ namespace AudiobookPlayer
             viewModel.SetupBorderlessWindow(this);
             this.DataContext = viewModel;
 
+            //TODO circular dependency
+            viewModel.MainWindow = this;
+
             InitializeComponent();           
 
             viewModel.NavigationHistory.CurrentElementChangedEvent += UpdateNavigationUI;
@@ -41,7 +44,7 @@ namespace AudiobookPlayer
         /// </summary>
         /// <param name="sender">MenuButton which was clicked.</param> 
         /// <param name="e">EventArgs of the click event.</param> 
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        public void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             if (e.Source is MenuButton clickedMenuBtn)
             {

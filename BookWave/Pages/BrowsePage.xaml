@@ -34,8 +34,23 @@
             ItemsSource="{Binding Audiobooks}"
             SelectedItem="{Binding Selected}"
             PreviewMouseWheel="ListView_PreviewMouseWheel"
-            Padding="20" ItemContainerStyle="{StaticResource LibraryItemStyle}">
+            Padding="20">
 
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu" Style="{StaticResource ContextMenuStyle}">
+                    <MenuItem Header="Edit" 
+                        Command="{Binding DataContext.EditSelectedCommand, 
+                            RelativeSource={RelativeSource AncestorType=Page}}"
+                        CommandParameter="{Binding}"/>
+                </ContextMenu>
+            </ListView.Resources>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource LibraryItemStyle}">
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="{Binding Path=ActualWidth, 
