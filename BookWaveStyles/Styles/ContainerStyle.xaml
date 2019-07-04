@@ -1,10 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Commons.Styles"
+                    xmlns:converters="clr-namespace:Commons.Styles.Converter"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
-
+        <ResourceDictionary>
+            <converters:DescriptionTextHeightConverter x:Key="DescriptionTextHeightConverter" />
+        </ResourceDictionary>
         <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
         <ResourceDictionary Source="/Commons.Styles;component/Styles/BorderStyle.xaml"/>
 
@@ -543,14 +545,18 @@
                                 Source="{Binding Metadata.CoverPath}"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Metadata.Title}" 
+                                x:Name="lblTitle"
                                 Foreground="{StaticResource TextHighlightColorBrush}" 
                                 VerticalAlignment="Top" HorizontalAlignment="Left"
+                                TextTrimming="WordEllipsis" 
                                 FontSize="20" FontWeight="SemiBold" TextWrapping="Wrap" />
 
                             <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Metadata.Description}" 
                                 Foreground="{StaticResource TextColorBrush}" 
                                 VerticalAlignment="Top" HorizontalAlignment="Left"
-                                FontSize="16" TextWrapping="Wrap" TextTrimming="WordEllipsis" MaxHeight="100" />
+                                FontSize="16" TextWrapping="Wrap" TextTrimming="WordEllipsis" 
+                                MaxHeight="{Binding ActualHeight, ElementName=lblTitle, 
+                                    Converter={StaticResource DescriptionTextHeightConverter}}" />
                         </Grid>
                     </Border>
 
