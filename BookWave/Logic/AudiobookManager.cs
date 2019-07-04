@@ -97,10 +97,10 @@ namespace Commons.Logic
         }
 
         /// <summary>
-        /// Parses an audiobook from a xml file. No chapters are loaded.
+        /// Parses an audio book from a xml file. No chapters are loaded.
         /// </summary>
-        /// <param name="path">path to the audiobook folder</param>
-        /// <returns>audiobook created from the folder</returns>
+        /// <param name="path">path to the audio book folder</param>
+        /// <returns>audio book created from the folder</returns>
         public Audiobook LoadAudiobookFromFile(string path)
         {
             // parse audiobook from xml file
@@ -119,7 +119,7 @@ namespace Commons.Logic
         }
 
         /// <summary>
-        /// Searches for an audiobook with the given path.
+        /// Searches for an audio book with the given path.
         /// </summary>
         /// <param name="path">is the path of the audiobook</param>
         /// <returns>audiobook</returns>

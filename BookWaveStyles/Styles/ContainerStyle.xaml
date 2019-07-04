@@ -537,8 +537,7 @@
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
 
-                            <Image Grid.Column="0" Grid.Row="0" MinWidth="250" MinHeight="250" 
-                                MaxWidth="250" MaxHeight="250"
+                            <Image Grid.Column="0" Grid.Row="0" MaxWidth="250" MaxHeight="250"
                                 VerticalAlignment="Top" HorizontalAlignment="Center"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="{Binding Metadata.CoverPath}"/>
