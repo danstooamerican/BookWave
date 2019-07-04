@@ -53,7 +53,7 @@ namespace Commons.ViewModel
         public List<Audiobook> AudiobookLibrary {
             get
             {
-                return new List<Audiobook>(AudiobookManager.Instance.Audiobooks);
+                return new List<Audiobook>(AudiobookManager.Instance.Audiobooks.Values);
             }
         }
 
@@ -119,6 +119,9 @@ namespace Commons.ViewModel
             }
         }
 
+        /// <summary>
+        /// Analyzes folder for Audiobook.
+        /// </summary>
         public void AnalyzeFolder()
         {
             var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Destination);
@@ -144,7 +147,7 @@ namespace Commons.ViewModel
         {
             AudiobookFolder.SaveAudiobookMetadata(Audiobook);
 
-            if (!AudiobookManager.Instance.Audiobooks.Contains(Audiobook))
+            if (!AudiobookManager.Instance.Contains(Audiobook.ID))
             {
                 if (!Audiobook.Metadata.Title.Equals(string.Empty))
                 {
@@ -160,7 +163,7 @@ namespace Commons.ViewModel
 
         public void RemoveAudiobook()
         {
-            AudiobookManager.Instance.RemoveAudioBook(Audiobook);
+            AudiobookManager.Instance.RemoveAudioBook(Audiobook.ID);
             Destination = string.Empty;
             AnalyzeFolder();
         }

@@ -18,6 +18,14 @@ namespace Commons.Models
 
         #region Public Properties
 
+        private readonly int mID;
+
+        public int ID
+        {
+            get { return mID; }
+        }
+
+
         private ObservableCollection<Chapter> mChapters;
         /// <summary>
         /// A list of all chapters in the audiobook.
@@ -46,6 +54,14 @@ namespace Commons.Models
         /// </summary>
         public Audiobook()
         {
+            mID = AudiobookManager.Instance.GetNewID();
+            Chapters = new ObservableCollection<Chapter>();
+            Metadata = new AudiobookMetadata();
+        }
+
+        private Audiobook(int id)
+        {
+            mID = id;
             Chapters = new ObservableCollection<Chapter>();
             Metadata = new AudiobookMetadata();
         }
@@ -79,7 +95,7 @@ namespace Commons.Models
 
         public object Clone()
         {
-            Audiobook copy = new Audiobook();
+            Audiobook copy = new Audiobook(ID);
 
             copy.Metadata = (AudiobookMetadata)Metadata.Clone();
 

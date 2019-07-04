@@ -31,9 +31,9 @@ namespace Commons.ViewModel
         {
             Audiobooks = new ObservableCollection<Audiobook>();
 
-            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks)
+            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
             {
-                Audiobooks.Add((Audiobook)audiobook.Clone());
+                Audiobooks.Add(audiobook);
             }
         }
 

@@ -25,6 +25,8 @@ namespace Commons.Logic
             private set { mInstance = value; }
         }
 
+        private int IDCount;
+
         private Repository mAudiobookRepo;
         public Repository AudiobookRepo
         {
@@ -34,11 +36,11 @@ namespace Commons.Logic
 
         #region Public Properties
 
-        private ObservableCollection<Audiobook> mAudiobooks;
-        public ObservableCollection<Audiobook> Audiobooks
+        private Dictionary<int, Audiobook> mAudiobooks;
+        public Dictionary<int, Audiobook> Audiobooks
         {
             get { return mAudiobooks; }
-            set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
+            set { Set<Dictionary<int, Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
         #endregion
@@ -56,7 +58,8 @@ namespace Commons.Logic
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "BookWave"), "audiobookPaths.bw");
 
-            Audiobooks = new ObservableCollection<Audiobook>();
+            Audiobooks = new Dictionary<int, Audiobook>();
+            IDCount = 0;
         }
 
         #endregion
@@ -81,7 +84,7 @@ namespace Commons.Logic
                 // only add Audiobook if metadata files exist in the metadata folder
                 if (audiobook.Chapters.Count > 0)
                 {
-                    Audiobooks.Add(audiobook);
+                    Audiobooks.Add(audiobook.ID, audiobook);
                 } else
                 {
                     toRemove.Add(path);
@@ -120,13 +123,23 @@ namespace Commons.Logic
         /// </summary>
         /// <param name="path">is the path of the audiobook</param>
         /// <returns>audiobook</returns>
-        public Audiobook GetAudiobook(string path)
+        public Audiobook GetAudiobook(int id)
         {
-            if (AudiobookRepo.Items.Contains(path))
+            if (Contains(id))
             {
-                 return Audiobooks.FirstOrDefault(audiobook => audiobook.Metadata.Path.Equals(path));
+                return Audiobooks[id];
             }
             return null;
+        }
+
+        public Audiobook GetAudiobook(string path)
+        {
+            return Audiobooks.Values.FirstOrDefault(audiobook => audiobook.Metadata.Path.Equals(path));
+        }
+
+        public bool Contains(int id)
+        {
+            return Audiobooks.ContainsKey(id);
         }
 
         /// <summary>
@@ -136,19 +149,14 @@ namespace Commons.Logic
         /// <param name="audiobook">the audiobook being added</param>
         public void UpdateAudioBook(Audiobook toAdd)
         {
-            Audiobook audiobook = GetAudiobook(toAdd.Metadata.Path);
+            Audiobook audiobook = GetAudiobook(toAdd.ID);
 
-            if (audiobook != null)
-            {
-                Audiobooks.Remove(audiobook);
-            } else
+            if (audiobook == null)
             {
                 AudiobookRepo.Items.Add(toAdd.Metadata.Path);
                 AudiobookRepo.SaveToFile();
-            }            
-
-            
-            Audiobooks.Add(toAdd);
+            }
+            Audiobooks.Add(toAdd.ID, toAdd);
         }
 
         /// <summary>
@@ -156,12 +164,23 @@ namespace Commons.Logic
         /// and removes the path from the AudiobookRepo.
         /// </summary>
         /// <param name="audiobook">the audiobook being removed</param>
-        public void RemoveAudioBook(Audiobook audiobook)
+        public void RemoveAudioBook(int id)
         {
-            AudiobookRepo.Items.Remove(audiobook.Metadata.Path);
-            AudiobookRepo.SaveToFile();
+            if (Contains(id))
+            {
+                Audiobook toRemove = Audiobooks[id];
+                AudiobookRepo.Items.Remove(toRemove.Metadata.Path);
+                AudiobookRepo.SaveToFile();
 
-            Audiobooks.Remove(audiobook);
+                Audiobooks.Remove(id);
+            }
+        }
+
+        public int GetNewID()
+        {
+            var temp = IDCount;
+            IDCount++;
+            return temp;
         }
 
         #endregion
