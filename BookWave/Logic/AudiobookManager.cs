@@ -149,12 +149,13 @@ namespace Commons.Logic
         /// <param name="audiobook">the audiobook being added</param>
         public void UpdateAudioBook(Audiobook toAdd)
         {
-            Audiobook audiobook = GetAudiobook(toAdd.ID);
-
-            if (audiobook == null)
+            if (!Contains(toAdd.ID))
             {
                 AudiobookRepo.Items.Add(toAdd.Metadata.Path);
                 AudiobookRepo.SaveToFile();
+            } else
+            {
+                Audiobooks.Remove(toAdd.ID);
             }
             Audiobooks.Add(toAdd.ID, toAdd);
         }

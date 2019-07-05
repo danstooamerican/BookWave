@@ -105,6 +105,10 @@ namespace Commons.Models
             ReleaseYear = 0;
         }
 
+        #endregion
+
+        #region Methods
+
         public new XElement ToXML()
         {
             XElement metadataXML = base.ToXML();

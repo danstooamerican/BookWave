@@ -147,15 +147,13 @@ namespace Commons.ViewModel
         {
             AudiobookFolder.SaveAudiobookMetadata(Audiobook);
 
-            if (!AudiobookManager.Instance.Contains(Audiobook.ID))
+            if (!Audiobook.Metadata.Title.Equals(string.Empty))
             {
-                if (!Audiobook.Metadata.Title.Equals(string.Empty))
-                {
-                    AudiobookManager.Instance.UpdateAudioBook(Audiobook);
-                } else
-                {
-                    throw new InvalidArgumentException("audiobook title is required");
-                }                
+                AudiobookManager.Instance.UpdateAudioBook(Audiobook);
+            }
+            else
+            {
+                throw new InvalidArgumentException("audiobook title is required");
             }
 
             UpdateIsInLibrary();
