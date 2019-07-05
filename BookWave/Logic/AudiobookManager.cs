@@ -25,6 +25,8 @@ namespace Commons.Logic
             private set { mInstance = value; }
         }
 
+        private int IDCount;
+
         private Repository mAudiobookRepo;
         public Repository AudiobookRepo
         {
@@ -34,11 +36,11 @@ namespace Commons.Logic
 
         #region Public Properties
 
-        private ObservableCollection<Audiobook> mAudiobooks;
-        public ObservableCollection<Audiobook> Audiobooks
+        private Dictionary<int, Audiobook> mAudiobooks;
+        public Dictionary<int, Audiobook> Audiobooks
         {
             get { return mAudiobooks; }
-            set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
+            set { Set<Dictionary<int, Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
         #endregion
@@ -56,7 +58,8 @@ namespace Commons.Logic
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "BookWave"), "audiobookPaths.bw");
 
-            Audiobooks = new ObservableCollection<Audiobook>();
+            Audiobooks = new Dictionary<int, Audiobook>();
+            IDCount = 0;
         }
 
         #endregion
@@ -65,55 +68,96 @@ namespace Commons.Logic
 
         /// <summary>
         /// Loads the AudiobookRepo and creates a new audiobook for each
-        /// path in the repository.
+        /// path in the repository if metadata files exists in the metadata folder.
+        /// If no metadata files exist the path is removed from the repository.
         /// </summary>
         public void LoadRepository()
         {
             AudiobookRepo.LoadFromFile();
 
+            List<string> toRemove = new List<string>();
             foreach (string path in AudiobookRepo.Items)
             {
-                // only add Audiobook if metadata files exist in the metadata folder
-
-                Audiobook audiobook = XMLHelper.XMLToAudiobook(
-                    Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"), 
-                    ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "." 
-                    + ConfigurationManager.AppSettings.Get("metadata_extensions")));
-
+                Audiobook audiobook = LoadAudiobookFromFile(path);
                 audiobook.LoadChapters();
+
+                // only add Audiobook if metadata files exist in the metadata folder
                 if (audiobook.Chapters.Count > 0)
                 {
-                    Audiobooks.Add(audiobook);
+                    Audiobooks.Add(audiobook.ID, audiobook);
+                } else
+                {
+                    toRemove.Add(path);
                 }
             }
+
+            toRemove.ForEach(path => AudiobookRepo.Items.Remove(path));
+
+            AudiobookRepo.SaveToFile();
         }
 
         /// <summary>
-        /// Searches for an audiobook with the given path.
+        /// Parses an audio book from a xml file. No chapters are loaded.
+        /// </summary>
+        /// <param name="path">path to the audio book folder</param>
+        /// <returns>audio book created from the folder</returns>
+        public Audiobook LoadAudiobookFromFile(string path)
+        {
+            // parse audiobook from xml file
+            string audiobookMetadataPath = Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"),
+                ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "."
+                + ConfigurationManager.AppSettings.Get("metadata_extensions"));
+
+            Audiobook audiobook = XMLHelper.XMLToAudiobook(audiobookMetadataPath);
+
+            if (audiobook.Metadata.Path.Equals(string.Empty))
+            {
+                audiobook.Metadata.Path = path;
+            }
+
+            return audiobook;
+        }
+
+        /// <summary>
+        /// Searches for an audio book with the given path.
         /// </summary>
         /// <param name="path">is the path of the audiobook</param>
         /// <returns>audiobook</returns>
-        public Audiobook GetAudiobook(string path)
+        public Audiobook GetAudiobook(int id)
         {
-            if (AudiobookRepo.Items.Contains(path))
+            if (Contains(id))
             {
-                 return Audiobooks.FirstOrDefault(audiobook => audiobook.Metadata.Path.Equals(path));
+                return Audiobooks[id];
             }
             return null;
         }
 
+        public Audiobook GetAudiobook(string path)
+        {
+            return Audiobooks.Values.FirstOrDefault(audiobook => audiobook.Metadata.Path.Equals(path));
+        }
+
+        public bool Contains(int id)
+        {
+            return Audiobooks.ContainsKey(id);
+        }
+
         /// <summary>
-        /// Adds an audiobook to the AudiobookManager 
-        /// and adds the path to the AudiobookRepo.
+        /// Adds an audiobook to the AudiobookManager and adds the path to the AudiobookRepo if it is not added already. 
+        /// If it is already added the audiobook is updated.
         /// </summary>
         /// <param name="audiobook">the audiobook being added</param>
-        public void AddAudioBook(Audiobook audiobook)
+        public void UpdateAudioBook(Audiobook toAdd)
         {
-            AudiobookRepo.Items.Add(audiobook.Metadata.Path);
-            AudiobookRepo.SaveToFile();
-
-            
-            Audiobooks.Add(audiobook);
+            if (!Contains(toAdd.ID))
+            {
+                AudiobookRepo.Items.Add(toAdd.Metadata.Path);
+                AudiobookRepo.SaveToFile();
+            } else
+            {
+                Audiobooks.Remove(toAdd.ID);
+            }
+            Audiobooks.Add(toAdd.ID, toAdd);
         }
 
         /// <summary>
@@ -121,12 +165,23 @@ namespace Commons.Logic
         /// and removes the path from the AudiobookRepo.
         /// </summary>
         /// <param name="audiobook">the audiobook being removed</param>
-        public void RemoveAudioBook(Audiobook audiobook)
+        public void RemoveAudioBook(int id)
         {
-            AudiobookRepo.Items.Remove(audiobook.Metadata.Path);
-            AudiobookRepo.SaveToFile();
+            if (Contains(id))
+            {
+                Audiobook toRemove = Audiobooks[id];
+                AudiobookRepo.Items.Remove(toRemove.Metadata.Path);
+                AudiobookRepo.SaveToFile();
 
-            Audiobooks.Remove(audiobook);
+                Audiobooks.Remove(id);
+            }
+        }
+
+        public int GetNewID()
+        {
+            var temp = IDCount;
+            IDCount++;
+            return temp;
         }
 
         #endregion

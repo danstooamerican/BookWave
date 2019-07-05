@@ -1,6 +1,7 @@
 ﻿using Commons.Exceptions;
 using Commons.Util;
 using GalaSoft.MvvmLight;
+using System;
 using System.IO;
 using System.Xml.Linq;
 
@@ -9,8 +10,11 @@ namespace Commons.Models
     /// <summary>
     /// Stores a path to an audio file with a startMark and an endMark.
     /// </summary>
-    public class AudioPath : ObservableObject, XMLSaveObject
+    public class AudioPath : ObservableObject, XMLSaveObject, ICloneable
     {
+
+        private static readonly int DefaultStartMark = 0;
+        private static readonly int DefaultEndMark = -1;
 
         #region Public Properties
 
@@ -93,18 +97,41 @@ namespace Commons.Models
         public XElement ToXML()
         {
             var pathXML = new XElement("AudioPath");
-            pathXML.Add(new XElement("FilePath", Path));
-            pathXML.Add(new XElement("StartMark", StartMark));
-            pathXML.Add(new XElement("EndMark", EndMark));
+
+            if (!Path.Equals(string.Empty))
+            {
+                pathXML.Add(new XElement("FilePath", Path));
+            }
+
+            if (StartMark != DefaultStartMark)
+            {
+                pathXML.Add(new XElement("StartMark", StartMark));
+            }
+
+            if (EndMark != DefaultEndMark)
+            {
+                pathXML.Add(new XElement("EndMark", EndMark));
+            }           
 
             return pathXML;
         }
 
         public void FromXML(XElement xmlElement)
         {
-            Path = (string)xmlElement.Element("FilePath");
-            StartMark = (int)xmlElement.Element("StartMark");
-            EndMark = (int)xmlElement.Element("EndMark");
+            Path = XMLHelper.GetSingleElement(xmlElement, "FilePath");
+            StartMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "StartMark", DefaultStartMark.ToString()));
+            EndMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "EndMark", DefaultEndMark.ToString()));
+        }
+
+        public object Clone()
+        {
+            AudioPath copy = new AudioPath();
+
+            copy.EndMark = EndMark;
+            copy.StartMark = StartMark;
+            copy.Path = Path;
+
+            return copy;
         }
 
         #endregion

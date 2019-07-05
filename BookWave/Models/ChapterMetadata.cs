@@ -6,7 +6,7 @@ using Commons.Util;
 namespace Commons.Models
 {
     /// <summary>
-    /// Basis metadata for audio files.
+    /// Metadata for chapters which adds a TrackNumber.
     /// </summary>
     public class ChapterMetadata : Metadata, XMLSaveObject
     {
@@ -63,6 +63,17 @@ namespace Commons.Models
             {
                 TrackNumber = int.Parse(strTrackNumber);
             }
+        }
+
+        public override object Clone()
+        {
+            ChapterMetadata copy = new ChapterMetadata();
+
+            copy.Title = Title;
+            copy.Description = Description;
+            copy.TrackNumber = TrackNumber;
+
+            return copy;
         }
 
         #endregion

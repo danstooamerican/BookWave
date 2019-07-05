@@ -48,8 +48,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converter\DescriptionTextHeightConverter.cs" />
     <Compile Include="Converter\AddUpdateConverter.cs" />
     <Compile Include="Converter\ChaptersToVisibleConverter.cs" />
+    <Compile Include="Converter\RemoveVisibilityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetOpacityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetTopBarVisibilityConverter.cs" />
     <Compile Include="Converter\DoubleToBoolConverter.cs" />
@@ -132,7 +134,7 @@
     <Folder Include="Triggers\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Player\sampleCover.jpg" />
+    <Resource Include="Resources\Player\sampleCoverOld.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Player\rewind30.png" />
@@ -208,6 +210,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Navigation\minimize_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Player\sampleCover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Misc\pencil_pressed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

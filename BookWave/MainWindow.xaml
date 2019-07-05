@@ -11,6 +11,7 @@
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeight}"
         WindowStyle="None"
+        WindowState="Maximized"
         Loaded="AppWindow_Loaded"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
@@ -19,10 +20,49 @@
     <WindowChrome.WindowChrome>
         <WindowChrome
             ResizeBorderThickness="{Binding ResizeBorderThickness}"
-            CaptionHeight="20"
-            
-            />
+            CaptionHeight="20" />
     </WindowChrome.WindowChrome>
+
+    <Window.Effect>
+        <BlurEffect KernelType="Gaussian" Radius="0" />
+    </Window.Effect>
+
+    <!-- FadeIn animation on startup -->
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <!-- Blur Effect -->
+    <Window.Style>
+        <Style>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DarkenBackground}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
+                                            From="0" To="4" Duration="0:0:0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
+                                            From="4" To="0" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
     
     <Grid Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
@@ -35,6 +75,11 @@
             <ColumnDefinition Width="auto" MinWidth="90" MaxWidth="300" SharedSizeGroup="sidebar"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <!-- Darken Effect -->
+        <Control Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"
+            Panel.ZIndex="2" Style="{StaticResource DarkenEffect}"
+            IsEnabled="{Binding DarkenBackground}" />
 
         <!-- Sidebar -->
         <Border Padding="0, 5, 0, 0"

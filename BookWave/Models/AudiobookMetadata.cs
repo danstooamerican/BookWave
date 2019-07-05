@@ -6,12 +6,14 @@ using System.Xml.Linq;
 namespace Commons.Models
 {
     /// <summary>
-    /// Metadata for audiobooks which adds a Genre Option.
+    /// Metadata for audiobooks which adds a Genre, Contributors, ReleaseYear and a CoverPath.
     /// </summary>
     public class AudiobookMetadata : Metadata
     {
 
         #region Public Properties
+
+        public static readonly string StandardCover = @"/Commons.Styles;component/Resources/Player/sampleCover.png";
 
         private string mPath;
         /// <summary>
@@ -24,7 +26,7 @@ namespace Commons.Models
             {
                 if (Directory.Exists(value))
                 {
-                    Set<string>(() => this.Path, ref mPath, value);
+                    Set<string>(() => this.Path, ref mPath, value.Trim());
                 }
                 else
                 {
@@ -72,8 +74,23 @@ namespace Commons.Models
         private string mCoverPath;
         public string CoverPath
         {
-            get { return mCoverPath; }
-            set { mCoverPath = value; }
+            get {
+                if (HasCoverPath)
+                {
+                    return mCoverPath;
+                } else
+                {
+                    return StandardCover; 
+                }
+            }
+            set { Set<string>(() => this.CoverPath, ref mCoverPath, value); }
+        }
+
+        public bool HasCoverPath {
+            get
+            {
+                return !mCoverPath.Equals(string.Empty);
+            }
         }
 
         #endregion
@@ -87,6 +104,10 @@ namespace Commons.Models
             Contributors = new Contributors();
             ReleaseYear = 0;
         }
+
+        #endregion
+
+        #region Methods
 
         public new XElement ToXML()
         {
@@ -140,6 +161,22 @@ namespace Commons.Models
                 ReleaseYear = int.Parse(strReleaseYear);
             }
         }
+
+        public override object Clone()
+        {
+            AudiobookMetadata copy = new AudiobookMetadata();
+
+            copy.Title = Title;
+            copy.CoverPath = CoverPath;
+            copy.Description = Description;
+            copy.Genre = Genre;
+            copy.Path = Path;
+            copy.ReleaseYear = ReleaseYear;
+            copy.Contributors = (Contributors)Contributors.Clone();
+
+            return copy;
+        }
+
         #endregion
 
     }

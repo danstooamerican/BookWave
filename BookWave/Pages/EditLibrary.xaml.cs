@@ -1,4 +1,7 @@
-﻿using Commons.ViewModel;
+﻿using Commons.Dialogs;
+using Commons.Util;
+using Commons.ViewModel;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,26 +15,32 @@ namespace Commons.Pages
     public partial class EditLibrary : Page
     {
 
+        private EditLibraryViewModel viewModel;
+
         public EditLibrary()
         {
-            DataContext = ViewModelLocator.Instance.EditLibraryViewModel;
+            viewModel = ViewModelLocator.Instance.EditLibraryViewModel;
+            DataContext = viewModel;
             InitializeComponent();
         }
 
         /// <summary>
         /// Capture the MouseWheel event of the DataGrid and pass it to the parent
-        /// so it can be boubbled to the scroll viewer in the MainWindow.
+        /// so it can be bubbled to the scroll viewer in the MainWindow.
         /// </summary>
         /// <param name="sender">mouse wheel event sender</param>
         /// <param name="e">event args</param>
         private void DtgChapters_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            e.Handled = true;
-            var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
-            eventArg.RoutedEvent = UIElement.MouseWheelEvent;
-            eventArg.Source = sender;
-            var parent = ((Control)sender).Parent as UIElement;
-            parent.RaiseEvent(eventArg);
+            if (sender is DataGrid)
+            {
+                e.Handled = true;
+                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
+                eventArg.RoutedEvent = UIElement.MouseWheelEvent;
+                eventArg.Source = sender;
+                var parent = ((Control)sender).Parent as UIElement;
+                parent.RaiseEvent(eventArg);
+            }            
         }
 
         /// <summary>
@@ -49,33 +58,25 @@ namespace Commons.Pages
                 {
                     if (Directory.Exists(files[0]))
                     {
-                        ViewModelLocator.Instance.EditLibraryViewModel.Audiobook.Metadata.Path = files[0];
+                        viewModel.Audiobook.Metadata.Path = files[0];
                     }
                 }
             }
         }
 
-        private void Destination_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //TODO make this pretty
-            EditLibraryViewModel viewModel = ViewModelLocator.Instance.EditLibraryViewModel;
-            viewModel.Audiobook.Metadata.Path = txbDestination.Text;
-            viewModel.AnalyzeFolder();
-        }
-
         private void BtnBrowseLibrary_Click(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button;
-            ContextMenu contextMenu = btn.ContextMenu;
-            contextMenu.PlacementTarget = btn;
-            contextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            contextMenu.IsOpen = true;
-            e.Handled = true;
+            SelectLibraryItemDialog dialog = new SelectLibraryItemDialog(this);
+
+            if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
+            {
+                viewModel.Destination = dialog.Selected.Metadata.Path;
+            }
         }
 
-        private void BtnBrowseLibrary_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void ImgCoverImage_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            e.Handled = true;
+            viewModel.SelectCoverImage();
         }
     }
 }

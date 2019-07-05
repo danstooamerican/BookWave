@@ -6,10 +6,59 @@
       xmlns:local="clr-namespace:AudiobookPlayer.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Loaded="Page_Loaded"
       Title="BrowsePage">
 
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+    
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="30" Foreground="White">Browse</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <ListView Grid.Column="0" Grid.Row="0" 
+            BorderBrush="Transparent" Background="Transparent"
+            VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            ItemsSource="{Binding Audiobooks}"
+            SelectedItem="{Binding Selected}"
+            PreviewMouseWheel="ListView_PreviewMouseWheel"
+            Padding="20">
+
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu" Style="{StaticResource ContextMenuStyle}">
+                    <MenuItem Header="Edit" 
+                        Command="{Binding DataContext.EditSelectedCommand, 
+                            RelativeSource={RelativeSource AncestorType=Page}}"
+                        CommandParameter="{Binding}"/>
+                </ContextMenu>
+            </ListView.Resources>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource LibraryItemStyle}">
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="{Binding Path=ActualWidth, 
+                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
+                            Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
     </Grid>
 </Page>

@@ -17,18 +17,11 @@ namespace Commons.Logic
     public class AudiobookFolder
     {
 
-        private AudiobookFolder()
-        {
-
-        }
-
         #region Methods
 
         /// <summary>
-        /// Analyzes the folder of the AudiobookFolder.
         /// Searches for audiofiles and metadata and 
-        /// creates metadata for the audiofiles with 
-        /// no metadata.
+        /// gets metadata from the audio files for audio files with no metadata.
         /// </summary>
         /// <returns>List of chapters in the folder.</returns>
         public static List<Chapter> AnalyzeFolder(string folderPath)
@@ -40,10 +33,15 @@ namespace Commons.Logic
             var chapters = new List<Chapter>();
             string metadataDirectory = Path.Combine(folderPath, ConfigurationManager.AppSettings.Get("metadata_folder"));
 
-            List<string> metadataFiles =
-                Directory.Exists(metadataDirectory) 
-                ? Directory.GetFiles(metadataDirectory, "*." + ConfigurationManager.AppSettings.Get("metadata_extensions")).ToList() 
-                : new List<string>();
+            List<string> metadataFiles;
+            
+            if (Directory.Exists(metadataDirectory))
+            {
+                metadataFiles = Directory.GetFiles(metadataDirectory, "*." + ConfigurationManager.AppSettings.Get("metadata_extensions")).ToList();
+            } else
+            {
+                metadataFiles = new List<string>(); 
+            }
 
             var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_extensions").Split(',');
 
@@ -52,17 +50,17 @@ namespace Commons.Logic
                     .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
                     .ToList();
 
+            // creates new XML file or reads existing XML file to chapter
             foreach (string file in files)
-            {
-                // creates new XML file or reads existing XML file to chapter
+            {                
                 string fileName = Path.GetFileNameWithoutExtension(file);
 
-                var correspondingXMLPath = GetFileFromFileName(metadataFiles, fileName);
+                var chapterMetadataPath = GetMetadataFilePath(metadataFiles, fileName);
                 Chapter chapter;
 
-                if (correspondingXMLPath != null)
+                if (chapterMetadataPath != null)
                 {
-                    chapter = XMLHelper.XMLToChapter(correspondingXMLPath);
+                    chapter = XMLHelper.XMLToChapter(chapterMetadataPath);
                 } else
                 {
                     chapter = new Chapter(new Track(file));
@@ -70,6 +68,7 @@ namespace Commons.Logic
 
                 chapters.Add(chapter);
             }
+
             return chapters;
         }
 
@@ -126,10 +125,10 @@ namespace Commons.Logic
         /// <summary>
         /// Searches in a List of file paths for a specific file name.
         /// </summary>
-        /// <param name="files">is the List of file paths.</param>
-        /// <param name="search">is the file name.</param>
-        /// <returns></returns>
-        private static string GetFileFromFileName(List<string> files, string search)
+        /// <param name="files">List of all file paths.</param>
+        /// <param name="search">File name.</param>
+        /// <returns>Path of the metadata file or null if nothing was found.</returns>
+        private static string GetMetadataFilePath(List<string> files, string search)
         {
             foreach (string file in files)
             {

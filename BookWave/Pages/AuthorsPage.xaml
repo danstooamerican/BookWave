@@ -8,6 +8,16 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AuthorsPage">
 
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+    
     <Grid>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                    FontSize="30" Foreground="White">Authors</TextBlock>
