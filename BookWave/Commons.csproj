@@ -133,6 +133,7 @@
     <Compile Include="Pages\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\BindingProxy.cs" />
     <Compile Include="Util\HistoryList.cs" />
     <Compile Include="Util\HistoryListElement.cs" />
     <Compile Include="Util\Repository.cs" />

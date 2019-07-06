@@ -131,6 +131,8 @@ namespace Commons.ViewModel
             MainWindow.btnEditLibrary.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
         }
 
+
+
         #endregion
 
         #region Private Look Properties

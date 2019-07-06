@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Commons.Pages"
+      xmlns:util="clr-namespace:Commons.Util"
       xmlns:dgx="urn:tom-englert.de/DataGridExtensions"
       xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls"       
       mc:Ignorable="d"       
@@ -299,10 +300,13 @@
                     AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
 
                     <DataGrid.Resources>
+                        <util:BindingProxy x:Key="proxy" Data="{Binding}" />
+                        
                         <ContextMenu x:Key="RowMenu" Style="{StaticResource ContextMenuStyle}">
                             <MenuItem Header="Split Chapter" 
-                                Command="{Binding SelectFolderCommand,
-                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}"/>
+                                Command="{Binding Data.SplitChapterCommand,
+                                    Source={StaticResource proxy}}"
+                                CommandParameter="{Binding}"/>
                         </ContextMenu>
                     </DataGrid.Resources>
 
