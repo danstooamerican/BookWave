@@ -28,7 +28,6 @@ namespace AudiobookPlayer.Pages
             InitializeComponent();
 
             viewModel = ViewModelLocator.Instance.BrowseViewModel;
-            viewModel.ReloadLibrary();
             this.DataContext = viewModel;
         }
 

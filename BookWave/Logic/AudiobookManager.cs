@@ -12,6 +12,8 @@ namespace Commons.Logic
 {
     public class AudiobookManager : ObservableObject
     {
+        #region Public Properties
+
         private static AudiobookManager mInstance;
         public static AudiobookManager Instance
         {
@@ -32,9 +34,7 @@ namespace Commons.Logic
         {
             get { return mAudiobookRepo; }
             set { mAudiobookRepo = value; }
-        }
-
-        #region Public Properties
+        }        
 
         private Dictionary<int, Audiobook> mAudiobooks;
         public Dictionary<int, Audiobook> Audiobooks
