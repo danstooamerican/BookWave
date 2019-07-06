@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Commons.ViewModel
 {
@@ -31,10 +32,13 @@ namespace Commons.ViewModel
         {
             Audiobooks = new ObservableCollection<Audiobook>();
 
-            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                Audiobooks.Add(audiobook);
-            }
+                foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
+                {
+                    Audiobooks.Add(audiobook);
+                }
+            }));
         }
 
     }

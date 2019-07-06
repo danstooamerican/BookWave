@@ -28,23 +28,24 @@
         </Grid.RowDefinitions>
 
         <lib:ImageButton Grid.Column="0" Grid.Row="0"
-                NormalImage="/Commons.Styles;component/Resources/Navigation/close.png"
-                HoverImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
-                PressedImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
-                ImageSize="20"
-                HorizontalAlignment="Right"
-                IsCancel="True"
-                Margin="5"
-                WindowChrome.IsHitTestVisibleInChrome="True"/>
+            NormalImage="/Commons.Styles;component/Resources/Navigation/close.png"
+            HoverImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
+            PressedImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
+            ImageSize="20"
+            HorizontalAlignment="Right"
+            IsCancel="True"
+            Margin="5"
+            WindowChrome.IsHitTestVisibleInChrome="True"/>
 
         <ListView Grid.Column="0" Grid.Row="1" 
-                BorderBrush="Transparent" Background="Transparent"
-                VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
-                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                ItemsSource="{Binding Audiobooks}"
-                SelectedItem="{Binding Selected}"
-                Padding="20" ItemContainerStyle="{StaticResource LibraryItemStyle}"
-                MouseDoubleClick="ListView_MouseDoubleClick">
+            VirtualizingStackPanel.IsVirtualizing="True"
+            BorderBrush="Transparent" Background="Transparent"
+            VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ItemsSource="{Binding Audiobooks}"
+            SelectedItem="{Binding Selected}"
+            Padding="20" ItemContainerStyle="{StaticResource LibraryItemStyle}"
+            MouseDoubleClick="ListView_MouseDoubleClick">
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

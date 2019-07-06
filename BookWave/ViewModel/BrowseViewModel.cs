@@ -3,11 +3,9 @@ using Commons.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Commons.ViewModel
@@ -58,10 +56,13 @@ namespace Commons.ViewModel
         {
             Audiobooks = new ObservableCollection<Audiobook>();
 
-            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                Audiobooks.Add(audiobook);
-            }
+                foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
+                {
+                    Audiobooks.Add(audiobook);                    
+                }
+            }));
         }
 
         #endregion
