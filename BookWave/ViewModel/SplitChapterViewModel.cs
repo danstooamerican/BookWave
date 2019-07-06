@@ -16,20 +16,29 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private Chapter mChapter;
-        public Chapter Chapter
+        private string mAudioFile;
+        public string AudioFile
         {
-            get { return mChapter; }
+            get { return mAudioFile; }
             set
             {
-                Set<Chapter>(() => this.Chapter, ref mChapter, value);
+                Set<string>(() => this.AudioFile, ref mAudioFile, value);
             }
         }
+
+        private List<Chapter> mChapters;
+
+        public List<Chapter> Chapters
+        {
+            get { return mChapters; }
+            set { mChapters = value; }
+        }
+
 
         #endregion
 
         #region Commands
-        
+
 
         #endregion
 

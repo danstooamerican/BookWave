@@ -138,7 +138,7 @@ namespace Commons.ViewModel
         public void SwitchToSplitChapterPage(Chapter chapter)
         {
             SplitChapterViewModel splitChapterViewModel = ViewModelLocator.Instance.SplitChapterViewModel;
-            splitChapterViewModel.Chapter = chapter;
+            splitChapterViewModel.AudioFile = chapter.AudioPath.Path;
 
             MainWindow.OpenInvisiblePage("/Pages/SplitChapterPage.xaml", "Split Chapter");
         }

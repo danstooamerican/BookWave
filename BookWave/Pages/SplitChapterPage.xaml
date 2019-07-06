@@ -7,6 +7,17 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SplitChapterPage">
 
-    
+    <Border Padding="10, 0, 10, 0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Style="{StaticResource InformationText}" 
+                       Text="{Binding AudioFile}"/>
+        </Grid>
+    </Border>
 
 </Page>

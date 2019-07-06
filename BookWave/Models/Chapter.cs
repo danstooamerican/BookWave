@@ -16,15 +16,11 @@ namespace Commons.Models
 
         #region Public Properties
 
-        private List<AudioPath> mAudioPaths;
-        /// <summary>
-        /// List of AudioPaths to allow a chapter to include more than 
-        /// one audio file or just a part of it.
-        /// </summary>
-        public List<AudioPath> AudioPaths
+        private AudioPath mAudioPath;
+        public AudioPath AudioPath
         {
-            get { return mAudioPaths; }
-            set { Set<List<AudioPath>>(() => this.AudioPaths, ref mAudioPaths, value); }
+            get { return mAudioPath; }
+            set { Set<AudioPath>(() => this.AudioPath, ref mAudioPath, value); }
         }
 
         private ChapterMetadata mMetadata;
@@ -48,21 +44,20 @@ namespace Commons.Models
         /// <param name="track">Track to reference</param>
         public Chapter(Track track)
         {
-            AudioPaths = new List<AudioPath>();
-            AudioPaths.Add(new AudioPath(track.Path, 0, -1));
+            AudioPath = new AudioPath(track.Path, 0, -1);
             Metadata = new ChapterMetadata(track);
         }
 
         public Chapter()
         {
-            AudioPaths = new List<AudioPath>();
             Metadata = new ChapterMetadata();
+            AudioPath = new AudioPath();
         }
 
-        public Chapter(ChapterMetadata metadata, List<AudioPath> audioPaths)
+        public Chapter(ChapterMetadata metadata, AudioPath audioPath)
         {
             Metadata = metadata;
-            AudioPaths = audioPaths;
+            AudioPath = audioPath;
         }
 
         #endregion
@@ -71,14 +66,7 @@ namespace Commons.Models
         public XElement ToXML()
         {
             var chapterXML = new XElement("Chapter");
-            var audioPaths = new XElement("AudioPaths");
-
-            foreach (AudioPath audioPath in AudioPaths)
-            {
-                audioPaths.Add(audioPath.ToXML());
-            }
-            chapterXML.Add(audioPaths);
-
+            chapterXML.Add(AudioPath.ToXML());
             chapterXML.Add(Metadata.ToXML());
 
             return chapterXML;
@@ -86,12 +74,7 @@ namespace Commons.Models
 
         public void FromXML(XElement xmlElement)
         {
-            foreach (var element in xmlElement.Descendants("AudioPath"))
-            {
-                AudioPath audioPath = new AudioPath();
-                audioPath.FromXML(element);
-                AudioPaths.Add(audioPath);
-            }
+            AudioPath.FromXML(xmlElement);
 
             Metadata.FromXML(xmlElement);
         }
@@ -102,12 +85,7 @@ namespace Commons.Models
 
             copy.Metadata = (ChapterMetadata)Metadata.Clone();
 
-            List<AudioPath> audioPathCopy = new List<AudioPath>();
-            foreach (AudioPath audioPath in AudioPaths)
-            {
-                audioPathCopy.Add((AudioPath)audioPath.Clone());
-            }
-            copy.AudioPaths = audioPathCopy;
+            copy.AudioPath = (AudioPath)AudioPath.Clone();
 
             return copy;
         }
