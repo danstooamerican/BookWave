@@ -27,7 +27,6 @@ namespace AudiobookPlayer
             viewModel.SetupBorderlessWindow(this);
             this.DataContext = viewModel;
 
-            //TODO circular dependency
             viewModel.MainWindow = this;
 
             InitializeComponent();           
@@ -48,16 +47,33 @@ namespace AudiobookPlayer
         {
             if (e.Source is MenuButton clickedMenuBtn)
             {
-                if (viewModel.NavigationHistory.IsNotCurrentElement(clickedMenuBtn))
-                {
-                    viewModel.NavigationHistory.AddAtCurrentElementDeleteBehind(clickedMenuBtn);
-
-                    frmPage.Navigate(new Uri(clickedMenuBtn.Page, UriKind.Relative));
-                    scrollViewer.ScrollToTop();
-                    lblSelectedPageTitle.Opacity = 0;
-                }                
+                SwitchPage(new PageItem(clickedMenuBtn));
             }
             e.Handled = true;
+        }
+
+        public void SwitchPage(PageItem pageItem)
+        {
+            if (viewModel.NavigationHistory.IsNotCurrentElement(pageItem))
+            {
+                viewModel.NavigationHistory.AddAtCurrentElementDeleteBehind(pageItem);
+
+                ChangePageContent(pageItem.PagePath);
+            }
+        }
+
+        private void ChangePageContent(string pagePath)
+        {
+            frmPage.Navigate(new Uri(pagePath, UriKind.Relative));
+            scrollViewer.ScrollToTop();
+            lblSelectedPageTitle.Opacity = 0;
+        }
+
+        public void OpenInvisiblePage(string pagePath, string title, string titleBarTemplate = "DefaultTitle")
+        {
+            PageItem pageItem = new PageItem(pagePath, title, titleBarTemplate);
+
+            SwitchPage(pageItem);
         }
 
         /// <summary>
@@ -65,14 +81,14 @@ namespace AudiobookPlayer
         /// </summary>
         private void UpdateNavigationUI()
         {
-            MenuButton current = viewModel.NavigationHistory.CurrentElement.Element;
+            PageItem current = viewModel.NavigationHistory.CurrentElement.Element;
 
             if (current != null)
             {
                 UpdateClickRect();
 
-                SetSharedPageTitleTemplate();                
-            }                
+                SetSharedPageTitleTemplate(current.TitleBarTemplate, current.PageTitle);
+            }
         }
         /// <summary>
         /// Hides the CllickedRect of the previous element if it was set and shows it on the 
@@ -84,14 +100,18 @@ namespace AudiobookPlayer
         {
             if (!viewModel.NavigationHistory.IsRepeatedElement())
             {
-                HistoryListElement<MenuButton> previousElement = viewModel.NavigationHistory.PreviousElement;
+                HistoryListElement<PageItem> previousElement = viewModel.NavigationHistory.PreviousElement;
 
-                if (previousElement != null)
+                if (previousElement != null && previousElement.Element.MenuButton != null)
                 {
-                    previousElement.Element.ClickedRectVisibility = Visibility.Hidden;
+                    previousElement.Element.MenuButton.ClickedRectVisibility = Visibility.Hidden;
                 }                
             }
-            viewModel.NavigationHistory.CurrentElement.Element.ClickedRectVisibility = Visibility.Visible;
+            HistoryListElement<PageItem> currentElement = viewModel.NavigationHistory.CurrentElement;
+            if (currentElement != null && currentElement.Element.MenuButton != null)
+            {
+                currentElement.Element.MenuButton.ClickedRectVisibility = Visibility.Visible;
+            }
         }
         /// <summary>
         /// Loads the custom TitleTemplate of the CurrentElement into the SharedPageTitle by setting the
@@ -99,18 +119,13 @@ namespace AudiobookPlayer
         /// 
         /// <throws>InvalidArgumentException if the template could not be located.</throws>
         /// </summary>
-        private void SetSharedPageTitleTemplate()
+        private void SetSharedPageTitleTemplate(string titleBarTemplate, string pageTitle)
         {
             try
             {
-                MenuButton current = viewModel.NavigationHistory.CurrentElement.Element;
+                viewModel.SharedPageTitleTemplate = (ControlTemplate)App.Current.FindResource(titleBarTemplate);
+                viewModel.SelectedPageTitle = pageTitle;
 
-                if (current != null)
-                {
-                    viewModel.SharedPageTitleTemplate = (ControlTemplate)App.Current.FindResource(current.TitleBarTemplate);
-                    viewModel.SelectedPageTitle = current.PageTitle;
-                }
-                
             }
             catch (NullReferenceException)
             {

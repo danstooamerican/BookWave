@@ -1,6 +1,7 @@
 ﻿using AudiobookPlayer;
 using Commons.Controls;
 using Commons.Logic;
+using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -31,8 +32,8 @@ namespace Commons.ViewModel
             set { Set<ControlTemplate>(() => this.SharedPageTitleTemplate, ref mSharedPageTitleTemplate, value); }
         }
 
-        private HistoryList<MenuButton> mNavigationHistory;
-        public HistoryList<MenuButton> NavigationHistory
+        private HistoryList<PageItem> mNavigationHistory;
+        public HistoryList<PageItem> NavigationHistory
         {
             get { return mNavigationHistory; }
             set { mNavigationHistory = value; }
@@ -86,7 +87,7 @@ namespace Commons.ViewModel
         public MainWindowViewModel()
         {
             SelectedPageTitle = string.Empty;
-            NavigationHistory = new HistoryList<MenuButton>();
+            NavigationHistory = new HistoryList<PageItem>();
         }
 
         #endregion
@@ -126,12 +127,21 @@ namespace Commons.ViewModel
             };
         }
 
-        public void SwitchToEditLibraryPage()
+        public void SwitchToEditLibraryPage(Audiobook audiobook)
         {
-            MainWindow.btnEditLibrary.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+            EditLibraryViewModel editLibraryViewModel = ViewModelLocator.Instance.EditLibraryViewModel;
+            editLibraryViewModel.Destination = audiobook.Metadata.Path;
+
+            MainWindow.SwitchPage(new PageItem(MainWindow.btnEditLibrary));
         }
 
+        public void SwitchToSplitChapterPage(Chapter chapter)
+        {
+            SplitChapterViewModel splitChapterViewModel = ViewModelLocator.Instance.SplitChapterViewModel;
+            splitChapterViewModel.Chapter = chapter;
 
+            MainWindow.OpenInvisiblePage("/Pages/SplitChapterPage.xaml", "Split Chapter");
+        }
 
         #endregion
 

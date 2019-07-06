@@ -217,8 +217,7 @@ namespace Commons.ViewModel
 
         private void SplitChapter(Chapter chapter)
         {
-            SplitChapterViewModel splitChapterViewModel = ViewModelLocator.Instance.SplitChapterViewModel;
-            splitChapterViewModel.Chapter = chapter;
+            ViewModelLocator.Instance.MainViewModel.SwitchToSplitChapterPage(chapter);
         }
 
         #endregion

@@ -51,10 +51,7 @@ namespace Commons.ViewModel
 
         private void EditSelected(Audiobook audiobook)
         {
-            EditLibraryViewModel editLibraryViewModel = ViewModelLocator.Instance.EditLibraryViewModel;
-            editLibraryViewModel.Destination = audiobook.Metadata.Path;
-
-            ViewModelLocator.Instance.MainViewModel.SwitchToEditLibraryPage();
+            ViewModelLocator.Instance.MainViewModel.SwitchToEditLibraryPage(audiobook);
         }
 
         public void ReloadLibrary()
