@@ -120,7 +120,7 @@
                     lib:MenuButton.Click="MenuButton_Click"
                     Margin="0,0,0,5">
                     
-                    <lib:MenuButton Name="btnAddToLibrary" Content="Edit Library"
+                    <lib:MenuButton Name="btnEditLibrary" Content="Edit Library"
                         Page="/Pages/EditLibrary.xaml" PageTitle="Edit Library" />
                 </StackPanel>
             </Grid>

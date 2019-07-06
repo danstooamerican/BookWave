@@ -79,6 +79,8 @@ namespace Commons.ViewModel
 
         public ICommand CopyCoverImageFromClipboardCommand { private set; get; }
 
+        public ICommand SplitChapterCommand { private set; get; }
+
         #endregion
 
         #region Constructors
@@ -93,6 +95,7 @@ namespace Commons.ViewModel
             RemoveCoverImageCommand = new RelayCommand(RemoveCoverImage, CanRemoveCoverImage);
             CopyCoverImageFromClipboardCommand = new RelayCommand(CopyCoverImageFromClipboard, CanCopyCoverImageFromClipboard);
             RemoveAudiobookCommand = new RelayCommand(RemoveAudiobook);
+            SplitChapterCommand = new RelayCommand<Chapter>((c) => SplitChapter(c));
         }
 
         #endregion
@@ -210,6 +213,12 @@ namespace Commons.ViewModel
         private bool CanCopyCoverImageFromClipboard()
         {
             return Clipboard.ContainsImage();
+        }
+
+        private void SplitChapter(Chapter chapter)
+        {
+            SplitChapterViewModel splitChapterViewModel = ViewModelLocator.Instance.SplitChapterViewModel;
+            splitChapterViewModel.Chapter = chapter;
         }
 
         #endregion

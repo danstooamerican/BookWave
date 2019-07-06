@@ -19,7 +19,7 @@
             </BeginStoryboard>
         </EventTrigger>
     </Page.Triggers>
-    
+
     <Border Padding="10, 0, 10, 0">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -281,6 +281,8 @@
                     Style="{StaticResource MaskTextBox}" />
             </Grid>
 
+            
+
             <!-- Drag Area -->
             <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
                 Margin="5, 20, 0, 20">
@@ -296,6 +298,13 @@
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
                     AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
 
+                    <DataGrid.ContextMenu>
+                        <ContextMenu x:Name="ItemContextMenu" Style="{StaticResource ContextMenuStyle}">
+                            <MenuItem Header="Split Chapter" 
+                            Command="{Binding SplitChapterCommand}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#"
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"

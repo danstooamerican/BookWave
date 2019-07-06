@@ -89,6 +89,10 @@ namespace Commons.ViewModel
             NavigationHistory = new HistoryList<MenuButton>();
         }
 
+        #endregion
+
+        #region Methods
+
         public void SetupBorderlessWindow(Window window)
         {
             mWindow = window;
@@ -124,12 +128,8 @@ namespace Commons.ViewModel
 
         public void SwitchToEditLibraryPage()
         {
-            MainWindow.btnAddToLibrary.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+            MainWindow.btnEditLibrary.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
         }
-
-        #endregion
-
-        #region Methods
 
         #endregion
 
