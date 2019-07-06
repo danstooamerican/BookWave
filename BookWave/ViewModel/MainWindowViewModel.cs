@@ -8,7 +8,6 @@ using GalaSoft.MvvmLight.CommandWpf;
 using MediaPlayer;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace Commons.ViewModel
@@ -138,7 +137,7 @@ namespace Commons.ViewModel
         public void SwitchToSplitChapterPage(Chapter chapter)
         {
             SplitChapterViewModel splitChapterViewModel = ViewModelLocator.Instance.SplitChapterViewModel;
-            splitChapterViewModel.AudioFile = chapter.AudioPath.Path;
+            splitChapterViewModel.AudioFilePath = chapter.AudioPath.Path;
 
             MainWindow.OpenInvisiblePage("/Pages/SplitChapterPage.xaml", "Split Chapter");
         }

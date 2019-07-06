@@ -16,14 +16,19 @@ namespace Commons.ViewModel
 
         #region Public Properties
 
-        private string mAudioFile;
-        public string AudioFile
+        private string mAudioFilePath;
+        public string AudioFilePath
         {
-            get { return mAudioFile; }
+            get { return mAudioFilePath; }
             set
             {
-                Set<string>(() => this.AudioFile, ref mAudioFile, value);
+                Set<string>(() => this.AudioFilePath, ref mAudioFilePath, value);
             }
+        }
+
+        public string AudioFileName
+        {
+            get { return Path.GetFileName(AudioFilePath); }
         }
 
         private List<Chapter> mChapters;
