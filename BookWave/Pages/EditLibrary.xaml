@@ -298,12 +298,18 @@
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
                     AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
 
-                    <DataGrid.ContextMenu>
-                        <ContextMenu x:Name="ItemContextMenu" Style="{StaticResource ContextMenuStyle}">
+                    <DataGrid.Resources>
+                        <ContextMenu x:Key="RowMenu" Style="{StaticResource ContextMenuStyle}">
                             <MenuItem Header="Split Chapter" 
                             Command="{Binding SplitChapterCommand}"/>
                         </ContextMenu>
-                    </DataGrid.ContextMenu>
+                    </DataGrid.Resources>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource DataGridRow}">
+                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                        </Style>
+                    </DataGrid.RowStyle>
                     
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#"
