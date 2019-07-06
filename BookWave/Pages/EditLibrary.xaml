@@ -301,7 +301,8 @@
                     <DataGrid.Resources>
                         <ContextMenu x:Key="RowMenu" Style="{StaticResource ContextMenuStyle}">
                             <MenuItem Header="Split Chapter" 
-                            Command="{Binding SplitChapterCommand}"/>
+                                Command="{Binding SelectFolderCommand,
+                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}"/>
                         </ContextMenu>
                     </DataGrid.Resources>
 

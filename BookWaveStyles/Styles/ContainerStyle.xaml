@@ -36,7 +36,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridRow}">
                     <Border x:Name="DGR_Border" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
-                        BorderThickness="0">
+                        BorderThickness="0" ContextMenu="{TemplateBinding ContextMenu}">
 
                         <SelectiveScrollingGrid>
                             <SelectiveScrollingGrid.ColumnDefinitions>
