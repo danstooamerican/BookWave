@@ -5,7 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
-            <converters:DescriptionTextHeightConverter x:Key="DescriptionTextHeightConverter" />
+            <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
         </ResourceDictionary>
         <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
         <ResourceDictionary Source="/Commons.Styles;component/Styles/BorderStyle.xaml"/>
@@ -552,12 +552,9 @@
 
                             <TextBlock Grid.Column="0" Grid.Row="2"
                                 Margin="0, 5, 0, 0" MaxHeight="40"
+                                Text="{Binding Metadata.Contributors.AuthorString, Converter={StaticResource ByAuthorsConverter}}"
                                 Foreground="{StaticResource TextColorBrush}"
-                                FontSize="13" TextWrapping="Wrap" TextTrimming="WordEllipsis">
-                                
-                                <Run Text="by " />
-                                <Run Text="{Binding Metadata.Contributors.AuthorString}" />
-                            </TextBlock>
+                                FontSize="13" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                         </Grid>
                     </Border>
 

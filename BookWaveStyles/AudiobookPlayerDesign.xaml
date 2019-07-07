@@ -13,7 +13,7 @@
             <converters:VerticalOffsetTopBarVisibilityConverter x:Key="VerticalOffsetTopBarVisibilityConverter" />
             <converters:AddUpdateConverter x:Key="AddUpdateConverter" />
             <converters:RemoveVisibilityConverter x:Key="RemoveVisibilityConverter" />
-            <converters:DescriptionTextHeightConverter x:Key="DescriptionTextHeightConverter" />
+            <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
         </ResourceDictionary>
 
         <ResourceDictionary Source="Colors/colors.xaml" />
