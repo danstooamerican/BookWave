@@ -63,6 +63,7 @@ namespace Commons.ViewModel
             {
                 var t = Task.Factory.StartNew(() =>
                 {
+                    Thread.Sleep(rnd.Next(200));
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         Audiobooks.Add(audiobook);

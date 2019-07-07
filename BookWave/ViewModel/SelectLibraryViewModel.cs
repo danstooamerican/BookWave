@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -31,11 +32,13 @@ namespace Commons.ViewModel
         public void ReloadLibrary()
         {
             Audiobooks = new ObservableCollection<Audiobook>();
+            Random rnd = new Random();
 
             foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
             {
                 var t = Task.Factory.StartNew(() =>
                 {
+                    Thread.Sleep(rnd.Next(200));
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         Audiobooks.Add(audiobook);
