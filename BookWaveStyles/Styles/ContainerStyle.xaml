@@ -590,7 +590,7 @@
                 <BeginStoryboard>
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                            Duration="00:00:00.8"
+                            Duration="00:00:00.5"
                             From="0"
                             To="1" />
                     </Storyboard>

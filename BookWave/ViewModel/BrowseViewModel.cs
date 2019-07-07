@@ -4,6 +4,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -55,14 +57,18 @@ namespace Commons.ViewModel
         public void ReloadLibrary()
         {
             Audiobooks = new ObservableCollection<Audiobook>();
+            Random rnd = new Random();
 
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
             {
-                foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
+                var t = Task.Factory.StartNew(() =>
                 {
-                    Audiobooks.Add(audiobook);                    
-                }
-            }));
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Audiobooks.Add(audiobook);
+                    }));
+                });
+            }
         }
 
         #endregion
