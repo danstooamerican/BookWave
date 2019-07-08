@@ -33,6 +33,10 @@ namespace Commons.ViewModel
             SimpleIoc.Default.Register<PlayerViewModel>();
             SimpleIoc.Default.Register<BrowseViewModel>();
             SimpleIoc.Default.Register<SplitChapterViewModel>();
+
+            //preload computation intensive view models
+            ServiceLocator.Current.GetInstance<BrowseViewModel>();
+            ServiceLocator.Current.GetInstance<SelectLibraryViewModel>();
         }
 
         public MainWindowViewModel MainViewModel

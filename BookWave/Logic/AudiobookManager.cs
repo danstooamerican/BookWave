@@ -181,26 +181,6 @@ namespace Commons.Logic
             }
         }
 
-        /// <summary>
-        /// Asynchronously populates a collection with all loaded audio books.
-        /// All items are added to the collection, nothing is removed.
-        /// </summary>
-        /// <param name="audiobooCollection">collection to be populated</param>
-        public void PopulateAudiobookList(ICollection<Audiobook> audiobooCollection)
-        {
-            foreach (Audiobook audiobook in Audiobooks.Values)
-            {
-                var t = Task.Factory.StartNew(() =>
-                {
-                    Thread.Sleep(10);
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        audiobooCollection.Add(audiobook);
-                    }));
-                });
-            }
-        }
-
         public int GetNewID()
         {
             var temp = IDCount;

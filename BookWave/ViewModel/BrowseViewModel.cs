@@ -4,10 +4,12 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Commons.ViewModel
@@ -23,11 +25,11 @@ namespace Commons.ViewModel
             set { Set<Audiobook>(() => this.Selected, ref mSelected, value); }
         }
 
-        private ObservableCollection<Audiobook> mAudiobooks;
-        public ObservableCollection<Audiobook> Audiobooks
+        private ICollectionView mAudiobooks;
+        public ICollectionView Audiobooks
         {
             get { return mAudiobooks; }
-            set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
+            set { Set<ICollectionView>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
         #endregion
@@ -43,6 +45,15 @@ namespace Commons.ViewModel
         public BrowseViewModel()
         {
             EditSelectedCommand = new RelayCommand<Audiobook>((a) => EditSelected(a));
+
+            var t = Task.Factory.StartNew(() =>
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.Audiobooks.Values);
+                    Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
+                }));
+            });            
         }
 
         #endregion
@@ -52,13 +63,6 @@ namespace Commons.ViewModel
         private void EditSelected(Audiobook audiobook)
         {
             ViewModelLocator.Instance.MainViewModel.SwitchToEditLibraryPage(audiobook);
-        }
-
-        public void ReloadLibrary()
-        {
-            Audiobooks = new ObservableCollection<Audiobook>();
-
-            AudiobookManager.Instance.PopulateAudiobookList(Audiobooks);
         }
 
         #endregion
