@@ -57,13 +57,12 @@ namespace Commons.ViewModel
         public void ReloadLibrary()
         {
             Audiobooks = new ObservableCollection<Audiobook>();
-            Random rnd = new Random();
 
             foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
             {
                 var t = Task.Factory.StartNew(() =>
                 {
-                    Thread.Sleep(rnd.Next(200));
+                    Thread.Sleep(10);
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         Audiobooks.Add(audiobook);
