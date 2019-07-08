@@ -2,11 +2,15 @@
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace Commons.Logic
 {
@@ -174,6 +178,26 @@ namespace Commons.Logic
                 AudiobookRepo.SaveToFile();
 
                 Audiobooks.Remove(id);
+            }
+        }
+
+        /// <summary>
+        /// Asynchronously populates a collection with all loaded audio books.
+        /// All items are added to the collection, nothing is removed.
+        /// </summary>
+        /// <param name="audiobooCollection">collection to be populated</param>
+        public void PopulateAudiobookList(ICollection<Audiobook> audiobooCollection)
+        {
+            foreach (Audiobook audiobook in Audiobooks.Values)
+            {
+                var t = Task.Factory.StartNew(() =>
+                {
+                    Thread.Sleep(10);
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        audiobooCollection.Add(audiobook);
+                    }));
+                });
             }
         }
 

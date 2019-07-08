@@ -29,21 +29,14 @@ namespace Commons.ViewModel
             set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
+        /// <summary>
+        /// Fetches all currently loaded audio books from the AudiobookManager and displays them.
+        /// </summary>
         public void ReloadLibrary()
         {
             Audiobooks = new ObservableCollection<Audiobook>();
 
-            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
-            {
-                var t = Task.Factory.StartNew(() =>
-                {
-                    Thread.Sleep(10);
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        Audiobooks.Add(audiobook);
-                    }));
-                });
-            }
+            AudiobookManager.Instance.PopulateAudiobookList(Audiobooks);
         }
 
     }

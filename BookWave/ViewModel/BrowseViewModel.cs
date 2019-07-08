@@ -58,17 +58,7 @@ namespace Commons.ViewModel
         {
             Audiobooks = new ObservableCollection<Audiobook>();
 
-            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
-            {
-                var t = Task.Factory.StartNew(() =>
-                {
-                    Thread.Sleep(10);
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        Audiobooks.Add(audiobook);
-                    }));
-                });
-            }
+            AudiobookManager.Instance.PopulateAudiobookList(Audiobooks);
         }
 
         #endregion
