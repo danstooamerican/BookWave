@@ -110,12 +110,9 @@ namespace Commons.Logic
             Directory.CreateDirectory(metadataDirectory);
             foreach (Chapter chapter in audiobook.Chapters)
             {
-                foreach (AudioPath audioPath in chapter.AudioPaths)
-                {
-                    string fileName = Path.GetFileNameWithoutExtension(audioPath.Path);
-                    XMLHelper.SaveToXML(chapter, Path.Combine(metadataDirectory, fileName + "."
-                        + ConfigurationManager.AppSettings.Get("metadata_extensions")));
-                }
+                string fileName = Path.GetFileNameWithoutExtension(chapter.AudioPath.Path);
+                XMLHelper.SaveToXML(chapter, Path.Combine(metadataDirectory, fileName + "."
+                    + ConfigurationManager.AppSettings.Get("metadata_extensions")));
             }
             XMLHelper.SaveToXML(audiobook, Path.Combine(metadataDirectory, "audiobook."
                         + ConfigurationManager.AppSettings.Get("metadata_extensions")));

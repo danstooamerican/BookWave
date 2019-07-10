@@ -3,11 +3,13 @@ using Commons.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Commons.ViewModel
@@ -23,11 +25,11 @@ namespace Commons.ViewModel
             set { Set<Audiobook>(() => this.Selected, ref mSelected, value); }
         }
 
-        private ObservableCollection<Audiobook> mAudiobooks;
-        public ObservableCollection<Audiobook> Audiobooks
+        private ICollectionView mAudiobooks;
+        public ICollectionView Audiobooks
         {
             get { return mAudiobooks; }
-            set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
+            set { Set<ICollectionView>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
         #endregion
@@ -43,6 +45,15 @@ namespace Commons.ViewModel
         public BrowseViewModel()
         {
             EditSelectedCommand = new RelayCommand<Audiobook>((a) => EditSelected(a));
+
+            var t = Task.Factory.StartNew(() =>
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.Audiobooks.Values);
+                    Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
+                }));
+            });            
         }
 
         #endregion
@@ -51,20 +62,7 @@ namespace Commons.ViewModel
 
         private void EditSelected(Audiobook audiobook)
         {
-            EditLibraryViewModel editLibraryViewModel = ViewModelLocator.Instance.EditLibraryViewModel;
-            editLibraryViewModel.Destination = audiobook.Metadata.Path;
-
-            ViewModelLocator.Instance.MainViewModel.SwitchToEditLibraryPage();
-        }
-
-        public void ReloadLibrary()
-        {
-            Audiobooks = new ObservableCollection<Audiobook>();
-
-            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
-            {
-                Audiobooks.Add(audiobook);
-            }
+            ViewModelLocator.Instance.MainViewModel.SwitchToEditLibraryPage(audiobook);
         }
 
         #endregion

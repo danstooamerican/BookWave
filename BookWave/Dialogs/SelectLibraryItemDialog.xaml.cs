@@ -51,7 +51,6 @@ namespace Commons.Dialogs
             InitializeComponent();
 
             viewModel = ViewModelLocator.Instance.SelectLibraryViewModel;
-            viewModel.ReloadLibrary();
             this.DataContext = viewModel;
             this.Owner = Window.GetWindow(parent);
 

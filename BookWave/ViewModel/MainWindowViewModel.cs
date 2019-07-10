@@ -1,13 +1,13 @@
 ﻿using AudiobookPlayer;
 using Commons.Controls;
 using Commons.Logic;
+using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using MediaPlayer;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace Commons.ViewModel
@@ -31,8 +31,8 @@ namespace Commons.ViewModel
             set { Set<ControlTemplate>(() => this.SharedPageTitleTemplate, ref mSharedPageTitleTemplate, value); }
         }
 
-        private HistoryList<MenuButton> mNavigationHistory;
-        public HistoryList<MenuButton> NavigationHistory
+        private HistoryList<PageItem> mNavigationHistory;
+        public HistoryList<PageItem> NavigationHistory
         {
             get { return mNavigationHistory; }
             set { mNavigationHistory = value; }
@@ -86,8 +86,12 @@ namespace Commons.ViewModel
         public MainWindowViewModel()
         {
             SelectedPageTitle = string.Empty;
-            NavigationHistory = new HistoryList<MenuButton>();
+            NavigationHistory = new HistoryList<PageItem>();
         }
+
+        #endregion
+
+        #region Methods
 
         public void SetupBorderlessWindow(Window window)
         {
@@ -122,14 +126,21 @@ namespace Commons.ViewModel
             };
         }
 
-        public void SwitchToEditLibraryPage()
+        public void SwitchToEditLibraryPage(Audiobook audiobook)
         {
-            MainWindow.btnAddToLibrary.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+            EditLibraryViewModel editLibraryViewModel = ViewModelLocator.Instance.EditLibraryViewModel;
+            editLibraryViewModel.Destination = audiobook.Metadata.Path;
+
+            MainWindow.SwitchPage(new PageItem(MainWindow.btnEditLibrary));
         }
 
-        #endregion
+        public void SwitchToSplitChapterPage(Chapter chapter)
+        {
+            SplitChapterViewModel splitChapterViewModel = ViewModelLocator.Instance.SplitChapterViewModel;
+            splitChapterViewModel.AudioFilePath = chapter.AudioPath.Path;
 
-        #region Methods
+            MainWindow.OpenInvisiblePage("/Pages/SplitChapterPage.xaml", "Split Chapter");
+        }
 
         #endregion
 

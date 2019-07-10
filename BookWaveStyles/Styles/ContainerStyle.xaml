@@ -5,7 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
-            <converters:DescriptionTextHeightConverter x:Key="DescriptionTextHeightConverter" />
+            <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
         </ResourceDictionary>
         <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
         <ResourceDictionary Source="/Commons.Styles;component/Styles/BorderStyle.xaml"/>
@@ -36,7 +36,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridRow}">
                     <Border x:Name="DGR_Border" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
-                        BorderThickness="0">
+                        BorderThickness="0" ContextMenu="{TemplateBinding ContextMenu}">
 
                         <SelectiveScrollingGrid>
                             <SelectiveScrollingGrid.ColumnDefinitions>
@@ -527,36 +527,34 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
-                    <Border MinHeight="350" MinWidth="250" MaxHeight="350" MaxWidth="250" Margin="6, 6"
-                        Padding="10, 6" Background="{TemplateBinding Background}">
+                    <Border Margin="6, 6" Padding="10, 6" Background="{TemplateBinding Background}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="185" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="250" />
+                                <RowDefinition Height="185" />                                
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
+                            </Grid.RowDefinitions>                            
 
-                            <Image Grid.Column="0" Grid.Row="0" MaxWidth="250" MaxHeight="250"
+                            <Image Grid.Column="0" Grid.Row="0"         
+                                MaxWidth="185" MaxHeight="185"
                                 VerticalAlignment="Top" HorizontalAlignment="Center"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="{Binding Metadata.CoverPath}"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Metadata.Title}" 
-                                x:Name="lblTitle"
-                                Foreground="{StaticResource TextHighlightColorBrush}" 
-                                VerticalAlignment="Top" HorizontalAlignment="Left"
-                                TextTrimming="WordEllipsis" 
-                                FontSize="20" FontWeight="SemiBold" TextWrapping="Wrap" />
+                                x:Name="lblTitle" Margin="0, 8, 0, 0"
+                                Foreground="{StaticResource TextHighlightColorBrush}"
+                                TextTrimming="WordEllipsis" MaxHeight="80"
+                                FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap" />
 
-                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Metadata.Description}" 
-                                Foreground="{StaticResource TextColorBrush}" 
-                                VerticalAlignment="Top" HorizontalAlignment="Left"
-                                FontSize="16" TextWrapping="Wrap" TextTrimming="WordEllipsis" 
-                                MaxHeight="{Binding ActualHeight, ElementName=lblTitle, 
-                                    Converter={StaticResource DescriptionTextHeightConverter}}" />
+                            <TextBlock Grid.Column="0" Grid.Row="2"
+                                Margin="0, 5, 0, 0" MaxHeight="40"
+                                Text="{Binding Metadata.Contributors.AuthorString, Converter={StaticResource ByAuthorsConverter}}"
+                                Foreground="{StaticResource TextColorBrush}"
+                                FontSize="13" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                         </Grid>
                     </Border>
 
@@ -583,6 +581,20 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                            Duration="00:00:00.5"
+                            From="0"
+                            To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+        
     </Style>
 
 </ResourceDictionary>

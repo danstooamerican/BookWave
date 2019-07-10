@@ -6,7 +6,6 @@
       xmlns:local="clr-namespace:AudiobookPlayer.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Loaded="Page_Loaded"
       Title="BrowsePage">
 
     <Page.Triggers>
@@ -27,7 +26,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <ListView Grid.Column="0" Grid.Row="0" 
+        <ListView Grid.Column="0" Grid.Row="0"    
+            x:Name="lstLibrary"
+            VirtualizingStackPanel.IsVirtualizing="True"
             BorderBrush="Transparent" Background="Transparent"
             VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"

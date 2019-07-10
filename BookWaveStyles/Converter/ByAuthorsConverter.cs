@@ -10,24 +10,29 @@ using System.Windows.Media.Imaging;
 
 namespace Commons.Styles.Converter
 {
-    public class DescriptionTextHeightConverter : IValueConverter
+    public class ByAuthorsConverter : IValueConverter
     {
         /// <summary>
-        /// Takes available space and title height to calculate description max height.
+        /// If the author string is not empty "by" is added as a prefix.
         /// </summary>
-        /// <param name="value">Height of title</param>
+        /// <param name="value">author string</param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
-        /// <returns>description max height</returns>
+        /// <returns>"by author string" or an empty string</returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            string authorString = string.Empty;
+
             if (value != null)
             {
-                double titleHeight = (double)value;
-                return 100 - titleHeight - 10;
+                if (!value.ToString().Equals(string.Empty))
+                {
+                    authorString = "by " + value.ToString();
+                }
             }
-            return 0;
+
+            return authorString;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

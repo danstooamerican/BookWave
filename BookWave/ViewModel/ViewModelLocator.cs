@@ -32,6 +32,11 @@ namespace Commons.ViewModel
             SimpleIoc.Default.Register<SelectLibraryViewModel>();
             SimpleIoc.Default.Register<PlayerViewModel>();
             SimpleIoc.Default.Register<BrowseViewModel>();
+            SimpleIoc.Default.Register<SplitChapterViewModel>();
+
+            //preload computation intensive view models
+            ServiceLocator.Current.GetInstance<BrowseViewModel>();
+            ServiceLocator.Current.GetInstance<SelectLibraryViewModel>();
         }
 
         public MainWindowViewModel MainViewModel
@@ -71,6 +76,14 @@ namespace Commons.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<EditLibraryViewModel>();
+            }
+        }
+
+        public SplitChapterViewModel SplitChapterViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SplitChapterViewModel>();
             }
         }
 

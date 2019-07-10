@@ -4,9 +4,13 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 
 namespace Commons.ViewModel
 {
@@ -20,22 +24,28 @@ namespace Commons.ViewModel
             set { Set<Audiobook>(() => this.Selected, ref mSelected, value); }
         }
 
-        private ObservableCollection<Audiobook> mAudiobooks;
-        public ObservableCollection<Audiobook> Audiobooks
+        private ICollectionView mAudiobooks;
+        public ICollectionView Audiobooks
         {
             get { return mAudiobooks; }
-            set { Set<ObservableCollection<Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
+            set { Set<ICollectionView>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
-        public void ReloadLibrary()
+        #region Constructor
+
+        public SelectLibraryViewModel()
         {
-            Audiobooks = new ObservableCollection<Audiobook>();
-
-            foreach (Audiobook audiobook in AudiobookManager.Instance.Audiobooks.Values)
+            var t = Task.Factory.StartNew(() =>
             {
-                Audiobooks.Add(audiobook);
-            }
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.Audiobooks.Values);
+                    Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
+                }));                
+            });
         }
+
+        #endregion
 
     }
 }

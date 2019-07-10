@@ -118,6 +118,9 @@
     <Compile Include="Models\Contributors.cs" />
     <Compile Include="Models\ChapterMetadata.cs" />
     <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Pages\SplitChapterPage.xaml.cs">
+      <DependentUpon>SplitChapterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\EditLibrary.xaml.cs">
       <DependentUpon>EditLibrary.xaml</DependentUpon>
     </Compile>
@@ -130,12 +133,15 @@
     <Compile Include="Pages\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\BindingProxy.cs" />
     <Compile Include="Util\HistoryList.cs" />
     <Compile Include="Util\HistoryListElement.cs" />
+    <Compile Include="Util\PageItem.cs" />
     <Compile Include="Util\Repository.cs" />
     <Compile Include="Util\WindowResizer.cs" />
     <Compile Include="Util\XMLHelper.cs" />
     <Compile Include="Util\XMLSaveObject.cs" />
+    <Compile Include="ViewModel\SplitChapterViewModel.cs" />
     <Compile Include="ViewModel\EditLibraryViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
@@ -158,6 +164,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\SplitChapterPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\EditLibrary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

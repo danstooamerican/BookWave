@@ -2,16 +2,22 @@
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace Commons.Logic
 {
     public class AudiobookManager : ObservableObject
     {
+        #region Public Properties
+
         private static AudiobookManager mInstance;
         public static AudiobookManager Instance
         {
@@ -32,9 +38,7 @@ namespace Commons.Logic
         {
             get { return mAudiobookRepo; }
             set { mAudiobookRepo = value; }
-        }
-
-        #region Public Properties
+        }        
 
         private Dictionary<int, Audiobook> mAudiobooks;
         public Dictionary<int, Audiobook> Audiobooks
