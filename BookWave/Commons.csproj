@@ -117,6 +117,7 @@
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\Contributors.cs" />
     <Compile Include="Models\ChapterMetadata.cs" />
+    <Compile Include="Models\Library.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Pages\SplitChapterPage.xaml.cs">
       <DependentUpon>SplitChapterPage.xaml</DependentUpon>
