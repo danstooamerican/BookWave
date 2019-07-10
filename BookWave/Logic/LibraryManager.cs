@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Xml.Linq;
 
 namespace Commons.Logic
 {
@@ -56,7 +57,8 @@ namespace Commons.Logic
                 if (File.Exists(libraryNfo))
                 {
                     Library library = new Library(GetNewID());
-                    library.FromXML(libraryNfo);
+                    XDocument xDocument = XDocument.Load(libraryNfo);
+                    library.FromXML(xDocument.Root);
                     Libraries.Add(library.Id, library);
                 }
             }
