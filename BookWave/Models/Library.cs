@@ -16,12 +16,7 @@ namespace Commons.Models
     {
         #region Properties
 
-        private int mId;
-        public int Id
-        {
-            get { return mId; }
-            set { Set<int>(() => this.Id, ref mId, value); }
-        }
+        public readonly int ID;
 
         private string mLibraryPath;
         public string LibraryPath
@@ -37,12 +32,11 @@ namespace Commons.Models
             set { mMetadataFolderName = value; }
         }
 
-
-        private string mTitle;
-        public string Title
+        private string mName;
+        public string Name
         {
-            get { return mTitle; }
-            set { Set<string>(() => this.Title, ref mTitle, value); }
+            get { return mName; }
+            set { Set<string>(() => this.Name, ref mName, value); }
         }
 
         private Dictionary<int, Audiobook> mAudiobooks;
@@ -58,8 +52,8 @@ namespace Commons.Models
 
         public Library(int id)
         {
-            this.Id = id;
-            this.Title = string.Empty;
+            this.ID = id;
+            this.Name = string.Empty;
             this.LibraryPath = string.Empty;
             this.mMetadataFolderName = string.Empty;
             this.Audiobooks = new Dictionary<int, Audiobook>();
@@ -108,14 +102,14 @@ namespace Commons.Models
         {
             var libraryXML = new XElement("Library");
 
-            if (!Title.Equals(string.Empty))
+            if (!Name.Equals(string.Empty))
             {
-                libraryXML.Add(new XElement("Title", Title));
+                libraryXML.Add(new XElement("Name", Name));
             }
 
             if (!LibraryPath.Equals(string.Empty))
             {
-                libraryXML.Add(new XElement("LibraryPath", LibraryPath));
+                libraryXML.Add(new XElement("Path", LibraryPath));
             }
 
             return libraryXML;
@@ -123,8 +117,8 @@ namespace Commons.Models
 
         public void FromXML(XElement xmlElement)
         {
-            LibraryPath = XMLHelper.GetSingleElement(xmlElement, "LibraryPath");
-            Title = XMLHelper.GetSingleElement(xmlElement, "Title");
+            LibraryPath = XMLHelper.GetSingleElement(xmlElement, "Path");
+            Name = XMLHelper.GetSingleElement(xmlElement, "Name");
         }
 
         #endregion
