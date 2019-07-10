@@ -6,7 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.Logic
+namespace Commons.AudiobookManagemenet
 {
     public class LibraryManager : ObservableObject
     {
@@ -59,7 +59,7 @@ namespace Commons.Logic
                     Library library = new Library(GetNewID());
                     XDocument xDocument = XDocument.Load(libraryNfo);
                     library.FromXML(xDocument.Root);
-                    Libraries.Add(library.Id, library);
+                    Libraries.Add(library.ID, library);
                 }
             }
         }

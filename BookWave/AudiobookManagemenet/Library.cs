@@ -1,4 +1,5 @@
 ﻿using Commons.Logic;
+using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace Commons.AudiobookManagemenet
 {
     public class Library : ObservableObject, XMLSaveObject
     {
