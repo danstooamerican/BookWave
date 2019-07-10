@@ -1,4 +1,5 @@
-﻿using Commons.Util;
+﻿using Commons.Logic;
+using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace Commons.Models
         }
 
         private string mMetadataFolderName;
-        public string MetadataFolderName
+        public string MetadataFolder
         {
             get { return mMetadataFolderName; }
             set { mMetadataFolderName = value; }
@@ -78,9 +79,29 @@ namespace Commons.Models
 
         }
 
+        /// <summary>
+        /// Saves the audiobook metadata.
+        /// </summary>
+        /// <param name="audiobook">Audiobook to be saved</param>
         public void SaveMetadata(Audiobook audiobook)
         {
+            XElement audiobookXML = audiobook.ToXML();
 
+            string libraryMetadataFolderPath = Path.Combine(LibraryManager.Instance.MetadataPath, MetadataFolder);
+
+            Directory.CreateDirectory(libraryMetadataFolderPath);
+
+            foreach (Chapter chapter in audiobook.Chapters)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(chapter.AudioPath.Path);
+
+                XMLHelper.SaveToXML(chapter, Path.Combine(libraryMetadataFolderPath, fileName + "."
+                    + ConfigurationManager.AppSettings.Get("metadata_extensions")));
+            }
+
+            XMLHelper.SaveToXML(audiobook, Path.Combine(libraryMetadataFolderPath,
+                ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "."
+                        + ConfigurationManager.AppSettings.Get("metadata_extensions")));
         }
 
         public XElement ToXML()
@@ -92,9 +113,9 @@ namespace Commons.Models
                 libraryXML.Add(new XElement("Title", Title));
             }
 
-            if (!Path.Equals(string.Empty))
+            if (!LibraryPath.Equals(string.Empty))
             {
-                libraryXML.Add(new XElement("Path", Path));
+                libraryXML.Add(new XElement("LibraryPath", LibraryPath));
             }
 
             return libraryXML;
@@ -102,7 +123,8 @@ namespace Commons.Models
 
         public void FromXML(XElement xmlElement)
         {
-            Path = XMLHelper.GetSingleElement(xmlElement, "Path");
+            MetadataFolder = XMLHelper.GetSingleElement(xmlElement, "MetadataFolder");
+            LibraryPath = XMLHelper.GetSingleElement(xmlElement, "LibraryPath");
             Title = XMLHelper.GetSingleElement(xmlElement, "Title");
         }
 
