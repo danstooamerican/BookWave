@@ -26,11 +26,11 @@ namespace Commons.AudiobookManagemenet
             set { Set<string>(() => this.LibraryPath, ref mLibraryPath, value); }
         }
 
-        private string mMetadataFolderName;
+        private string mMetadataFolder;
         public string MetadataFolder
         {
-            get { return mMetadataFolderName; }
-            set { mMetadataFolderName = value; }
+            get { return mMetadataFolder; }
+            set { mMetadataFolder = value; }
         }
 
         private string mName;
@@ -47,16 +47,25 @@ namespace Commons.AudiobookManagemenet
             set { Set<Dictionary<int, Audiobook>>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
+        private LibraryScanner mScanner;
+
+        public LibraryScanner Scanner
+        {
+            get { return mScanner; }
+            set { mScanner = value; }
+        }
+
+
         #endregion
 
         #region Constructor
 
-        public Library(int id)
+        public Library(int id, string MetadataFolder)
         {
             this.ID = id;
             this.Name = string.Empty;
             this.LibraryPath = string.Empty;
-            this.mMetadataFolderName = string.Empty;
+            this.mMetadataFolder = MetadataFolder;
             this.Audiobooks = new Dictionary<int, Audiobook>();
         }
 
@@ -66,7 +75,7 @@ namespace Commons.AudiobookManagemenet
 
         public void ScanLibrary()
         {
-
+            Scanner.ScanLibrary(this);   
         }
 
         public void LoadMetadata()
@@ -82,19 +91,19 @@ namespace Commons.AudiobookManagemenet
         {
             XElement audiobookXML = audiobook.ToXML();
 
-            string libraryMetadataFolderPath = Path.Combine(LibraryManager.Instance.MetadataPath, MetadataFolder, audiobook.Metadata.MetadataPath);
+            string audiobookMetadataPath = Path.Combine(MetadataFolder, audiobook.Metadata.MetadataPath);
 
-            Directory.CreateDirectory(libraryMetadataFolderPath);
+            Directory.CreateDirectory(audiobookMetadataPath);
 
             foreach (Chapter chapter in audiobook.Chapters)
             {
                 string fileName = Path.GetFileNameWithoutExtension(chapter.AudioPath.Path);
 
-                XMLHelper.SaveToXML(chapter, Path.Combine(libraryMetadataFolderPath, fileName + "."
+                XMLHelper.SaveToXML(chapter, Path.Combine(audiobookMetadataPath, fileName + "."
                     + ConfigurationManager.AppSettings.Get("metadata_extensions")));
             }
 
-            XMLHelper.SaveToXML(audiobook, Path.Combine(libraryMetadataFolderPath,
+            XMLHelper.SaveToXML(audiobook, Path.Combine(audiobookMetadataPath,
                 ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "."
                         + ConfigurationManager.AppSettings.Get("metadata_extensions")));
         }

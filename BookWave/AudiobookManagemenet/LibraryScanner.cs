@@ -1,6 +1,6 @@
 ﻿namespace Commons.AudiobookManagemenet
 {
-    abstract class LibraryScanner
+    public abstract class LibraryScanner
     {
         public readonly string Title;
 

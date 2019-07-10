@@ -48,17 +48,20 @@ namespace Commons.AudiobookManagemenet
         /// </summary>
         private LibraryManager()
         {
-            IDCount = 0;
+            IDCount = 0; 
             Libraries = new Dictionary<int, Library>();
 
             foreach (string directory in Directory.GetDirectories(MetadataPath))
             {
-                string libraryNfo = Path.Combine(directory, "library." + ConfigurationManager.AppSettings.Get("metadata_extensions"));
+                string libraryNfo = Path.Combine(directory, ConfigurationManager.AppSettings.Get("library_metadata_filename") + 
+                    "." + ConfigurationManager.AppSettings.Get("metadata_extensions"));
+
                 if (File.Exists(libraryNfo))
                 {
-                    Library library = new Library(GetNewID());
+                    Library library = new Library(GetNewID(), directory);
                     XDocument xDocument = XDocument.Load(libraryNfo);
                     library.FromXML(xDocument.Root);
+
                     Libraries.Add(library.ID, library);
                 }
             }
@@ -72,7 +75,7 @@ namespace Commons.AudiobookManagemenet
         {
             foreach (Library library in Libraries.Values)
             {
-                library.LoadMetadata();
+                library.ScanLibrary();
             }
         }
 
