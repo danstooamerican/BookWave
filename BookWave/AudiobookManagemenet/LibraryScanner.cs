@@ -6,9 +6,6 @@
 
         public readonly string Description;
 
-        public void ScanLibrary(Library library)
-        {
-
-        }
+        public abstract void ScanLibrary(Library library);
     }
 }
