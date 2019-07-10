@@ -1,17 +1,19 @@
 ﻿using Commons.Models;
-using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 
 namespace Commons.Logic
 {
     public class LibraryManager : ObservableObject
     {
         #region Public Properties
+
+        public readonly string MetadataPath 
+            = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "BookWave", "metadata");
 
         private static LibraryManager mInstance;
         public static LibraryManager Instance
@@ -40,18 +42,24 @@ namespace Commons.Logic
         #region Constructors
 
         /// <summary>
-        /// Creates a new instance of AudiobookManager.
-        /// Reads the Path where the files are stored and 
-        /// then reads the audiobooks.
+        /// Creates a new instance of LibraryManager.
+        /// Reads all libraries in the %AppData%/BookWave/metadata section and 
         /// </summary>
         private LibraryManager()
         {
-            Libraries = new Dictionary<int, Library>();
-            // todo load libraries from appdata
-            
-
-
             IDCount = 0;
+            Libraries = new Dictionary<int, Library>();
+
+            foreach (string directory in Directory.GetDirectories(MetadataPath))
+            {
+                string libraryNfo = Path.Combine(directory, "library." + ConfigurationManager.AppSettings.Get("metadata_extensions"));
+                if (File.Exists(libraryNfo))
+                {
+                    Library library = new Library(GetNewID());
+                    library.FromXML(libraryNfo);
+                    Libraries.Add(library.Id, library);
+                }
+            }
         }
 
         #endregion
@@ -60,12 +68,10 @@ namespace Commons.Logic
 
         public void LoadLibraries()
         {
-
-        }
-
-        public void ScanLibraries()
-        {
-
+            foreach (Library library in Libraries.Values)
+            {
+                library.LoadMetadata();
+            }
         }
 
         public int GetNewID()
