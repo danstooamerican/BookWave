@@ -87,7 +87,7 @@ namespace Commons.Models
         {
             XElement audiobookXML = audiobook.ToXML();
 
-            string libraryMetadataFolderPath = Path.Combine(LibraryManager.Instance.MetadataPath, MetadataFolder);
+            string libraryMetadataFolderPath = Path.Combine(LibraryManager.Instance.MetadataPath, MetadataFolder, audiobook.Metadata.MetadataPath);
 
             Directory.CreateDirectory(libraryMetadataFolderPath);
 
@@ -123,7 +123,6 @@ namespace Commons.Models
 
         public void FromXML(XElement xmlElement)
         {
-            MetadataFolder = XMLHelper.GetSingleElement(xmlElement, "MetadataFolder");
             LibraryPath = XMLHelper.GetSingleElement(xmlElement, "LibraryPath");
             Title = XMLHelper.GetSingleElement(xmlElement, "Title");
         }

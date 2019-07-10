@@ -38,6 +38,14 @@ namespace Commons.Models
             }
         }
 
+        private string mMetadataPath;
+        public string MetadataPath
+        {
+            get { return mMetadataPath; }
+            set { mMetadataPath = value; }
+        }
+
+
         private string mGenre;
         /// <summary>
         /// Genre of the audiobook.
@@ -99,6 +107,7 @@ namespace Commons.Models
         public AudiobookMetadata() : base()
         {
             Path = string.Empty;
+            MetadataPath = string.Empty;
             Genre = string.Empty;
             CoverPath = string.Empty;
             Contributors = new Contributors();
@@ -116,6 +125,11 @@ namespace Commons.Models
             if (!Path.Equals(string.Empty))
             {
                 metadataXML.Add(new XElement("Path", Path));
+            }
+
+            if (!MetadataPath.Equals(string.Empty))
+            {
+                metadataXML.Add(new XElement("MetadataPath", MetadataPath));
             }
 
             if (!Genre.Equals(string.Empty))
@@ -150,6 +164,7 @@ namespace Commons.Models
             base.FromXML(xmlElement);
 
             Path = XMLHelper.GetSingleElement(xmlElement, "Path");
+            MetadataPath = XMLHelper.GetSingleElement(xmlElement, "MetadataPath");
             Genre = XMLHelper.GetSingleElement(xmlElement, "Genre");
             CoverPath = XMLHelper.GetSingleElement(xmlElement, "Cover");
 
@@ -171,6 +186,7 @@ namespace Commons.Models
             copy.Description = Description;
             copy.Genre = Genre;
             copy.Path = Path;
+            copy.MetadataPath = MetadataPath;
             copy.ReleaseYear = ReleaseYear;
             copy.Contributors = (Contributors)Contributors.Clone();
 
