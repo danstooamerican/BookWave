@@ -109,6 +109,7 @@
       <DependentUpon>SelectLibraryItemDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\InvalidArgumentException.cs" />
+    <Compile Include="Logic\LibraryManager.cs" />
     <Compile Include="Logic\AudiobookManager.cs" />
     <Compile Include="Logic\AudiobookFolder.cs" />
     <Compile Include="Models\Audiobook.cs" />

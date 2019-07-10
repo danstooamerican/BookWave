@@ -31,7 +31,7 @@ namespace Commons.Models
                 } else
                 {
                     throw new InvalidArgumentException(value, "is not a valid path.");
-                }                
+                }
             }
         }
 
