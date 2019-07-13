@@ -1,9 +1,8 @@
-﻿using Commons.Exceptions;
-using Commons.Logic;
+﻿using Commons.AudiobookManagemenet;
+using Commons.Exceptions;
 using Commons.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Forms;
@@ -38,6 +37,14 @@ namespace Commons.ViewModel
             }
         }
 
+        private Library mLibrary;
+
+        public Library Library
+        {
+            get { return mLibrary; }
+            set { mLibrary = value; }
+        }
+
 
         private Audiobook mAudiobook;
         public Audiobook Audiobook
@@ -47,13 +54,6 @@ namespace Commons.ViewModel
             {
                 Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value);
                 UpdateIsInLibrary();
-            }
-        }
-
-        public List<Audiobook> AudiobookLibrary {
-            get
-            {
-                return new List<Audiobook>(AudiobookManager.Instance.Audiobooks.Values);
             }
         }
 
@@ -87,7 +87,7 @@ namespace Commons.ViewModel
 
         public EditLibraryViewModel()
         {
-            Audiobook = new Audiobook();
+            Audiobook = AudiobookManager.Instance.CreateAudiobook();
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
@@ -107,7 +107,13 @@ namespace Commons.ViewModel
         /// </summary>
         private void UpdateIsInLibrary()
         {
-            IsInLibrary = Audiobook != null && AudiobookManager.Instance.AudiobookRepo.Items.Contains(Audiobook.Metadata.Path);
+            if (Library == null || Audiobook == null)
+            {
+                IsInLibrary = false;
+            } else
+            {
+                IsInLibrary = LibraryManager.Instance.Contains(Library, Audiobook);
+            }            
         }
 
         /// <summary>
@@ -134,10 +140,10 @@ namespace Commons.ViewModel
             }
             else
             {
-                Audiobook = AudiobookManager.Instance.LoadAudiobookFromFile(Destination);
+                Audiobook = AudiobookManager.Instance.CreateAudiobook();
             }
 
-            Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
+            Audiobook.Chapters = new ObservableCollection<Chapter>(Library.Scanner.ScanAudiobookFolder(Destination));
             if (Audiobook.Metadata.Title.Equals(string.Empty))
             {
                 Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
@@ -148,11 +154,9 @@ namespace Commons.ViewModel
 
         private void SaveAudiobook()
         {
-            AudiobookFolder.SaveAudiobookMetadata(Audiobook);
-
             if (!Audiobook.Metadata.Title.Equals(string.Empty))
             {
-                AudiobookManager.Instance.UpdateAudioBook(Audiobook);
+                AudiobookManager.Instance.UpdateAudiobook(Library, Audiobook);
             }
             else
             {
@@ -164,7 +168,7 @@ namespace Commons.ViewModel
 
         public void RemoveAudiobook()
         {
-            AudiobookManager.Instance.RemoveAudioBook(Audiobook.ID);
+            AudiobookManager.Instance.RemoveAudiobook(Audiobook);
             Destination = string.Empty;
             AnalyzeFolder();
         }
@@ -181,9 +185,8 @@ namespace Commons.ViewModel
                 openFileDialog.Title = "Choose a cover image";
                 openFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Get the path of specified file
                     Audiobook.Metadata.CoverPath = openFileDialog.FileName;
                 }
             }

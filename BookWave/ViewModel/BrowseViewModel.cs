@@ -1,14 +1,12 @@
-﻿using Commons.Logic;
+﻿using Commons.AudiobookManagemenet;
 using Commons.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -50,7 +48,7 @@ namespace Commons.ViewModel
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.Audiobooks.Values);
+                    Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.GetAllAudiobooks());
                     Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
                 }));
             });            

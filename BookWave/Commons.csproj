@@ -109,11 +109,12 @@
     <Compile Include="Dialogs\SelectLibraryItemDialog.xaml.cs">
       <DependentUpon>SelectLibraryItemDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\LibraryNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidArgumentException.cs" />
     <Compile Include="AudiobookManagemenet\LibraryManager.cs" />
-    <Compile Include="Logic\AudiobookManager.cs" />
+    <Compile Include="AudiobookManagemenet\AudiobookManager.cs" />
     <Compile Include="Logic\AudiobookFolder.cs" />
-    <Compile Include="Models\Audiobook.cs" />
+    <Compile Include="AudiobookManagemenet\Audiobook.cs" />
     <Compile Include="Models\AudiobookMetadata.cs" />
     <Compile Include="Models\AudioPath.cs" />
     <Compile Include="Models\Chapter.cs" />

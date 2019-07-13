@@ -1,4 +1,5 @@
-﻿using Commons.Controls;
+﻿using Commons.AudiobookManagemenet;
+using Commons.Controls;
 using Commons.Exceptions;
 using Commons.Logic;
 using Commons.Util;
@@ -160,7 +161,7 @@ namespace AudiobookPlayer
 
         private void AppWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            AudiobookManager.Instance.LoadRepository();
+            LibraryManager.Instance.LoadLibraries();
         }
     }
 }

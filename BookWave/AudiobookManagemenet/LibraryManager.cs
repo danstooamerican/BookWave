@@ -1,4 +1,5 @@
-﻿using Commons.Models;
+﻿using Commons.Exceptions;
+using Commons.Models;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -35,11 +36,11 @@ namespace Commons.AudiobookManagemenet
 
         private int IDCount;        
 
-        private Dictionary<int, Library> mLibraries;
-        public Dictionary<int, Library> Libraries
+        private IDictionary<int, Library> mLibraries;
+        public IDictionary<int, Library> Libraries
         {
             get { return mLibraries; }
-            set { Set<Dictionary<int, Library>>(() => this.Libraries, ref mLibraries, value); }
+            set { Set<IDictionary<int, Library>>(() => this.Libraries, ref mLibraries, value); }
         }
 
         #endregion
@@ -47,20 +48,47 @@ namespace Commons.AudiobookManagemenet
         #region Constructors
 
         /// <summary>
-        /// Creates a new instance of LibraryManager and loads all libraries 
-        /// from the metadata folder.
+        /// Creates a new instance of LibraryManager.
         /// </summary>
         private LibraryManager()
         {
             IDCount = 0; 
             Libraries = new Dictionary<int, Library>();
-
-            LoadLibraries();
         }
 
         #endregion
 
         #region Methods
+
+        public bool Contains(int libraryId)
+        {
+            return Libraries.ContainsKey(libraryId);
+        }
+
+        public bool Contains(Library library)
+        {
+            return Contains(library.ID);
+        }
+
+        public bool Contains(Library library, Audiobook audiobook)
+        {
+            return Contains(library) && GetLibrary(library.ID).Contains(audiobook.ID);
+        }
+
+        public ICollection<Library> GetLibraries()
+        {
+            return Libraries.Values;
+        }
+
+        public Library GetLibrary(int id)
+        {
+            if (Contains(id))
+            {
+                return Libraries[id];
+            }
+
+            throw new LibraryNotFoundException(id, "not found");
+        }
 
         /// <summary>
         /// Reads all libraries in the BookWave metadata folder and creates corresponding Library objects.
@@ -69,7 +97,7 @@ namespace Commons.AudiobookManagemenet
         /// When performing this method all currently created Library objects are discarded and new
         /// ones are created.
         /// </summary>
-        private void LoadLibraries()
+        public void LoadLibraries()
         {
             Libraries.Clear();
 
@@ -84,6 +112,8 @@ namespace Commons.AudiobookManagemenet
 
                     XDocument xDocument = XDocument.Load(libraryNfo);
                     library.FromXML(xDocument.Root);
+
+                    library.LoadMetadata();
 
                     Libraries.Add(library.ID, library);
                 }

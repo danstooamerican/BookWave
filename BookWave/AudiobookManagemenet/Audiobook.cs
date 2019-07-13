@@ -1,4 +1,6 @@
-﻿using Commons.Logic;
+﻿using Commons.AudiobookManagemenet;
+using Commons.Logic;
+using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
@@ -8,7 +10,7 @@ using System.Configuration;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace Commons.AudiobookManagemenet
 {
     /// <summary>
     /// Represents a single audiobook with a list of chapters and metadata.
@@ -25,6 +27,12 @@ namespace Commons.Models
             get { return mID; }
         }
 
+        private Library mLibrary;
+        public Library Library
+        {
+            get { return mLibrary; }
+            set { mLibrary = value; }
+        }
 
         private ObservableCollection<Chapter> mChapters;
         /// <summary>
@@ -50,20 +58,14 @@ namespace Commons.Models
         #endregion
 
         /// <summary>
-        /// Creates an empty audiobook.
+        /// Creates an empty audiobook with an id.
         /// </summary>
-        public Audiobook()
-        {
-            mID = AudiobookManager.Instance.GetNewID();
-            Chapters = new ObservableCollection<Chapter>();
-            Metadata = new AudiobookMetadata();
-        }
-
-        private Audiobook(int id)
+        internal Audiobook(int id, Library library = null)
         {
             mID = id;
             Chapters = new ObservableCollection<Chapter>();
             Metadata = new AudiobookMetadata();
+            Library = library;
         }
 
         #region Methods
@@ -95,7 +97,7 @@ namespace Commons.Models
 
         public object Clone()
         {
-            Audiobook copy = new Audiobook(ID);
+            Audiobook copy = new Audiobook(ID, Library);
 
             copy.Metadata = (AudiobookMetadata)Metadata.Clone();
 

@@ -1,4 +1,5 @@
-﻿using Commons.Models;
+﻿using Commons.AudiobookManagemenet;
+using Commons.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace Commons.Util
         /// <returns>a new audiobook</returns>
         public static Audiobook XMLToAudiobook(string path)
         {
-            Audiobook audiobook = new Audiobook();
+            Audiobook audiobook = AudiobookManager.Instance.CreateAudiobook();
 
             if (File.Exists(path))
             {

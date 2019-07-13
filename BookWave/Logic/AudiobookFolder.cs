@@ -1,10 +1,8 @@
 ﻿using ATL;
+using Commons.AudiobookManagemenet;
 using Commons.Models;
 using Commons.Util;
-using GalaSoft.MvvmLight;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
