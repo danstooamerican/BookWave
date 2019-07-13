@@ -58,9 +58,9 @@ namespace Commons.Models
         }
         public void FromXML(XElement xmlElement)
         {
-            Title = XMLHelper.GetSingleElement(xmlElement, "Title");
+            Title = XMLHelper.GetSingleValue(xmlElement, "Title");
 
-            Description = XMLHelper.GetSingleElement(xmlElement, "Description");
+            Description = XMLHelper.GetSingleValue(xmlElement, "Description");
         }
 
         public abstract object Clone();

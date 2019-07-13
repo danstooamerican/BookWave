@@ -58,7 +58,7 @@ namespace Commons.Models
             base.FromXML(xmlElement);
 
             // TODO regex move to GetSingleElement
-            string strTrackNumber = XMLHelper.GetSingleElement(xmlElement, "TrackNumber");
+            string strTrackNumber = XMLHelper.GetSingleValue(xmlElement, "TrackNumber");
             if (Regex.IsMatch(strTrackNumber, "[0-9]+"))
             {
                 TrackNumber = int.Parse(strTrackNumber);

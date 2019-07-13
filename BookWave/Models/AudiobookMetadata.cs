@@ -163,14 +163,14 @@ namespace Commons.Models
         {
             base.FromXML(xmlElement);
 
-            Path = XMLHelper.GetSingleElement(xmlElement, "Path");
-            MetadataPath = XMLHelper.GetSingleElement(xmlElement, "MetadataPath");
-            Genre = XMLHelper.GetSingleElement(xmlElement, "Genre");
-            CoverPath = XMLHelper.GetSingleElement(xmlElement, "Cover");
+            Path = XMLHelper.GetSingleValue(xmlElement, "Path");
+            MetadataPath = XMLHelper.GetSingleValue(xmlElement, "MetadataPath");
+            Genre = XMLHelper.GetSingleValue(xmlElement, "Genre");
+            CoverPath = XMLHelper.GetSingleValue(xmlElement, "Cover");
 
             Contributors.FromXML(xmlElement);
 
-            string strReleaseYear = XMLHelper.GetSingleElement(xmlElement, "ReleaseYear");
+            string strReleaseYear = XMLHelper.GetSingleValue(xmlElement, "ReleaseYear");
             if (Regex.IsMatch(strReleaseYear, "[0-9]+"))
             {
                 ReleaseYear = int.Parse(strReleaseYear);

@@ -118,9 +118,9 @@ namespace Commons.Models
 
         public void FromXML(XElement xmlElement)
         {
-            Path = XMLHelper.GetSingleElement(xmlElement, "FilePath");
-            StartMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "StartMark", DefaultStartMark.ToString()));
-            EndMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "EndMark", DefaultEndMark.ToString()));
+            Path = XMLHelper.GetSingleValue(xmlElement, "FilePath");
+            StartMark = int.Parse(XMLHelper.GetSingleValue(xmlElement, "StartMark", DefaultStartMark.ToString()));
+            EndMark = int.Parse(XMLHelper.GetSingleValue(xmlElement, "EndMark", DefaultEndMark.ToString()));
         }
 
         public object Clone()

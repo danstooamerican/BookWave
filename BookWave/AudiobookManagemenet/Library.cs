@@ -1,4 +1,4 @@
-﻿using Commons.AudiobookManagemenet.Scanner;
+using Commons.AudiobookManagemenet.Scanner;
 using Commons.Logic;
 using Commons.Models;
 using Commons.Util;
@@ -232,12 +232,9 @@ namespace Commons.AudiobookManagemenet
                 libraryXML.Add(new XElement("Path", LibraryPath));
             }
 
-            if (Scanner != null)
+            if (!Scanner.GetType().FullName.Equals(DEFAULT_SCANNER))
             {
                 libraryXML.Add(new XElement("LibraryScanner", Scanner.GetType().FullName));
-            } else
-            {
-                libraryXML.Add(new XElement("LibraryScanner", typeof(AudiobooksTopScanner).FullName));
             }
 
             return libraryXML;
@@ -245,9 +242,9 @@ namespace Commons.AudiobookManagemenet
 
         public void FromXML(XElement xmlElement)
         {
-            LibraryPath = XMLHelper.GetSingleElement(xmlElement, "Path");
-            Name = XMLHelper.GetSingleElement(xmlElement, "Name");
-            Scanner = LibraryScanner.GetInstance(XMLHelper.GetSingleElement(xmlElement, "LibraryScanner"));
+            LibraryPath = XMLHelper.GetSingleValue(xmlElement, "Path");
+            Name = XMLHelper.GetSingleValue(xmlElement, "Name");
+            Scanner = LibraryScanner.GetInstance(XMLHelper.GetSingleValue(xmlElement, "LibraryScanner", DEFAULT_SCANNER));
         }
 
         #endregion
