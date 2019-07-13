@@ -48,7 +48,6 @@ namespace Commons.AudiobookManagemenet
         }
 
         private LibraryScanner mScanner;
-
         public LibraryScanner Scanner
         {
             get { return mScanner; }
@@ -60,6 +59,12 @@ namespace Commons.AudiobookManagemenet
 
         #region Constructor
 
+        /// <summary>
+        /// Creates a new Library object with an id and a metadata folder path.
+        /// The library is not initialized.
+        /// </summary>
+        /// <param name="id">Intern id for the library</param>
+        /// <param name="MetadataFolder">Folder where all metadata files for this library are located</param>
         public Library(int id, string MetadataFolder)
         {
             this.ID = id;
@@ -73,18 +78,25 @@ namespace Commons.AudiobookManagemenet
 
         #region Methods
 
+        /// <summary>
+        /// Uses the set scanner object to scan the library folder for new files. If new files are found corresponding 
+        /// metadata files are created.
+        /// </summary>
         public void ScanLibrary()
         {
             Scanner.ScanLibrary(this);   
         }
 
+        /// <summary>
+        /// Loads all metadata files currently created for this library.
+        /// </summary>
         public void LoadMetadata()
         {
 
         }
 
         /// <summary>
-        /// Saves the audiobook metadata.
+        /// Saves the audiobook metadata in the library metadata folder.
         /// </summary>
         /// <param name="audiobook">Audiobook to be saved</param>
         public void SaveMetadata(Audiobook audiobook)
