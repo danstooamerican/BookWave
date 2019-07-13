@@ -105,7 +105,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AudiobookManagemenet\LibraryScanner.cs" />
+    <Compile Include="AudiobookManagemenet\Scanner\AudiobooksTopScanner.cs" />
+    <Compile Include="AudiobookManagemenet\Scanner\LibraryScanner.cs" />
     <Compile Include="Dialogs\SelectLibraryItemDialog.xaml.cs">
       <DependentUpon>SelectLibraryItemDialog.xaml</DependentUpon>
     </Compile>

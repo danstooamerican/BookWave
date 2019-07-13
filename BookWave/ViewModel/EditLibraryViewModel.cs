@@ -88,6 +88,7 @@ namespace Commons.ViewModel
         public EditLibraryViewModel()
         {
             Audiobook = AudiobookManager.Instance.CreateAudiobook();
+            Library = LibraryManager.Instance.GetLibrary(0); //TODO: add option to select library
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);

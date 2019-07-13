@@ -81,6 +81,11 @@ namespace Commons.AudiobookManagemenet
             Chapters = new ObservableCollection<Chapter>(chapters);
         }
 
+        public void SetChapters(ICollection<Chapter> chapters)
+        {
+            Chapters = new ObservableCollection<Chapter>(chapters);
+        }
+
         public XElement ToXML()
         {
             var audiobookXML = new XElement("Audiobook");

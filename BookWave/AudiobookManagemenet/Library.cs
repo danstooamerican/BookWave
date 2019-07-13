@@ -1,4 +1,5 @@
-﻿using Commons.Logic;
+﻿using Commons.AudiobookManagemenet.Scanner;
+using Commons.Logic;
 using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
@@ -153,7 +154,12 @@ namespace Commons.AudiobookManagemenet
         /// </summary>
         public void ScanLibrary()
         {
-            Scanner.ScanLibrary(this);   
+            Audiobooks.Clear();
+            
+            foreach (Audiobook audiobook in Scanner.ScanLibrary(LibraryPath))
+            {
+                Audiobooks.Add(audiobook.ID, audiobook);
+            }
         }
 
         /// <summary>
@@ -226,6 +232,14 @@ namespace Commons.AudiobookManagemenet
                 libraryXML.Add(new XElement("Path", LibraryPath));
             }
 
+            if (Scanner != null)
+            {
+                libraryXML.Add(new XElement("LibraryScanner", Scanner.GetType().FullName));
+            } else
+            {
+                libraryXML.Add(new XElement("LibraryScanner", typeof(AudiobooksTopScanner).FullName));
+            }
+
             return libraryXML;
         }
 
@@ -233,6 +247,7 @@ namespace Commons.AudiobookManagemenet
         {
             LibraryPath = XMLHelper.GetSingleElement(xmlElement, "Path");
             Name = XMLHelper.GetSingleElement(xmlElement, "Name");
+            Scanner = LibraryScanner.GetInstance(XMLHelper.GetSingleElement(xmlElement, "LibraryScanner"));
         }
 
         #endregion
