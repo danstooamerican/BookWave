@@ -18,6 +18,8 @@ namespace Commons.AudiobookManagemenet
     {
         #region Properties
 
+        private readonly string DEFAULT_SCANNER = typeof(AudiobooksTopScanner).FullName;
+
         public readonly int ID;
 
         private string mLibraryPath;
@@ -127,17 +129,38 @@ namespace Commons.AudiobookManagemenet
 
         /// <summary>
         /// Adds an audiobook to the Library. If it is already added the audiobook is updated.
-        /// The metadata file is also updated.
+        /// Every audiobook that is new to the library gets a new metadata path.
         /// </summary>
         public void UpdateAudiobook(Audiobook audiobook)
         {
             if (Contains(audiobook))
             {
-                Audiobooks.Remove(audiobook.ID);
+                RemoveAudiobook(audiobook);
+            } else
+            {
+                audiobook.Metadata.MetadataPath = Path.Combine(MetadataFolder, Guid.NewGuid().ToString());
             }
 
-            SaveMetadata(audiobook);
-            Audiobooks.Add(audiobook.ID, audiobook);
+            AddAudiobook(audiobook);
+        }
+
+        /// <summary>
+        /// Adds an audiobook to this library if it is not already added. A new 
+        /// </summary>
+        /// <param name="audiobook"></param>
+        private void AddAudiobook(Audiobook audiobook)
+        {
+            if (!Contains(audiobook) && audiobook != null)
+            {
+                if (audiobook.Library != null)
+                {
+                    audiobook.Library.RemoveAudiobook(audiobook);
+                }
+                audiobook.Library = this;
+                Audiobooks.Add(audiobook.ID, audiobook);
+
+                SaveMetadata(audiobook);
+            }
         }
 
         public void RemoveAudiobook(Audiobook audiobook)
@@ -145,7 +168,8 @@ namespace Commons.AudiobookManagemenet
             if (Contains(audiobook))
             {
                 Audiobooks.Remove(audiobook.ID);
-            }            
+                //TODO: remove metadata folder
+            }
         }
 
         /// <summary>
@@ -155,6 +179,7 @@ namespace Commons.AudiobookManagemenet
         public void ScanLibrary()
         {
             Audiobooks.Clear();
+            //TODO remove all metadata folders
             
             foreach (Audiobook audiobook in Scanner.ScanLibrary(LibraryPath))
             {
@@ -167,7 +192,25 @@ namespace Commons.AudiobookManagemenet
         /// </summary>
         public void LoadMetadata()
         {
+            if (!Directory.Exists(MetadataFolder))
+            {
+                throw new FileNotFoundException("Library metadata folder not found at '" + MetadataFolder + "'.");
+            }
 
+            foreach (string audiobookFolder in Directory.GetDirectories(MetadataFolder))
+            {
+                string audiobookMetadata = Path.Combine(audiobookFolder, ConfigurationManager.AppSettings.Get("audiobook_metadata_filename")) 
+                    + "." + ConfigurationManager.AppSettings.Get("metadata_extensions");
+
+                // ignore folders without audiobook metadata
+                if (!File.Exists(audiobookMetadata))
+                {
+                    continue;
+                }
+
+                Audiobook audiobook = AudiobookManager.Instance.CreateAudiobook(audiobookMetadata);
+                AddAudiobook(audiobook);
+            }
         }
 
         /*
@@ -199,6 +242,11 @@ namespace Commons.AudiobookManagemenet
         /// <param name="audiobook">Audiobook to be saved</param>
         public void SaveMetadata(Audiobook audiobook)
         {
+            if (string.IsNullOrEmpty(audiobook.Metadata.MetadataPath))
+            {
+                throw new FileNotFoundException("No metadata path is set for this audiobook.");
+            }
+
             XElement audiobookXML = audiobook.ToXML();
 
             string audiobookMetadataPath = Path.Combine(MetadataFolder, audiobook.Metadata.MetadataPath);

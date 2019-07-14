@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Commons.AudiobookManagemenet
 {
@@ -92,6 +93,25 @@ namespace Commons.AudiobookManagemenet
         public Audiobook CreateAudiobook()
         {
             return new Audiobook(GetNewID());
+        }
+
+        public Audiobook CreateAudiobook(string metadataPath)
+        {
+            Audiobook audiobook = CreateAudiobook();
+
+            if (File.Exists(metadataPath))
+            {
+                XDocument metadataDoc = XDocument.Load(metadataPath);
+
+                var audiobookRoot = XMLHelper.GetFirstXElement(metadataDoc, "Audiobook");
+
+                if (audiobookRoot != null)
+                {
+                    audiobook.FromXML(audiobookRoot);
+                }
+            }
+
+            return audiobook;
         }
 
         public void UpdateAudiobook(Library library, Audiobook audiobook)
