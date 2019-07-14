@@ -111,10 +111,11 @@ namespace Commons.ViewModel
             if (Library == null || Audiobook == null)
             {
                 IsInLibrary = false;
-            } else
+            }
+            else
             {
-                IsInLibrary = LibraryManager.Instance.Contains(Library, Audiobook);
-            }            
+                IsInLibrary = Library.Contains(Audiobook);
+            }
         }
 
         /// <summary>
@@ -153,6 +154,9 @@ namespace Commons.ViewModel
             UpdateIsInLibrary();
         }
 
+        /// <summary>
+        /// Saves an audiobook to the selected library.
+        /// </summary>
         private void SaveAudiobook()
         {
             if (!Audiobook.Metadata.Title.Equals(string.Empty))
@@ -167,11 +171,13 @@ namespace Commons.ViewModel
             UpdateIsInLibrary();
         }
 
+        /// <summary>
+        /// Removes an audiobook from its library.
+        /// </summary>
         public void RemoveAudiobook()
         {
             AudiobookManager.Instance.RemoveAudiobook(Audiobook);
             Destination = string.Empty;
-            AnalyzeFolder();
         }
 
         public void SelectCoverImage()
@@ -219,6 +225,10 @@ namespace Commons.ViewModel
             return Clipboard.ContainsImage();
         }
 
+        /// <summary>
+        /// Opens the split chapter page for the selected chapter.
+        /// </summary>
+        /// <param name="chapter">selected chapter</param>
         private void SplitChapter(Chapter chapter)
         {
             ViewModelLocator.Instance.MainViewModel.SwitchToSplitChapterPage(chapter);

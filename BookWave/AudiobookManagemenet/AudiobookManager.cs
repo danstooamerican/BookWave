@@ -118,12 +118,6 @@ namespace Commons.AudiobookManagemenet
         {
             if (library != null)
             {
-                if (audiobook.Library != null)
-                {
-                    audiobook.Library.RemoveAudiobook(audiobook);
-                }
-                
-                audiobook.Library = library;
                 library.UpdateAudiobook(audiobook);                
             }
         }

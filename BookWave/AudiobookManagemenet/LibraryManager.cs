@@ -70,11 +70,6 @@ namespace Commons.AudiobookManagemenet
             return Contains(library.ID);
         }
 
-        public bool Contains(Library library, Audiobook audiobook)
-        {
-            return Contains(library) && GetLibrary(library.ID).Contains(audiobook.ID);
-        }
-
         public ICollection<Library> GetLibraries()
         {
             return Libraries.Values;
