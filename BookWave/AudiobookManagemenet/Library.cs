@@ -1,4 +1,4 @@
-using Commons.AudiobookManagemenet.Scanner;
+﻿using Commons.AudiobookManagemenet.Scanner;
 using Commons.Logic;
 using Commons.Models;
 using Commons.Util;
@@ -98,11 +98,21 @@ namespace Commons.AudiobookManagemenet
 
         #region Methods
 
+        /// <summary>
+        /// Checks whether this library contains an audiobook with the same id.
+        /// </summary>
+        /// <param name="id">id which is searched for</param>
+        /// <returns>true if an audiobook with the same id is already added to this library</returns>
         public bool Contains(int id)
         {
             return Audiobooks.ContainsKey(id);
         }
 
+        /// <summary>
+        /// Checks whether this library contains an audiobook with the same id.
+        /// </summary>
+        /// <param name="audiobook">audiobook which is searched for</param>
+        /// <returns>true if an audiobook with the same id is already added to this library</returns>
         public bool Contains(Audiobook audiobook)
         {
             return Contains(audiobook.ID);
@@ -163,12 +173,23 @@ namespace Commons.AudiobookManagemenet
             }
         }
 
+        /// <summary>
+        /// Removes an audiobook from this library and removes the link to it from the audiobook.
+        /// The link is only removed if it points to this library.
+        /// </summary>
+        /// <param name="audiobook">audiobook to be removed</param>
         public void RemoveAudiobook(Audiobook audiobook)
         {
             if (Contains(audiobook))
             {
                 Audiobooks.Remove(audiobook.ID);
-                //TODO: remove metadata folder
+
+                if (audiobook.Library.Equals(this))
+                {
+                    audiobook.Library = null;
+                }
+
+                Directory.Delete(audiobook.Metadata.MetadataPath);
             }
         }
 
@@ -179,11 +200,14 @@ namespace Commons.AudiobookManagemenet
         public void ScanLibrary()
         {
             Audiobooks.Clear();
-            //TODO remove all metadata folders
+            foreach (string audiobookFolder in Directory.GetFiles(MetadataFolder))
+            {
+                Directory.Delete(audiobookFolder);
+            }
             
             foreach (Audiobook audiobook in Scanner.ScanLibrary(LibraryPath))
             {
-                Audiobooks.Add(audiobook.ID, audiobook);
+                AddAudiobook(audiobook);
             }
         }
 
