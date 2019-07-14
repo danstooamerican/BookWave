@@ -42,8 +42,15 @@ namespace Commons.ViewModel
 
         public BrowseViewModel()
         {
-            EditSelectedCommand = new RelayCommand<Audiobook>((a) => EditSelected(a));
+            EditSelectedCommand = new RelayCommand<Audiobook>((a) => EditSelected(a));                      
+        }
 
+        #endregion
+
+        #region Methods
+
+        public void UpdateBrowseList()
+        {
             var t = Task.Factory.StartNew(() =>
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
@@ -51,12 +58,8 @@ namespace Commons.ViewModel
                     Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.GetAllAudiobooks());
                     Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
                 }));
-            });            
+            });
         }
-
-        #endregion
-
-        #region Methods
 
         private void EditSelected(Audiobook audiobook)
         {

@@ -25,9 +25,9 @@ namespace Commons.ViewModel
             set { Set<ICollectionView>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
-        #region Constructor
+        #region Methods
 
-        public SelectLibraryViewModel()
+        public void UpdateAudiobookList()
         {
             var t = Task.Factory.StartNew(() =>
             {
@@ -35,7 +35,7 @@ namespace Commons.ViewModel
                 {
                     Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.GetAllAudiobooks());
                     Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
-                }));                
+                }));
             });
         }
 

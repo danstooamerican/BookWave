@@ -55,6 +55,7 @@ namespace Commons.Dialogs
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            viewModel.UpdateAudiobookList();
             ViewModelLocator.Instance.MainViewModel.DarkenBackground = true;
         }
 
