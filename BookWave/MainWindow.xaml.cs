@@ -1,7 +1,6 @@
 ﻿using Commons.AudiobookManagemenet;
 using Commons.Controls;
 using Commons.Exceptions;
-using Commons.Logic;
 using Commons.Util;
 using Commons.ViewModel;
 using System;
@@ -30,7 +29,7 @@ namespace AudiobookPlayer
 
             viewModel.MainWindow = this;
 
-            InitializeComponent();           
+            InitializeComponent();
 
             viewModel.NavigationHistory.CurrentElementChangedEvent += UpdateNavigationUI;
 
@@ -106,7 +105,7 @@ namespace AudiobookPlayer
                 if (previousElement != null && previousElement.Element.MenuButton != null)
                 {
                     previousElement.Element.MenuButton.ClickedRectVisibility = Visibility.Hidden;
-                }                
+                }
             }
             HistoryListElement<PageItem> currentElement = viewModel.NavigationHistory.CurrentElement;
             if (currentElement != null && currentElement.Element.MenuButton != null)

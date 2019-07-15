@@ -13,27 +13,6 @@ namespace Commons.Util
     /// </summary>
     public class XMLHelper
     {
-
-        /// <summary>
-        /// Creates a chapter from an XML file.
-        /// </summary>
-        /// <param name="path">is the path to the XML file.</param>
-        /// <returns></returns>
-        public static Chapter XMLToChapter(string path)
-        {
-            XDocument metadataDoc = XDocument.Load(path);
-
-            Chapter chapter = null;
-            var chapterXML = metadataDoc.Descendants("Chapter");
-            if (chapterXML.Count() > 0)
-            {
-                chapter = new Chapter();
-                chapter.FromXML(chapterXML.First());
-            }
-
-            return chapter;
-        }
-
         /// <summary>
         /// Creates a new xml file at the given path with the toSave data.
         /// </summary>

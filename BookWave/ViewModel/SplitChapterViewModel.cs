@@ -1,13 +1,7 @@
-﻿using Commons.Exceptions;
-using Commons.Logic;
-using Commons.Models;
+﻿using Commons.Models;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace Commons.ViewModel
 {
@@ -51,7 +45,7 @@ namespace Commons.ViewModel
 
         public SplitChapterViewModel()
         {
-            
+
         }
 
         #endregion

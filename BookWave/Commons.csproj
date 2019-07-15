@@ -114,7 +114,6 @@
     <Compile Include="Exceptions\InvalidArgumentException.cs" />
     <Compile Include="AudiobookManagemenet\LibraryManager.cs" />
     <Compile Include="AudiobookManagemenet\AudiobookManager.cs" />
-    <Compile Include="Logic\AudiobookFolder.cs" />
     <Compile Include="AudiobookManagemenet\Audiobook.cs" />
     <Compile Include="Models\AudiobookMetadata.cs" />
     <Compile Include="Models\AudioPath.cs" />
