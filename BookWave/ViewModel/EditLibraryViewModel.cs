@@ -31,7 +31,8 @@ namespace Commons.ViewModel
                     if (value != null && value.Equals(string.Empty))
                     {
                         Set<string>(() => this.Destination, ref mDestination, value);
-                        AnalyzeFolder();
+                        Audiobook = AudiobookManager.Instance.CreateAudiobook();
+                        UpdateIsInLibrary();
                     }
                 }
             }
