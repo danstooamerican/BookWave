@@ -127,11 +127,6 @@ namespace Commons.Models
                 metadataXML.Add(new XElement("Path", Path));
             }
 
-            if (!MetadataPath.Equals(string.Empty))
-            {
-                metadataXML.Add(new XElement("MetadataPath", MetadataPath));
-            }
-
             if (!Genre.Equals(string.Empty))
             {
                 metadataXML.Add(new XElement("Genre", Genre));
@@ -164,7 +159,6 @@ namespace Commons.Models
             base.FromXML(xmlElement);
 
             Path = XMLHelper.GetSingleValue(xmlElement, "Path");
-            MetadataPath = XMLHelper.GetSingleValue(xmlElement, "MetadataPath");
             Genre = XMLHelper.GetSingleValue(xmlElement, "Genre");
             CoverPath = XMLHelper.GetSingleValue(xmlElement, "Cover");
 

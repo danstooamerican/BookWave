@@ -88,7 +88,7 @@ namespace Commons.AudiobookManagemenet
             }
 
             return audiobooks;
-        }        
+        }
 
         public Audiobook CreateAudiobook()
         {
@@ -118,7 +118,7 @@ namespace Commons.AudiobookManagemenet
         {
             if (library != null)
             {
-                library.UpdateAudiobook(audiobook);                
+                library.UpdateAudiobook(audiobook);
             }
         }
 
