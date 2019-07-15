@@ -35,14 +35,9 @@ namespace Commons.AudiobookManagemenet.Scanner
             var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_extensions").Split(',');
 
             List<string> files = Directory
-                    .GetFiles(path)
+                    .GetFiles(path, "*.*", SearchOption.AllDirectories)
                     .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
                     .ToList();
-
-            foreach (string dir in Directory.GetDirectories(path))
-            {
-                files.AddRange(GetAllAudioFilesFrom(dir));
-            }
 
             return files;
         }
@@ -62,7 +57,6 @@ namespace Commons.AudiobookManagemenet.Scanner
 
                 audiobook.SetChapters(ScanAudiobookFolder(dir));
                 audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(dir);
-                audiobook.Metadata.Path = dir;
 
                 audiobooks.Add(audiobook);
             }

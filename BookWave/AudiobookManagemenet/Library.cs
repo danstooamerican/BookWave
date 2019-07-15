@@ -189,7 +189,7 @@ namespace Commons.AudiobookManagemenet
                     audiobook.Library = null;
                 }
 
-                Directory.Delete(audiobook.Metadata.MetadataPath);
+                Directory.Delete(audiobook.Metadata.MetadataPath, true);
             }
         }
 
@@ -202,7 +202,7 @@ namespace Commons.AudiobookManagemenet
             Audiobooks.Clear();
             foreach (string audiobookFolder in Directory.GetFiles(MetadataFolder))
             {
-                Directory.Delete(audiobookFolder);
+                Directory.Delete(audiobookFolder, true);
             }
             
             foreach (Audiobook audiobook in Scanner.ScanLibrary(LibraryPath))
@@ -233,32 +233,13 @@ namespace Commons.AudiobookManagemenet
                 }
 
                 Audiobook audiobook = AudiobookManager.Instance.CreateAudiobook(audiobookMetadata);
+                audiobook.Metadata.MetadataPath = audiobookFolder;
+
+
+
                 AddAudiobook(audiobook);
             }
         }
-
-        /*
-        /// <summary>
-        /// Parses an audio book from a xml file. No chapters are loaded.
-        /// </summary>
-        /// <param name="path">path to the audio book folder</param>
-        /// <returns>audio book created from the folder</returns>
-        public Audiobook LoadAudiobookFromFile(string path)
-        {
-            // parse audiobook from xml file
-            string audiobookMetadataPath = Path.Combine(path, ConfigurationManager.AppSettings.Get("metadata_folder"),
-                ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "."
-                + ConfigurationManager.AppSettings.Get("metadata_extensions"));
-
-            Audiobook audiobook = XMLHelper.XMLToAudiobook(audiobookMetadataPath);
-
-            if (audiobook.Metadata.Path.Equals(string.Empty))
-            {
-                audiobook.Metadata.Path = path;
-            }
-
-            return audiobook;
-        }*/
 
         /// <summary>
         /// Saves the audiobook metadata in the library metadata folder.
@@ -274,20 +255,22 @@ namespace Commons.AudiobookManagemenet
             XElement audiobookXML = audiobook.ToXML();
 
             string audiobookMetadataPath = Path.Combine(MetadataFolder, audiobook.Metadata.MetadataPath);
-
             Directory.CreateDirectory(audiobookMetadataPath);
+
+            XMLHelper.SaveToXML(audiobook, Path.Combine(audiobookMetadataPath,
+                ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "."
+                        + ConfigurationManager.AppSettings.Get("metadata_extensions")));
+
+            string chapterMetadataPath = Path.Combine(audiobookMetadataPath, "chapters");
+            Directory.CreateDirectory(chapterMetadataPath);
 
             foreach (Chapter chapter in audiobook.Chapters)
             {
                 string fileName = Path.GetFileNameWithoutExtension(chapter.AudioPath.Path);
 
-                XMLHelper.SaveToXML(chapter, Path.Combine(audiobookMetadataPath, fileName + "."
+                XMLHelper.SaveToXML(chapter, Path.Combine(chapterMetadataPath, fileName + "."
                     + ConfigurationManager.AppSettings.Get("metadata_extensions")));
-            }
-
-            XMLHelper.SaveToXML(audiobook, Path.Combine(audiobookMetadataPath,
-                ConfigurationManager.AppSettings.Get("audiobook_metadata_filename") + "."
-                        + ConfigurationManager.AppSettings.Get("metadata_extensions")));
+            }            
         }
 
         public XElement ToXML()

@@ -143,6 +143,7 @@ namespace Commons.ViewModel
             else
             {
                 Audiobook = AudiobookManager.Instance.CreateAudiobook();
+                Audiobook.Metadata.Path = Destination;
             }
 
             Audiobook.Chapters = new ObservableCollection<Chapter>(Library.Scanner.ScanAudiobookFolder(Destination));
