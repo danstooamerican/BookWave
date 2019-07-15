@@ -72,6 +72,7 @@ namespace Commons.Models
             copy.Title = Title;
             copy.Description = Description;
             copy.TrackNumber = TrackNumber;
+            copy.MetadataPath = MetadataPath;
 
             return copy;
         }

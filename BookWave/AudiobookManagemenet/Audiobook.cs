@@ -1,13 +1,9 @@
-﻿using Commons.AudiobookManagemenet;
-using Commons.Logic;
-using Commons.Models;
+﻿using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
-using System.IO;
 using System.Xml.Linq;
 
 namespace Commons.AudiobookManagemenet
@@ -70,17 +66,6 @@ namespace Commons.AudiobookManagemenet
 
         #region Methods
 
-        /// <summary>
-        /// Loads all chapter xml files in the metadata folder.
-        /// </summary>
-        public void LoadChapters()
-        {
-            List<Chapter> chapters = AudiobookFolder.LoadAudiobookChapters(
-                    Path.Combine(Metadata.Path, ConfigurationManager.AppSettings.Get("metadata_folder")));
-
-            Chapters = new ObservableCollection<Chapter>(chapters);
-        }
-
         public void SetChapters(ICollection<Chapter> chapters)
         {
             Chapters = new ObservableCollection<Chapter>(chapters);
@@ -105,6 +90,11 @@ namespace Commons.AudiobookManagemenet
             Audiobook copy = new Audiobook(ID, Library);
 
             copy.Metadata = (AudiobookMetadata)Metadata.Clone();
+
+            foreach (Chapter chapter in Chapters)
+            {
+                copy.Chapters.Add((Chapter)chapter.Clone());
+            }
 
             return copy;
         }

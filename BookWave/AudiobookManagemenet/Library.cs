@@ -1,5 +1,4 @@
 ﻿using Commons.AudiobookManagemenet.Scanner;
-using Commons.Logic;
 using Commons.Models;
 using Commons.Util;
 using GalaSoft.MvvmLight;
@@ -7,9 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Commons.AudiobookManagemenet
@@ -146,7 +142,8 @@ namespace Commons.AudiobookManagemenet
             if (Contains(audiobook))
             {
                 RemoveAudiobook(audiobook);
-            } else
+            }
+            else
             {
                 audiobook.Metadata.MetadataPath = Path.Combine(MetadataFolder, Guid.NewGuid().ToString());
             }
@@ -155,7 +152,7 @@ namespace Commons.AudiobookManagemenet
         }
 
         /// <summary>
-        /// Adds an audiobook to this library if it is not already added. A new 
+        /// Adds an audiobook to this library if it is not already added.
         /// </summary>
         /// <param name="audiobook"></param>
         private void AddAudiobook(Audiobook audiobook)
@@ -204,7 +201,7 @@ namespace Commons.AudiobookManagemenet
             {
                 Directory.Delete(audiobookFolder, true);
             }
-            
+
             foreach (Audiobook audiobook in Scanner.ScanLibrary(LibraryPath))
             {
                 AddAudiobook(audiobook);
@@ -223,19 +220,25 @@ namespace Commons.AudiobookManagemenet
 
             foreach (string audiobookFolder in Directory.GetDirectories(MetadataFolder))
             {
-                string audiobookMetadata = Path.Combine(audiobookFolder, ConfigurationManager.AppSettings.Get("audiobook_metadata_filename")) 
+                string audiobookMetadataPath = Path.Combine(audiobookFolder, ConfigurationManager.AppSettings.Get("audiobook_metadata_filename"))
                     + "." + ConfigurationManager.AppSettings.Get("metadata_extensions");
 
                 // ignore folders without audiobook metadata
-                if (!File.Exists(audiobookMetadata))
+                if (!File.Exists(audiobookMetadataPath))
                 {
                     continue;
                 }
 
-                Audiobook audiobook = AudiobookManager.Instance.CreateAudiobook(audiobookMetadata);
+                Audiobook audiobook = AudiobookManager.Instance.CreateAudiobook(audiobookMetadataPath);
                 audiobook.Metadata.MetadataPath = audiobookFolder;
 
+                string chapterMetadataPath = Path.Combine(audiobookFolder, "chapters");
+                foreach (string chapterXML in Directory.GetFiles(chapterMetadataPath))
+                {
+                    Chapter chapter = AudiobookManager.Instance.CreateChapter(chapterXML);
 
+                    audiobook.Chapters.Add(chapter);
+                }
 
                 AddAudiobook(audiobook);
             }
@@ -266,11 +269,13 @@ namespace Commons.AudiobookManagemenet
 
             foreach (Chapter chapter in audiobook.Chapters)
             {
-                string fileName = Path.GetFileNameWithoutExtension(chapter.AudioPath.Path);
+                if (string.IsNullOrEmpty(chapter.Metadata.MetadataPath))
+                {
+                    chapter.Metadata.MetadataPath = Guid.NewGuid().ToString() + "." + ConfigurationManager.AppSettings.Get("metadata_extensions");
+                }
 
-                XMLHelper.SaveToXML(chapter, Path.Combine(chapterMetadataPath, fileName + "."
-                    + ConfigurationManager.AppSettings.Get("metadata_extensions")));
-            }            
+                XMLHelper.SaveToXML(chapter, Path.Combine(chapterMetadataPath, chapter.Metadata.MetadataPath));
+            }
         }
 
         public XElement ToXML()

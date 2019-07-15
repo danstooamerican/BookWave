@@ -27,6 +27,13 @@ namespace Commons.Models
             set { Set<string>(() => this.Description, ref mDescription, value); }
         }
 
+        private string mMetadataPath;
+        public string MetadataPath
+        {
+            get { return mMetadataPath; }
+            set { mMetadataPath = value; }
+        }
+
         #endregion
 
         #region Constructor
@@ -34,7 +41,8 @@ namespace Commons.Models
         public Metadata()
         {
             Title = string.Empty;
-            Description = string.Empty;            
+            Description = string.Empty;
+            MetadataPath = string.Empty;
         }
 
         #endregion

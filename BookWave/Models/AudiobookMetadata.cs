@@ -38,14 +38,6 @@ namespace Commons.Models
             }
         }
 
-        private string mMetadataPath;
-        public string MetadataPath
-        {
-            get { return mMetadataPath; }
-            set { mMetadataPath = value; }
-        }
-
-
         private string mGenre;
         /// <summary>
         /// Genre of the audiobook.

@@ -109,9 +109,37 @@ namespace Commons.AudiobookManagemenet
                 {
                     audiobook.FromXML(audiobookRoot);
                 }
+
+                audiobook.Metadata.MetadataPath = Directory.GetParent(metadataPath).FullName;
             }
 
             return audiobook;
+        }
+
+        public Chapter CreateChapter()
+        {
+            return new Chapter();
+        }
+
+        public Chapter CreateChapter(string metadataPath)
+        {
+            Chapter chapter = CreateChapter();
+
+            if (File.Exists(metadataPath))
+            {
+                XDocument metadataDoc = XDocument.Load(metadataPath);
+
+                var chapterRoot = XMLHelper.GetFirstXElement(metadataDoc, "Chapter");
+
+                if (chapterRoot != null)
+                {
+                    chapter.FromXML(chapterRoot);
+                }
+
+                chapter.Metadata.MetadataPath = metadataPath;
+            }
+
+            return chapter;
         }
 
         public void UpdateAudiobook(Library library, Audiobook audiobook)
