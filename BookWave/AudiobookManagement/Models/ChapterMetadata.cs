@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using ATL;
 using Commons.Util;
 
-namespace Commons.Models
+namespace Commons.AudiobookManagement
 {
     /// <summary>
     /// Metadata for chapters which adds a TrackNumber.

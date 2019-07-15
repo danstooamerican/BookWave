@@ -1,8 +1,7 @@
-﻿using Commons.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Commons.AudiobookManagemenet.Scanner
+namespace Commons.AudiobookManagement.Scanner
 {
     public abstract class LibraryScanner
     {

@@ -3,7 +3,7 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace Commons.AudiobookManagement
 {
     public abstract class Metadata : ObservableObject, XMLSaveObject, ICloneable
     {

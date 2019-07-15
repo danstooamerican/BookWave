@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace Commons.AudiobookManagement
 {
     /// <summary>
     /// Metadata for audiobooks which adds a Genre, Contributors, ReleaseYear and a CoverPath.

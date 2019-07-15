@@ -1,14 +1,11 @@
-﻿using Commons.Models;
-using Commons.Util;
+﻿using Commons.Util;
 using GalaSoft.MvvmLight;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagemenet
+namespace Commons.AudiobookManagement
 {
     /// <summary>
     /// AudiobookManager is a facade of the LibraryManager which simplifies the management of audiobooks
@@ -21,7 +18,8 @@ namespace Commons.AudiobookManagemenet
         private static AudiobookManager mInstance;
         public static AudiobookManager Instance
         {
-            get {
+            get
+            {
                 if (mInstance == null)
                 {
                     Instance = new AudiobookManager();
@@ -160,7 +158,7 @@ namespace Commons.AudiobookManagemenet
             if (audiobook != null && audiobook.Library != null)
             {
                 audiobook.Library.RemoveAudiobook(audiobook);
-            }            
+            }
         }
 
         #endregion

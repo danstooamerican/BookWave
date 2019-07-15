@@ -1,10 +1,8 @@
-﻿using Commons.AudiobookManagemenet;
-using Commons.Models;
+﻿using Commons.AudiobookManagement;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.ComponentModel;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -42,7 +40,7 @@ namespace Commons.ViewModel
 
         public BrowseViewModel()
         {
-            EditSelectedCommand = new RelayCommand<Audiobook>((a) => EditSelected(a));                      
+            EditSelectedCommand = new RelayCommand<Audiobook>((a) => EditSelected(a));
         }
 
         #endregion

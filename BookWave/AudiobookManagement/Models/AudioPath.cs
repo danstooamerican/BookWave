@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace Commons.AudiobookManagement
 {
     /// <summary>
     /// Stores a path to an audio file with a startMark and an endMark.

@@ -1,6 +1,5 @@
 ﻿using AudiobookPlayer;
-using Commons.AudiobookManagemenet;
-using Commons.Models;
+using Commons.AudiobookManagement;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;

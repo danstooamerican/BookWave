@@ -1,6 +1,5 @@
-﻿using Commons.AudiobookManagemenet;
+﻿using Commons.AudiobookManagement;
 using Commons.Exceptions;
-using Commons.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.ObjectModel;

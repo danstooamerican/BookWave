@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace Commons.AudiobookManagement
 {
     /// <summary>
     /// A single chapter in an audiobook with a list of AudioPaths and Metadata.

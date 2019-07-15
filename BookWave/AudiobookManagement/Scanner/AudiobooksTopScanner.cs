@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using ATL;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using ATL;
-using Commons.Models;
 
-namespace Commons.AudiobookManagemenet.Scanner
+namespace Commons.AudiobookManagement.Scanner
 {
     public class AudiobooksTopScanner : LibraryScanner
     {

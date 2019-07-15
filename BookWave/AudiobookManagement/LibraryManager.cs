@@ -1,5 +1,4 @@
 ﻿using Commons.Exceptions;
-using Commons.Models;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagemenet
+namespace Commons.AudiobookManagement
 {
     public class LibraryManager : ObservableObject
     {
@@ -30,11 +29,11 @@ namespace Commons.AudiobookManagemenet
         /// <summary>
         /// Path to the BookWave metadata folder.
         /// </summary>
-        public readonly string MetadataPath 
+        public readonly string MetadataPath
             = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "BookWave", "metadata");
 
-        private int IDCount;        
+        private int IDCount;
 
         private IDictionary<int, Library> mLibraries;
         public IDictionary<int, Library> Libraries
@@ -52,7 +51,7 @@ namespace Commons.AudiobookManagemenet
         /// </summary>
         private LibraryManager()
         {
-            IDCount = 0; 
+            IDCount = 0;
             Libraries = new Dictionary<int, Library>();
         }
 

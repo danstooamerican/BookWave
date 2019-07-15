@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace Commons.AudiobookManagement
 {
     /// <summary>
     /// Includes lists of people who contribute to an audiobook.

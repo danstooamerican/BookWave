@@ -1,4 +1,4 @@
-﻿using Commons.AudiobookManagemenet;
+﻿using Commons.AudiobookManagement;
 using Commons.ViewModel;
 using System;
 using System.Windows;
@@ -25,7 +25,8 @@ namespace Commons.Dialogs
         /// <summary>
         /// Currently selected Library Item
         /// </summary>
-        public Audiobook Selected {
+        public Audiobook Selected
+        {
             get
             {
                 return viewModel.Selected;
@@ -45,7 +46,7 @@ namespace Commons.Dialogs
             this.Owner = Window.GetWindow(parent);
 
             this.Width = Owner.ActualWidth * WINDOW_RATIO;
-            this.Height = Owner.ActualHeight * WINDOW_RATIO;       
+            this.Height = Owner.ActualHeight * WINDOW_RATIO;
         }
 
         /// <summary>

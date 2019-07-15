@@ -1,5 +1,4 @@
-﻿using Commons.AudiobookManagemenet.Scanner;
-using Commons.Models;
+﻿using Commons.AudiobookManagement.Scanner;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
@@ -8,7 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagemenet
+namespace Commons.AudiobookManagement
 {
     public class Library : ObservableObject, XMLSaveObject
     {

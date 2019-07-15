@@ -1,12 +1,11 @@
-﻿using Commons.Models;
-using Commons.Util;
+﻿using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagemenet
+namespace Commons.AudiobookManagement
 {
     /// <summary>
     /// Represents a single audiobook with a list of chapters and metadata.
