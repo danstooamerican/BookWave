@@ -110,6 +110,7 @@
     <Compile Include="Dialogs\SelectLibraryItemDialog.xaml.cs">
       <DependentUpon>SelectLibraryItemDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\DeleteMetadataException.cs" />
     <Compile Include="Exceptions\LibraryNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidArgumentException.cs" />
     <Compile Include="AudiobookManagement\LibraryManager.cs" />
@@ -251,8 +252,6 @@
       <Name>Commons.Styles</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

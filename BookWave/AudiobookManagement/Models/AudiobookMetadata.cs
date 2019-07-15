@@ -138,7 +138,7 @@ namespace Commons.AudiobookManagement
                 metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
             }
 
-            if (!CoverPath.Equals(string.Empty))
+            if (!CoverPath.Equals(StandardCover))
             {
                 metadataXML.Add(new XElement("Cover", CoverPath));
             }

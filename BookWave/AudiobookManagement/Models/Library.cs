@@ -1,4 +1,5 @@
 ﻿using Commons.AudiobookManagement.Scanner;
+using Commons.Exceptions;
 using Commons.Util;
 using GalaSoft.MvvmLight;
 using System;
@@ -184,8 +185,19 @@ namespace Commons.AudiobookManagement
                 {
                     audiobook.Library = null;
                 }
-
-                Directory.Delete(audiobook.Metadata.MetadataPath, true);
+                DeleteMetadataFolder(audiobook.Metadata.MetadataPath);
+            }
+        }
+        
+        private void DeleteMetadataFolder(string metadataPath)
+        {
+            try
+            {
+                Directory.Delete(metadataPath, true);
+            }
+            catch (IOException e)
+            {
+                throw new DeleteMetadataException(metadataPath, "could not be deleted.");
             }
         }
 
@@ -198,7 +210,7 @@ namespace Commons.AudiobookManagement
             Audiobooks.Clear();
             foreach (string audiobookFolder in Directory.GetFiles(MetadataFolder))
             {
-                Directory.Delete(audiobookFolder, true);
+                DeleteMetadataFolder(audiobookFolder);
             }
 
             foreach (Audiobook audiobook in Scanner.ScanLibrary(LibraryPath))
