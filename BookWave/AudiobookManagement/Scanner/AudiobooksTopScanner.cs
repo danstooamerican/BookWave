@@ -56,6 +56,7 @@ namespace Commons.AudiobookManagement.Scanner
 
                 audiobook.SetChapters(ScanAudiobookFolder(dir));
                 audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(dir);
+                audiobook.Metadata.Path = dir;
 
                 audiobooks.Add(audiobook);
             }

@@ -208,14 +208,14 @@ namespace Commons.AudiobookManagement
         public void ScanLibrary()
         {
             Audiobooks.Clear();
-            foreach (string audiobookFolder in Directory.GetFiles(MetadataFolder))
+            foreach (string audiobookFolder in Directory.GetDirectories(MetadataFolder))
             {
                 DeleteMetadataFolder(audiobookFolder);
             }
 
             foreach (Audiobook audiobook in Scanner.ScanLibrary(LibraryPath))
             {
-                AddAudiobook(audiobook);
+                UpdateAudiobook(audiobook);
             }
         }
 

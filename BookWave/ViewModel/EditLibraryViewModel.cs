@@ -203,7 +203,6 @@ namespace Commons.ViewModel
         private void RemoveCoverImage()
         {
             Audiobook.Metadata.CoverPath = string.Empty;
-            Destination = string.Empty;
         }
 
         private void CopyCoverImageFromClipboard()
