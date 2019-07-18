@@ -141,6 +141,7 @@
     <Compile Include="Util\BindingProxy.cs" />
     <Compile Include="Util\HistoryList.cs" />
     <Compile Include="Util\HistoryListElement.cs" />
+    <Compile Include="Util\ImageConverter.cs" />
     <Compile Include="Util\PageItem.cs" />
     <Compile Include="Util\WindowResizer.cs" />
     <Compile Include="Util\XMLHelper.cs" />

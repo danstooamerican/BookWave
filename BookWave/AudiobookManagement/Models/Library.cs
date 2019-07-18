@@ -195,7 +195,7 @@ namespace Commons.AudiobookManagement
             {
                 Directory.Delete(metadataPath, true);
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 throw new DeleteMetadataException(metadataPath, "could not be deleted.");
             }

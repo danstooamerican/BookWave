@@ -3,9 +3,14 @@ using Commons.Exceptions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Commons.ViewModel
 {
@@ -36,6 +41,16 @@ namespace Commons.ViewModel
                 }
             }
         }
+
+        private ImageSource mCoverImage;
+        public ImageSource CoverImage
+        {
+            get {
+                return mCoverImage;
+            }
+            set { Set<ImageSource>(() => this.CoverImage, ref mCoverImage, value); }
+        }
+
 
         private Library mLibrary;
 
@@ -89,6 +104,8 @@ namespace Commons.ViewModel
         {
             Audiobook = AudiobookManager.Instance.CreateAudiobook();
             Library = LibraryManager.Instance.GetLibrary(0); //TODO: add option to select library
+
+            SetCoverImage();
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
@@ -152,7 +169,18 @@ namespace Commons.ViewModel
                 }
             }
 
+            SetCoverImage();
+
             UpdateIsInLibrary();
+        }
+
+        private void SetCoverImage()
+        {
+            using (var fs = new FileStream(Audiobook.Metadata.CoverPath, FileMode.Open, FileAccess.Read))
+            {
+                CoverImage = BitmapFrame.Create(
+                    fs, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+            }
         }
 
         /// <summary>
@@ -195,14 +223,23 @@ namespace Commons.ViewModel
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    Audiobook.Metadata.CoverPath = openFileDialog.FileName;
+                    string saveToPath = Path.Combine(Audiobook.Metadata.MetadataPath, "cover.jpg");
+
+                    Image image = Image.FromFile(openFileDialog.FileName);              
+                    Image resized = Commons.Util.ImageConverter.Resize(image, 512, 512);
+
+                    Task.Factory.StartNew(() => {
+                        Commons.Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
+                    }).ContinueWith((e) => {
+                        SetCoverImage();
+                    });
                 }
             }
         }
 
         private void RemoveCoverImage()
         {
-            Audiobook.Metadata.CoverPath = string.Empty;
+            
         }
 
         private void CopyCoverImageFromClipboard()

@@ -1,4 +1,5 @@
 ﻿using Commons.Util;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -14,6 +15,7 @@ namespace Commons.AudiobookManagement
         #region Public Properties
 
         public static readonly string StandardCover = @"/Commons.Styles;component/Resources/Player/sampleCover.png";
+            //System.IO.Path.Combine(Environment.CurrentDirectory, @"/Commons.Styles;component/Resources/Player", "sampleCover.png");
 
         private string mPath;
         /// <summary>
@@ -71,25 +73,21 @@ namespace Commons.AudiobookManagement
         /// <summary>
         /// The path for the cover image.
         /// </summary>
-        private string mCoverPath;
         public string CoverPath
         {
             get {
-                if (HasCoverPath)
-                {
-                    return mCoverPath;
-                } else
-                {
-                    return StandardCover; 
-                }
+                string coverPath = System.IO.Path.Combine(MetadataPath, "cover.jpg");
+
+                return File.Exists(coverPath) ? coverPath : StandardCover;
             }
-            set { Set<string>(() => this.CoverPath, ref mCoverPath, value); }
         }
 
         public bool HasCoverPath {
             get
             {
-                return !mCoverPath.Equals(string.Empty);
+                string coverPath = System.IO.Path.Combine(MetadataPath, "cover.jpg");
+
+                return File.Exists(coverPath);
             }
         }
 
@@ -101,7 +99,6 @@ namespace Commons.AudiobookManagement
             Path = string.Empty;
             MetadataPath = string.Empty;
             Genre = string.Empty;
-            CoverPath = string.Empty;
             Contributors = new Contributors();
             ReleaseYear = 0;
         }
@@ -152,7 +149,6 @@ namespace Commons.AudiobookManagement
 
             Path = XMLHelper.GetSingleValue(xmlElement, "Path");
             Genre = XMLHelper.GetSingleValue(xmlElement, "Genre");
-            CoverPath = XMLHelper.GetSingleValue(xmlElement, "Cover");
 
             Contributors.FromXML(xmlElement);
 
@@ -168,7 +164,6 @@ namespace Commons.AudiobookManagement
             AudiobookMetadata copy = new AudiobookMetadata();
 
             copy.Title = Title;
-            copy.CoverPath = CoverPath;
             copy.Description = Description;
             copy.Genre = Genre;
             copy.Path = Path;
