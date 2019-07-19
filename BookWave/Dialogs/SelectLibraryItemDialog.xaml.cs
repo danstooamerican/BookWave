@@ -77,7 +77,10 @@ namespace Commons.Dialogs
         /// <param name="e"></param>
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            this.DialogResult = ITEM_SELECTED;
+            if (Selected != null)
+            {
+                this.DialogResult = ITEM_SELECTED;
+            }            
         }
     }
 }
