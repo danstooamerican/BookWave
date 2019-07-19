@@ -15,7 +15,6 @@ namespace Commons.AudiobookManagement
         #region Public Properties
 
         public static readonly string StandardCover = @"/Commons.Styles;component/Resources/Player/sampleCover.png";
-            //System.IO.Path.Combine(Environment.CurrentDirectory, @"/Commons.Styles;component/Resources/Player", "sampleCover.png");
 
         private string mPath;
         /// <summary>
