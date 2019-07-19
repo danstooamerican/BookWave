@@ -542,7 +542,7 @@
                                 MaxWidth="185" MaxHeight="185"
                                 VerticalAlignment="Top" HorizontalAlignment="Center"
                                 RenderOptions.BitmapScalingMode="HighQuality"
-                                Source="{Binding Metadata.CoverPath}"/>
+                                Source="{Binding Metadata.CoverSource}"/>
 
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Metadata.Title}" 
                                 x:Name="lblTitle" Margin="0, 8, 0, 0"

@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
 namespace Commons.AudiobookManagement
@@ -81,6 +83,28 @@ namespace Commons.AudiobookManagement
             }
         }
 
+        /// <summary>
+        /// Cover Image as an ImageSource to be bound to in the view so the file is not locked.
+        /// </summary>
+        public ImageSource CoverSource {
+            get
+            {
+                if (HasCoverPath)
+                {
+                    using (var fs = new FileStream(CoverPath, FileMode.Open, FileAccess.Read))
+                    {
+                        return BitmapFrame.Create(
+                            fs, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    }                    
+                }
+                else
+                {
+                    var uriSource = new Uri(CoverPath, UriKind.Relative);
+                    return new BitmapImage(uriSource);
+                }
+            }
+        }
+
         public bool HasCoverPath {
             get
             {
@@ -105,6 +129,12 @@ namespace Commons.AudiobookManagement
         #endregion
 
         #region Methods
+
+        public void RaiseCoverChanged()
+        {
+            RaisePropertyChanged(nameof(CoverPath));
+            RaisePropertyChanged(nameof(CoverSource));
+        }
 
         public new XElement ToXML()
         {

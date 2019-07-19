@@ -43,18 +43,7 @@ namespace Commons.ViewModel
             }
         }
 
-        private ImageSource mCoverImage;
-        public ImageSource CoverImage
-        {
-            get {
-                return mCoverImage;
-            }
-            set { Set<ImageSource>(() => this.CoverImage, ref mCoverImage, value); }
-        }
-
-
         private Library mLibrary;
-
         public Library Library
         {
             get { return mLibrary; }
@@ -105,8 +94,6 @@ namespace Commons.ViewModel
         {
             Audiobook = AudiobookManager.Instance.CreateAudiobook();
             Library = LibraryManager.Instance.GetLibrary(0); //TODO: add option to select library
-
-            SetCoverImage();
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
@@ -170,25 +157,7 @@ namespace Commons.ViewModel
                 }
             }
 
-            SetCoverImage();
-
             UpdateIsInLibrary();
-        }
-
-        private void SetCoverImage()
-        {
-            if (Audiobook.Metadata.CoverPath.Equals(AudiobookMetadata.StandardCover))
-            {
-                var uriSource = new Uri(Audiobook.Metadata.CoverPath, UriKind.Relative);
-                CoverImage = new BitmapImage(uriSource);
-            } else
-            {
-                using (var fs = new FileStream(Audiobook.Metadata.CoverPath, FileMode.Open, FileAccess.Read))
-                {
-                    CoverImage = BitmapFrame.Create(
-                        fs, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                }
-            }            
         }
 
         /// <summary>
@@ -238,10 +207,11 @@ namespace Commons.ViewModel
                         Image image = Image.FromFile(openFileDialog.FileName);
                         Image resized = Commons.Util.ImageConverter.Resize(image, 512, 512);
 
-                        Task.Factory.StartNew(() => {
+                        Task.Factory.StartNew(() =>
+                        {
                             Commons.Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
                         }).ContinueWith((e) => {
-                            SetCoverImage();
+                            Audiobook.Metadata.RaiseCoverChanged();
                         });
                     }
                 }

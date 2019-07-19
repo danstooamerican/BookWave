@@ -177,7 +177,7 @@
 
                 <!-- Cover Image -->
                 <Image RenderOptions.BitmapScalingMode="HighQuality" x:Name="imgCover"
-                    Source="{Binding CoverImage}" />
+                    Source="{Binding Audiobook.Metadata.CoverSource}" />
 
                 <Rectangle x:Name="coverDarken" Opacity="0"
                     Width="{Binding ActualWidth, ElementName=imgCover}"
