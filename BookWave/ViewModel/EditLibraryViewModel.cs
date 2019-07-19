@@ -220,7 +220,11 @@ namespace Commons.ViewModel
 
         private void RemoveCoverImage()
         {
-            
+            if (Audiobook.Metadata.HasCoverPath)
+            {
+                File.Delete(Audiobook.Metadata.CoverPath);
+                Audiobook.Metadata.RaiseCoverChanged();
+            }
         }
 
         private void CopyCoverImageFromClipboard()

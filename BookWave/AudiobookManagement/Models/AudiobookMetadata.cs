@@ -108,9 +108,7 @@ namespace Commons.AudiobookManagement
         public bool HasCoverPath {
             get
             {
-                string coverPath = System.IO.Path.Combine(MetadataPath, "cover.jpg");
-
-                return File.Exists(coverPath);
+                return CoverPath.Equals(StandardCover) ? false : File.Exists(CoverPath);
             }
         }
 
