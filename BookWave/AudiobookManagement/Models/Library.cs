@@ -141,7 +141,8 @@ namespace Commons.AudiobookManagement
         {
             if (Contains(audiobook))
             {
-                RemoveAudiobook(audiobook);
+                ClearChapterMetadata(audiobook);
+                Audiobooks.Remove(audiobook.ID);
             }
             else
             {
@@ -189,6 +190,19 @@ namespace Commons.AudiobookManagement
             }
         }
         
+        private void ClearChapterMetadata(Audiobook audiobook)
+        {
+            string chapterMetadataPath = Path.Combine(audiobook.Metadata.MetadataPath, "chapters");
+            try
+            {
+                Directory.Delete(chapterMetadataPath, true);
+            }
+            catch (IOException)
+            {
+                throw new DeleteMetadataException(chapterMetadataPath, "could not be cleared.");
+            }
+        }
+
         private void DeleteMetadataFolder(string metadataPath)
         {
             try
