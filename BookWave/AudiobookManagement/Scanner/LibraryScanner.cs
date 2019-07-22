@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
 
 namespace Commons.AudiobookManagement.Scanner
 {
@@ -24,6 +27,18 @@ namespace Commons.AudiobookManagement.Scanner
         public abstract ICollection<Audiobook> ScanLibrary(string path);
 
         public abstract ICollection<Chapter> ScanAudiobookFolder(string path);
+
+        protected ICollection<string> GetAllAudioFilesFrom(string path, SearchOption searchOption)
+        {
+            var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_extensions").Split(',');
+
+            List<string> files = Directory
+                    .GetFiles(path, "*.*", searchOption)
+                    .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
+                    .ToList();
+
+            return files;
+        }
 
     }
 }

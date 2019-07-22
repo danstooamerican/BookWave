@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Commons.AudiobookManagement.Scanner
 {
-    public class AudiobooksTopScanner : LibraryScanner
+    class AudiobooksTopScanner : LibraryScanner
     {
         public override ICollection<Chapter> ScanAudiobookFolder(string path)
         {
@@ -17,7 +17,7 @@ namespace Commons.AudiobookManagement.Scanner
 
             ICollection<Chapter> chapters = new List<Chapter>();
 
-            foreach (string file in GetAllAudioFilesFrom(path))
+            foreach (string file in GetAllAudioFilesFrom(path, SearchOption.AllDirectories))
             {
                 Chapter chapter = new Chapter(new Track(file));
                 if (chapter != null)
@@ -27,18 +27,6 @@ namespace Commons.AudiobookManagement.Scanner
             }
 
             return chapters;
-        }
-
-        private List<string> GetAllAudioFilesFrom(string path)
-        {
-            var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_extensions").Split(',');
-
-            List<string> files = Directory
-                    .GetFiles(path, "*.*", SearchOption.AllDirectories)
-                    .Where(file => allowedExtensions.Any(file.ToLower().EndsWith))
-                    .ToList();
-
-            return files;
         }
 
         public override ICollection<Audiobook> ScanLibrary(string path)
