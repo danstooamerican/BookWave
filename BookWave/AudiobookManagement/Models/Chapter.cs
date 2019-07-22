@@ -52,12 +52,6 @@ namespace Commons.AudiobookManagement
             AudioPath = new AudioPath();
         }
 
-        public Chapter(ChapterMetadata metadata, AudioPath audioPath)
-        {
-            Metadata = metadata;
-            AudioPath = audioPath;
-        }
-
         #endregion
 
         #region Methods

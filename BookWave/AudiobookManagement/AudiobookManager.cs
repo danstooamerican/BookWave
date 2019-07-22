@@ -114,14 +114,9 @@ namespace Commons.AudiobookManagement
             return audiobook;
         }
 
-        public Chapter CreateChapter()
-        {
-            return new Chapter();
-        }
-
         public Chapter CreateChapter(string metadataPath)
         {
-            Chapter chapter = CreateChapter();
+            Chapter chapter = new Chapter();
 
             if (File.Exists(metadataPath))
             {

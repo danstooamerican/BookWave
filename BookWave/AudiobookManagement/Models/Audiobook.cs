@@ -52,6 +52,8 @@ namespace Commons.AudiobookManagement
 
         #endregion
 
+        #region Constructor
+
         /// <summary>
         /// Creates an empty audiobook with an id.
         /// </summary>
@@ -62,6 +64,8 @@ namespace Commons.AudiobookManagement
             Metadata = new AudiobookMetadata();
             Library = library;
         }
+
+        #endregion
 
         #region Methods
 
