@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E5FD876E-8967-4607-999B-14D8A799F119}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Commons</RootNamespace>
-    <AssemblyName>Commons</AssemblyName>
+    <RootNamespace>BookWave.Desktop</RootNamespace>
+    <AssemblyName>BookWave.Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AudiobookPlayer.App</StartupObject>
+    <StartupObject>BookWave.Desktop.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ATL, Version=2.11.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -244,15 +244,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BookWaveCustomControls\Commons.Controls.csproj">
+    <ProjectReference Include="..\BookWaveCustomControls\BookWave.Controls.csproj">
       <Project>{3c911c9e-41cb-4aca-8f0f-c69a311014f3}</Project>
-      <Name>Commons.Controls</Name>
+      <Name>BookWave.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BookWaveStyles\Commons.Styles.csproj">
+    <ProjectReference Include="..\BookWaveStyles\BookWave.Styles.csproj">
       <Project>{ef5f5f8b-4fef-4019-8cec-28354b90fd82}</Project>
-      <Name>Commons.Styles</Name>
+      <Name>BookWave.Styles</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

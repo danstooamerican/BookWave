@@ -1,9 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using ATL;
+using BookWave.Desktop.Util;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using ATL;
-using Commons.Util;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// Metadata for chapters which adds a TrackNumber.
@@ -40,7 +40,7 @@ namespace Commons.AudiobookManagement
                 Description = track.Description;
             }
         }
-        
+
         public new XElement ToXML()
         {
             XElement metadataXML = base.ToXML();

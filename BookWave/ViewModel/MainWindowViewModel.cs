@@ -1,14 +1,13 @@
-﻿using AudiobookPlayer;
-using Commons.AudiobookManagement;
-using Commons.Util;
+﻿using BookWave.Desktop;
+using BookWave.Desktop.AudiobookManagement;
+using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using MediaPlayer;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {

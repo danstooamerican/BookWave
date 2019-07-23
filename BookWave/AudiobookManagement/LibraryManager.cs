@@ -1,4 +1,4 @@
-﻿using Commons.Exceptions;
+﻿using BookWave.Desktop.Exceptions;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     public class LibraryManager : ObservableObject
     {

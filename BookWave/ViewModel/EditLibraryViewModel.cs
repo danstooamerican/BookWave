@@ -1,19 +1,15 @@
-﻿using Commons.AudiobookManagement;
-using Commons.Exceptions;
+﻿using BookWave.Desktop.AudiobookManagement;
+using BookWave.Desktop.Exceptions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     public class EditLibraryViewModel : ViewModelBase
     {
@@ -205,17 +201,18 @@ namespace Commons.ViewModel
                         string saveToPath = Path.Combine(Audiobook.Metadata.MetadataPath, "cover.jpg");
 
                         Image image = Image.FromFile(openFileDialog.FileName);
-                        Image resized = Commons.Util.ImageConverter.Resize(image, 512, 512);
+                        Image resized = BookWave.Desktop.Util.ImageConverter.Resize(image, 512, 512);
 
                         Task.Factory.StartNew(() =>
                         {
-                            Commons.Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
-                        }).ContinueWith((e) => {
+                            BookWave.Desktop.Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
+                        }).ContinueWith((e) =>
+                        {
                             Audiobook.Metadata.RaiseCoverChanged();
                         });
                     }
                 }
-            }            
+            }
         }
 
         private void RemoveCoverImage()

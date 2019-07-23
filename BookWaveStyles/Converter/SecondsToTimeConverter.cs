@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media.Imaging;
 
-namespace Commons.Styles.Converter
+namespace BookWave.Styles.Converter
 {
     public class SecondsToTimeConverter : IValueConverter
     {
@@ -15,7 +9,7 @@ namespace Commons.Styles.Converter
         {
             if (value != null)
             {
-                int seconds = (int) double.Parse(value.ToString());
+                int seconds = (int)double.Parse(value.ToString());
 
                 if (seconds < TimeSpan.MaxValue.TotalSeconds)
                 {
@@ -26,21 +20,24 @@ namespace Commons.Styles.Converter
                         if (seconds < 60 * 10)
                         {
                             return time.ToString(@"m\:ss");
-                        } else
+                        }
+                        else
                         {
                             return time.ToString(@"mm\:ss");
-                        }                        
-                    } else
+                        }
+                    }
+                    else
                     {
                         if (seconds < 60 * 60 * 10)
                         {
                             return time.ToString(@"h\:mm\:ss");
-                        } else
+                        }
+                        else
                         {
-                            return (int) time.TotalHours + time.ToString(@"\:mm\:ss");
-                        }                        
-                    }                    
-                }                
+                            return (int)time.TotalHours + time.ToString(@"\:mm\:ss");
+                        }
+                    }
+                }
             }
             return "0:00";
         }

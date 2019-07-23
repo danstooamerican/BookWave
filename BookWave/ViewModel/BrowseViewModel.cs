@@ -1,4 +1,4 @@
-﻿using Commons.AudiobookManagement;
+﻿using BookWave.Desktop.AudiobookManagement;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     public class BrowseViewModel : ViewModelBase
     {

@@ -3,7 +3,7 @@
 
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
+        <ResourceDictionary Source="/BookWave.Styles;component/Colors/colors.xaml"/>
 
     </ResourceDictionary.MergedDictionaries>
 

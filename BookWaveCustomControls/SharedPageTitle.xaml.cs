@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Commons.Controls
+namespace BookWave.Controls
 {
     /// <summary>
     /// Interaction logic for SharedPageTitle.xaml

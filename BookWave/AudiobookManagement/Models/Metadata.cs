@@ -1,9 +1,9 @@
-﻿using Commons.Util;
+﻿using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     public abstract class Metadata : ObservableObject, XMLSaveObject, ICloneable
     {

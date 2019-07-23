@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:Commons.Styles.Converter"
+                    xmlns:converters="clr-namespace:BookWave.Styles.Converter"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
         </ResourceDictionary>
-        <ResourceDictionary Source="/Commons.Styles;component/Colors/colors.xaml"/>
-        <ResourceDictionary Source="/Commons.Styles;component/Styles/BorderStyle.xaml"/>
+        <ResourceDictionary Source="/BookWave.Styles;component/Colors/colors.xaml"/>
+        <ResourceDictionary Source="/BookWave.Styles;component/Styles/BorderStyle.xaml"/>
 
     </ResourceDictionary.MergedDictionaries>
 

@@ -1,4 +1,4 @@
-﻿using Commons.Util;
+﻿using BookWave.Desktop.Util;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// Metadata for audiobooks which adds a Genre, Contributors, ReleaseYear and a CoverPath.
@@ -16,7 +16,7 @@ namespace Commons.AudiobookManagement
 
         #region Public Properties
 
-        public static readonly string StandardCover = @"/Commons.Styles;component/Resources/Player/sampleCover.png";
+        public static readonly string StandardCover = @"/BookWave.Styles;component/Resources/Player/sampleCover.png";
 
         private string mPath;
         /// <summary>
@@ -76,7 +76,8 @@ namespace Commons.AudiobookManagement
         /// </summary>
         public string CoverPath
         {
-            get {
+            get
+            {
                 string coverPath = System.IO.Path.Combine(MetadataPath, "cover.jpg");
 
                 return File.Exists(coverPath) ? coverPath : StandardCover;
@@ -86,7 +87,8 @@ namespace Commons.AudiobookManagement
         /// <summary>
         /// Cover Image as an ImageSource to be bound to in the view so the file is not locked.
         /// </summary>
-        public ImageSource CoverSource {
+        public ImageSource CoverSource
+        {
             get
             {
                 if (HasCoverPath)
@@ -95,7 +97,7 @@ namespace Commons.AudiobookManagement
                     {
                         return BitmapFrame.Create(
                             fs, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                    }                    
+                    }
                 }
                 else
                 {
@@ -105,7 +107,8 @@ namespace Commons.AudiobookManagement
             }
         }
 
-        public bool HasCoverPath {
+        public bool HasCoverPath
+        {
             get
             {
                 return CoverPath.Equals(StandardCover) ? false : File.Exists(CoverPath);

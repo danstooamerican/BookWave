@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Commons.Exceptions
+namespace BookWave.Desktop.Exceptions
 {
     public class DeleteMetadataException : Exception
     {

@@ -1,9 +1,9 @@
-﻿using Commons.AudiobookManagement;
+﻿using BookWave.Desktop.AudiobookManagement;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     public class SplitChapterViewModel : ViewModelBase
     {

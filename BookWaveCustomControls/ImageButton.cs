@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Commons.Controls
+namespace BookWave.Controls
 {
     public class ImageButton : Button
     {

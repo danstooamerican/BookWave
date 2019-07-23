@@ -1,11 +1,11 @@
-﻿using Commons.AudiobookManagement;
-using Commons.ViewModel;
+﻿using BookWave.Desktop.AudiobookManagement;
+using BookWave.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Commons.Dialogs
+namespace BookWave.Dialogs
 {
     /// <summary>
     /// Interaction logic for SelectLibraryItemDialog.xaml
@@ -80,7 +80,7 @@ namespace Commons.Dialogs
             if (Selected != null)
             {
                 this.DialogResult = ITEM_SELECTED;
-            }            
+            }
         }
     }
 }

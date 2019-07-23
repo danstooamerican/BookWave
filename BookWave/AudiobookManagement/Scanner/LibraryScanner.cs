@@ -4,7 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 
-namespace Commons.AudiobookManagement.Scanner
+namespace BookWave.Desktop.AudiobookManagement.Scanner
 {
     public abstract class LibraryScanner
     {
@@ -16,10 +16,15 @@ namespace Commons.AudiobookManagement.Scanner
         {
             if (qualifiedName == null)
             {
-                throw new ArgumentException("class qualifier cannot be null");
+                throw new ArgumentNullException("class qualifier cannot be null");
             }
 
             Type type = Type.GetType(qualifiedName);
+
+            if (type == null)
+            {
+                throw new ArgumentException("class qualifier not found");
+            }
 
             return (LibraryScanner)Activator.CreateInstance(type);
         }

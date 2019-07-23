@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Commons.Util
+namespace BookWave.Desktop.Util
 {
     public class HistoryListElement<T>
     {

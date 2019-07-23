@@ -1,11 +1,11 @@
-﻿using Commons.Util;
+﻿using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// Represents a single audiobook with a list of chapters and metadata.

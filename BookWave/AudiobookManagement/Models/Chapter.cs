@@ -1,10 +1,10 @@
 ﻿using ATL;
-using Commons.Util;
+using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// A single chapter in an audiobook with a list of AudioPaths and Metadata.

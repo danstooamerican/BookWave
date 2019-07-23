@@ -4,7 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 
-namespace Commons.AudiobookManagement.Scanner
+namespace BookWave.Desktop.AudiobookManagement.Scanner
 {
     class AudiobooksTopScanner : LibraryScanner
     {

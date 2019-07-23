@@ -1,4 +1,4 @@
-﻿using Commons.AudiobookManagement;
+﻿using BookWave.Desktop.AudiobookManagement;
 using GalaSoft.MvvmLight;
 using System;
 using System.ComponentModel;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     public class SelectLibraryViewModel : ViewModelBase
     {

@@ -1,13 +1,13 @@
-﻿using Commons.AudiobookManagement;
-using Commons.Controls;
-using Commons.Exceptions;
-using Commons.Util;
-using Commons.ViewModel;
+﻿using BookWave.Controls;
+using BookWave.Desktop.AudiobookManagement;
+using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Util;
+using BookWave.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace AudiobookPlayer
+namespace BookWave.Desktop
 {
     /// <summary>
     /// Code behind for the MainWindow.xaml

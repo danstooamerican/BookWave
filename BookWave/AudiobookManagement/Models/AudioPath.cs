@@ -1,11 +1,11 @@
-﻿using Commons.Exceptions;
-using Commons.Util;
+﻿using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// Stores a path to an audio file with a startMark and an endMark.
@@ -22,13 +22,16 @@ namespace Commons.AudiobookManagement
         /// <summary>
         /// Path to the audio file.
         /// </summary>
-        public string Path {
+        public string Path
+        {
             get { return mPath; }
-            set {
+            set
+            {
                 if (File.Exists(value))
                 {
                     Set<string>(() => this.Path, ref mPath, value);
-                } else
+                }
+                else
                 {
                     throw new InvalidArgumentException(value, "is not a valid path.");
                 }
@@ -40,16 +43,19 @@ namespace Commons.AudiobookManagement
         /// StartMark of the audio file in seconds.
         /// This allows to split files into multiple AudioPaths.
         /// </summary>
-        public int StartMark        {
+        public int StartMark
+        {
             get { return mStartMark; }
-            set {
+            set
+            {
                 if (value >= 0)
                 {
                     Set<int>(() => this.StartMark, ref mStartMark, value);
-                } else
+                }
+                else
                 {
                     throw new InvalidArgumentException(value, "is not a valid mark");
-                }                
+                }
             }
         }
 
@@ -65,7 +71,8 @@ namespace Commons.AudiobookManagement
         public int EndMark
         {
             get { return mEndMark; }
-            set {
+            set
+            {
                 if (value >= -1)
                 {
                     Set<int>(() => this.EndMark, ref mEndMark, value);
@@ -111,7 +118,7 @@ namespace Commons.AudiobookManagement
             if (EndMark != DefaultEndMark)
             {
                 pathXML.Add(new XElement("EndMark", EndMark));
-            }           
+            }
 
             return pathXML;
         }

@@ -1,11 +1,7 @@
-﻿using Commons.Controls;
-using System;
+﻿using BookWave.Controls;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Commons.Util
+namespace BookWave.Desktop.Util
 {
     public class PageItem
     {

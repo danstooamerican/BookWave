@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media.Imaging;
 
-namespace Commons.Styles.Converter
+namespace BookWave.Styles.Converter
 {
     public class DoubleToBoolConverter : IValueConverter
     {
@@ -17,7 +11,7 @@ namespace Commons.Styles.Converter
             {
                 double val = double.Parse(value.ToString());
 
-                return val == 0;    
+                return val == 0;
             }
             return false;
         }

@@ -1,11 +1,11 @@
-﻿using Commons.Util;
+﻿using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// AudiobookManager is a facade of the LibraryManager which simplifies the management of audiobooks

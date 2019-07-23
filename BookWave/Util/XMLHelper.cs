@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
 
-namespace Commons.Util
+namespace BookWave.Desktop.Util
 {
     /// <summary>
     /// Contains static methods that analyze and write XML files.

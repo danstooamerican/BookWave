@@ -1,6 +1,6 @@
-﻿using Commons.AudiobookManagement.Scanner;
-using Commons.Exceptions;
-using Commons.Util;
+﻿using BookWave.Desktop.AudiobookManagement.Scanner;
+using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Configuration;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.AudiobookManagement
+namespace BookWave.Desktop.AudiobookManagement
 {
     public class Library : ObservableObject, XMLSaveObject
     {
@@ -189,7 +189,7 @@ namespace Commons.AudiobookManagement
                 DeleteMetadataFolder(audiobook.Metadata.MetadataPath);
             }
         }
-        
+
         private void ClearChapterMetadata(Audiobook audiobook)
         {
             string chapterMetadataPath = Path.Combine(audiobook.Metadata.MetadataPath, "chapters");
