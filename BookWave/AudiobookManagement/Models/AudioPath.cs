@@ -33,7 +33,13 @@ namespace BookWave.Desktop.AudiobookManagement
                 }
                 else
                 {
-                    throw new InvalidArgumentException(value, "is not a valid path.");
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        Set<string>(() => this.Path, ref mPath, string.Empty);
+                    } else
+                    {
+                        throw new InvalidArgumentException(value, "is not a valid path.");
+                    }                    
                 }
             }
         }
@@ -88,14 +94,17 @@ namespace BookWave.Desktop.AudiobookManagement
 
         #region Constructors
 
-        public AudioPath(string path, int startMark, int endMark)
+        public AudioPath(string path)
         {
             Path = path;
-            StartMark = startMark;
-            EndMark = endMark;
+            StartMark = DefaultStartMark;
+            EndMark = DefaultEndMark;
         }
         public AudioPath()
         {
+            Path = string.Empty;
+            StartMark = DefaultStartMark;
+            EndMark = DefaultEndMark;
         }
 
         #endregion

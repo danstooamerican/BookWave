@@ -39,7 +39,7 @@ namespace BookWave.Desktop.AudiobookManagement
         public IDictionary<int, Library> Libraries
         {
             get { return mLibraries; }
-            set { Set<IDictionary<int, Library>>(() => this.Libraries, ref mLibraries, value); }
+            private set { Set<IDictionary<int, Library>>(() => this.Libraries, ref mLibraries, value); }
         }
 
         #endregion

@@ -16,13 +16,18 @@ namespace BookWave.Desktop.AudiobookManagement
         #region Public Properties
 
         private readonly int mID;
-
+        /// <summary>
+        /// Internal unique id of the audiobook.
+        /// </summary>
         public int ID
         {
             get { return mID; }
         }
 
         private Library mLibrary;
+        /// <summary>
+        /// Library the audiobook belongs to. Null if no library is set.
+        /// </summary>
         public Library Library
         {
             get { return mLibrary; }
@@ -36,7 +41,7 @@ namespace BookWave.Desktop.AudiobookManagement
         public ObservableCollection<Chapter> Chapters
         {
             get { return mChapters; }
-            set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
+            private set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
         }
 
         /// <summary>
@@ -47,7 +52,7 @@ namespace BookWave.Desktop.AudiobookManagement
         public AudiobookMetadata Metadata
         {
             get { return mMetadata; }
-            set { Set<AudiobookMetadata>(() => this.Metadata, ref mMetadata, value); }
+            private set { Set<AudiobookMetadata>(() => this.Metadata, ref mMetadata, value); }
         }
 
         #endregion
@@ -69,9 +74,20 @@ namespace BookWave.Desktop.AudiobookManagement
 
         #region Methods
 
+        /// <summary>
+        /// Replaces all chapters of the audiobook with the given ones. If the parameter is null
+        /// all current chapters are cleared.
+        /// </summary>
+        /// <param name="chapters">new chapters</param>
         public void SetChapters(ICollection<Chapter> chapters)
         {
-            Chapters = new ObservableCollection<Chapter>(chapters);
+            if (chapters != null)
+            {
+                Chapters = new ObservableCollection<Chapter>(chapters);
+            } else
+            {
+                Chapters.Clear();
+            }            
         }
 
         public XElement ToXML()

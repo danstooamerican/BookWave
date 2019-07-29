@@ -79,13 +79,13 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <param name="id">Intern id for the library</param>
         /// <param name="name">Display name of the library</param>
         /// <param name="metadataFolder">Folder where all metadata files for this library are located</param>
-        /// <param name="libraryFolder">Folder where all audio files for this library are located.
-        ///                             This folder is manages by the user.</param>
-        public Library(int id, string name, string metadataFolder, string libraryFolder)
+        /// <param name="libraryPath">Path to the folder where all audio files for this library are located.
+        /// This folder is manages by the user.</param>
+        public Library(int id, string name, string metadataFolder, string libraryPath)
         {
             this.ID = id;
             this.Name = name;
-            this.LibraryPath = libraryFolder;
+            this.LibraryPath = libraryPath;
             this.mMetadataFolder = metadataFolder;
             this.Audiobooks = new Dictionary<int, Audiobook>();
         }

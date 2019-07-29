@@ -19,7 +19,7 @@ namespace BookWave.Desktop.AudiobookManagement.Scanner
 
             foreach (string file in GetAllAudioFilesFrom(path, SearchOption.AllDirectories))
             {
-                Chapter chapter = new Chapter(new Track(file));
+                Chapter chapter = AudiobookManager.Instance.CreateChapter(new Track(file));
                 if (chapter != null)
                 {
                     chapters.Add(chapter);

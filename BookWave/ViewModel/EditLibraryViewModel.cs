@@ -145,7 +145,7 @@ namespace BookWave.ViewModel
             {
                 Audiobook = AudiobookManager.Instance.CreateAudiobook();
                 Audiobook.Metadata.Path = Destination;
-                Audiobook.Chapters = new ObservableCollection<Chapter>(Library.Scanner.ScanAudiobookFolder(Destination));
+                Audiobook.SetChapters(new ObservableCollection<Chapter>(Library.Scanner.ScanAudiobookFolder(Destination)));
 
                 if (Audiobook.Metadata.Title.Equals(string.Empty))
                 {

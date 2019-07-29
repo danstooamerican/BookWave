@@ -1,4 +1,5 @@
-﻿using BookWave.Desktop.Util;
+﻿using ATL;
+using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.IO;
@@ -114,6 +115,10 @@ namespace BookWave.Desktop.AudiobookManagement
             return audiobook;
         }
 
+        public Chapter CreateChapter(Track track) {
+            return new Chapter(track);
+        }
+
         public Chapter CreateChapter(string metadataPath)
         {
             Chapter chapter = new Chapter();
@@ -141,11 +146,6 @@ namespace BookWave.Desktop.AudiobookManagement
             {
                 library.UpdateAudiobook(audiobook);
             }
-        }
-
-        public void UpdateAudiobook(Audiobook audiobook)
-        {
-            UpdateAudiobook(audiobook.Library, audiobook);
         }
 
         public void RemoveAudiobook(Audiobook audiobook)

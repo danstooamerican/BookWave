@@ -40,13 +40,13 @@ namespace BookWave.Desktop.AudiobookManagement
         /// the metadata with the track's metadata.
         /// </summary>
         /// <param name="track">Track to reference</param>
-        public Chapter(Track track)
+        internal Chapter(Track track)
         {
-            AudioPath = new AudioPath(track.Path, 0, -1);
+            AudioPath = new AudioPath(track.Path);
             Metadata = new ChapterMetadata(track);
         }
 
-        public Chapter()
+        internal Chapter()
         {
             Metadata = new ChapterMetadata();
             AudioPath = new AudioPath();
