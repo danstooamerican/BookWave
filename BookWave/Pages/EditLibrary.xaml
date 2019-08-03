@@ -43,8 +43,18 @@
                 <TextBlock Style="{StaticResource InformationText}" Text="Library:" 
                     FontSize="14" VerticalAlignment="Center"
                     Margin="0,0,10,0" />
-                <ComboBox MinWidth="150" Style="{StaticResource ComboBoxStyle}"
-                    VerticalAlignment="Center" ItemsSource="{Binding Libraries}" />
+                <ComboBox MinWidth="150" Style="{StaticResource ComboBoxStyle}"                    
+                    VerticalAlignment="Center"
+                    SelectedItem="{Binding Library}">
+
+                    <ComboBox.ItemsSource>
+                        <CompositeCollection>
+                            <!-- reference DataContext of another control which doesn't reference this one -->
+                            <CollectionContainer Collection="{Binding DataContext.Libraries, Source={x:Reference btnBrowseLibrary}}" />
+                            <Button Style="{StaticResource ComboBoxButton}" Content="Create New" />
+                        </CompositeCollection>
+                    </ComboBox.ItemsSource>
+                </ComboBox>
 
             </StackPanel>
             
