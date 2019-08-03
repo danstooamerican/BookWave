@@ -2,6 +2,8 @@
 using BookWave.Desktop.Exceptions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
@@ -36,6 +38,13 @@ namespace BookWave.ViewModel
                         UpdateIsInLibrary();
                     }
                 }
+            }
+        }
+
+        public ICollection<Library> Libraries {
+            get
+            {
+                return LibraryManager.Instance.GetLibraries();
             }
         }
 

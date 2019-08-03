@@ -71,7 +71,10 @@ namespace BookWave.Desktop.AudiobookManagement
 
         public ICollection<Library> GetLibraries()
         {
-            return Libraries.Values;
+            List<Library> libraries = new List<Library>(Libraries.Values);
+            libraries.Sort();
+
+            return libraries;
         }
 
         public Library GetLibrary(int id)

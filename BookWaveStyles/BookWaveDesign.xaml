@@ -27,6 +27,8 @@
         <ResourceDictionary Source="Styles/FrameStyle.xaml" />
         <ResourceDictionary Source="Styles/TitleTemplates.xaml" />
         <ResourceDictionary Source="Styles/ContextMenuStyle.xaml" />
+        <ResourceDictionary Source="Styles/ComboBoxStyle.xaml" />
+        
 
     </ResourceDictionary.MergedDictionaries>
 

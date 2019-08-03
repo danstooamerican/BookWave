@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace BookWave.Desktop.AudiobookManagement
 {
-    public class Library : ObservableObject, XMLSaveObject
+    public class Library : ObservableObject, XMLSaveObject, IComparable<Library>
     {
         #region Properties
 
@@ -330,6 +330,21 @@ namespace BookWave.Desktop.AudiobookManagement
             LibraryPath = XMLHelper.GetSingleValue(xmlElement, "Path");
             Name = XMLHelper.GetSingleValue(xmlElement, "Name");
             Scanner = LibraryScanner.GetInstance(XMLHelper.GetSingleValue(xmlElement, "LibraryScanner", DEFAULT_SCANNER));
+        }
+
+        public int CompareTo(Library other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            return Name.CompareTo(other.Name);
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         #endregion

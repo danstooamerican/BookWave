@@ -32,12 +32,25 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <!-- Library Selection -->
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" 
+                Margin="0,0,0,10" >
+                
+                <TextBlock Style="{StaticResource InformationText}" Text="Library:" 
+                    FontSize="14" VerticalAlignment="Center"
+                    Margin="0,0,10,0" />
+                <ComboBox MinWidth="150" Style="{StaticResource ComboBoxStyle}"
+                    VerticalAlignment="Center" ItemsSource="{Binding Libraries}" />
+
+            </StackPanel>
+            
             <!-- Options -->
-            <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
-                Orientation="Horizontal" Margin="0, 0, 0, 0">
+            <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
+                Orientation="Horizontal">
 
                 <Button Content="Browse Library" 
                     x:Name="btnBrowseLibrary"
@@ -68,7 +81,7 @@
             </StackPanel>
             
             <!-- Advanced Options -->
-            <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"
+            <Expander Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
                 Style="{StaticResource AnimatedExpander}"
                 Header="Advanced" Foreground="{StaticResource TextHighlightColorBrush}">
                 <Grid>
@@ -156,7 +169,7 @@
             </Expander>            
             
             <!-- Cover Container -->
-            <Grid Grid.Column="0" Grid.Row="1" MinWidth="150" MinHeight="150" 
+            <Grid Grid.Column="0" Grid.Row="2" MinWidth="150" MinHeight="150" 
                 MaxWidth="150" MaxHeight="150" Margin="10" VerticalAlignment="Bottom"
                 Cursor="Hand"
                 MouseLeftButtonUp="ImgCoverImage_MouseUp">
@@ -241,7 +254,7 @@
                 </Grid.Triggers>
             </Grid>
 
-            <Grid Grid.Column="2" Grid.Row="1" Margin="0, 0, 0, 15">
+            <Grid Grid.Column="2" Grid.Row="2" Margin="0, 0, 0, 15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
@@ -282,7 +295,7 @@
             
 
             <!-- Drag Area -->
-            <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
+            <Grid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"
                 Margin="5, 20, 0, 20">
 
                 <DataGrid ItemsSource="{Binding Audiobook.Chapters}" 
