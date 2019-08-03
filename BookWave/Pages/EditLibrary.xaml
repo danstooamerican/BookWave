@@ -51,7 +51,8 @@
                         <CompositeCollection>
                             <!-- reference DataContext of another control which doesn't reference this one -->
                             <CollectionContainer Collection="{Binding DataContext.Libraries, Source={x:Reference btnBrowseLibrary}}" />
-                            <Button Style="{StaticResource ComboBoxButton}" Content="Create New" />
+                            <Button Style="{StaticResource ComboBoxButton}" Content="Create New" 
+                                Command="{Binding DataContext.CreateLibraryCommand, Source={x:Reference btnBrowseLibrary}}"/>
                         </CompositeCollection>
                     </ComboBox.ItemsSource>
                 </ComboBox>

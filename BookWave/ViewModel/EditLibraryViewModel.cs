@@ -2,6 +2,7 @@
 using BookWave.Desktop.Exceptions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -77,6 +78,8 @@ namespace BookWave.ViewModel
         #endregion
 
         #region Commands
+        public ICommand CreateLibraryCommand { private set; get; }
+
         public ICommand SelectFolderCommand { private set; get; }
 
         public ICommand SaveAudiobookCommand { private set; get; }
@@ -98,8 +101,9 @@ namespace BookWave.ViewModel
         public EditLibraryViewModel()
         {
             Audiobook = AudiobookManager.Instance.CreateAudiobook();
-            Library = LibraryManager.Instance.GetLibrary(0); //TODO: add option to select library
+            Library = LibraryManager.Instance.GetLibrary(0);
 
+            CreateLibraryCommand = new RelayCommand(CreateLibrary);
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
             SelectCoverImageCommand = new RelayCommand(SelectCoverImage, CanSelectCoverImage);
@@ -112,6 +116,11 @@ namespace BookWave.ViewModel
         #endregion
 
         #region Methods
+
+        private void CreateLibrary()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Checks whether the current audiobook is in the library and sets the IsInLibrary property.
