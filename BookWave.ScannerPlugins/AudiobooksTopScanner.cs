@@ -7,12 +7,12 @@ namespace BookWave.Desktop.AudiobookManagement.Scanner
     {
         public override string GetDescription()
         {
-            return "Makker Scanner";
+            return "Makker Scanner Description";
         }
 
         public override string GetIdentifier()
         {
-            return "Other.Scanner.AudiobooksTopScanner";
+            return "Other.Scanner.Makker";
         }
 
         public override string GetName()

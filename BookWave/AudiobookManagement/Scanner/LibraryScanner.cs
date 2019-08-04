@@ -48,9 +48,9 @@ namespace BookWave.Desktop.AudiobookManagement.Scanner
                 ICollection<Chapter> chapters = ScanAudiobookFolder(path);
 
                 Audiobook audiobook = AudiobookManager.Instance.CreateAudiobook();
-                audiobook.SetChapters(chapters);
-                audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(audiobook.Metadata.Path);
+                audiobook.SetChapters(chapters);                
                 audiobook.Metadata.Path = path;
+                audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(audiobook.Metadata.Path);
 
                 UpdateAudiobookInfo(audiobook);
 

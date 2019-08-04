@@ -16,7 +16,7 @@
         BorderThickness="1"
         BorderBrush="{StaticResource TextHighlightColorBrush}"
         WindowStartupLocation="CenterOwner"
-        Title="Create Library" Height="215" Width="450">
+        Title="Create Library" Height="235" Width="500">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
             Margin="5"
             WindowChrome.IsHitTestVisibleInChrome="True"/>
 
-        <Grid Grid.Column="0" Grid.Row="1" Margin="10, 5, 10, 5">
+        <Grid Grid.Column="0" Grid.Row="1" Margin="30, 15, 30, 15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
