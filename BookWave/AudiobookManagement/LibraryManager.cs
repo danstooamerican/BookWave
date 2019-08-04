@@ -128,15 +128,15 @@ namespace BookWave.Desktop.AudiobookManagement
                     XDocument xDocument = XDocument.Load(libraryNfo);
                     library.FromXML(xDocument.Root);
 
-                    library.LoadMetadata();
-
                     Libraries.Add(library.ID, library);
+
+                    library.LoadMetadata(progress);                    
                 }
 
                 if (progress != null)
                 {
                     progress.Report(new UpdateReport());
-                }                
+                }
             }
         }
 

@@ -582,7 +582,7 @@
             </Setter.Value>
         </Setter>
 
-        <Style.Triggers>
+        <!-- <Style.Triggers>
             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                 <BeginStoryboard>
                     <Storyboard>
@@ -593,7 +593,7 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
-        </Style.Triggers>
+        </Style.Triggers>-->
         
     </Style>
 

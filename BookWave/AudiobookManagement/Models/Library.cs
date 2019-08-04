@@ -232,7 +232,7 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <summary>
         /// Loads all metadata files currently created for this library.
         /// </summary>
-        public void LoadMetadata()
+        public void LoadMetadata(IProgress<UpdateReport> progress = null)
         {
             if (!Directory.Exists(MetadataFolder))
             {
@@ -262,6 +262,11 @@ namespace BookWave.Desktop.AudiobookManagement
                 }
 
                 AddAudiobook(audiobook);
+
+                if (progress != null && Audiobooks.Count % 25 == 0)
+                {
+                    progress.Report(new UpdateReport());
+                }
             }
         }
 

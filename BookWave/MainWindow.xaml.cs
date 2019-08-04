@@ -170,6 +170,7 @@ namespace BookWave.Desktop
                 progress.ProgressChanged += (a, b) =>
                 {
                     ViewModelLocator.Instance.BrowseViewModel.UpdateBrowseList();
+                    ViewModelLocator.Instance.SelectLibraryViewModel.UpdateAudiobookList();
                 };
 
                 LibraryManager.Instance.LoadLibraries(progress);
