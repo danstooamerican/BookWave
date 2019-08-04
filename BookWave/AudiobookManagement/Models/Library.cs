@@ -51,7 +51,6 @@ namespace BookWave.Desktop.AudiobookManagement
             set { mScanner = value; }
         }
 
-
         #endregion
 
         #region Constructor
@@ -68,6 +67,7 @@ namespace BookWave.Desktop.AudiobookManagement
             this.Name = string.Empty;
             this.LibraryPath = string.Empty;
             this.mMetadataFolder = metadataFolder;
+            Directory.CreateDirectory(metadataFolder);
             this.Audiobooks = new Dictionary<int, Audiobook>();
         }
 
@@ -79,12 +79,10 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <param name="metadataFolder">Folder where all metadata files for this library are located</param>
         /// <param name="libraryPath">Path to the folder where all audio files for this library are located.
         /// This folder is manages by the user.</param>
-        public Library(int id, string name, string metadataFolder, string libraryPath)
+        public Library(int id, string name, string metadataFolder, string libraryPath) : this(id, metadataFolder)
         {
-            this.ID = id;
             this.Name = name;
             this.LibraryPath = libraryPath;
-            this.mMetadataFolder = metadataFolder;
             this.Audiobooks = new Dictionary<int, Audiobook>();
         }
 
@@ -317,7 +315,7 @@ namespace BookWave.Desktop.AudiobookManagement
 
             if (!LibraryScannerFactory.GetDefault().GetIdentifier().Equals(Scanner.GetIdentifier()))
             {
-                libraryXML.Add(new XElement("LibraryScanner", Scanner.GetType().FullName));
+                libraryXML.Add(new XElement("LibraryScanner", Scanner.GetIdentifier()));
             }            
 
             return libraryXML;

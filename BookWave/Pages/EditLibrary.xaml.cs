@@ -80,7 +80,7 @@ namespace BookWave.Desktop.Pages
 
             if (dialog.ShowDialog() == true)
             {
-                
+                viewModel.RaiseLibrariesChanged();
             }
         }
 

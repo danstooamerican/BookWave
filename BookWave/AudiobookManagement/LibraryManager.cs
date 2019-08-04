@@ -1,4 +1,6 @@
-﻿using BookWave.Desktop.Exceptions;
+﻿using BookWave.Desktop.AudiobookManagement.Scanner;
+using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -85,6 +87,21 @@ namespace BookWave.Desktop.AudiobookManagement
             }
 
             throw new LibraryNotFoundException(id, "not found");
+        }
+
+        public void AddLibrary(string name, string destination, LibraryScanner scanner)
+        {
+            Library library = new Library(GetNewID(), Path.Combine(MetadataPath, Guid.NewGuid().ToString()));
+            library.Name = name;
+            library.LibraryPath = destination;
+            library.Scanner = scanner;
+
+            Libraries.Add(library.ID, library);
+            XMLHelper.SaveToXML(library, Path.Combine(library.MetadataFolder, 
+                ConfigurationManager.AppSettings.Get("library_metadata_filename")
+                + "." + ConfigurationManager.AppSettings.Get("metadata_extensions")));
+
+            library.ScanLibrary();
         }
 
         /// <summary>

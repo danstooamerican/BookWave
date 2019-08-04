@@ -53,7 +53,7 @@ namespace BookWave.ViewModel
         public Library Library
         {
             get { return mLibrary; }
-            set { mLibrary = value; }
+            set { Set<Library>(() => this.Library, ref mLibrary, value); }
         }
 
 
@@ -100,7 +100,10 @@ namespace BookWave.ViewModel
         public EditLibraryViewModel()
         {
             Audiobook = AudiobookManager.Instance.CreateAudiobook();
-            Library = LibraryManager.Instance.GetLibrary(0);
+            if (LibraryManager.Instance.GetLibraries().Count > 0)
+            {
+                Library = LibraryManager.Instance.GetLibrary(0);
+            }           
 
             SelectFolderCommand = new RelayCommand(SelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
@@ -114,6 +117,11 @@ namespace BookWave.ViewModel
         #endregion
 
         #region Methods
+
+        public void RaiseLibrariesChanged()
+        {
+            RaisePropertyChanged(nameof(Libraries));
+        }
 
         /// <summary>
         /// Checks whether the current audiobook is in the library and sets the IsInLibrary property.
@@ -163,6 +171,8 @@ namespace BookWave.ViewModel
                     Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
                 }
             }
+
+            Library = Audiobook.Library;
 
             UpdateIsInLibrary();
         }

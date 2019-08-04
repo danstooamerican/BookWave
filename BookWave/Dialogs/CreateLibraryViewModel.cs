@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace BookWave.Desktop.AudiobookManagement.Dialogs
@@ -41,7 +42,7 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
         public string Name
         {
             get { return mName; }
-            set { mName = value; }
+            set { Set<string>(() => this.Name, ref mName, value); }
         }
 
         public ICollection<LibraryScanner> LibraryScanners
@@ -59,11 +60,17 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
             set { mScanner = value; }
         }
 
+        public delegate void LibraryCreated();
+
+        public event LibraryCreated LibraryCreatedEvent;
+
         #endregion
 
         #region Commands
 
         public ICommand AddLibraryCommand { private set; get; }
+
+        public ICommand SelectFolderCommand { private set; get; }
 
         #endregion
 
@@ -71,7 +78,9 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
 
         public CreateLibraryViewModel()
         {
-            AddLibraryCommand = new RelayCommand(AddLibrary);
+            AddLibraryCommand = new RelayCommand(AddLibrary, CanAddLibrary);
+            SelectFolderCommand = new RelayCommand(SelectFolder);
+
             Scanner = LibraryScannerFactory.GetDefault();
         }
 
@@ -81,7 +90,31 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
 
         private void AddLibrary()
         {
+            LibraryManager.Instance.AddLibrary(Name, Destination, Scanner);
 
+            LibraryCreatedEvent();
+        }
+
+        private bool CanAddLibrary()
+        {
+            return !(string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Destination));
+        }
+
+        /// <summary>
+        /// Opens a FolderBrowserDialog and sets the LibraryPath.
+        /// </summary>
+        private void SelectFolder()
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                Destination = folderBrowserDialog.SelectedPath;
+
+                if (string.IsNullOrEmpty(Name))
+                {
+                    Name = Path.GetFileName(Destination);
+                }
+            }
         }
 
         #endregion

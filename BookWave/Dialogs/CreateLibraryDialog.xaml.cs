@@ -21,7 +21,13 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
             InitializeComponent();
 
             viewModel = ViewModelLocator.Instance.CreateLibraryViewModel;
+            viewModel.LibraryCreatedEvent += CloseDialog;
             this.DataContext = viewModel;            
+        }
+
+        private void CloseDialog()
+        {
+            this.DialogResult = true;
         }
 
     }

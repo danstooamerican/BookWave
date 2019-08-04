@@ -67,7 +67,8 @@
                 NormalImage="/BookWave.Styles;component/Resources/Misc/folder.png"
                 HoverImage="/BookWave.Styles;component/Resources/Misc/folder_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Misc/folder_pressed.png"
-                ImageSize="20" Margin="10, 10, 0, 0"/>
+                ImageSize="20" Margin="10, 10, 0, 0"
+                Command="{Binding SelectFolderCommand}"/>
 
             <!-- Name -->
             <TextBlock Grid.Column="0" Grid.Row="1"
@@ -101,7 +102,7 @@
                     Margin="0, 10, 0, 0"
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Style="{StaticResource RoundedButton}"
-                    Command="{Binding SelectFolderCommand}"/>
+                    Command="{Binding AddLibraryCommand}"/>
         </Grid>
         
     </Grid>
