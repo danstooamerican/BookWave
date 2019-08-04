@@ -27,6 +27,7 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
 
         private void CloseDialog()
         {
+            viewModel.LibraryCreatedEvent -= CloseDialog;
             this.DialogResult = true;
         }
 

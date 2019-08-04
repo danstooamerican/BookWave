@@ -158,7 +158,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="SemiBold" TextAlignment="Left" TextTrimming="WordEllipsis"/>
+            <TextBlock Grid.Row="0" Text="{Binding Name}" TextAlignment="Left" TextTrimming="WordEllipsis"/>
         </Grid>
     </DataTemplate>
 

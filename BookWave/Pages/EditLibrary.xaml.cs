@@ -18,6 +18,7 @@ namespace BookWave.Desktop.Pages
         public EditLibrary()
         {
             viewModel = ViewModelLocator.Instance.EditLibraryViewModel;
+            viewModel.Page = this;
             DataContext = viewModel;
             InitializeComponent();
         }
@@ -61,26 +62,6 @@ namespace BookWave.Desktop.Pages
                         viewModel.Audiobook.Metadata.Path = files[0];
                     }
                 }
-            }
-        }
-
-        private void BtnBrowseLibrary_Click(object sender, RoutedEventArgs e)
-        {
-            SelectLibraryItemDialog dialog = new SelectLibraryItemDialog(this);
-
-            if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
-            {
-                viewModel.Destination = dialog.Selected.Metadata.Path;
-            }
-        }
-
-        private void BtnCreateLibrary_Click(object sender, RoutedEventArgs e)
-        {
-            CreateLibraryDialog dialog = new CreateLibraryDialog(this);
-
-            if (dialog.ShowDialog() == true)
-            {
-                viewModel.RaiseLibrariesChanged();
             }
         }
 

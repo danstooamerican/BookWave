@@ -1,4 +1,5 @@
 ﻿using BookWave.Desktop.AudiobookManagement;
+using BookWave.Desktop.AudiobookManagement.Dialogs;
 using BookWave.Desktop.Exceptions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -9,8 +10,10 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Image = System.Drawing.Image;
 
 namespace BookWave.ViewModel
 {
@@ -75,6 +78,14 @@ namespace BookWave.ViewModel
             set { Set<bool>(() => this.IsInLibrary, ref mIsInLibrary, value); }
         }
 
+        private Page mPage;
+
+        public Page Page
+        {
+            get { return mPage; }
+            set { mPage = value; }
+        }
+
         #endregion
 
         #region Commands
@@ -93,6 +104,10 @@ namespace BookWave.ViewModel
 
         public ICommand SplitChapterCommand { private set; get; }
 
+        public ICommand BrowseLibraryCommand { private set; get; }
+
+        public ICommand CreateLibraryCommand { private set; get; }
+
         #endregion
 
         #region Constructors
@@ -105,23 +120,20 @@ namespace BookWave.ViewModel
                 Library = LibraryManager.Instance.GetLibrary(0);
             }           
 
-            SelectFolderCommand = new RelayCommand(SelectFolder);
+            SelectFolderCommand = new RelayCommand(SelectFolder, CanSelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
             SelectCoverImageCommand = new RelayCommand(SelectCoverImage, CanSelectCoverImage);
             RemoveCoverImageCommand = new RelayCommand(RemoveCoverImage, CanRemoveCoverImage);
             CopyCoverImageFromClipboardCommand = new RelayCommand(CopyCoverImageFromClipboard, CanCopyCoverImageFromClipboard);
             RemoveAudiobookCommand = new RelayCommand(RemoveAudiobook);
             SplitChapterCommand = new RelayCommand<Chapter>((c) => SplitChapter(c));
+            BrowseLibraryCommand = new RelayCommand(BrowseLibrary, CanBrowseLibrary);
+            CreateLibraryCommand = new RelayCommand(CreateLibrary);
         }
 
         #endregion
 
         #region Methods
-
-        public void RaiseLibrariesChanged()
-        {
-            RaisePropertyChanged(nameof(Libraries));
-        }
 
         /// <summary>
         /// Checks whether the current audiobook is in the library and sets the IsInLibrary property.
@@ -175,6 +187,25 @@ namespace BookWave.ViewModel
             Library = Audiobook.Library;
 
             UpdateIsInLibrary();
+        }
+
+        private void BrowseLibrary()
+        {
+            SelectLibraryItemDialog dialog = new SelectLibraryItemDialog(Page);
+
+            if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
+            {
+                Destination = dialog.Selected.Metadata.Path;
+            }
+        }
+
+        private void CreateLibrary()
+        {
+            CreateLibraryDialog dialog = new CreateLibraryDialog(Page);
+            if (dialog.ShowDialog() == true)
+            {
+                RaisePropertyChanged(nameof(Libraries));
+            }
         }
 
         /// <summary>
@@ -250,9 +281,19 @@ namespace BookWave.ViewModel
             //TODO implement this method
         }
 
+        private bool CanBrowseLibrary()
+        {
+            return Library != null;
+        }
+
         private bool CanSelectCoverImage()
         {
-            return Library.Contains(Audiobook);
+            return Library != null && Library.Contains(Audiobook);
+        }
+
+        private bool CanSelectFolder()
+        {
+            return Library != null;
         }
 
         private bool CanRemoveCoverImage()
@@ -262,7 +303,7 @@ namespace BookWave.ViewModel
 
         private bool CanSaveAudiobook()
         {
-            return Audiobook.Chapters.Count > 0;
+            return Audiobook.Chapters.Count > 0 && Library != null && !string.IsNullOrEmpty(Audiobook.Metadata.Title);
         }
 
         private bool CanCopyCoverImageFromClipboard()

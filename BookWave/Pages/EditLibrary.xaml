@@ -44,7 +44,7 @@
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0" 
                     Style="{StaticResource RoundedButton}"
-                    Click="BtnBrowseLibrary_Click" />
+                    Command="{Binding BrowseLibraryCommand}" />
                 
                 <Button Content="Open Folder" 
                     MinHeight="28" MinWidth="130" MaxWidth="130"
@@ -273,7 +273,7 @@
                             <!-- reference DataContext of another control which doesn't reference this one -->
                             <CollectionContainer Collection="{Binding DataContext.Libraries, Source={x:Reference btnBrowseLibrary}}" />
                             <Button Style="{StaticResource ComboBoxButton}" Content="Create New" 
-                                Click="BtnCreateLibrary_Click"/>
+                                Command="{Binding DataContext.CreateLibraryCommand, Source={x:Reference btnBrowseLibrary}}"/>
                         </CompositeCollection>
                     </ComboBox.ItemsSource>
                 </ComboBox>

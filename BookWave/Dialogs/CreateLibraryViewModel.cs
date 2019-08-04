@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Application = System.Windows.Application;
 
 namespace BookWave.Desktop.AudiobookManagement.Dialogs
 {
@@ -90,7 +91,9 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
 
         private void AddLibrary()
         {
-            LibraryManager.Instance.AddLibrary(Name, Destination, Scanner);
+            Task.Factory.StartNew(() => {
+                LibraryManager.Instance.AddLibrary(Name, Destination, Scanner);
+            });
 
             LibraryCreatedEvent();
         }
