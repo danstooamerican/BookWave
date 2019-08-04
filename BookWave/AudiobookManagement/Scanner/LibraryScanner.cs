@@ -9,6 +9,10 @@ namespace BookWave.Desktop.AudiobookManagement.Scanner
 {
     public abstract class LibraryScanner
     {
+        public string Name { get { return GetName(); } }
+
+        public string Description { get { return GetDescription(); } }
+
         /// <summary>
         /// The display name of the scanner to be displayed in the ui.
         /// </summary>

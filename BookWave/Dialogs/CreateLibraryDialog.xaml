@@ -93,7 +93,8 @@
             <ComboBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
                 ItemsSource="{Binding DataContext.LibraryScanners, Source={x:Reference lblScanners}}"
                 Margin="10,10,0,0"
-                Style="{StaticResource TextComboBoxStyle}"                    
+                Style="{StaticResource ComboBoxStyle}"
+                ItemTemplate="{StaticResource LibraryScannerTemplate}"
                 VerticalAlignment="Center"
                 SelectedItem="{Binding Scanner}"/>
 
