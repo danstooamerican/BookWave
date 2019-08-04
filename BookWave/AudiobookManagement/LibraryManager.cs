@@ -97,6 +97,7 @@ namespace BookWave.Desktop.AudiobookManagement
             library.Scanner = scanner;
 
             Libraries.Add(library.ID, library);
+
             XMLHelper.SaveToXML(library, Path.Combine(library.MetadataFolder, 
                 ConfigurationManager.AppSettings.Get("library_metadata_filename")
                 + "." + ConfigurationManager.AppSettings.Get("metadata_extensions")));
@@ -111,7 +112,7 @@ namespace BookWave.Desktop.AudiobookManagement
         /// When performing this method all currently created Library objects are discarded and new
         /// ones are created.
         /// </summary>
-        public void LoadLibraries()
+        public void LoadLibraries(IProgress<UpdateReport> progress = null)
         {
             Libraries.Clear();
 
@@ -131,6 +132,11 @@ namespace BookWave.Desktop.AudiobookManagement
 
                     Libraries.Add(library.ID, library);
                 }
+
+                if (progress != null)
+                {
+                    progress.Report(new UpdateReport());
+                }                
             }
         }
 

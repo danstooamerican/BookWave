@@ -5,6 +5,7 @@ using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Util;
 using BookWave.ViewModel;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -161,8 +162,18 @@ namespace BookWave.Desktop
 
         private void AppWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            LibraryScannerFactory.LoadPlugins();
-            LibraryManager.Instance.LoadLibraries();
+            Task.Factory.StartNew(() =>
+            {
+                LibraryScannerFactory.LoadPlugins();
+
+                Progress<UpdateReport> progress = new Progress<UpdateReport>();
+                progress.ProgressChanged += (a, b) =>
+                {
+                    ViewModelLocator.Instance.BrowseViewModel.UpdateBrowseList();
+                };
+
+                LibraryManager.Instance.LoadLibraries(progress);
+            });           
         }
     }
 }
