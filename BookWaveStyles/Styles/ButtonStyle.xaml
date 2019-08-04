@@ -13,7 +13,7 @@
 
     <Style x:Key="ComboBoxButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
         <Setter Property="FontSize" Value="14" />
 
         <Setter Property="Template">
@@ -30,6 +30,12 @@
                                 Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextTrimming="WordEllipsis"/>
                         </Grid>
                     </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

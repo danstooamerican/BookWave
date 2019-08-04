@@ -16,6 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,7 +29,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -104,9 +104,14 @@
     </ApplicationDefinition>
     <Compile Include="AudiobookManagement\Scanner\AudiobooksTopScanner.cs" />
     <Compile Include="AudiobookManagement\Scanner\LibraryScanner.cs" />
+    <Compile Include="Dialogs\CreateLibraryDialog.xaml.cs">
+      <DependentUpon>CreateLibraryDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogWindow.cs" />
     <Compile Include="Dialogs\SelectLibraryItemDialog.xaml.cs">
       <DependentUpon>SelectLibraryItemDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\CreateLibraryViewModel.cs" />
     <Compile Include="Exceptions\DeleteMetadataException.cs" />
     <Compile Include="Exceptions\LibraryNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidArgumentException.cs" />
@@ -148,8 +153,12 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="ViewModel\BrowseViewModel.cs" />
-    <Compile Include="ViewModel\SelectLibraryViewModel.cs" />
+    <Compile Include="Dialogs\SelectLibraryViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="Dialogs\CreateLibraryDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\SelectLibraryItemDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,16 +1,15 @@
-﻿using BookWave.Desktop.AudiobookManagement;
-using BookWave.ViewModel;
+﻿using BookWave.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace BookWave.Dialogs
+namespace BookWave.Desktop.AudiobookManagement.Dialogs
 {
     /// <summary>
     /// Interaction logic for SelectLibraryItemDialog.xaml
     /// </summary>
-    public partial class SelectLibraryItemDialog : Window
+    public partial class SelectLibraryItemDialog : DialogWindow
     {
         public static bool ITEM_SELECTED = true;
 
@@ -18,7 +17,7 @@ namespace BookWave.Dialogs
         /// Window always takes the dimensions of the parent window and multiplies
         /// it by the ratio.
         /// </summary>
-        private static double WINDOW_RATIO = 0.8;
+        protected static double WINDOW_RATIO = 0.8;
 
         private SelectLibraryViewModel viewModel;
 
@@ -37,13 +36,12 @@ namespace BookWave.Dialogs
         /// Creates a new SelectLibraryItemDialog.  
         /// </summary>
         /// <param name="parent">parent window</param>
-        public SelectLibraryItemDialog(Page parent)
+        public SelectLibraryItemDialog(Page parent) : base(parent)
         {
             InitializeComponent();
 
             viewModel = ViewModelLocator.Instance.SelectLibraryViewModel;
             this.DataContext = viewModel;
-            this.Owner = Window.GetWindow(parent);
 
             this.Width = Owner.ActualWidth * WINDOW_RATIO;
             this.Height = Owner.ActualHeight * WINDOW_RATIO;
@@ -54,20 +52,11 @@ namespace BookWave.Dialogs
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        protected new void Window_Loaded(object sender, RoutedEventArgs e)
         {
             viewModel.UpdateAudiobookList();
-            ViewModelLocator.Instance.MainViewModel.DarkenBackground = true;
-        }
 
-        /// <summary>
-        /// If the dialog closes remove the darken effect from the parent.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            ViewModelLocator.Instance.MainViewModel.DarkenBackground = false;
+            base.Window_Loaded(sender, e);
         }
 
         /// <summary>

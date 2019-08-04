@@ -1,3 +1,4 @@
+using BookWave.Desktop.AudiobookManagement.Dialogs;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -32,6 +33,7 @@ namespace BookWave.ViewModel
             SimpleIoc.Default.Register<PlayerViewModel>();
             SimpleIoc.Default.Register<BrowseViewModel>();
             SimpleIoc.Default.Register<SplitChapterViewModel>();
+            SimpleIoc.Default.Register<CreateLibraryViewModel>();
 
             //preload computation intensive view models
             ServiceLocator.Current.GetInstance<BrowseViewModel>();
@@ -51,6 +53,14 @@ namespace BookWave.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SelectLibraryViewModel>();
+            }
+        }
+
+        public CreateLibraryViewModel CreateLibraryViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CreateLibraryViewModel>();
             }
         }
 

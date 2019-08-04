@@ -1,4 +1,4 @@
-﻿using BookWave.Dialogs;
+﻿using BookWave.Desktop.AudiobookManagement.Dialogs;
 using BookWave.ViewModel;
 using System.IO;
 using System.Windows;
@@ -71,6 +71,16 @@ namespace BookWave.Desktop.Pages
             if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
             {
                 viewModel.Destination = dialog.Selected.Metadata.Path;
+            }
+        }
+
+        private void BtnCreateLibrary_Click(object sender, RoutedEventArgs e)
+        {
+            CreateLibraryDialog dialog = new CreateLibraryDialog(this);
+
+            if (dialog.ShowDialog() == true)
+            {
+                
             }
         }
 

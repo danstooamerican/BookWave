@@ -12,9 +12,9 @@
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Padding" Value="3" />
         <Setter Property="TextWrapping" Value="NoWrap"/>
-        <Setter Property="BorderThickness" Value="0.4" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="BorderBrush" Value="{StaticResource TextColorBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LightGray1Brush}" />
         <Setter Property="CaretBrush" Value="{StaticResource TextHighlightColorBrush}" />
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
 

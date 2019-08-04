@@ -25,7 +25,7 @@
                 Padding="4, 3, 3, 4"
                 Margin="1" 
                 Background="{StaticResource Gray1Brush}" 
-                BorderBrush="{StaticResource TextHighlightColorBrush}"
+                BorderBrush="{StaticResource LightBackgroundColorBrush}"
                 BorderThickness="0,0,1,0" />
             <Path 
                 x:Name="Arrow"
@@ -54,9 +54,9 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
         <Setter Property="MinWidth" Value="150"/>
         <Setter Property="MinHeight" Value="25"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="BorderBrush" Value="{StaticResource TextColorBrush}" />
-        <Setter Property="BorderThickness" Value="0.9" />
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource LightGray1Brush}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontSize" Value="14" />
         
         <Setter Property="Template">
@@ -134,6 +134,9 @@
                             <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
                         </Trigger>
+                        <Trigger Property="IsMouseOver"  Value="true">
+                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -145,7 +148,7 @@
     <!-- SimpleStyles: ComboBoxItem -->
     <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -158,6 +161,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Border" Property="Background" Value="{StaticResource LightGray1Brush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

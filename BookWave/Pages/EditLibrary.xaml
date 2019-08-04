@@ -32,35 +32,11 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- Library Selection -->
-            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" 
-                Margin="0,0,0,10" >
-                
-                <TextBlock Style="{StaticResource InformationText}" Text="Library:" 
-                    FontSize="14" VerticalAlignment="Center"
-                    Margin="0,0,10,0" />
-                <ComboBox MinWidth="150" Style="{StaticResource ComboBoxStyle}"                    
-                    VerticalAlignment="Center"
-                    SelectedItem="{Binding Library}">
-
-                    <ComboBox.ItemsSource>
-                        <CompositeCollection>
-                            <!-- reference DataContext of another control which doesn't reference this one -->
-                            <CollectionContainer Collection="{Binding DataContext.Libraries, Source={x:Reference btnBrowseLibrary}}" />
-                            <Button Style="{StaticResource ComboBoxButton}" Content="Create New" 
-                                Command="{Binding DataContext.CreateLibraryCommand, Source={x:Reference btnBrowseLibrary}}"/>
-                        </CompositeCollection>
-                    </ComboBox.ItemsSource>
-                </ComboBox>
-
-            </StackPanel>
-            
             <!-- Options -->
-            <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
+            <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
                 Orientation="Horizontal">
 
                 <Button Content="Browse Library" 
@@ -92,7 +68,7 @@
             </StackPanel>
             
             <!-- Advanced Options -->
-            <Expander Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
+            <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"
                 Style="{StaticResource AnimatedExpander}"
                 Header="Advanced" Foreground="{StaticResource TextHighlightColorBrush}">
                 <Grid>
@@ -180,7 +156,7 @@
             </Expander>            
             
             <!-- Cover Container -->
-            <Grid Grid.Column="0" Grid.Row="2" MinWidth="150" MinHeight="150" 
+            <Grid Grid.Column="0" Grid.Row="1" MinWidth="150" MinHeight="150" 
                 MaxWidth="150" MaxHeight="150" Margin="10" VerticalAlignment="Bottom"
                 Cursor="Hand"
                 MouseLeftButtonUp="ImgCoverImage_MouseUp">
@@ -265,7 +241,7 @@
                 </Grid.Triggers>
             </Grid>
 
-            <Grid Grid.Column="2" Grid.Row="2" Margin="0, 0, 0, 15">
+            <Grid Grid.Column="2" Grid.Row="1" Margin="0, 0, 0, 15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
@@ -274,29 +250,55 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 
+                <!-- Library -->
+                <TextBlock Grid.Column="0" Grid.Row="1"
+                    VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Margin="0, 10, 0, 0"
+                    Style="{StaticResource InputMaskText}" Text="Library:" 
+                    TextTrimming="WordEllipsis" />
+                
+                <ComboBox Grid.Column="1" Grid.Row="1" 
+                    Margin="10,10,10,0" 
+                    Width="{Binding ElementName=txbDestination,Path=ActualWidth}"
+                    HorizontalAlignment="Left" MaxWidth="450"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ComboBoxStyle}"
+                    SelectedItem="{Binding Library}">
+
+                    <ComboBox.ItemsSource>
+                        <CompositeCollection>
+                            <!-- reference DataContext of another control which doesn't reference this one -->
+                            <CollectionContainer Collection="{Binding DataContext.Libraries, Source={x:Reference btnBrowseLibrary}}" />
+                            <Button Style="{StaticResource ComboBoxButton}" Content="Create New" 
+                                Click="BtnCreateLibrary_Click"/>
+                        </CompositeCollection>
+                    </ComboBox.ItemsSource>
+                </ComboBox>
+                
                 <!-- Destination -->
-                <TextBlock  Grid.Column="0" Grid.Row="1"
+                <TextBlock Grid.Column="0" Grid.Row="2"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
                     Style="{StaticResource InputMaskText}" Text="Destination:" 
                     TextTrimming="WordEllipsis" />
 
-                <TextBox Grid.Column="1" Grid.Row="1" x:Name="txbDestination"
+                <TextBox Grid.Column="1" Grid.Row="2" x:Name="txbDestination"
                     Margin="10,10,10,0"
                     Text="{Binding Destination, Mode=TwoWay}"
                     VerticalAlignment="Center"
                     Style="{StaticResource MaskTextBox}"/>
 
                 <!-- Title -->
-                <TextBlock  Grid.Column="0" Grid.Row="2"
+                <TextBlock Grid.Column="0" Grid.Row="3"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
                     Style="{StaticResource InputMaskText}" Text="Title:" 
                     TextTrimming="WordEllipsis" />
 
-                <TextBox Grid.Column="1" Grid.Row="2"
+                <TextBox Grid.Column="1" Grid.Row="3"
                     Margin="10,10,10,0"
                     VerticalAlignment="Center"
                     Text="{Binding Audiobook.Metadata.Title}"
@@ -306,7 +308,7 @@
             
 
             <!-- Drag Area -->
-            <Grid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"
+            <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
                 Margin="5, 20, 0, 20">
 
                 <DataGrid ItemsSource="{Binding Audiobook.Chapters}" 
