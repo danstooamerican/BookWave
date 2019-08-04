@@ -51,7 +51,7 @@
             </Grid.RowDefinitions>
 
             <!-- Destination -->
-            <TextBlock  Grid.Column="0" Grid.Row="0"
+            <TextBlock Grid.Column="0" Grid.Row="0"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
                     Style="{StaticResource InputMaskText}" Text="Destination:" 
@@ -70,7 +70,7 @@
                 ImageSize="20" Margin="10, 10, 0, 0"/>
 
             <!-- Name -->
-            <TextBlock  Grid.Column="0" Grid.Row="1"
+            <TextBlock Grid.Column="0" Grid.Row="1"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
                     Style="{StaticResource InputMaskText}" Text="Name:" 
@@ -78,26 +78,23 @@
 
             <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
                     Margin="10,10,0,0"
-                    Text="{Binding Destination, Mode=TwoWay}"
+                    Text="{Binding Name, Mode=TwoWay}"
                     VerticalAlignment="Center"
                     Style="{StaticResource MaskTextBox}"/>
 
             <!-- Scanner -->
-            <TextBlock  Grid.Column="0" Grid.Row="2"
+            <TextBlock Grid.Column="0" Grid.Row="2"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
-                    Margin="0, 10, 0, 0"
+                    Margin="0, 10, 0, 0" x:Name="lblScanners"
                     Style="{StaticResource InputMaskText}" Text="Scanner:" 
                     TextTrimming="WordEllipsis" />
 
             <ComboBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
+                ItemsSource="{Binding DataContext.LibraryScanners, Source={x:Reference lblScanners}}"
                 Margin="10,10,0,0"
-                Style="{StaticResource ComboBoxStyle}"                    
+                Style="{StaticResource TextComboBoxStyle}"                    
                 VerticalAlignment="Center"
-                SelectedItem="{Binding Library}">
-                <ComboBoxItem Content="Test"/>
-                <ComboBoxItem Content="Test"/>
-                <ComboBoxItem Content="Test"/>
-            </ComboBox>
+                SelectedItem="{Binding Scanner}"/>
 
             <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
                     Content="Add" HorizontalAlignment="Right"

@@ -7,17 +7,17 @@ namespace BookWave.Desktop.AudiobookManagement.Scanner
     {
         public override string GetDescription()
         {
-            return "Default Scanner";
+            return "Makker Scanner";
         }
 
         public override string GetIdentifier()
         {
-            return "BookWave.Scanner.AudiobooksTopScanner";
+            return "Other.Scanner.AudiobooksTopScanner";
         }
 
         public override string GetName()
         {
-            return "Audiobook Top Scanner";
+            return "Makker Scanner";
         }
 
         protected override ICollection<string> GetAudiobookFolders(string path)
@@ -27,7 +27,7 @@ namespace BookWave.Desktop.AudiobookManagement.Scanner
 
         protected override void UpdateAudiobookInfo(Audiobook audiobook)
         {
-            // NOP
+            audiobook.Metadata.Title = "Makker " + audiobook.Metadata.Title;
         }
     }
 }

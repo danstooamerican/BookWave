@@ -1,5 +1,6 @@
 ﻿using BookWave.Controls;
 using BookWave.Desktop.AudiobookManagement;
+using BookWave.Desktop.AudiobookManagement.Scanner;
 using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Util;
 using BookWave.ViewModel;
@@ -160,6 +161,7 @@ namespace BookWave.Desktop
 
         private void AppWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            LibraryScannerFactory.LoadPlugins();
             LibraryManager.Instance.LoadLibraries();
         }
     }

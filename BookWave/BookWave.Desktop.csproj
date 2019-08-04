@@ -104,6 +104,7 @@
     </ApplicationDefinition>
     <Compile Include="AudiobookManagement\Scanner\AudiobooksTopScanner.cs" />
     <Compile Include="AudiobookManagement\Scanner\LibraryScanner.cs" />
+    <Compile Include="AudiobookManagement\Scanner\LibraryScannerFactory.cs" />
     <Compile Include="Dialogs\CreateLibraryDialog.xaml.cs">
       <DependentUpon>CreateLibraryDialog.xaml</DependentUpon>
     </Compile>
@@ -113,6 +114,7 @@
     </Compile>
     <Compile Include="Dialogs\CreateLibraryViewModel.cs" />
     <Compile Include="Exceptions\DeleteMetadataException.cs" />
+    <Compile Include="Exceptions\ScannerNotFoundException.cs" />
     <Compile Include="Exceptions\LibraryNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidArgumentException.cs" />
     <Compile Include="AudiobookManagement\LibraryManager.cs" />

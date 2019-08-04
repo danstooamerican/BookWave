@@ -14,8 +14,6 @@ namespace BookWave.Desktop.AudiobookManagement
     {
         #region Properties
 
-        private readonly string DEFAULT_SCANNER = typeof(AudiobooksTopScanner).FullName;
-
         public readonly int ID;
 
         private string mLibraryPath;
@@ -317,10 +315,10 @@ namespace BookWave.Desktop.AudiobookManagement
                 libraryXML.Add(new XElement("Path", LibraryPath));
             }
 
-            if (!Scanner.GetType().FullName.Equals(DEFAULT_SCANNER))
+            if (!LibraryScannerFactory.GetDefault().GetIdentifier().Equals(Scanner.GetIdentifier()))
             {
                 libraryXML.Add(new XElement("LibraryScanner", Scanner.GetType().FullName));
-            }
+            }            
 
             return libraryXML;
         }
@@ -329,7 +327,15 @@ namespace BookWave.Desktop.AudiobookManagement
         {
             LibraryPath = XMLHelper.GetSingleValue(xmlElement, "Path");
             Name = XMLHelper.GetSingleValue(xmlElement, "Name");
-            Scanner = LibraryScanner.GetInstance(XMLHelper.GetSingleValue(xmlElement, "LibraryScanner", DEFAULT_SCANNER));
+
+            string scannerIdentifier = XMLHelper.GetSingleValue(xmlElement, "LibraryScanner");
+            if (string.IsNullOrEmpty(scannerIdentifier))
+            {
+                Scanner = LibraryScannerFactory.GetDefault();
+            } else
+            {
+                Scanner = LibraryScannerFactory.GetScanner(scannerIdentifier);
+            }            
         }
 
         public int CompareTo(Library other)

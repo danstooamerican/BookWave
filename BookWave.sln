@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWave.Controls", "BookWa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWave.Styles", "BookWaveStyles\BookWave.Styles.csproj", "{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWave.Tests", "BookWave.Tests\BookWave.Tests.csproj", "{8759EC3A-A414-4A4F-A437-DB373BB4B72A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookWave.Tests", "BookWave.Tests\BookWave.Tests.csproj", "{8759EC3A-A414-4A4F-A437-DB373BB4B72A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWave.ScannerPlugins", "BookWave.ScannerPlugins\BookWave.ScannerPlugins.csproj", "{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8759EC3A-A414-4A4F-A437-DB373BB4B72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8759EC3A-A414-4A4F-A437-DB373BB4B72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8759EC3A-A414-4A4F-A437-DB373BB4B72A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
