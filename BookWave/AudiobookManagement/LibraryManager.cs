@@ -132,11 +132,6 @@ namespace BookWave.Desktop.AudiobookManagement
 
                     library.LoadMetadata(progress);                    
                 }
-
-                if (progress != null)
-                {
-                    progress.Report(new UpdateReport());
-                }
             }
         }
 
