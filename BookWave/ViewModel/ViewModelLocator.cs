@@ -95,10 +95,5 @@ namespace BookWave.ViewModel
                 return ServiceLocator.Current.GetInstance<SplitChapterViewModel>();
             }
         }
-
-        public static void Cleanup()
-        {
-            // TODO Clear the ViewModels
-        }
     }
 }

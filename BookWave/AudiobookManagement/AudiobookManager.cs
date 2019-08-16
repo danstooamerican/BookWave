@@ -30,6 +30,7 @@ namespace BookWave.Desktop.AudiobookManagement
             private set { mInstance = value; }
         }
 
+        private object IDLock = new object();
         private int IDCount;
 
         #endregion
@@ -54,9 +55,12 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <returns>unique runtime id for a library</returns>
         private int GetNewID()
         {
-            var temp = IDCount;
-            IDCount++;
-            return temp;
+            lock (IDLock)
+            {
+                var temp = IDCount;
+                IDCount++;
+                return temp;
+            }            
         }
 
         public Audiobook GetAudiobook(string destination)

@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace BookWave.Desktop.AudiobookManagement
@@ -101,19 +103,19 @@ namespace BookWave.Desktop.AudiobookManagement
         }
 
         /// <summary>
-        /// Checks whether this library contains an audiobook with the same id.
+        /// Checks whether this library contains the given audiobook.
         /// </summary>
         /// <param name="audiobook">audiobook which is searched for</param>
-        /// <returns>true if an audiobook with the same id is already added to this library</returns>
+        /// <returns>true if the audiobook is already in the library</returns>
         public bool Contains(Audiobook audiobook)
         {
             return Contains(audiobook.ID);
         }
 
         /// <summary>
-        /// Searches for an audio book with the given path.
+        /// Searches for an audiobook with the given id.
         /// </summary>
-        /// <param name="path">is the path of the audiobook</param>
+        /// <param name="id">id of the audiobook</param>
         /// <returns>audiobook</returns>
         public Audiobook GetAudiobook(int id)
         {
@@ -124,6 +126,10 @@ namespace BookWave.Desktop.AudiobookManagement
             return null;
         }
 
+        /// <summary>
+        /// Returns a list of all audiobooks in this library.
+        /// </summary>
+        /// <returns>list of all audiobooks</returns>
         public ICollection<Audiobook> GetAudiobooks()
         {
             return Audiobooks.Values;
@@ -154,14 +160,18 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <param name="audiobook"></param>
         private void AddAudiobook(Audiobook audiobook)
         {
-            if (!Contains(audiobook) && audiobook != null)
+            if ( !(audiobook == null || Contains(audiobook)) && audiobook.Chapters.Count > 0)
             {
                 if (audiobook.Library != null)
                 {
                     audiobook.Library.RemoveAudiobook(audiobook);
                 }
                 audiobook.Library = this;
-                Audiobooks.Add(audiobook.ID, audiobook);
+
+                lock (Audiobooks)
+                {
+                    Audiobooks.Add(audiobook.ID, audiobook);
+                }                
 
                 SaveMetadata(audiobook);
             }
@@ -239,9 +249,33 @@ namespace BookWave.Desktop.AudiobookManagement
                 throw new FileNotFoundException("Library metadata folder not found at '" + MetadataFolder + "'.");
             }
 
-            foreach (string audiobookFolder in Directory.GetDirectories(MetadataFolder))
+            string[] audiobookFolders = Directory.GetDirectories(MetadataFolder);
+            int threadCount = Math.Max(1, Math.Min(audiobookFolders.Length / 2, Environment.ProcessorCount));
+            int batchSize = (int)Math.Ceiling((double)audiobookFolders.Length / threadCount);
+            Thread[] threads = new Thread[threadCount];
+            
+
+            for (int i = 0; i < threadCount; i++)
             {
-                string audiobookMetadataPath = Path.Combine(audiobookFolder, ConfigurationManager.AppSettings.Get("audiobook_metadata_filename"))
+                int start = batchSize * i;
+                int end = Math.Min((i + 1) * batchSize, audiobookFolders.Length);
+
+                Thread thread = new Thread(() => LoadMetadata(audiobookFolders, start, end, progress));
+                threads[i] = thread;
+                thread.Start();
+            }
+
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
+        }
+
+        private void LoadMetadata(string[] audiobookFolders, int start, int end, IProgress<UpdateReport> progress = null)
+        {
+            for (int i = start; i < end; i++)
+            {
+                string audiobookMetadataPath = Path.Combine(audiobookFolders[i], ConfigurationManager.AppSettings.Get("audiobook_metadata_filename"))
                     + "." + ConfigurationManager.AppSettings.Get("metadata_extensions");
 
                 // ignore folders without audiobook metadata
@@ -251,22 +285,25 @@ namespace BookWave.Desktop.AudiobookManagement
                 }
 
                 Audiobook audiobook = AudiobookManager.Instance.CreateAudiobook(audiobookMetadataPath);
-                audiobook.Metadata.MetadataPath = audiobookFolder;
 
-                string chapterMetadataPath = Path.Combine(audiobookFolder, "chapters");
-                foreach (string chapterXML in Directory.GetFiles(chapterMetadataPath))
+                string chapterMetadataPath = Path.Combine(audiobookFolders[i], "chapters");
+                string[] chapterFiles = Directory.GetFiles(chapterMetadataPath);
+                Parallel.ForEach(chapterFiles, (chapterFile) =>
                 {
-                    Chapter chapter = AudiobookManager.Instance.CreateChapter(chapterXML);
+                    Chapter chapter = AudiobookManager.Instance.CreateChapter(chapterFile);
 
-                    audiobook.Chapters.Add(chapter);
-                }
+                    lock (audiobook)
+                    {
+                        audiobook.Chapters.Add(chapter);
+                    }                    
+                });
 
-                AddAudiobook(audiobook);
+                AddAudiobook(audiobook);                
+            }
 
-                if (progress != null && Audiobooks.Count % 25 == 0)
-                {
-                    progress.Report(new UpdateReport());
-                }
+            if (progress != null)
+            {
+                progress.Report(new UpdateReport());
             }
         }
 

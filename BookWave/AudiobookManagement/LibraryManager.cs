@@ -5,7 +5,9 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace BookWave.Desktop.AudiobookManagement
@@ -35,6 +37,7 @@ namespace BookWave.Desktop.AudiobookManagement
             = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "BookWave", "metadata");
 
+        private object IDLock = new object();
         private int IDCount;
 
         private IDictionary<int, Library> mLibraries;
@@ -114,23 +117,56 @@ namespace BookWave.Desktop.AudiobookManagement
         /// </summary>
         public void LoadLibraries(IProgress<UpdateReport> progress = null)
         {
-            Libraries.Clear();
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
 
-            foreach (string directory in Directory.GetDirectories(MetadataPath))
+            Libraries.Clear();            
+
+            string[] libraryFolders = Directory.GetDirectories(MetadataPath);
+            int threadCount = Math.Max(1, Math.Min(libraryFolders.Length / 25, Environment.ProcessorCount));
+            int batchSize = (int)Math.Ceiling((double)libraryFolders.Length / threadCount);
+            Thread[] threads = new Thread[threadCount];
+
+            for (int i = 0; i < threadCount; i++)
             {
-                string libraryNfo = Path.Combine(directory, ConfigurationManager.AppSettings.Get("library_metadata_filename") +
+                int start = batchSize * i;
+                int end = Math.Min((i + 1) * batchSize, libraryFolders.Length);
+
+                Thread thread = new Thread(() => LoadLibraries(libraryFolders, start, end, progress));
+                threads[i] = thread;
+                thread.Start();
+            }
+
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
+
+            watch.Stop();
+
+            Console.WriteLine(watch.ElapsedMilliseconds);
+        }
+
+        private void LoadLibraries(string[] libraryFolders, int start, int end, IProgress<UpdateReport> progress = null)
+        {
+            for (int i = start; i < end; i++)
+            {
+                string libraryNfo = Path.Combine(libraryFolders[i], ConfigurationManager.AppSettings.Get("library_metadata_filename") +
                     "." + ConfigurationManager.AppSettings.Get("metadata_extensions"));
 
                 if (File.Exists(libraryNfo))
                 {
-                    Library library = new Library(GetNewID(), directory);
+                    Library library = new Library(GetNewID(), libraryFolders[i]);
 
                     XDocument xDocument = XDocument.Load(libraryNfo);
                     library.FromXML(xDocument.Root);
 
-                    Libraries.Add(library.ID, library);
+                    library.LoadMetadata(progress);
 
-                    library.LoadMetadata(progress);                    
+                    lock (Libraries)
+                    {
+                        Libraries.Add(library.ID, library);
+                    }                                        
                 }
             }
         }
@@ -152,9 +188,12 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <returns>unique runtime id for a library</returns>
         private int GetNewID()
         {
-            var temp = IDCount;
-            IDCount++;
-            return temp;
+            lock (IDLock)
+            {
+                var temp = IDCount;
+                IDCount++;
+                return temp;
+            }            
         }
 
         #endregion
