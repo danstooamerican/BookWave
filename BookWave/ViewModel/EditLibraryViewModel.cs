@@ -151,7 +151,7 @@ namespace BookWave.ViewModel
         }
 
         /// <summary>
-        /// Opens a FolderBrowserDialog and sets the FolderPath of the AudiobookFolder.
+        /// Opens a FolderBrowserDialog and sets the Destination property.
         /// </summary>
         private void SelectFolder()
         {

@@ -64,16 +64,20 @@ namespace BookWave.Desktop.AudiobookManagement
 
         #region Methods
 
+        /// <summary>
+        /// Checks whether a library with the given id is registered.
+        /// </summary>
+        /// <param name="libraryId">library id to search for</param>
+        /// <returns>true if a library with this id is found</returns>
         public bool Contains(int libraryId)
         {
             return Libraries.ContainsKey(libraryId);
         }
 
-        public bool Contains(Library library)
-        {
-            return Contains(library.ID);
-        }
-
+        /// <summary>
+        /// Returns a list with all current library objects.
+        /// </summary>
+        /// <returns>list of all loaded libraries</returns>
         public ICollection<Library> GetLibraries()
         {
             List<Library> libraries = new List<Library>(Libraries.Values);
@@ -82,6 +86,12 @@ namespace BookWave.Desktop.AudiobookManagement
             return libraries;
         }
 
+        /// <summary>
+        /// Returns the library with the given id. If no library with this id is found 
+        /// a LibraryNotFoundException is thrown.
+        /// </summary>
+        /// <param name="id">id of the libaray</param>
+        /// <returns>library object with the given id</returns>
         public Library GetLibrary(int id)
         {
             if (Contains(id))
@@ -92,12 +102,20 @@ namespace BookWave.Desktop.AudiobookManagement
             throw new LibraryNotFoundException(id, "not found");
         }
 
+        /// <summary>
+        /// Adds a library with the given parameters to the collection and saves it to the metadata folder.
+        /// </summary>
+        /// <param name="name">Name of the library</param>
+        /// <param name="destination">path to the library folder</param>
+        /// <param name="scanner">the scanner object used to scan the library folder</param>
         public void AddLibrary(string name, string destination, LibraryScanner scanner)
         {
-            Library library = new Library(GetNewID(), Path.Combine(MetadataPath, Guid.NewGuid().ToString()));
-            library.Name = name;
-            library.LibraryPath = destination;
-            library.Scanner = scanner;
+            Library library = new Library(GetNewID(), Path.Combine(MetadataPath, Guid.NewGuid().ToString()))
+            {
+                Name = name,
+                LibraryPath = destination,
+                Scanner = scanner
+            };
 
             Libraries.Add(library.ID, library);
 
@@ -114,18 +132,16 @@ namespace BookWave.Desktop.AudiobookManagement
         /// 
         /// When performing this method all currently created Library objects are discarded and new
         /// ones are created.
+        /// 
+        /// This method uses multithreading for its computation.
         /// </summary>
         public void LoadLibraries(IProgress<UpdateReport> progress = null)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-
             Libraries.Clear();            
 
             string[] libraryFolders = Directory.GetDirectories(MetadataPath);
             int threadCount = Math.Max(1, Math.Min(libraryFolders.Length / 25, Environment.ProcessorCount));
             int batchSize = (int)Math.Ceiling((double)libraryFolders.Length / threadCount);
-            Thread[] threads = new Thread[threadCount];
 
             for (int i = 0; i < threadCount; i++)
             {
@@ -133,20 +149,17 @@ namespace BookWave.Desktop.AudiobookManagement
                 int end = Math.Min((i + 1) * batchSize, libraryFolders.Length);
 
                 Thread thread = new Thread(() => LoadLibraries(libraryFolders, start, end, progress));
-                threads[i] = thread;
                 thread.Start();
             }
-
-            foreach (Thread t in threads)
-            {
-                t.Join();
-            }
-
-            watch.Stop();
-
-            Console.WriteLine(watch.ElapsedMilliseconds);
         }
 
+        /// <summary>
+        /// Loads a section of the library folders from the appdata/metadata folder.
+        /// </summary>
+        /// <param name="libraryFolders">list of paths to library folders</param>
+        /// <param name="start">start index</param>
+        /// <param name="end">end index</param>
+        /// <param name="progress">progress object to give updates to the caller</param>
         private void LoadLibraries(string[] libraryFolders, int start, int end, IProgress<UpdateReport> progress = null)
         {
             for (int i = start; i < end; i++)

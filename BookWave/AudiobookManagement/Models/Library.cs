@@ -73,21 +73,6 @@ namespace BookWave.Desktop.AudiobookManagement
             this.Audiobooks = new Dictionary<int, Audiobook>();
         }
 
-        /// <summary>
-        /// Creates a new Library object with an id, name, metadata folder path and library folder path.
-        /// </summary>
-        /// <param name="id">Intern id for the library</param>
-        /// <param name="name">Display name of the library</param>
-        /// <param name="metadataFolder">Folder where all metadata files for this library are located</param>
-        /// <param name="libraryPath">Path to the folder where all audio files for this library are located.
-        /// This folder is manages by the user.</param>
-        public Library(int id, string name, string metadataFolder, string libraryPath) : this(id, metadataFolder)
-        {
-            this.Name = name;
-            this.LibraryPath = libraryPath;
-            this.Audiobooks = new Dictionary<int, Audiobook>();
-        }
-
         #endregion
 
         #region Methods
@@ -110,20 +95,6 @@ namespace BookWave.Desktop.AudiobookManagement
         public bool Contains(Audiobook audiobook)
         {
             return Contains(audiobook.ID);
-        }
-
-        /// <summary>
-        /// Searches for an audiobook with the given id.
-        /// </summary>
-        /// <param name="id">id of the audiobook</param>
-        /// <returns>audiobook</returns>
-        public Audiobook GetAudiobook(int id)
-        {
-            if (Contains(id))
-            {
-                return Audiobooks[id];
-            }
-            return null;
         }
 
         /// <summary>
@@ -251,9 +222,7 @@ namespace BookWave.Desktop.AudiobookManagement
 
             string[] audiobookFolders = Directory.GetDirectories(MetadataFolder);
             int threadCount = Math.Max(1, Math.Min(audiobookFolders.Length / 2, Environment.ProcessorCount));
-            int batchSize = (int)Math.Ceiling((double)audiobookFolders.Length / threadCount);
-            Thread[] threads = new Thread[threadCount];
-            
+            int batchSize = (int)Math.Ceiling((double)audiobookFolders.Length / threadCount);            
 
             for (int i = 0; i < threadCount; i++)
             {
@@ -261,16 +230,17 @@ namespace BookWave.Desktop.AudiobookManagement
                 int end = Math.Min((i + 1) * batchSize, audiobookFolders.Length);
 
                 Thread thread = new Thread(() => LoadMetadata(audiobookFolders, start, end, progress));
-                threads[i] = thread;
                 thread.Start();
-            }
-
-            foreach (Thread t in threads)
-            {
-                t.Join();
             }
         }
 
+        /// <summary>
+        /// Loads a section of the audiobook folders from the appdata/metadata/library folder.
+        /// </summary>
+        /// <param name="audiobookFolders">list of all audiobook folders</param>
+        /// <param name="start">start index</param>
+        /// <param name="end">end index</param>
+        /// <param name="progress">progress object to give updates to the caller</param>
         private void LoadMetadata(string[] audiobookFolders, int start, int end, IProgress<UpdateReport> progress = null)
         {
             for (int i = start; i < end; i++)
@@ -378,6 +348,11 @@ namespace BookWave.Desktop.AudiobookManagement
             }            
         }
 
+        /// <summary>
+        /// Compares two library objects by their names.
+        /// </summary>
+        /// <param name="other">another library</param>
+        /// <returns>result of the string CompareTo method</returns>
         public int CompareTo(Library other)
         {
             if (other == null)
@@ -388,6 +363,10 @@ namespace BookWave.Desktop.AudiobookManagement
             return Name.CompareTo(other.Name);
         }
 
+        /// <summary>
+        /// Returns the string representation of a library.
+        /// </summary>
+        /// <returns>the name of the library</returns>
         public override string ToString()
         {
             return Name;
