@@ -108,7 +108,7 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <param name="name">Name of the library</param>
         /// <param name="destination">path to the library folder</param>
         /// <param name="scanner">the scanner object used to scan the library folder</param>
-        public void AddLibrary(string name, string destination, LibraryScanner scanner)
+        public Library AddLibrary(string name, string destination, LibraryScanner scanner)
         {
             Library library = new Library(GetNewID(), Path.Combine(MetadataPath, Guid.NewGuid().ToString()))
             {
@@ -124,6 +124,8 @@ namespace BookWave.Desktop.AudiobookManagement
                 + "." + ConfigurationManager.AppSettings.Get("metadata_extensions")));
 
             library.ScanLibrary();
+
+            return library;
         }
 
         /// <summary>

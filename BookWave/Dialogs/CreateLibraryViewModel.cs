@@ -61,6 +61,14 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
             set { mScanner = value; }
         }
 
+        private Library mLibrary;
+        public Library Library
+        {
+            get { return mLibrary; }
+            set { mLibrary = value; }
+        }
+
+
         public delegate void LibraryCreated();
 
         public event LibraryCreated LibraryCreatedEvent;
@@ -91,11 +99,8 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
 
         private void AddLibrary()
         {
-            Task.Factory.StartNew(() => {
-                LibraryManager.Instance.AddLibrary(Name, Destination, Scanner);
-            });
-
-            LibraryCreatedEvent();
+            Library = LibraryManager.Instance.AddLibrary(Name, Destination, Scanner);
+            LibraryCreatedEvent();          
         }
 
         private bool CanAddLibrary()

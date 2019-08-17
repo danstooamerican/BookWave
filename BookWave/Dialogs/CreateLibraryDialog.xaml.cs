@@ -12,6 +12,8 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
 
         private CreateLibraryViewModel viewModel;
 
+        public Library CreatedLibrary { get { return viewModel.Library; } }
+
         /// <summary>
         /// Creates a new SelectLibraryItemDialog.  
         /// </summary>

@@ -205,6 +205,7 @@ namespace BookWave.ViewModel
             if (dialog.ShowDialog() == true)
             {
                 RaisePropertyChanged(nameof(Libraries));
+                Library = dialog.CreatedLibrary;
             }
         }
 
