@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -24,18 +26,49 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
             set { Set<ICollectionView>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
+        private Library mLibrary;
+        public Library Library
+        {
+            get { return mLibrary; }
+            set
+            {
+                Set<Library>(() => this.Library, ref mLibrary, value);
+                UpdateBrowseList();
+            }
+        }
+
+        public ICollection<Library> Libraries {
+            get
+            {
+                return LibraryManager.Instance.GetLibraries();
+            }
+        }
+
         #region Methods
 
-        public void UpdateAudiobookList()
+        public void UpdateBrowseList()
         {
-            var t = Task.Factory.StartNew(() =>
+            if (Library != null)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                Task.Factory.StartNew(() =>
                 {
-                    Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.GetAllAudiobooks());
-                    Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
-                }));
-            });
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Audiobooks = CollectionViewSource.GetDefaultView(Library.GetAudiobooks());
+                        Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
+                    }));
+                });
+            }            
+        }
+
+        public void UpdateLibrariesList()
+        {
+            RaisePropertyChanged(nameof(Libraries));
+
+            if (Library == null && Libraries.Count > 0)
+            {
+                Library = Libraries.ElementAt(0);
+            }
         }
 
         #endregion

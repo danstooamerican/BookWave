@@ -78,21 +78,6 @@ namespace BookWave.Desktop.AudiobookManagement
             return null;
         }
 
-        public ICollection<Audiobook> GetAllAudiobooks()
-        {
-            ICollection<Audiobook> audiobooks = new List<Audiobook>();
-
-            foreach (Library library in LibraryManager.Instance.GetLibraries())
-            {
-                foreach (Audiobook audiobook in library.GetAudiobooks())
-                {
-                    audiobooks.Add(audiobook);
-                }
-            }
-
-            return audiobooks;
-        }
-
         public Audiobook CreateAudiobook()
         {
             return new Audiobook(GetNewID());

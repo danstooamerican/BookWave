@@ -2,7 +2,10 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -28,6 +31,24 @@ namespace BookWave.ViewModel
             set { Set<ICollectionView>(() => this.Audiobooks, ref mAudiobooks, value); }
         }
 
+        private Library mLibrary;
+
+        public Library Library
+        {
+            get { return mLibrary; }
+            set {
+                Set<Library>(() => this.Library, ref mLibrary, value);
+                UpdateBrowseList();
+            }
+        }
+
+        public ICollection<Library> Libraries {
+            get
+            {
+                return LibraryManager.Instance.GetLibraries();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -49,14 +70,27 @@ namespace BookWave.ViewModel
 
         public void UpdateBrowseList()
         {
-            var t = Task.Factory.StartNew(() =>
+            if (Library != null)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                Task.Factory.StartNew(() =>
                 {
-                    Audiobooks = CollectionViewSource.GetDefaultView(AudiobookManager.Instance.GetAllAudiobooks());
-                    Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
-                }));
-            });
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Audiobooks = CollectionViewSource.GetDefaultView(Library.GetAudiobooks());
+                        Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
+                    }));
+                });
+            }            
+        }
+
+        public void UpdateLibrariesList()
+        {
+            RaisePropertyChanged(nameof(Libraries));
+
+            if (Library == null && Libraries.Count > 0)
+            {
+                Library = Libraries.ElementAt(0);
+            }
         }
 
         private void EditSelected(Audiobook audiobook)

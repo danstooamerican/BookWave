@@ -43,7 +43,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
-                                            From="4" To="0" Duration="0:0:0.3" />
+                                            From="4" To="0" Duration="0:0:0.1" />
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>

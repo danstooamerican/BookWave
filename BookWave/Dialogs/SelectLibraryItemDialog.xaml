@@ -24,6 +24,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -37,7 +38,23 @@
             Margin="5"
             WindowChrome.IsHitTestVisibleInChrome="True"/>
 
-        <ListView Grid.Column="0" Grid.Row="1" 
+        <!-- Library Selection -->
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1"
+            Margin="27, 10">
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{StaticResource InputMaskText}" Text="Library:" 
+                TextTrimming="WordEllipsis" />
+
+            <ComboBox Margin="10,0,10,0"
+                MinWidth="300"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Libraries}"
+                Style="{StaticResource ComboBoxStyle}"
+                SelectedItem="{Binding Library}" />
+        </StackPanel>
+
+        <ListView Grid.Column="0" Grid.Row="2" 
             VirtualizingStackPanel.IsVirtualizing="True"
             BorderBrush="Transparent" Background="Transparent"
             VerticalContentAlignment="Top" HorizontalContentAlignment="Left"

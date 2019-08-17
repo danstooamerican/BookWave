@@ -24,10 +24,27 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <ListView Grid.Column="0" Grid.Row="0"    
+
+        <!-- Library Selection -->
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0"
+            Margin="27, 10">            
+            <TextBlock
+                VerticalAlignment="Center"
+                Style="{StaticResource InputMaskText}" Text="Library:" 
+                TextTrimming="WordEllipsis" />
+
+            <ComboBox Margin="10,0,10,0"
+                MinWidth="300"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Libraries}"
+                Style="{StaticResource ComboBoxStyle}"
+                SelectedItem="{Binding Library}" />
+        </StackPanel>
+
+        <ListView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" 
             x:Name="lstLibrary"
             VirtualizingStackPanel.IsVirtualizing="True"
             BorderBrush="Transparent" Background="Transparent"

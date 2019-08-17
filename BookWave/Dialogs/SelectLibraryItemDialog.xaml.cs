@@ -54,7 +54,8 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
         /// <param name="e"></param>
         protected new void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            viewModel.UpdateAudiobookList();
+            viewModel.UpdateLibrariesList();
+            viewModel.UpdateBrowseList();
 
             base.Window_Loaded(sender, e);
         }

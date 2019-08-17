@@ -41,6 +41,7 @@ namespace BookWave.Desktop.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            viewModel.UpdateLibrariesList();
             viewModel.UpdateBrowseList();
         }
     }
