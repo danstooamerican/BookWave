@@ -27,6 +27,10 @@ namespace BookWave.Desktop.AudiobookManagement
             set { Set<string>(() => this.Description, ref mDescription, value); }
         }
 
+        /// <summary>
+        /// For audiobooks this property represents the full path to the metadata folder.
+        /// For chapters this property only contains the chapter metadata file name with extension.
+        /// </summary>
         private string mMetadataPath;
         public string MetadataPath
         {

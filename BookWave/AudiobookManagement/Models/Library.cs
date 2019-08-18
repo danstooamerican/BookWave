@@ -198,15 +198,58 @@ namespace BookWave.Desktop.AudiobookManagement
         /// </summary>
         public void ScanLibrary()
         {
-            Audiobooks.Clear();
-            foreach (string audiobookFolder in Directory.GetDirectories(MetadataFolder))
+            // build index to access audiobooks by their paths
+            Dictionary<string, Audiobook> audiobookIndex = new Dictionary<string, Audiobook>();
+            foreach (Audiobook audiobook in GetAudiobooks())
             {
-                DeleteMetadataFolder(audiobookFolder);
+                audiobookIndex.Add(audiobook.Metadata.Path, audiobook);
             }
 
+            // look what changed
             foreach (Audiobook audiobook in Scanner.ScanLibrary(LibraryPath))
             {
-                UpdateAudiobook(audiobook);
+                if (audiobookIndex.ContainsKey(audiobook.Metadata.Path))
+                {
+                    Audiobook changedAudiobook = audiobookIndex[audiobook.Metadata.Path];
+
+                    // build index to access chapters by their paths
+                    Dictionary<string, Chapter> chapterIndex = new Dictionary<string, Chapter>();
+                    foreach (Chapter chapter in changedAudiobook.Chapters)
+                    {
+                        chapterIndex.Add(chapter.AudioPath.Path, chapter);
+                    }
+
+                    foreach (Chapter chapter in audiobook.Chapters)
+                    {
+                        if (chapterIndex.ContainsKey(chapter.AudioPath.Path))
+                        {
+                            chapterIndex.Remove(chapter.AudioPath.Path);                            
+                        } else
+                        {
+                            changedAudiobook.Chapters.Add(chapter);
+                        }
+                    }
+
+                    // delete unused files
+                    foreach (Chapter chapter in chapterIndex.Values)
+                    {
+                        changedAudiobook.Chapters.Remove(chapter);
+                        File.Delete(Path.Combine(changedAudiobook.Metadata.MetadataPath, "chapters", chapter.Metadata.MetadataPath));
+                    }
+
+                    SaveMetadata(changedAudiobook);
+
+                    audiobookIndex.Remove(audiobook.Metadata.Path);
+                } else
+                {
+                    UpdateAudiobook(audiobook);
+                }                
+            }
+
+            // delete unused audiobooks
+            foreach (Audiobook audiobook in audiobookIndex.Values)
+            {
+                RemoveAudiobook(audiobook);
             }
         }
 

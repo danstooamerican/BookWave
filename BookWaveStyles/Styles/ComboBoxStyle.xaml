@@ -151,6 +151,11 @@
         <TextBlock Text="{Binding}" TextAlignment="Left" TextTrimming="WordEllipsis"/>
     </DataTemplate>
 
+    <DataTemplate x:Key="LibraryContentTemplate">
+        <TextBlock Text="{Binding}" TextAlignment="Left" TextTrimming="WordEllipsis"
+            ToolTip="{Binding LibraryPath}" />        
+    </DataTemplate>
+
     <DataTemplate x:Key="LibraryScannerTemplate">
         <Grid ToolTip="{Binding Description}">
             <Grid.RowDefinitions>

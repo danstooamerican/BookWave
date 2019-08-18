@@ -46,12 +46,16 @@
                 Style="{StaticResource InputMaskText}" Text="Library:" 
                 TextTrimming="WordEllipsis" />
 
-            <ComboBox Margin="10,0,10,0"
+            <ComboBox Margin="10,0"
                 MinWidth="300"
                 VerticalAlignment="Center"
                 ItemsSource="{Binding Libraries}"
                 Style="{StaticResource ComboBoxStyle}"
+                ItemTemplate="{StaticResource LibraryContentTemplate}"
                 SelectedItem="{Binding Library}" />
+
+            <Button Style="{StaticResource RoundedButton}" Content="Scan Library"
+                Command="{Binding ScanLibraryCommand}"/>
         </StackPanel>
 
         <ListView Grid.Column="0" Grid.Row="2" 

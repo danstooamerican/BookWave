@@ -151,6 +151,7 @@
     <Compile Include="Util\WindowResizer.cs" />
     <Compile Include="Util\XMLHelper.cs" />
     <Compile Include="Util\XMLSaveObject.cs" />
+    <Compile Include="ViewModel\BrowseViewModelBase.cs" />
     <Compile Include="ViewModel\SplitChapterViewModel.cs" />
     <Compile Include="ViewModel\EditLibraryViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
