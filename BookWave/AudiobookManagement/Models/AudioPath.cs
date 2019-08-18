@@ -27,20 +27,7 @@ namespace BookWave.Desktop.AudiobookManagement
             get { return mPath; }
             set
             {
-                if (File.Exists(value))
-                {
-                    Set<string>(() => this.Path, ref mPath, value);
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        Set<string>(() => this.Path, ref mPath, string.Empty);
-                    } else
-                    {
-                        throw new InvalidArgumentException(value, "is not a valid path.");
-                    }                    
-                }
+                Set<string>(() => this.Path, ref mPath, value);                
             }
         }
 

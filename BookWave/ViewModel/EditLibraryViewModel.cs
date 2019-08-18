@@ -28,20 +28,19 @@ namespace BookWave.ViewModel
             get { return mDestination; }
             set
             {
-                if (Directory.Exists(value))
+                Set<string>(() => this.Destination, ref mDestination, value);
+
+                var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Destination);
+                if (tmpAudiobook != null)
                 {
-                    Set<string>(() => this.Destination, ref mDestination, value.Trim());
-                    AnalyzeFolder();
-                }
-                else
+                    Audiobook = (Audiobook)tmpAudiobook.Clone();
+                    Library = Audiobook.Library;
+                } else
                 {
-                    if (value != null && value.Equals(string.Empty))
-                    {
-                        Set<string>(() => this.Destination, ref mDestination, value);
-                        Audiobook = AudiobookManager.Instance.CreateAudiobook();
-                        UpdateIsInLibrary();
-                    }
+                    Audiobook.Metadata.Path = Destination;
                 }
+
+                UpdateIsInLibrary();
             }
         }
 
@@ -160,33 +159,6 @@ namespace BookWave.ViewModel
             {
                 Destination = folderBrowserDialog.SelectedPath;
             }
-        }
-
-        /// <summary>
-        /// Analyzes folder for Audiobook.
-        /// </summary>
-        public void AnalyzeFolder()
-        {
-            var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Destination);
-            if (tmpAudiobook != null)
-            {
-                Audiobook = (Audiobook)tmpAudiobook.Clone();
-            }
-            else
-            {
-                Audiobook = AudiobookManager.Instance.CreateAudiobook();
-                Audiobook.Metadata.Path = Destination;
-                Audiobook.SetChapters(new ObservableCollection<Chapter>(Library.Scanner.ScanAudiobookFolder(Destination)));
-
-                if (Audiobook.Metadata.Title.Equals(string.Empty))
-                {
-                    Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
-                }
-            }
-
-            Library = Audiobook.Library;
-
-            UpdateIsInLibrary();
         }
 
         private void BrowseLibrary()

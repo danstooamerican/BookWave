@@ -55,7 +55,16 @@
                 SelectedItem="{Binding Library}" />
 
             <Button Style="{StaticResource RoundedButton}" Content="Scan Library"
-                Command="{Binding ScanLibraryCommand}"/>
+                x:Name="btnScanLibrary" ContextMenuService.Placement="Bottom"
+                Command="{Binding ScanLibraryCommand}">
+
+                <Button.ContextMenu>
+                    <ContextMenu Style="{StaticResource ContextMenuStyle}">
+                        <MenuItem Header="Hard Scan" 
+                            Command="{Binding HardScanLibraryCommand}"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
         </StackPanel>
 
         <ListView Grid.Column="0" Grid.Row="2" 

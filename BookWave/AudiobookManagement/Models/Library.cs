@@ -193,10 +193,11 @@ namespace BookWave.Desktop.AudiobookManagement
         }
 
         /// <summary>
-        /// Uses the set scanner object to scan the library folder for new files. If new files are found corresponding 
+        /// Uses the scanner object to scan the library folder for new files. If new files are found corresponding 
         /// metadata files are created.
         /// </summary>
-        public void ScanLibrary()
+        /// <param name="isForce">if set to true all files which are not found will be deleted permanently</param>
+        public void ScanLibrary(bool hardScan = false)
         {
             // build index to access audiobooks by their paths
             Dictionary<string, Audiobook> audiobookIndex = new Dictionary<string, Audiobook>();
@@ -230,12 +231,15 @@ namespace BookWave.Desktop.AudiobookManagement
                         }
                     }
 
-                    // delete unused files
-                    foreach (Chapter chapter in chapterIndex.Values)
+                    if (hardScan)
                     {
-                        changedAudiobook.Chapters.Remove(chapter);
-                        File.Delete(Path.Combine(changedAudiobook.Metadata.MetadataPath, "chapters", chapter.Metadata.MetadataPath));
-                    }
+                        // delete unused files
+                        foreach (Chapter chapter in chapterIndex.Values)
+                        {
+                            changedAudiobook.Chapters.Remove(chapter);
+                            File.Delete(Path.Combine(changedAudiobook.Metadata.MetadataPath, "chapters", chapter.Metadata.MetadataPath));
+                        }
+                    }                    
 
                     SaveMetadata(changedAudiobook);
 
@@ -246,11 +250,14 @@ namespace BookWave.Desktop.AudiobookManagement
                 }                
             }
 
-            // delete unused audiobooks
-            foreach (Audiobook audiobook in audiobookIndex.Values)
+            if (hardScan)
             {
-                RemoveAudiobook(audiobook);
-            }
+                // delete unused audiobooks
+                foreach (Audiobook audiobook in audiobookIndex.Values)
+                {
+                    RemoveAudiobook(audiobook);
+                }
+            }            
         }
 
         /// <summary>

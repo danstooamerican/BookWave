@@ -51,7 +51,7 @@
     <Compile Include="Converter\ByAuthorsConverter.cs" />
     <Compile Include="Converter\AddUpdateConverter.cs" />
     <Compile Include="Converter\ChaptersToVisibleConverter.cs" />
-    <Compile Include="Converter\RemoveVisibilityConverter.cs" />
+    <Compile Include="Converter\BoolVisibilityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetOpacityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetTopBarVisibilityConverter.cs" />
     <Compile Include="Converter\DoubleToBoolConverter.cs" />
@@ -133,7 +133,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Misc\warning.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Player\sampleCoverOld.jpg" />
   </ItemGroup>

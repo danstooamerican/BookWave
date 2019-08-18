@@ -27,18 +27,14 @@ namespace BookWave.Desktop.AudiobookManagement
             get { return mPath; }
             set
             {
-                if (Directory.Exists(value))
-                {
-                    Set<string>(() => this.Path, ref mPath, value.Trim());
-                }
-                else
-                {
-                    if (value != null && value.Equals(string.Empty))
-                    {
-                        Set<string>(() => this.Path, ref mPath, value);
-                    }
-                }
+                Set<string>(() => this.Path, ref mPath, value.Trim());
+                RaisePropertyChanged(nameof(PathNotValid));
             }
+        }
+
+        public bool PathNotValid
+        {
+            get { return !Directory.Exists(Path); }
         }
 
         private string mGenre;

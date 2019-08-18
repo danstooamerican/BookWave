@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace BookWave.Styles.Converter
 {
-    class RemoveVisibilityConverter : IValueConverter
+    class BoolVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

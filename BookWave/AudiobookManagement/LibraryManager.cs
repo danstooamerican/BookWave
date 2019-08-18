@@ -203,12 +203,15 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <returns>unique runtime id for a library</returns>
         private int GetNewID()
         {
+            int temp;
+
             lock (IDLock)
             {
-                var temp = IDCount;
-                IDCount++;
-                return temp;
-            }            
+                temp = IDCount;
+                IDCount++;                
+            }
+
+            return temp;
         }
 
         #endregion

@@ -55,6 +55,7 @@ namespace BookWave.ViewModel
         #region Commands
 
         public ICommand ScanLibraryCommand { private set; get; }
+        public ICommand HardScanLibraryCommand { private set; get; }
 
         #endregion
 
@@ -62,7 +63,8 @@ namespace BookWave.ViewModel
 
         public BrowseViewModelBase()
         {
-            ScanLibraryCommand = new RelayCommand(ScanLibrary, CanScanLibrary);
+            ScanLibraryCommand = new RelayCommand(() => { ScanLibrary(false); }, CanScanLibrary);
+            HardScanLibraryCommand = new RelayCommand(() => { ScanLibrary(true); }, CanScanLibrary);
         }
 
         #endregion
@@ -84,10 +86,10 @@ namespace BookWave.ViewModel
             }
         }
 
-        private void ScanLibrary()
+        private void ScanLibrary(bool hardScan)
         {
             Task.Factory.StartNew(() => {
-                Library.ScanLibrary();
+                Library.ScanLibrary(hardScan);
             }).ContinueWith((e) => {
                 UpdateBrowseList();
             });            
