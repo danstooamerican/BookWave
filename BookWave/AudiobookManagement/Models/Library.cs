@@ -3,6 +3,7 @@ using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -70,7 +71,7 @@ namespace BookWave.Desktop.AudiobookManagement
             this.LibraryPath = string.Empty;
             this.mMetadataFolder = metadataFolder;
             Directory.CreateDirectory(metadataFolder);
-            this.Audiobooks = new Dictionary<int, Audiobook>();
+            this.Audiobooks = new ConcurrentDictionary<int, Audiobook>();
         }
 
         #endregion
@@ -131,6 +132,8 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <param name="audiobook"></param>
         private void AddAudiobook(Audiobook audiobook)
         {
+            Console.WriteLine("Adding audiobook " + audiobook.Metadata.Path + " with ID " + audiobook.ID);
+
             if ( !(audiobook == null || Contains(audiobook)) && audiobook.Chapters.Count > 0)
             {
                 if (audiobook.Library != null)
@@ -139,10 +142,7 @@ namespace BookWave.Desktop.AudiobookManagement
                 }
                 audiobook.Library = this;
 
-                lock (Audiobooks)
-                {
-                    Audiobooks.Add(audiobook.ID, audiobook);
-                }                
+                Audiobooks.Add(audiobook.ID, audiobook);
 
                 SaveMetadata(audiobook);
             }
@@ -196,7 +196,7 @@ namespace BookWave.Desktop.AudiobookManagement
         /// Uses the scanner object to scan the library folder for new files. If new files are found corresponding 
         /// metadata files are created.
         /// </summary>
-        /// <param name="isForce">if set to true all files which are not found will be deleted permanently</param>
+        /// <param name="hardScan">if set to true all files which are not found will be deleted permanently</param>
         public void ScanLibrary(bool hardScan = false)
         {
             // build index to access audiobooks by their paths
@@ -272,7 +272,7 @@ namespace BookWave.Desktop.AudiobookManagement
 
             string[] audiobookFolders = Directory.GetDirectories(MetadataFolder);
             int threadCount = Math.Max(1, Math.Min(audiobookFolders.Length / 2, Environment.ProcessorCount));
-            int batchSize = (int)Math.Ceiling((double)audiobookFolders.Length / threadCount);            
+            int batchSize = (int)Math.Ceiling((double)audiobookFolders.Length / threadCount);
 
             for (int i = 0; i < threadCount; i++)
             {
@@ -280,6 +280,7 @@ namespace BookWave.Desktop.AudiobookManagement
                 int end = Math.Min((i + 1) * batchSize, audiobookFolders.Length);
 
                 Thread thread = new Thread(() => LoadMetadata(audiobookFolders, start, end, progress));
+                thread.IsBackground = true;
                 thread.Start();
             }
         }
@@ -311,11 +312,7 @@ namespace BookWave.Desktop.AudiobookManagement
                 Parallel.ForEach(chapterFiles, (chapterFile) =>
                 {
                     Chapter chapter = AudiobookManager.Instance.CreateChapter(chapterFile);
-
-                    lock (audiobook)
-                    {
-                        audiobook.Chapters.Add(chapter);
-                    }                    
+                    audiobook.Chapters.Add(chapter);
                 });
 
                 AddAudiobook(audiobook);                

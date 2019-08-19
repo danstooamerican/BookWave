@@ -3,6 +3,7 @@ using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -56,7 +57,7 @@ namespace BookWave.Desktop.AudiobookManagement
         private LibraryManager()
         {
             IDCount = 0;
-            Libraries = new Dictionary<int, Library>();
+            Libraries = new ConcurrentDictionary<int, Library>();
         }
 
         #endregion
@@ -150,6 +151,7 @@ namespace BookWave.Desktop.AudiobookManagement
                 int end = Math.Min((i + 1) * batchSize, libraryFolders.Length);
 
                 Thread thread = new Thread(() => LoadLibraries(libraryFolders, start, end, progress));
+                thread.IsBackground = true;
                 thread.Start();
             }
         }
@@ -177,10 +179,7 @@ namespace BookWave.Desktop.AudiobookManagement
 
                     library.LoadMetadata(progress);
 
-                    lock (Libraries)
-                    {
-                        Libraries.Add(library.ID, library);
-                    }                                        
+                    Libraries.Add(library.ID, library);
                 }
             }
         }

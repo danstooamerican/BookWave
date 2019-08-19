@@ -1,6 +1,7 @@
 ﻿using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
@@ -34,14 +35,14 @@ namespace BookWave.Desktop.AudiobookManagement
             set { mLibrary = value; }
         }
 
-        private ObservableCollection<Chapter> mChapters;
+        private ICollection<Chapter> mChapters;
         /// <summary>
         /// A list of all chapters in the audiobook.
         /// </summary>
-        public ObservableCollection<Chapter> Chapters
+        public ICollection<Chapter> Chapters
         {
             get { return mChapters; }
-            private set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
+            private set { Set<ICollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
         }
 
         /// <summary>
@@ -65,7 +66,7 @@ namespace BookWave.Desktop.AudiobookManagement
         internal Audiobook(int id, Library library = null)
         {
             mID = id;
-            Chapters = new ObservableCollection<Chapter>();
+            Chapters = new SynchronizedCollection<Chapter>();
             Metadata = new AudiobookMetadata();
             Library = library;
         }

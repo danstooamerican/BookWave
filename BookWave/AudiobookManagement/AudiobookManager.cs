@@ -1,9 +1,11 @@
 ﻿using ATL;
 using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace BookWave.Desktop.AudiobookManagement
@@ -30,8 +32,9 @@ namespace BookWave.Desktop.AudiobookManagement
             private set { mInstance = value; }
         }
 
-        private readonly object IDLock = new object();
+        private static readonly object IDLock = new object(); // TODO
         private int IDCount;
+        // private Semaphore IDsemaphore = new Semaphore(1, 1); TODO
 
         #endregion
 
@@ -50,20 +53,29 @@ namespace BookWave.Desktop.AudiobookManagement
         #region Methods
 
         /// <summary>
-        /// Creates a new Library id. This method uses an auto increment method.
+        /// Creates a new audiobook id. This method uses an auto increment method.
         /// </summary>
-        /// <returns>unique runtime id for a library</returns>
+        /// <returns>unique runtime id for an audiobook</returns>
         private int GetNewID()
         {
-            int temp;
+            //Console.WriteLine("Before " + IDCount);
+            //int id = Interlocked.Increment(ref IDCount);
+            //Console.WriteLine("After " + id + " count " + IDCount);
+            //return id;
 
-            lock (IDLock)
+            lock(IDLock)
             {
-                temp = IDCount;
-                IDCount++;                
+                IDCount++;
+                Console.WriteLine("During " + IDCount);
+                return IDCount;
             }
 
-            return temp;
+            //IDsemaphore.WaitOne();
+            //IDCount++;
+            //Console.WriteLine("During " + IDCount);
+            //var temp = IDCount;
+            //IDsemaphore.Release();
+            //return temp;
         }
 
         public Audiobook GetAudiobook(string destination)
