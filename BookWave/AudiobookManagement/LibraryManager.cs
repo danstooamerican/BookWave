@@ -37,7 +37,7 @@ namespace BookWave.Desktop.AudiobookManagement
             = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "BookWave", "metadata");
 
-        private object IDLock = new object();
+        private readonly object IDLock = new object();
         private int IDCount;
 
         private IDictionary<int, Library> mLibraries;

@@ -30,7 +30,7 @@ namespace BookWave.Desktop.AudiobookManagement
             private set { mInstance = value; }
         }
 
-        private object IDLock = new object();
+        private readonly object IDLock = new object();
         private int IDCount;
 
         #endregion
