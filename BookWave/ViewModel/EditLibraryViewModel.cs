@@ -4,14 +4,13 @@ using BookWave.Desktop.Exceptions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
-using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Image = System.Drawing.Image;
@@ -36,14 +35,16 @@ namespace BookWave.ViewModel
                 {
                     Audiobook = (Audiobook)tmpAudiobook.Clone();
                     Library = Audiobook.Library;
-                } else
+                }
+                else
                 {
                     Audiobook.Metadata.Path = Destination;
                 }
             }
         }
 
-        public ICollection<Library> Libraries {
+        public ICollection<Library> Libraries
+        {
             get
             {
                 return LibraryManager.Instance.GetLibraries();
@@ -84,6 +85,14 @@ namespace BookWave.ViewModel
             set { mPage = value; }
         }
 
+        private ICollectionView mChapters;
+        public ICollectionView Chapters
+        {
+            get { return mChapters; }
+            set { Set<ICollectionView>(() => this.Chapters, ref mChapters, value); }
+        }
+
+
         #endregion
 
         #region Commands
@@ -116,7 +125,7 @@ namespace BookWave.ViewModel
             if (LibraryManager.Instance.GetLibraries().Count > 0)
             {
                 Library = LibraryManager.Instance.GetLibrary(0);
-            }           
+            }
 
             SelectFolderCommand = new RelayCommand(SelectFolder, CanSelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
@@ -137,6 +146,16 @@ namespace BookWave.ViewModel
         {
             RaisePropertyChanged(nameof(IsInLibrary));
             RaisePropertyChanged(nameof(AudiobookSelected));
+            Task.Factory.StartNew(() =>
+            {
+                System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Chapters = CollectionViewSource.GetDefaultView(Audiobook.Chapters);
+                    Chapters.SortDescriptions.Clear();
+                    Chapters.SortDescriptions.Add(new SortDescription("Metadata.TrackNumber", ListSortDirection.Ascending));
+                }));
+            });
+
         }
 
         /// <summary>
@@ -224,7 +243,7 @@ namespace BookWave.ViewModel
         private void ChangeCoverImage(Image image)
         {
             string saveToPath = Path.Combine(Audiobook.Metadata.MetadataPath, "cover.jpg");
-            
+
             Image resized = BookWave.Desktop.Util.ImageConverter.Resize(image, 512, 512);
 
             Task.Factory.StartNew(() =>
@@ -252,7 +271,8 @@ namespace BookWave.ViewModel
             if (Clipboard.ContainsImage())
             {
                 image = Clipboard.GetImage();
-            } else
+            }
+            else
             {
                 IDataObject myDataObject = Clipboard.GetDataObject();
                 string[] files = (string[])myDataObject.GetData(DataFormats.FileDrop);
@@ -291,7 +311,7 @@ namespace BookWave.ViewModel
 
         private bool CanSaveAudiobook()
         {
-            return Audiobook.Chapters.Count > 0 
+            return Audiobook.Chapters.Count > 0
                 && Library != null && !string.IsNullOrEmpty(Audiobook.Metadata.Title);
         }
 

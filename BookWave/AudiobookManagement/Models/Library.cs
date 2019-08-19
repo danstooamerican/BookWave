@@ -239,7 +239,7 @@ namespace BookWave.Desktop.AudiobookManagement
                             changedAudiobook.Chapters.Remove(chapter);
                             File.Delete(Path.Combine(changedAudiobook.Metadata.MetadataPath, "chapters", chapter.Metadata.MetadataPath));
                         }
-                    }                    
+                    }
 
                     SaveMetadata(changedAudiobook);
 
@@ -257,7 +257,7 @@ namespace BookWave.Desktop.AudiobookManagement
                 {
                     RemoveAudiobook(audiobook);
                 }
-            }            
+            }
         }
 
         /// <summary>

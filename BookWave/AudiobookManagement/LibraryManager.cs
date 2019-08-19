@@ -5,7 +5,6 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Xml.Linq;
@@ -208,7 +207,7 @@ namespace BookWave.Desktop.AudiobookManagement
             lock (IDLock)
             {
                 temp = IDCount;
-                IDCount++;                
+                IDCount++;
             }
 
             return temp;

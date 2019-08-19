@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
       xmlns:util="clr-namespace:BookWave.Desktop.Util"      
+      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
       mc:Ignorable="d"       
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AuthorsPage">
@@ -318,7 +319,8 @@
             <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
                 Margin="5, 20, 0, 20">
 
-                <DataGrid ItemsSource="{Binding Audiobook.Chapters}" 
+                <DataGrid ItemsSource="{Binding Chapters}" 
+                    CanUserReorderColumns="False"
                     HorizontalScrollBarVisibility="Hidden"
                     PreviewMouseWheel="DtgChapters_PreviewMouseWheel"
                     Style="{StaticResource DataGrid}"
@@ -344,13 +346,14 @@
                     </DataGrid.RowStyle>
                     
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#"
+                        <DataGridTextColumn x:Name="TrackNumber"
+                            Header="#"
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
-                            ElementStyle="{StaticResource InformationText}"                                            
+                            ElementStyle="{StaticResource InformationText}"
                             Binding="{Binding Metadata.TrackNumber}" 
                             Width="auto"
-                            MinWidth="20"                
-                            MaxWidth="55"/>
+                            MinWidth="20"
+                            MaxWidth="55" />
 
                         <DataGridTextColumn Header="Title" 
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
