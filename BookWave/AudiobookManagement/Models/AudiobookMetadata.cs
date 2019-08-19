@@ -57,14 +57,20 @@ namespace BookWave.Desktop.AudiobookManagement
             set { Set<Contributors>(() => this.Contributors, ref mContributors, value); }
         }
 
-        private int mReleaseYear;
+        private string mReleaseYear;
         /// <summary>
         /// Release Year.
         /// </summary>
-        public int ReleaseYear
+        public string ReleaseYear
         {
             get { return mReleaseYear; }
-            set { Set<int>(() => this.ReleaseYear, ref mReleaseYear, value); }
+            set {
+                int year;
+                if (string.IsNullOrEmpty(value) || int.TryParse(value, out year))
+                {
+                    Set<string>(() => this.ReleaseYear, ref mReleaseYear, value);
+                }        
+            }
         }
 
         /// <summary>
@@ -120,7 +126,7 @@ namespace BookWave.Desktop.AudiobookManagement
             MetadataPath = string.Empty;
             Genre = string.Empty;
             Contributors = new Contributors();
-            ReleaseYear = 0;
+            ReleaseYear = string.Empty;
         }
 
         #endregion
@@ -156,7 +162,7 @@ namespace BookWave.Desktop.AudiobookManagement
                 }
             }
 
-            if (ReleaseYear != 0) //TODO what is standard value?
+            if (!ReleaseYear.Equals(string.Empty))
             {
                 metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
             }
@@ -178,11 +184,7 @@ namespace BookWave.Desktop.AudiobookManagement
 
             Contributors.FromXML(xmlElement);
 
-            string strReleaseYear = XMLHelper.GetSingleValue(xmlElement, "ReleaseYear");
-            if (Regex.IsMatch(strReleaseYear, "[0-9]+"))
-            {
-                ReleaseYear = int.Parse(strReleaseYear);
-            }
+            ReleaseYear = XMLHelper.GetSingleValue(xmlElement, "ReleaseYear");
         }
 
         public override object Clone()
