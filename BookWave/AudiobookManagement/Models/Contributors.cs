@@ -1,4 +1,4 @@
-﻿using Commons.Util;
+﻿using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// Includes lists of people who contribute to an audiobook.
@@ -30,7 +30,7 @@ namespace Commons.Models
         /// <summary>
         /// List of readers.
         /// </summary>
-        public List<string>  Readers
+        public List<string> Readers
         {
             get { return mReaders; }
             set { Set<List<string>>(() => this.Readers, ref mReaders, value); }
@@ -41,7 +41,8 @@ namespace Commons.Models
         /// in the right format (name1, name2, ..., name n) then the current 
         /// author list is cleared and new elements are added.
         /// </summary>
-        public string AuthorString {
+        public string AuthorString
+        {
             get
             {
                 return BuildNameListString(Authors);
@@ -155,7 +156,7 @@ namespace Commons.Models
                 }
                 contributorsXML.Add(readersXML);
             }
-            
+
             if (Authors.Count > 0 || Readers.Count > 0)
             {
                 return contributorsXML;
@@ -167,11 +168,11 @@ namespace Commons.Models
         {
             foreach (var element in xmlElement.Descendants("Author"))
             {
-                Authors.Add((string) element.Value);
+                Authors.Add((string)element.Value);
             }
             foreach (var element in xmlElement.Descendants("Reader"))
             {
-                Readers.Add((string) element.Value);
+                Readers.Add((string)element.Value);
             }
         }
 

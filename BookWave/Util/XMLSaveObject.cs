@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Commons.Util
+namespace BookWave.Desktop.Util
 {
     public interface XMLSaveObject
     {

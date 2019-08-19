@@ -1,9 +1,9 @@
-﻿using Commons.Util;
+﻿using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace BookWave.Desktop.AudiobookManagement
 {
     public abstract class Metadata : ObservableObject, XMLSaveObject, ICloneable
     {
@@ -27,6 +27,17 @@ namespace Commons.Models
             set { Set<string>(() => this.Description, ref mDescription, value); }
         }
 
+        /// <summary>
+        /// For audiobooks this property represents the full path to the metadata folder.
+        /// For chapters this property only contains the chapter metadata file name with extension.
+        /// </summary>
+        private string mMetadataPath;
+        public string MetadataPath
+        {
+            get { return mMetadataPath; }
+            set { mMetadataPath = value; }
+        }
+
         #endregion
 
         #region Constructor
@@ -34,7 +45,8 @@ namespace Commons.Models
         public Metadata()
         {
             Title = string.Empty;
-            Description = string.Empty;            
+            Description = string.Empty;
+            MetadataPath = string.Empty;
         }
 
         #endregion
@@ -58,9 +70,9 @@ namespace Commons.Models
         }
         public void FromXML(XElement xmlElement)
         {
-            Title = XMLHelper.GetSingleElement(xmlElement, "Title");
+            Title = XMLHelper.GetSingleValue(xmlElement, "Title");
 
-            Description = XMLHelper.GetSingleElement(xmlElement, "Description");
+            Description = XMLHelper.GetSingleValue(xmlElement, "Description");
         }
 
         public abstract object Clone();

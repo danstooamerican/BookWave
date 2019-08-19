@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{E70CC389-C8E4-466D-908E-6E6ED9867AF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWave.Desktop", "BookWave\BookWave.Desktop.csproj", "{E5FD876E-8967-4607-999B-14D8A799F119}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons", "BookWave\Commons.csproj", "{E5FD876E-8967-4607-999B-14D8A799F119}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWave.Controls", "BookWaveCustomControls\BookWave.Controls.csproj", "{3C911C9E-41CB-4ACA-8F0F-C69A311014F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons.Controls", "BookWaveCustomControls\Commons.Controls.csproj", "{3C911C9E-41CB-4ACA-8F0F-C69A311014F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWave.Styles", "BookWaveStyles\BookWave.Styles.csproj", "{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons.Styles", "BookWaveStyles\Commons.Styles.csproj", "{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookWave.Tests", "BookWave.Tests\BookWave.Tests.csproj", "{8759EC3A-A414-4A4F-A437-DB373BB4B72A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookWave.ScannerPlugins", "BookWave.ScannerPlugins\BookWave.ScannerPlugins.csproj", "{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E70CC389-C8E4-466D-908E-6E6ED9867AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E70CC389-C8E4-466D-908E-6E6ED9867AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E70CC389-C8E4-466D-908E-6E6ED9867AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E70CC389-C8E4-466D-908E-6E6ED9867AF8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5FD876E-8967-4607-999B-14D8A799F119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E5FD876E-8967-4607-999B-14D8A799F119}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5FD876E-8967-4607-999B-14D8A799F119}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +31,14 @@ Global
 		{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF5F5F8B-4FEF-4019-8CEC-28354B90FD82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8759EC3A-A414-4A4F-A437-DB373BB4B72A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8759EC3A-A414-4A4F-A437-DB373BB4B72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8759EC3A-A414-4A4F-A437-DB373BB4B72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8759EC3A-A414-4A4F-A437-DB373BB4B72A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BAA3ADA-828E-4247-B49C-69A6DCD6CFE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

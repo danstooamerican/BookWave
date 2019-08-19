@@ -1,13 +1,7 @@
-﻿using Commons.Dialogs;
-using Commons.Util;
-using Commons.ViewModel;
-using System;
-using System.IO;
-using System.Windows;
+﻿using BookWave.ViewModel;
 using System.Windows.Controls;
-using System.Windows.Input;
 
-namespace Commons.Pages
+namespace BookWave.Desktop.Pages
 {
     /// <summary>
     /// Interaction logic for AuthorsPage.xaml

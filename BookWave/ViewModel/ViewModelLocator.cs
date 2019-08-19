@@ -1,8 +1,8 @@
+using BookWave.Desktop.AudiobookManagement.Dialogs;
 using CommonServiceLocator;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     /// <summary>
     /// This class contains static references to all the view models in the
@@ -33,6 +33,7 @@ namespace Commons.ViewModel
             SimpleIoc.Default.Register<PlayerViewModel>();
             SimpleIoc.Default.Register<BrowseViewModel>();
             SimpleIoc.Default.Register<SplitChapterViewModel>();
+            SimpleIoc.Default.Register<CreateLibraryViewModel>();
 
             //preload computation intensive view models
             ServiceLocator.Current.GetInstance<BrowseViewModel>();
@@ -52,6 +53,14 @@ namespace Commons.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SelectLibraryViewModel>();
+            }
+        }
+
+        public CreateLibraryViewModel CreateLibraryViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CreateLibraryViewModel>();
             }
         }
 
@@ -85,11 +94,6 @@ namespace Commons.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<SplitChapterViewModel>();
             }
-        }
-
-        public static void Cleanup()
-        {
-            // TODO Clear the ViewModels
         }
     }
 }

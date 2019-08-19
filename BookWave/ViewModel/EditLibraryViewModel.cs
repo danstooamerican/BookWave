@@ -1,15 +1,21 @@
-﻿using Commons.Exceptions;
-using Commons.Logic;
-using Commons.Models;
+﻿using BookWave.Desktop.AudiobookManagement;
+using BookWave.Desktop.AudiobookManagement.Dialogs;
+using BookWave.Desktop.Exceptions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Image = System.Drawing.Image;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     public class EditLibraryViewModel : ViewModelBase
     {
@@ -22,20 +28,34 @@ namespace Commons.ViewModel
             get { return mDestination; }
             set
             {
-                if (Directory.Exists(value))
+                Set<string>(() => this.Destination, ref mDestination, value);
+
+                var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Destination);
+                if (tmpAudiobook != null)
                 {
-                    Set<string>(() => this.Destination, ref mDestination, value.Trim());
-                    AnalyzeFolder();
-                }
-                else
+                    Audiobook = (Audiobook)tmpAudiobook.Clone();
+                    Library = Audiobook.Library;
+                } else
                 {
-                    if (value != null && value.Equals(string.Empty))
-                    {
-                        Set<string>(() => this.Destination, ref mDestination, value);
-                        AnalyzeFolder();
-                    }
+                    Audiobook.Metadata.Path = Destination;
                 }
+
+                UpdateIsInLibrary();
             }
+        }
+
+        public ICollection<Library> Libraries {
+            get
+            {
+                return LibraryManager.Instance.GetLibraries();
+            }
+        }
+
+        private Library mLibrary;
+        public Library Library
+        {
+            get { return mLibrary; }
+            set { Set<Library>(() => this.Library, ref mLibrary, value); }
         }
 
 
@@ -50,13 +70,6 @@ namespace Commons.ViewModel
             }
         }
 
-        public List<Audiobook> AudiobookLibrary {
-            get
-            {
-                return new List<Audiobook>(AudiobookManager.Instance.Audiobooks.Values);
-            }
-        }
-
         private bool mIsInLibrary;
         public bool IsInLibrary
         {
@@ -64,9 +77,18 @@ namespace Commons.ViewModel
             set { Set<bool>(() => this.IsInLibrary, ref mIsInLibrary, value); }
         }
 
+        private Page mPage;
+
+        public Page Page
+        {
+            get { return mPage; }
+            set { mPage = value; }
+        }
+
         #endregion
 
         #region Commands
+
         public ICommand SelectFolderCommand { private set; get; }
 
         public ICommand SaveAudiobookCommand { private set; get; }
@@ -81,21 +103,31 @@ namespace Commons.ViewModel
 
         public ICommand SplitChapterCommand { private set; get; }
 
+        public ICommand BrowseLibraryCommand { private set; get; }
+
+        public ICommand CreateLibraryCommand { private set; get; }
+
         #endregion
 
         #region Constructors
 
         public EditLibraryViewModel()
         {
-            Audiobook = new Audiobook();
+            Audiobook = AudiobookManager.Instance.CreateAudiobook();
+            if (LibraryManager.Instance.GetLibraries().Count > 0)
+            {
+                Library = LibraryManager.Instance.GetLibrary(0);
+            }           
 
-            SelectFolderCommand = new RelayCommand(SelectFolder);
+            SelectFolderCommand = new RelayCommand(SelectFolder, CanSelectFolder);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
-            SelectCoverImageCommand = new RelayCommand(SelectCoverImage);
+            SelectCoverImageCommand = new RelayCommand(SelectCoverImage, CanSelectCoverImage);
             RemoveCoverImageCommand = new RelayCommand(RemoveCoverImage, CanRemoveCoverImage);
             CopyCoverImageFromClipboardCommand = new RelayCommand(CopyCoverImageFromClipboard, CanCopyCoverImageFromClipboard);
             RemoveAudiobookCommand = new RelayCommand(RemoveAudiobook);
             SplitChapterCommand = new RelayCommand<Chapter>((c) => SplitChapter(c));
+            BrowseLibraryCommand = new RelayCommand(BrowseLibrary, CanBrowseLibrary);
+            CreateLibraryCommand = new RelayCommand(CreateLibrary);
         }
 
         #endregion
@@ -107,11 +139,18 @@ namespace Commons.ViewModel
         /// </summary>
         private void UpdateIsInLibrary()
         {
-            IsInLibrary = Audiobook != null && AudiobookManager.Instance.AudiobookRepo.Items.Contains(Audiobook.Metadata.Path);
+            if (Library == null || Audiobook == null)
+            {
+                IsInLibrary = false;
+            }
+            else
+            {
+                IsInLibrary = Library.Contains(Audiobook);
+            }
         }
 
         /// <summary>
-        /// Opens a FolderBrowserDialog and sets the FolderPath of the AudiobookFolder.
+        /// Opens a FolderBrowserDialog and sets the Destination property.
         /// </summary>
         private void SelectFolder()
         {
@@ -122,37 +161,34 @@ namespace Commons.ViewModel
             }
         }
 
-        /// <summary>
-        /// Analyzes folder for Audiobook.
-        /// </summary>
-        public void AnalyzeFolder()
+        private void BrowseLibrary()
         {
-            var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Destination);
-            if (tmpAudiobook != null)
-            {
-                Audiobook = (Audiobook)tmpAudiobook.Clone();
-            }
-            else
-            {
-                Audiobook = AudiobookManager.Instance.LoadAudiobookFromFile(Destination);
-            }
+            SelectLibraryItemDialog dialog = new SelectLibraryItemDialog(Page);
 
-            Audiobook.Chapters = new ObservableCollection<Chapter>(AudiobookFolder.AnalyzeFolder(Audiobook.Metadata.Path));
-            if (Audiobook.Metadata.Title.Equals(string.Empty))
+            if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
             {
-                Audiobook.Metadata.Title = Path.GetFileNameWithoutExtension(Audiobook.Metadata.Path);
+                Destination = dialog.Selected.Metadata.Path;
             }
-
-            UpdateIsInLibrary();
         }
 
+        private void CreateLibrary()
+        {
+            CreateLibraryDialog dialog = new CreateLibraryDialog(Page);
+            if (dialog.ShowDialog() == true)
+            {
+                RaisePropertyChanged(nameof(Libraries));
+                Library = dialog.CreatedLibrary;
+            }
+        }
+
+        /// <summary>
+        /// Saves an audiobook to the selected library.
+        /// </summary>
         private void SaveAudiobook()
         {
-            AudiobookFolder.SaveAudiobookMetadata(Audiobook);
-
             if (!Audiobook.Metadata.Title.Equals(string.Empty))
             {
-                AudiobookManager.Instance.UpdateAudioBook(Audiobook);
+                AudiobookManager.Instance.UpdateAudiobook(Library, Audiobook);
             }
             else
             {
@@ -162,42 +198,75 @@ namespace Commons.ViewModel
             UpdateIsInLibrary();
         }
 
+        /// <summary>
+        /// Removes an audiobook from its library.
+        /// </summary>
         public void RemoveAudiobook()
         {
-            AudiobookManager.Instance.RemoveAudioBook(Audiobook.ID);
+            AudiobookManager.Instance.RemoveAudiobook(Audiobook);
             Destination = string.Empty;
-            AnalyzeFolder();
         }
 
         public void SelectCoverImage()
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            if (CanSelectCoverImage())
             {
-                if (!Audiobook.Metadata.Path.Equals(string.Empty))
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    openFileDialog.InitialDirectory = Audiobook.Metadata.Path;
-                }
-                openFileDialog.Filter = "JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff|BMP|*.bmp|GIF|*.gif";
-                openFileDialog.Title = "Choose a cover image";
-                openFileDialog.RestoreDirectory = true;
+                    if (!Audiobook.Metadata.Path.Equals(string.Empty))
+                    {
+                        openFileDialog.InitialDirectory = Audiobook.Metadata.Path;
+                    }
+                    openFileDialog.Filter = "JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff|BMP|*.bmp|GIF|*.gif";
+                    openFileDialog.Title = "Choose a cover image";
+                    openFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    // Get the path of specified file
-                    Audiobook.Metadata.CoverPath = openFileDialog.FileName;
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string saveToPath = Path.Combine(Audiobook.Metadata.MetadataPath, "cover.jpg");
+
+                        Image image = Image.FromFile(openFileDialog.FileName);
+                        Image resized = BookWave.Desktop.Util.ImageConverter.Resize(image, 512, 512);
+
+                        Task.Factory.StartNew(() =>
+                        {
+                            BookWave.Desktop.Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
+                        }).ContinueWith((e) =>
+                        {
+                            Audiobook.Metadata.RaiseCoverChanged();
+                        });
+                    }
                 }
             }
         }
 
         private void RemoveCoverImage()
         {
-            Audiobook.Metadata.CoverPath = string.Empty;
-            Destination = string.Empty;
+            if (Audiobook.Metadata.HasCoverPath)
+            {
+                File.Delete(Audiobook.Metadata.CoverPath);
+                Audiobook.Metadata.RaiseCoverChanged();
+            }
         }
 
         private void CopyCoverImageFromClipboard()
         {
             //TODO implement this method
+        }
+
+        private bool CanBrowseLibrary()
+        {
+            return Library != null;
+        }
+
+        private bool CanSelectCoverImage()
+        {
+            return Library != null && Library.Contains(Audiobook);
+        }
+
+        private bool CanSelectFolder()
+        {
+            return Library != null;
         }
 
         private bool CanRemoveCoverImage()
@@ -207,7 +276,7 @@ namespace Commons.ViewModel
 
         private bool CanSaveAudiobook()
         {
-            return Audiobook.Chapters.Count > 0;
+            return Audiobook.Chapters.Count > 0 && Library != null && !string.IsNullOrEmpty(Audiobook.Metadata.Title);
         }
 
         private bool CanCopyCoverImageFromClipboard()
@@ -215,6 +284,10 @@ namespace Commons.ViewModel
             return Clipboard.ContainsImage();
         }
 
+        /// <summary>
+        /// Opens the split chapter page for the selected chapter.
+        /// </summary>
+        /// <param name="chapter">selected chapter</param>
         private void SplitChapter(Chapter chapter)
         {
             ViewModelLocator.Instance.MainViewModel.SwitchToSplitChapterPage(chapter);

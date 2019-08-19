@@ -1,10 +1,10 @@
 ﻿using ATL;
-using Commons.Util;
+using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// A single chapter in an audiobook with a list of AudioPaths and Metadata.
@@ -40,22 +40,16 @@ namespace Commons.Models
         /// the metadata with the track's metadata.
         /// </summary>
         /// <param name="track">Track to reference</param>
-        public Chapter(Track track)
+        internal Chapter(Track track)
         {
-            AudioPath = new AudioPath(track.Path, 0, -1);
+            AudioPath = new AudioPath(track.Path);
             Metadata = new ChapterMetadata(track);
         }
 
-        public Chapter()
+        internal Chapter()
         {
             Metadata = new ChapterMetadata();
             AudioPath = new AudioPath();
-        }
-
-        public Chapter(ChapterMetadata metadata, AudioPath audioPath)
-        {
-            Metadata = metadata;
-            AudioPath = audioPath;
         }
 
         #endregion

@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     public class PlayerViewModel : ViewModelBase
     {
@@ -21,7 +21,7 @@ namespace Commons.ViewModel
 
         public PlayerViewModel()
         {
-            CoverImage = "/Commons.Styles;component/Resources/Player/sampleCover.png";
+            CoverImage = "/BookWave.Styles;component/Resources/Player/sampleCover.png";
         }
 
         #endregion

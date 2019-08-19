@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:Commons.Styles.Converter">
+                    xmlns:converters="clr-namespace:BookWave.Styles.Converter">
 
     <ResourceDictionary.MergedDictionaries>
 
@@ -12,7 +12,7 @@
             <converters:VerticalOffsetOpacityConverter x:Key="VerticalOffsetOpacityConverter" />
             <converters:VerticalOffsetTopBarVisibilityConverter x:Key="VerticalOffsetTopBarVisibilityConverter" />
             <converters:AddUpdateConverter x:Key="AddUpdateConverter" />
-            <converters:RemoveVisibilityConverter x:Key="RemoveVisibilityConverter" />
+            <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
             <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
         </ResourceDictionary>
 
@@ -27,6 +27,8 @@
         <ResourceDictionary Source="Styles/FrameStyle.xaml" />
         <ResourceDictionary Source="Styles/TitleTemplates.xaml" />
         <ResourceDictionary Source="Styles/ContextMenuStyle.xaml" />
+        <ResourceDictionary Source="Styles/ComboBoxStyle.xaml" />
+        
 
     </ResourceDictionary.MergedDictionaries>
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Commons.Util
+namespace BookWave.Desktop.Util
 {
     /// <summary>
     /// Helper class which implements a simple linked list to keep track of elements

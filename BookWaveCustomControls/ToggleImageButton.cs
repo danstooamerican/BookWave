@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
-namespace Commons.Controls
+namespace BookWave.Controls
 {
     public class ToggleImageButton : ToggleButton
     {

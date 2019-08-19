@@ -1,11 +1,11 @@
-﻿<Window x:Class="AudiobookPlayer.MainWindow"
+﻿<Window x:Class="BookWave.Desktop.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:lib="clr-namespace:Commons.Controls;assembly=Commons.Controls" 
+        xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
         mc:Ignorable="d"
-        Icon="/Commons.Styles;component/Resources/icon.ico"
+        Icon="/BookWave.Styles;component/Resources/icon.ico"
         Background="{StaticResource MainBackground}"        
         Title="Audiobook Player"
         MinWidth="{Binding WindowMinimumWidth}"
@@ -26,17 +26,6 @@
         <BlurEffect KernelType="Gaussian" Radius="0" />
     </Window.Effect>
 
-    <!-- FadeIn animation on startup -->
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="Window.Loaded">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation Duration="0:0:0.4" Storyboard.TargetProperty="Opacity" From="0" To="1" />
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </Window.Triggers>
-
     <!-- Blur Effect -->
     <Window.Style>
         <Style>
@@ -54,7 +43,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
-                                            From="4" To="0" Duration="0:0:0.3" />
+                                            From="4" To="0" Duration="0:0:0.1" />
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>
@@ -158,19 +147,19 @@
                 
                 <StackPanel Orientation="Horizontal">
                     <lib:ImageButton
-                        NormalImage="/Commons.Styles;component/Resources/Navigation/pageBack.png"
-                        HoverImage="/Commons.Styles;component/Resources/Navigation/pageBack_hover.png"
-                        PressedImage="/Commons.Styles;component/Resources/Navigation/pageBack_pressed.png"
-                        DisabledImage="/Commons.Styles;component/Resources/Navigation/pageBack_pressed.png"
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/pageBack.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/pageBack_hover.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/pageBack_pressed.png"
+                        DisabledImage="/BookWave.Styles;component/Resources/Navigation/pageBack_pressed.png"
                         ImageSize="20"
                         Click="PageBack_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoBack}"
                         WindowChrome.IsHitTestVisibleInChrome="True"/>
 
                     <lib:ImageButton
-                        NormalImage="/Commons.Styles;component/Resources/Navigation/pageForward.png"
-                        HoverImage="/Commons.Styles;component/Resources/Navigation/pageForward_hover.png"
-                        PressedImage="/Commons.Styles;component/Resources/Navigation/pageForward_pressed.png"
-                        DisabledImage="/Commons.Styles;component/Resources/Navigation/pageForward_pressed.png"
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/pageForward.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/pageForward_hover.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/pageForward_pressed.png"
+                        DisabledImage="/BookWave.Styles;component/Resources/Navigation/pageForward_pressed.png"
                         ImageSize="20"
                         Click="PageForward_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoForward}"
                         WindowChrome.IsHitTestVisibleInChrome="True"/>
@@ -224,25 +213,25 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
                     <lib:ImageButton
-                        NormalImage="/Commons.Styles;component/Resources/Navigation/minimize.png"
-                        HoverImage="/Commons.Styles;component/Resources/Navigation/minimize_hover.png"
-                        PressedImage="/Commons.Styles;component/Resources/Navigation/minimize_pressed.png"
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/minimize.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/minimize_hover.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/minimize_pressed.png"
                         ImageSize="20"
                         Command="{Binding MinimizeCommand}"
                         Margin="0, 0, 10, 0"
                         WindowChrome.IsHitTestVisibleInChrome="True"/>
                     <lib:ImageButton
-                        NormalImage="/Commons.Styles;component/Resources/Navigation/maximize.png"
-                        HoverImage="/Commons.Styles;component/Resources/Navigation/maximize_hover.png"
-                        PressedImage="/Commons.Styles;component/Resources/Navigation/maximize_pressed.png"
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/maximize.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/maximize_hover.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/maximize_pressed.png"
                         ImageSize="20"
                         Command="{Binding MaximizeCommand}"
                         Margin="0, 0, 10, 0"
                         WindowChrome.IsHitTestVisibleInChrome="True"/>
                     <lib:ImageButton
-                        NormalImage="/Commons.Styles;component/Resources/Navigation/close.png"
-                        HoverImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
-                        PressedImage="/Commons.Styles;component/Resources/Navigation/close_pressed.png"
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/close.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/close_pressed.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/close_pressed.png"
                         ImageSize="20"
                         Command="{Binding CloseCommand}"
                         Margin="0, 0, 5, 0"

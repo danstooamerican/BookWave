@@ -1,14 +1,11 @@
-﻿using Commons.Logic;
-using Commons.Util;
+﻿using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
-using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// Represents a single audiobook with a list of chapters and metadata.
@@ -19,12 +16,23 @@ namespace Commons.Models
         #region Public Properties
 
         private readonly int mID;
-
+        /// <summary>
+        /// Internal unique id of the audiobook.
+        /// </summary>
         public int ID
         {
             get { return mID; }
         }
 
+        private Library mLibrary;
+        /// <summary>
+        /// Library the audiobook belongs to. Null if no library is set.
+        /// </summary>
+        public Library Library
+        {
+            get { return mLibrary; }
+            set { mLibrary = value; }
+        }
 
         private ObservableCollection<Chapter> mChapters;
         /// <summary>
@@ -33,7 +41,7 @@ namespace Commons.Models
         public ObservableCollection<Chapter> Chapters
         {
             get { return mChapters; }
-            set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
+            private set { Set<ObservableCollection<Chapter>>(() => this.Chapters, ref mChapters, value); }
         }
 
         /// <summary>
@@ -44,39 +52,42 @@ namespace Commons.Models
         public AudiobookMetadata Metadata
         {
             get { return mMetadata; }
-            set { Set<AudiobookMetadata>(() => this.Metadata, ref mMetadata, value); }
+            private set { Set<AudiobookMetadata>(() => this.Metadata, ref mMetadata, value); }
         }
 
         #endregion
 
-        /// <summary>
-        /// Creates an empty audiobook.
-        /// </summary>
-        public Audiobook()
-        {
-            mID = AudiobookManager.Instance.GetNewID();
-            Chapters = new ObservableCollection<Chapter>();
-            Metadata = new AudiobookMetadata();
-        }
+        #region Constructor
 
-        private Audiobook(int id)
+        /// <summary>
+        /// Creates an empty audiobook with an id.
+        /// </summary>
+        internal Audiobook(int id, Library library = null)
         {
             mID = id;
             Chapters = new ObservableCollection<Chapter>();
             Metadata = new AudiobookMetadata();
+            Library = library;
         }
+
+        #endregion
 
         #region Methods
 
         /// <summary>
-        /// Loads all chapter xml files in the metadata folder.
+        /// Replaces all chapters of the audiobook with the given ones. If the parameter is null
+        /// all current chapters are cleared.
         /// </summary>
-        public void LoadChapters()
+        /// <param name="chapters">new chapters</param>
+        public void SetChapters(ICollection<Chapter> chapters)
         {
-            List<Chapter> chapters = AudiobookFolder.LoadAudiobookChapters(
-                    Path.Combine(Metadata.Path, ConfigurationManager.AppSettings.Get("metadata_folder")));
-
-            Chapters = new ObservableCollection<Chapter>(chapters);
+            if (chapters != null)
+            {
+                Chapters = new ObservableCollection<Chapter>(chapters);
+            } else
+            {
+                Chapters.Clear();
+            }            
         }
 
         public XElement ToXML()
@@ -95,9 +106,14 @@ namespace Commons.Models
 
         public object Clone()
         {
-            Audiobook copy = new Audiobook(ID);
+            Audiobook copy = new Audiobook(ID, Library);
 
             copy.Metadata = (AudiobookMetadata)Metadata.Clone();
+
+            foreach (Chapter chapter in Chapters)
+            {
+                copy.Chapters.Add((Chapter)chapter.Clone());
+            }
 
             return copy;
         }

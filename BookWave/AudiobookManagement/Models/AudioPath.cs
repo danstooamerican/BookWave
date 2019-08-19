@@ -1,11 +1,11 @@
-﻿using Commons.Exceptions;
-using Commons.Util;
+﻿using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
 using System.IO;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// Stores a path to an audio file with a startMark and an endMark.
@@ -22,16 +22,12 @@ namespace Commons.Models
         /// <summary>
         /// Path to the audio file.
         /// </summary>
-        public string Path {
+        public string Path
+        {
             get { return mPath; }
-            set {
-                if (File.Exists(value))
-                {
-                    Set<string>(() => this.Path, ref mPath, value);
-                } else
-                {
-                    throw new InvalidArgumentException(value, "is not a valid path.");
-                }                
+            set
+            {
+                Set<string>(() => this.Path, ref mPath, value);                
             }
         }
 
@@ -40,16 +36,19 @@ namespace Commons.Models
         /// StartMark of the audio file in seconds.
         /// This allows to split files into multiple AudioPaths.
         /// </summary>
-        public int StartMark        {
+        public int StartMark
+        {
             get { return mStartMark; }
-            set {
+            set
+            {
                 if (value >= 0)
                 {
                     Set<int>(() => this.StartMark, ref mStartMark, value);
-                } else
+                }
+                else
                 {
                     throw new InvalidArgumentException(value, "is not a valid mark");
-                }                
+                }
             }
         }
 
@@ -65,7 +64,8 @@ namespace Commons.Models
         public int EndMark
         {
             get { return mEndMark; }
-            set {
+            set
+            {
                 if (value >= -1)
                 {
                     Set<int>(() => this.EndMark, ref mEndMark, value);
@@ -81,14 +81,17 @@ namespace Commons.Models
 
         #region Constructors
 
-        public AudioPath(string path, int startMark, int endMark)
+        public AudioPath(string path)
         {
             Path = path;
-            StartMark = startMark;
-            EndMark = endMark;
+            StartMark = DefaultStartMark;
+            EndMark = DefaultEndMark;
         }
         public AudioPath()
         {
+            Path = string.Empty;
+            StartMark = DefaultStartMark;
+            EndMark = DefaultEndMark;
         }
 
         #endregion
@@ -111,16 +114,16 @@ namespace Commons.Models
             if (EndMark != DefaultEndMark)
             {
                 pathXML.Add(new XElement("EndMark", EndMark));
-            }           
+            }
 
             return pathXML;
         }
 
         public void FromXML(XElement xmlElement)
         {
-            Path = XMLHelper.GetSingleElement(xmlElement, "FilePath");
-            StartMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "StartMark", DefaultStartMark.ToString()));
-            EndMark = int.Parse(XMLHelper.GetSingleElement(xmlElement, "EndMark", DefaultEndMark.ToString()));
+            Path = XMLHelper.GetSingleValue(xmlElement, "FilePath");
+            StartMark = int.Parse(XMLHelper.GetSingleValue(xmlElement, "StartMark", DefaultStartMark.ToString()));
+            EndMark = int.Parse(XMLHelper.GetSingleValue(xmlElement, "EndMark", DefaultEndMark.ToString()));
         }
 
         public object Clone()

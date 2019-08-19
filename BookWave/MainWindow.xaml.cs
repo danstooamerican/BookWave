@@ -1,13 +1,15 @@
-﻿using Commons.Controls;
-using Commons.Exceptions;
-using Commons.Logic;
-using Commons.Util;
-using Commons.ViewModel;
+﻿using BookWave.Controls;
+using BookWave.Desktop.AudiobookManagement;
+using BookWave.Desktop.AudiobookManagement.Scanner;
+using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Util;
+using BookWave.ViewModel;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace AudiobookPlayer
+namespace BookWave.Desktop
 {
     /// <summary>
     /// Code behind for the MainWindow.xaml
@@ -29,7 +31,7 @@ namespace AudiobookPlayer
 
             viewModel.MainWindow = this;
 
-            InitializeComponent();           
+            InitializeComponent();
 
             viewModel.NavigationHistory.CurrentElementChangedEvent += UpdateNavigationUI;
 
@@ -105,7 +107,7 @@ namespace AudiobookPlayer
                 if (previousElement != null && previousElement.Element.MenuButton != null)
                 {
                     previousElement.Element.MenuButton.ClickedRectVisibility = Visibility.Hidden;
-                }                
+                }
             }
             HistoryListElement<PageItem> currentElement = viewModel.NavigationHistory.CurrentElement;
             if (currentElement != null && currentElement.Element.MenuButton != null)
@@ -160,7 +162,19 @@ namespace AudiobookPlayer
 
         private void AppWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            AudiobookManager.Instance.LoadRepository();
+            Task.Factory.StartNew(() =>
+            {
+                LibraryScannerFactory.LoadPlugins();
+
+                Progress<UpdateReport> progress = new Progress<UpdateReport>();
+                progress.ProgressChanged += (a, b) =>
+                {
+                    ViewModelLocator.Instance.BrowseViewModel.UpdateBrowseList();
+                    ViewModelLocator.Instance.SelectLibraryViewModel.UpdateBrowseList();
+                };
+
+                LibraryManager.Instance.LoadLibraries(progress);
+            });           
         }
     }
 }

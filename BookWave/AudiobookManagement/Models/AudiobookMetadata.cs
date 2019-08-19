@@ -1,9 +1,12 @@
-﻿using Commons.Util;
+﻿using BookWave.Desktop.Util;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 
-namespace Commons.Models
+namespace BookWave.Desktop.AudiobookManagement
 {
     /// <summary>
     /// Metadata for audiobooks which adds a Genre, Contributors, ReleaseYear and a CoverPath.
@@ -13,7 +16,7 @@ namespace Commons.Models
 
         #region Public Properties
 
-        public static readonly string StandardCover = @"/Commons.Styles;component/Resources/Player/sampleCover.png";
+        public static readonly string StandardCover = @"/BookWave.Styles;component/Resources/Player/sampleCover.png";
 
         private string mPath;
         /// <summary>
@@ -24,18 +27,14 @@ namespace Commons.Models
             get { return mPath; }
             set
             {
-                if (Directory.Exists(value))
-                {
-                    Set<string>(() => this.Path, ref mPath, value.Trim());
-                }
-                else
-                {
-                    if (value != null && value.Equals(string.Empty))
-                    {
-                        Set<string>(() => this.Path, ref mPath, value);
-                    }
-                }
+                Set<string>(() => this.Path, ref mPath, value.Trim());
+                RaisePropertyChanged(nameof(PathNotValid));
             }
+        }
+
+        public bool PathNotValid
+        {
+            get { return !Directory.Exists(Path); }
         }
 
         private string mGenre;
@@ -71,25 +70,44 @@ namespace Commons.Models
         /// <summary>
         /// The path for the cover image.
         /// </summary>
-        private string mCoverPath;
         public string CoverPath
         {
-            get {
-                if (HasCoverPath)
-                {
-                    return mCoverPath;
-                } else
-                {
-                    return StandardCover; 
-                }
-            }
-            set { Set<string>(() => this.CoverPath, ref mCoverPath, value); }
-        }
-
-        public bool HasCoverPath {
             get
             {
-                return !mCoverPath.Equals(string.Empty);
+                string coverPath = System.IO.Path.Combine(MetadataPath, "cover.jpg");
+
+                return File.Exists(coverPath) ? coverPath : StandardCover;
+            }
+        }
+
+        /// <summary>
+        /// Cover Image as an ImageSource to be bound to in the view so the file is not locked.
+        /// </summary>
+        public ImageSource CoverSource
+        {
+            get
+            {
+                if (HasCoverPath)
+                {
+                    using (var fs = new FileStream(CoverPath, FileMode.Open, FileAccess.Read))
+                    {
+                        return BitmapFrame.Create(
+                            fs, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    }
+                }
+                else
+                {
+                    var uriSource = new Uri(CoverPath, UriKind.Relative);
+                    return new BitmapImage(uriSource);
+                }
+            }
+        }
+
+        public bool HasCoverPath
+        {
+            get
+            {
+                return CoverPath.Equals(StandardCover) ? false : File.Exists(CoverPath);
             }
         }
 
@@ -99,8 +117,8 @@ namespace Commons.Models
         public AudiobookMetadata() : base()
         {
             Path = string.Empty;
+            MetadataPath = string.Empty;
             Genre = string.Empty;
-            CoverPath = string.Empty;
             Contributors = new Contributors();
             ReleaseYear = 0;
         }
@@ -108,6 +126,12 @@ namespace Commons.Models
         #endregion
 
         #region Methods
+
+        public void RaiseCoverChanged()
+        {
+            RaisePropertyChanged(nameof(CoverPath));
+            RaisePropertyChanged(nameof(CoverSource));
+        }
 
         public new XElement ToXML()
         {
@@ -137,7 +161,7 @@ namespace Commons.Models
                 metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
             }
 
-            if (!CoverPath.Equals(string.Empty))
+            if (!CoverPath.Equals(StandardCover))
             {
                 metadataXML.Add(new XElement("Cover", CoverPath));
             }
@@ -149,13 +173,12 @@ namespace Commons.Models
         {
             base.FromXML(xmlElement);
 
-            Path = XMLHelper.GetSingleElement(xmlElement, "Path");
-            Genre = XMLHelper.GetSingleElement(xmlElement, "Genre");
-            CoverPath = XMLHelper.GetSingleElement(xmlElement, "Cover");
+            Path = XMLHelper.GetSingleValue(xmlElement, "Path");
+            Genre = XMLHelper.GetSingleValue(xmlElement, "Genre");
 
             Contributors.FromXML(xmlElement);
 
-            string strReleaseYear = XMLHelper.GetSingleElement(xmlElement, "ReleaseYear");
+            string strReleaseYear = XMLHelper.GetSingleValue(xmlElement, "ReleaseYear");
             if (Regex.IsMatch(strReleaseYear, "[0-9]+"))
             {
                 ReleaseYear = int.Parse(strReleaseYear);
@@ -167,10 +190,10 @@ namespace Commons.Models
             AudiobookMetadata copy = new AudiobookMetadata();
 
             copy.Title = Title;
-            copy.CoverPath = CoverPath;
             copy.Description = Description;
             copy.Genre = Genre;
             copy.Path = Path;
+            copy.MetadataPath = MetadataPath;
             copy.ReleaseYear = ReleaseYear;
             copy.Contributors = (Contributors)Contributors.Clone();
 

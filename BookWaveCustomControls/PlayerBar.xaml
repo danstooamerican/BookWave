@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="Commons.Controls.PlayerBar"
+﻿<UserControl x:Class="BookWave.Controls.PlayerBar"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Commons.Controls"
+             xmlns:local="clr-namespace:BookWave.Controls"
              mc:Ignorable="d" 
              Background="{StaticResource PlayerBarBackground}"
              d:DesignHeight="70" d:DesignWidth="830">
@@ -69,36 +69,36 @@
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
                 ImageSize="25"
-                NormalImage="/Commons.Styles;component/Resources/Player/rewind30.png" 
-                HoverImage="/Commons.Styles;component/Resources/Player/rewind30_hover.png"
-                PressedImage="/Commons.Styles;component/Resources/Player/rewind30_pressed.png"/>
+                NormalImage="/BookWave.Styles;component/Resources/Player/rewind30.png" 
+                HoverImage="/BookWave.Styles;component/Resources/Player/rewind30_hover.png"
+                PressedImage="/BookWave.Styles;component/Resources/Player/rewind30_pressed.png"/>
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
                 ImageSize="25"
-                NormalImage="/Commons.Styles;component/Resources/Player/previous.png" 
-                HoverImage="/Commons.Styles;component/Resources/Player/previous_hover.png"
-                PressedImage="/Commons.Styles;component/Resources/Player/previous_pressed.png"/>
+                NormalImage="/BookWave.Styles;component/Resources/Player/previous.png" 
+                HoverImage="/BookWave.Styles;component/Resources/Player/previous_hover.png"
+                PressedImage="/BookWave.Styles;component/Resources/Player/previous_pressed.png"/>
 
             <local:ToggleImageButton Style="{StaticResource PlayerBarSpacing}"
                 ImageSize="25"
-                NormalImage="/Commons.Styles;component/Resources/Player/play.png" 
-                HoverImage="/Commons.Styles;component/Resources/Player/play_hover.png"
-                PressedImage="/Commons.Styles;component/Resources/Player/play_pressed.png"
-                NormalImageToggled="/Commons.Styles;component/Resources/Player/pause.png" 
-                HoverImageToggled="/Commons.Styles;component/Resources/Player/pause_hover.png"
-                PressedImageToggled="/Commons.Styles;component/Resources/Player/pause_pressed.png"/>
+                NormalImage="/BookWave.Styles;component/Resources/Player/play.png" 
+                HoverImage="/BookWave.Styles;component/Resources/Player/play_hover.png"
+                PressedImage="/BookWave.Styles;component/Resources/Player/play_pressed.png"
+                NormalImageToggled="/BookWave.Styles;component/Resources/Player/pause.png" 
+                HoverImageToggled="/BookWave.Styles;component/Resources/Player/pause_hover.png"
+                PressedImageToggled="/BookWave.Styles;component/Resources/Player/pause_pressed.png"/>
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
                 ImageSize="25"
-                NormalImage="/Commons.Styles;component/Resources/Player/next.png" 
-                HoverImage="/Commons.Styles;component/Resources/Player/next_hover.png"
-                PressedImage="/Commons.Styles;component/Resources/Player/next_pressed.png"/>
+                NormalImage="/BookWave.Styles;component/Resources/Player/next.png" 
+                HoverImage="/BookWave.Styles;component/Resources/Player/next_hover.png"
+                PressedImage="/BookWave.Styles;component/Resources/Player/next_pressed.png"/>
 
             <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
                 ImageSize="25"
-                NormalImage="/Commons.Styles;component/Resources/Player/skip30.png" 
-                HoverImage="/Commons.Styles;component/Resources/Player/skip30_hover.png"
-                PressedImage="/Commons.Styles;component/Resources/Player/skip30_pressed.png"/>
+                NormalImage="/BookWave.Styles;component/Resources/Player/skip30.png" 
+                HoverImage="/BookWave.Styles;component/Resources/Player/skip30_hover.png"
+                PressedImage="/BookWave.Styles;component/Resources/Player/skip30_pressed.png"/>
 
         </StackPanel>
 
@@ -108,12 +108,12 @@
 
             <local:ToggleImageButton x:Name="btnToggleVolume"
                 ImageSize="25"
-                NormalImage="/Commons.Styles;component/Resources/Player/speaker.png" 
-                HoverImage="/Commons.Styles;component/Resources/Player/speaker_hover.png"
-                PressedImage="/Commons.Styles;component/Resources/Player/speaker_pressed.png"
-                NormalImageToggled="/Commons.Styles;component/Resources/Player/speakerOff.png" 
-                HoverImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_hover.png"
-                PressedImageToggled="/Commons.Styles;component/Resources/Player/speakerOff_pressed.png"
+                NormalImage="/BookWave.Styles;component/Resources/Player/speaker.png" 
+                HoverImage="/BookWave.Styles;component/Resources/Player/speaker_hover.png"
+                PressedImage="/BookWave.Styles;component/Resources/Player/speaker_pressed.png"
+                NormalImageToggled="/BookWave.Styles;component/Resources/Player/speakerOff.png" 
+                HoverImageToggled="/BookWave.Styles;component/Resources/Player/speakerOff_hover.png"
+                PressedImageToggled="/BookWave.Styles;component/Resources/Player/speakerOff_pressed.png"
                 Margin="0, 0, 10, 0" Click="BtnToggleVolume_Click"
                 IsChecked="{Binding ElementName=sldVolume, Path=Value, Mode=OneWay, 
                     Converter={StaticResource DoubleToBoolConverter}}"/>

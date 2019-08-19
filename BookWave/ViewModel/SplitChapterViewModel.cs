@@ -1,15 +1,9 @@
-﻿using Commons.Exceptions;
-using Commons.Logic;
-using Commons.Models;
+﻿using BookWave.Desktop.AudiobookManagement;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows.Forms;
-using System.Windows.Input;
 
-namespace Commons.ViewModel
+namespace BookWave.ViewModel
 {
     public class SplitChapterViewModel : ViewModelBase
     {
@@ -51,7 +45,7 @@ namespace Commons.ViewModel
 
         public SplitChapterViewModel()
         {
-            
+
         }
 
         #endregion

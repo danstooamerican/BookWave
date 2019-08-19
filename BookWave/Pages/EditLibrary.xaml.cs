@@ -1,13 +1,11 @@
-﻿using Commons.Dialogs;
-using Commons.Util;
-using Commons.ViewModel;
-using System;
+﻿using BookWave.Desktop.AudiobookManagement.Dialogs;
+using BookWave.ViewModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Commons.Pages
+namespace BookWave.Desktop.Pages
 {
     /// <summary>
     /// Interaction logic for AuthorsPage.xaml
@@ -15,11 +13,12 @@ namespace Commons.Pages
     public partial class EditLibrary : Page
     {
 
-        private EditLibraryViewModel viewModel;
+        private readonly EditLibraryViewModel viewModel;
 
         public EditLibrary()
         {
             viewModel = ViewModelLocator.Instance.EditLibraryViewModel;
+            viewModel.Page = this;
             DataContext = viewModel;
             InitializeComponent();
         }
@@ -35,12 +34,14 @@ namespace Commons.Pages
             if (sender is DataGrid)
             {
                 e.Handled = true;
-                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
-                eventArg.RoutedEvent = UIElement.MouseWheelEvent;
-                eventArg.Source = sender;
+                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                {
+                    RoutedEvent = UIElement.MouseWheelEvent,
+                    Source = sender
+                };
                 var parent = ((Control)sender).Parent as UIElement;
                 parent.RaiseEvent(eventArg);
-            }            
+            }
         }
 
         /// <summary>
@@ -61,16 +62,6 @@ namespace Commons.Pages
                         viewModel.Audiobook.Metadata.Path = files[0];
                     }
                 }
-            }
-        }
-
-        private void BtnBrowseLibrary_Click(object sender, RoutedEventArgs e)
-        {
-            SelectLibraryItemDialog dialog = new SelectLibraryItemDialog(this);
-
-            if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
-            {
-                viewModel.Destination = dialog.Selected.Metadata.Path;
             }
         }
 
