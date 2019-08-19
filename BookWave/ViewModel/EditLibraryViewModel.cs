@@ -39,8 +39,6 @@ namespace BookWave.ViewModel
                 {
                     Audiobook.Metadata.Path = Destination;
                 }
-
-                UpdateIsInLibrary();
             }
         }
 
@@ -66,16 +64,16 @@ namespace BookWave.ViewModel
             set
             {
                 Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value);
-                UpdateIsInLibrary();
+                RaisePropertyChanged(nameof(IsInLibrary));
             }
         }
 
-        private bool mIsInLibrary;
         public bool IsInLibrary
         {
-            get { return mIsInLibrary; }
-            set { Set<bool>(() => this.IsInLibrary, ref mIsInLibrary, value); }
+            get { return Library != null && Library.Contains(Audiobook); }
         }
+
+        public bool AudiobookSelected { get { return Audiobook.ID != AudiobookDummy.DummyId; } }
 
         private Page mPage;
 
@@ -113,7 +111,7 @@ namespace BookWave.ViewModel
 
         public EditLibraryViewModel()
         {
-            Audiobook = AudiobookManager.Instance.CreateAudiobook();
+            Audiobook = new AudiobookDummy();
             if (LibraryManager.Instance.GetLibraries().Count > 0)
             {
                 Library = LibraryManager.Instance.GetLibrary(0);
@@ -133,21 +131,6 @@ namespace BookWave.ViewModel
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Checks whether the current audiobook is in the library and sets the IsInLibrary property.
-        /// </summary>
-        private void UpdateIsInLibrary()
-        {
-            if (Library == null || Audiobook == null)
-            {
-                IsInLibrary = false;
-            }
-            else
-            {
-                IsInLibrary = Library.Contains(Audiobook);
-            }
-        }
 
         /// <summary>
         /// Opens a FolderBrowserDialog and sets the Destination property.
@@ -195,7 +178,7 @@ namespace BookWave.ViewModel
                 throw new InvalidArgumentException("audiobook title is required");
             }
 
-            UpdateIsInLibrary();
+            RaisePropertyChanged(nameof(IsInLibrary));
         }
 
         /// <summary>
@@ -276,7 +259,8 @@ namespace BookWave.ViewModel
 
         private bool CanSaveAudiobook()
         {
-            return Audiobook.Chapters.Count > 0 && Library != null && !string.IsNullOrEmpty(Audiobook.Metadata.Title);
+            return Audiobook.Chapters.Count > 0 
+                && Library != null && !string.IsNullOrEmpty(Audiobook.Metadata.Title);
         }
 
         private bool CanCopyCoverImageFromClipboard()

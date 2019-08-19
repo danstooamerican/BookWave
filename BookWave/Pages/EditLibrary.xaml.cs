@@ -44,27 +44,6 @@ namespace BookWave.Desktop.Pages
             }
         }
 
-        /// <summary>
-        /// Handle drop of folder in datagrid. Only one folder at a time is allowed.
-        /// </summary>
-        /// <param name="sender">sender of the drop event</param>
-        /// <param name="e">event args</param>
-        private void PerformDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                if (files.Length == 1)
-                {
-                    if (Directory.Exists(files[0]))
-                    {
-                        viewModel.Audiobook.Metadata.Path = files[0];
-                    }
-                }
-            }
-        }
-
         private void ImgCoverImage_MouseUp(object sender, MouseButtonEventArgs e)
         {
             viewModel.SelectCoverImage();
