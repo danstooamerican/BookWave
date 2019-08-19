@@ -11,7 +11,6 @@
             <converters:ChaptersToVisibleConverter x:Key="ChaptersToVisibleConverter" />
             <converters:VerticalOffsetOpacityConverter x:Key="VerticalOffsetOpacityConverter" />
             <converters:VerticalOffsetTopBarVisibilityConverter x:Key="VerticalOffsetTopBarVisibilityConverter" />
-            <converters:AddUpdateConverter x:Key="AddUpdateConverter" />
             <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
             <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
         </ResourceDictionary>

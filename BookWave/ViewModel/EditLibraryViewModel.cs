@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
@@ -64,7 +65,7 @@ namespace BookWave.ViewModel
             set
             {
                 Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value);
-                RaisePropertyChanged(nameof(IsInLibrary));
+                RaiseAudiobookChanged();
             }
         }
 
@@ -132,6 +133,12 @@ namespace BookWave.ViewModel
 
         #region Methods
 
+        private void RaiseAudiobookChanged()
+        {
+            RaisePropertyChanged(nameof(IsInLibrary));
+            RaisePropertyChanged(nameof(AudiobookSelected));
+        }
+
         /// <summary>
         /// Opens a FolderBrowserDialog and sets the Destination property.
         /// </summary>
@@ -178,7 +185,7 @@ namespace BookWave.ViewModel
                 throw new InvalidArgumentException("audiobook title is required");
             }
 
-            RaisePropertyChanged(nameof(IsInLibrary));
+            RaiseAudiobookChanged();
         }
 
         /// <summary>
@@ -188,6 +195,8 @@ namespace BookWave.ViewModel
         {
             AudiobookManager.Instance.RemoveAudiobook(Audiobook);
             Destination = string.Empty;
+            Audiobook = new AudiobookDummy();
+            RaiseAudiobookChanged();
         }
 
         public void SelectCoverImage()
@@ -200,27 +209,31 @@ namespace BookWave.ViewModel
                     {
                         openFileDialog.InitialDirectory = Audiobook.Metadata.Path;
                     }
-                    openFileDialog.Filter = "JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff|BMP|*.bmp|GIF|*.gif";
+                    openFileDialog.Filter = ConfigurationManager.AppSettings.Get("allowed_image_extensions");
                     openFileDialog.Title = "Choose a cover image";
                     openFileDialog.RestoreDirectory = true;
 
                     if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        string saveToPath = Path.Combine(Audiobook.Metadata.MetadataPath, "cover.jpg");
-
-                        Image image = Image.FromFile(openFileDialog.FileName);
-                        Image resized = BookWave.Desktop.Util.ImageConverter.Resize(image, 512, 512);
-
-                        Task.Factory.StartNew(() =>
-                        {
-                            BookWave.Desktop.Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
-                        }).ContinueWith((e) =>
-                        {
-                            Audiobook.Metadata.RaiseCoverChanged();
-                        });
+                        ChangeCoverImage(Image.FromFile(openFileDialog.FileName));
                     }
                 }
             }
+        }
+
+        private void ChangeCoverImage(Image image)
+        {
+            string saveToPath = Path.Combine(Audiobook.Metadata.MetadataPath, "cover.jpg");
+            
+            Image resized = BookWave.Desktop.Util.ImageConverter.Resize(image, 512, 512);
+
+            Task.Factory.StartNew(() =>
+            {
+                BookWave.Desktop.Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
+            }).ContinueWith((e) =>
+            {
+                Audiobook.Metadata.RaiseCoverChanged();
+            });
         }
 
         private void RemoveCoverImage()
@@ -234,7 +247,26 @@ namespace BookWave.ViewModel
 
         private void CopyCoverImageFromClipboard()
         {
-            //TODO implement this method
+            Image image = null;
+
+            if (Clipboard.ContainsImage())
+            {
+                image = Clipboard.GetImage();
+            } else
+            {
+                IDataObject myDataObject = Clipboard.GetDataObject();
+                string[] files = (string[])myDataObject.GetData(DataFormats.FileDrop);
+
+                if (files.Length == 1 && BookWave.Desktop.Util.ImageConverter.FileIsValid(files[0]))
+                {
+                    image = Image.FromFile(files[0]);
+                }
+            }
+
+            if (image != null)
+            {
+                ChangeCoverImage(image);
+            }
         }
 
         private bool CanBrowseLibrary()
@@ -265,6 +297,14 @@ namespace BookWave.ViewModel
 
         private bool CanCopyCoverImageFromClipboard()
         {
+            IDataObject myDataObject = Clipboard.GetDataObject();
+            string[] files = (string[])myDataObject.GetData(DataFormats.FileDrop);
+
+            if (files != null && files.Length == 1)
+            {
+                return BookWave.Desktop.Util.ImageConverter.FileIsValid(files[0]);
+            }
+
             return Clipboard.ContainsImage();
         }
 

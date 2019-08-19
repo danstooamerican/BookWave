@@ -47,7 +47,7 @@
                     Command="{Binding BrowseLibraryCommand}" />
 
                 <Button 
-                    Content="{Binding IsInLibrary, Converter={StaticResource AddUpdateConverter}}" 
+                    Content="Update" 
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0"
                     Style="{StaticResource RoundedButton}"
