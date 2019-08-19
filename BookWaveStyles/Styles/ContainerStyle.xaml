@@ -520,7 +520,36 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Style x:Key="ChapterCellStyle" TargetType="DataGridCell">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ContentPresenter Grid.Column="0" VerticalAlignment="Center" />
+
+                            <Image Grid.Column="1" Margin="3, 0"
+                                MaxWidth="15" MaxHeight="15"
+                                VerticalAlignment="Center" HorizontalAlignment="Right"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                ToolTip="Path not found."
+                                Source="/BookWave.Styles;component/Resources/Misc/warning.png"
+                                Visibility="{Binding AudioPath.PathNotValid, 
+                                    Converter={StaticResource BoolVisibilityConverter}}" />
+                        </Grid>                        
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Library Item -->
     <Style x:Key="LibraryItemStyle" TargetType="ListViewItem">
         <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />

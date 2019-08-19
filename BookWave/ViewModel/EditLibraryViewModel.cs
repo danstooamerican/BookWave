@@ -178,6 +178,8 @@ namespace BookWave.ViewModel
             {
                 Destination = dialog.Selected.Metadata.Path;
             }
+
+            RaiseAudiobookChanged();
         }
 
         private void CreateLibrary()

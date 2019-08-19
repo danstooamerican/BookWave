@@ -358,6 +358,7 @@
                         <DataGridTextColumn Header="Title" 
                             EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
                             ElementStyle="{StaticResource InformationText}"
+                            CellStyle="{StaticResource ChapterCellStyle}"
                             Binding="{Binding Metadata.Title}" 
                             MinWidth="80" 
                             Width="2*" />

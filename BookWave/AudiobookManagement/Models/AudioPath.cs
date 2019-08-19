@@ -27,9 +27,12 @@ namespace BookWave.Desktop.AudiobookManagement
             get { return mPath; }
             set
             {
-                Set<string>(() => this.Path, ref mPath, value);                
+                Set<string>(() => this.Path, ref mPath, value);
+                RaisePropertyChanged(nameof(PathNotValid));
             }
         }
+
+        public bool PathNotValid { get { return !File.Exists(Path); } }
 
         private int mStartMark;
         /// <summary>
