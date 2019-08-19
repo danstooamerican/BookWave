@@ -47,7 +47,7 @@
                 TextTrimming="WordEllipsis" />
 
             <ComboBox Margin="10,0"
-                MinWidth="300"
+                MinWidth="250"
                 VerticalAlignment="Center"
                 ItemsSource="{Binding Libraries}"
                 Style="{StaticResource ComboBoxStyle}"
@@ -65,6 +65,21 @@
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1"
+            HorizontalAlignment="Right">
+            <TextBlock
+                VerticalAlignment="Center" HorizontalAlignment="Right"
+                Style="{StaticResource InputMaskText}" Text="Filter:" 
+                TextTrimming="WordEllipsis" />
+
+            <ComboBox Margin="10,0"
+                MinWidth="120"
+                VerticalAlignment="Center" HorizontalAlignment="Right"
+                ItemsSource="{Binding FilterOptions}"
+                Style="{StaticResource ComboBoxStyle}"
+                SelectedItem="{Binding SelectedFilterOption}" />
         </StackPanel>
 
         <ListView Grid.Column="0" Grid.Row="2" 

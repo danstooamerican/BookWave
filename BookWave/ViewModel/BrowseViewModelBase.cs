@@ -50,6 +50,27 @@ namespace BookWave.ViewModel
             }
         }
 
+        private IDictionary<string, string> FilterOptionsDictionary;
+        public ICollection<string> FilterOptions
+        {
+            get { return FilterOptionsDictionary.Keys; }
+        }
+
+        private string mFilterOption;
+        public string SelectedFilterOption
+        {
+            get { return mFilterOption; }
+            set
+            {
+                if (FilterOptionsDictionary.ContainsKey(value))
+                {
+                    Set<string>(() => this.SelectedFilterOption, ref mFilterOption, value);
+                    UpdateBrowseList();
+                }                
+            }
+        }
+
+
         #endregion
 
         #region Commands
@@ -65,6 +86,15 @@ namespace BookWave.ViewModel
         {
             ScanLibraryCommand = new RelayCommand(() => { ScanLibrary(false); }, CanScanLibrary);
             HardScanLibraryCommand = new RelayCommand(() => { ScanLibrary(true); }, CanScanLibrary);
+
+            FilterOptionsDictionary = new Dictionary<string, string>();
+            FilterOptionsDictionary.Add("Title", "Metadata.Title");
+            FilterOptionsDictionary.Add("Release Year", "Metadata.ReleaseYear");
+            FilterOptionsDictionary.Add("Genre", "Metadata.Genre");
+            FilterOptionsDictionary.Add("Author", "Metadata.Contributors.AuthorString");
+            FilterOptionsDictionary.Add("Reader", "Metadata.Contributors.ReaderString");
+
+            SelectedFilterOption = "Title";
         }
 
         #endregion
@@ -80,7 +110,8 @@ namespace BookWave.ViewModel
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         Audiobooks = CollectionViewSource.GetDefaultView(Library.GetAudiobooks());
-                        Audiobooks.SortDescriptions.Add(new SortDescription("Metadata.Title", ListSortDirection.Ascending));
+                        Audiobooks.SortDescriptions.Clear();
+                        Audiobooks.SortDescriptions.Add(new SortDescription(FilterOptionsDictionary[SelectedFilterOption], ListSortDirection.Ascending));
                     }));
                 });
             }
