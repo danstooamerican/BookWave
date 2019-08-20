@@ -22,7 +22,7 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <summary>
         /// Path to the audiobook folder.
         /// </summary>
-        public string Path
+        public virtual string Path
         {
             get { return mPath; }
             set
@@ -32,7 +32,7 @@ namespace BookWave.Desktop.AudiobookManagement
             }
         }
 
-        public bool PathNotValid
+        public virtual bool PathNotValid
         {
             get { return !Directory.Exists(Path); }
         }

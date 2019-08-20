@@ -68,7 +68,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="DataGrid" TargetType="DataGrid">       
+    <Style x:Key="DataGrid" TargetType="DataGrid">
         <!-- Make the border and grid lines a little less imposing -->
         <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
         <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource TextPressedColorBrush}" />
@@ -97,20 +97,20 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="auto" />
                                     </Grid.RowDefinitions>
-                                    
+
                                     <Border x:Name="BackgroundBorder"
                                         Background="{StaticResource GridBackgroundBrush}"
-                                        Grid.ColumnSpan="2" />       
-                                    
+                                        Grid.ColumnSpan="2" />
+
                                     <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
-                                    
+
                                     <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
                                         Grid.Column="1" Width="8" Height="6" Fill="{StaticResource AccentColorBrush}" Margin="0,0,8,0" 
                                         VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
-                                    
+
                                     <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" 
                                         Style="{StaticResource ColumnHeaderGripperStyle}"/>
-                                    
+
                                     <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" 
                                         Style="{StaticResource ColumnHeaderGripperStyle}"/>
 
@@ -141,7 +141,7 @@
         </Setter>
 
         <Setter Property="RowStyle" Value="{StaticResource DataGridRow}"/>
-        
+
         <Setter Property="CellStyle">
             <Setter.Value>
                 <Style TargetType="DataGridCell">
@@ -154,7 +154,7 @@
                             <ControlTemplate TargetType="DataGridCell">
                                 <Border Padding="{TemplateBinding Padding}" 
                                     Background="{TemplateBinding Background}">
-                                    
+
                                     <ContentPresenter />
                                 </Border>
                             </ControlTemplate>
@@ -372,7 +372,7 @@
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-        
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
@@ -409,7 +409,7 @@
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            
+
                             <ToggleButton Grid.Column="0" Grid.Row="0"
                                 HorizontalAlignment="Stretch"
 								IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -434,7 +434,7 @@
                             </ContentPresenter>
                         </Grid>
                     </Border>
-                    
+
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -520,36 +520,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="ChapterCellStyle" TargetType="DataGridCell">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type DataGridCell}">
-                    <Grid Background="Transparent">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <ContentPresenter Grid.Column="0" VerticalAlignment="Center" />
-
-                            <Image Grid.Column="1" Margin="3, 0"
-                                MaxWidth="15" MaxHeight="15"
-                                VerticalAlignment="Center" HorizontalAlignment="Right"
-                                RenderOptions.BitmapScalingMode="HighQuality"
-                                ToolTip="Path not found."
-                                Source="/BookWave.Styles;component/Resources/Misc/warning.png"
-                                Visibility="{Binding AudioPath.PathNotValid, 
-                                    Converter={StaticResource BoolVisibilityConverter}}" />
-                        </Grid>                        
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
+    
     <!-- Library Item -->
     <Style x:Key="LibraryItemStyle" TargetType="ListViewItem">
         <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />

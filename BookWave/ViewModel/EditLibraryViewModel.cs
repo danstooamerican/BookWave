@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -29,17 +30,6 @@ namespace BookWave.ViewModel
             set
             {
                 Set<string>(() => this.Destination, ref mDestination, value);
-
-                var tmpAudiobook = AudiobookManager.Instance.GetAudiobook(Destination);
-                if (tmpAudiobook != null)
-                {
-                    Audiobook = (Audiobook)tmpAudiobook.Clone();
-                    Library = Audiobook.Library;
-                }
-                else
-                {
-                    Audiobook.Metadata.Path = Destination;
-                }
             }
         }
 
@@ -97,7 +87,9 @@ namespace BookWave.ViewModel
 
         #region Commands
 
-        public ICommand SelectFolderCommand { private set; get; }
+        public ICommand ResolveAudiobookPathWarningCommand { private set; get; }
+
+        public ICommand ResolveChapterPathWarningCommand { private set; get; }
 
         public ICommand SaveAudiobookCommand { private set; get; }
 
@@ -122,12 +114,9 @@ namespace BookWave.ViewModel
         public EditLibraryViewModel()
         {
             Audiobook = new AudiobookDummy();
-            if (LibraryManager.Instance.GetLibraries().Count > 0)
-            {
-                Library = LibraryManager.Instance.GetLibrary(0);
-            }
 
-            SelectFolderCommand = new RelayCommand(SelectFolder, CanSelectFolder);
+            ResolveAudiobookPathWarningCommand = new RelayCommand(ResolveAudiobookPathWarning);
+            ResolveChapterPathWarningCommand = new RelayCommand<Chapter>((c) => ResolveChapterPathWarning(c));
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
             SelectCoverImageCommand = new RelayCommand(SelectCoverImage, CanSelectCoverImage);
             RemoveCoverImageCommand = new RelayCommand(RemoveCoverImage, CanRemoveCoverImage);
@@ -144,6 +133,9 @@ namespace BookWave.ViewModel
 
         private void RaiseAudiobookChanged()
         {
+            Destination = Audiobook.Metadata.Path;
+            Library = Audiobook.Library;
+
             RaisePropertyChanged(nameof(IsInLibrary));
             RaisePropertyChanged(nameof(AudiobookSelected));
             Task.Factory.StartNew(() =>
@@ -158,15 +150,26 @@ namespace BookWave.ViewModel
 
         }
 
+        private void ResolveChapterPathWarning(Chapter chapter)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog(); // TODO only allow audio files
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                chapter.AudioPath.Path = openFileDialog.FileName; // TODO perform integrity checks
+                RaiseAudiobookChanged();
+            }
+        }
+
         /// <summary>
         /// Opens a FolderBrowserDialog and sets the Destination property.
         /// </summary>
-        private void SelectFolder()
+        private void ResolveAudiobookPathWarning()
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                Destination = folderBrowserDialog.SelectedPath;
+                Audiobook.Metadata.Path = folderBrowserDialog.SelectedPath; // TODO perform integrity checks
+                RaiseAudiobookChanged();
             }
         }
 
@@ -176,10 +179,8 @@ namespace BookWave.ViewModel
 
             if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
             {
-                Destination = dialog.Selected.Metadata.Path;
+                Audiobook = (Audiobook)dialog.Selected.Clone();
             }
-
-            RaiseAudiobookChanged();
         }
 
         private void CreateLibrary()
@@ -299,11 +300,6 @@ namespace BookWave.ViewModel
         private bool CanSelectCoverImage()
         {
             return Library != null && Library.Contains(Audiobook);
-        }
-
-        private bool CanSelectFolder()
-        {
-            return Library != null;
         }
 
         private bool CanRemoveCoverImage()

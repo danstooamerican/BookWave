@@ -53,7 +53,7 @@ namespace BookWave.Desktop.AudiobookManagement
         public AudiobookMetadata Metadata
         {
             get { return mMetadata; }
-            private set { Set<AudiobookMetadata>(() => this.Metadata, ref mMetadata, value); }
+            protected set { Set<AudiobookMetadata>(() => this.Metadata, ref mMetadata, value); }
         }
 
         #endregion

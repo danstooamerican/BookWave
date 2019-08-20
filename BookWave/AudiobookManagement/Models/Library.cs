@@ -132,8 +132,6 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <param name="audiobook"></param>
         private void AddAudiobook(Audiobook audiobook)
         {
-            Console.WriteLine("Adding audiobook " + audiobook.Metadata.Path + " with ID " + audiobook.ID);
-
             if ( !(audiobook == null || Contains(audiobook)) && audiobook.Chapters.Count > 0)
             {
                 if (audiobook.Library != null)

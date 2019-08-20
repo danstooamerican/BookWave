@@ -65,7 +65,10 @@ namespace BookWave.Controls
 
         private static void ImageSourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            Application.GetResourceStream(new Uri("pack://application:,,," + (string)e.NewValue));
+            if (!string.IsNullOrEmpty((string)e.NewValue))
+            {
+                Application.GetResourceStream(new Uri("pack://application:,,," + (string)e.NewValue));
+            }            
         }
 
         #endregion
