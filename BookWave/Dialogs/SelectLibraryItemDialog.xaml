@@ -16,7 +16,7 @@
         BorderThickness="1"
         BorderBrush="{StaticResource TextHighlightColorBrush}"
         WindowStartupLocation="CenterOwner"
-        Title="Select Audiobook" Height="400" Width="600">
+        Title="Select Audiobook" Height="400" Width="750">
 
     <Grid>
         <Grid.ColumnDefinitions>

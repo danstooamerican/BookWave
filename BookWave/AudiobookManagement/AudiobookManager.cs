@@ -18,23 +18,10 @@ namespace BookWave.Desktop.AudiobookManagement
     {
         #region Public Properties
 
-        private static AudiobookManager mInstance;
-        public static AudiobookManager Instance
-        {
-            get
-            {
-                if (mInstance == null)
-                {
-                    Instance = new AudiobookManager();
-                }
-                return mInstance;
-            }
-            private set { mInstance = value; }
-        }
+        static readonly Lazy<AudiobookManager> instanceHolder = new Lazy<AudiobookManager>(() => new AudiobookManager());
+        public static AudiobookManager Instance => instanceHolder.Value;
 
-        private static readonly object IDLock = new object(); // TODO
         private int IDCount;
-        // private Semaphore IDsemaphore = new Semaphore(1, 1); TODO
 
         #endregion
 
@@ -58,24 +45,7 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <returns>unique runtime id for an audiobook</returns>
         private int GetNewID()
         {
-            //Console.WriteLine("Before " + IDCount);
-            //int id = Interlocked.Increment(ref IDCount);
-            //Console.WriteLine("After " + id + " count " + IDCount);
-            //return id;
-
-            lock(IDLock)
-            {
-                IDCount++;
-                Console.WriteLine("During " + IDCount);
-                return IDCount;
-            }
-
-            //IDsemaphore.WaitOne();
-            //IDCount++;
-            //Console.WriteLine("During " + IDCount);
-            //var temp = IDCount;
-            //IDsemaphore.Release();
-            //return temp;
+            return Interlocked.Increment(ref IDCount);
         }
 
         public Audiobook GetAudiobook(string destination)

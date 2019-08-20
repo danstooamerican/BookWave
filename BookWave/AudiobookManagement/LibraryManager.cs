@@ -16,19 +16,8 @@ namespace BookWave.Desktop.AudiobookManagement
     {
         #region Public Properties
 
-        private static LibraryManager mInstance;
-        public static LibraryManager Instance
-        {
-            get
-            {
-                if (mInstance == null)
-                {
-                    Instance = new LibraryManager();
-                }
-                return mInstance;
-            }
-            private set { mInstance = value; }
-        }
+        static readonly Lazy<LibraryManager> instanceHolder = new Lazy<LibraryManager>(() => new LibraryManager());
+        public static LibraryManager Instance => instanceHolder.Value;
 
         /// <summary>
         /// Path to the BookWave metadata folder.
@@ -201,15 +190,7 @@ namespace BookWave.Desktop.AudiobookManagement
         /// <returns>unique runtime id for a library</returns>
         private int GetNewID()
         {
-            int temp;
-
-            lock (IDLock)
-            {
-                temp = IDCount;
-                IDCount++;
-            }
-
-            return temp;
+            return Interlocked.Increment(ref IDCount);
         }
 
         #endregion
