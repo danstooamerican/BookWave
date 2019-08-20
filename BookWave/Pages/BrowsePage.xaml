@@ -78,7 +78,7 @@
             VirtualizingStackPanel.IsVirtualizing="True"
             BorderBrush="Transparent" Background="Transparent"
             VerticalContentAlignment="Top" HorizontalContentAlignment="Left"
-            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
             ItemsSource="{Binding Audiobooks}"
             SelectedItem="{Binding Selected}"
@@ -102,9 +102,9 @@
             
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Width="{Binding Path=ActualWidth, 
-                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
-                            Orientation="Horizontal" />
+                    <WrapPanel IsItemsHost="True"
+                        Orientation="Horizontal">
+                    </WrapPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>

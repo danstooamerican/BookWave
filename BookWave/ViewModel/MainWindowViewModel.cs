@@ -126,7 +126,7 @@ namespace BookWave.ViewModel
         public void SwitchToEditLibraryPage(Audiobook audiobook)
         {
             EditLibraryViewModel editLibraryViewModel = ViewModelLocator.Instance.EditLibraryViewModel;
-            editLibraryViewModel.Destination = audiobook.Metadata.Path;
+            editLibraryViewModel.Audiobook = audiobook;
 
             MainWindow.SwitchPage(new PageItem(MainWindow.btnEditLibrary));
         }
@@ -165,7 +165,7 @@ namespace BookWave.ViewModel
         /// <summary>
         /// The smallest width the window can go to
         /// </summary>
-        public double WindowMinimumWidth { get; set; } = 830;
+        public double WindowMinimumWidth { get; set; } = 855;
 
         /// <summary>
         /// The smallest height the window can go to

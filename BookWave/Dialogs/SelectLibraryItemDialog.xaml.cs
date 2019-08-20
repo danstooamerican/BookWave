@@ -17,7 +17,7 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
         /// Window always takes the dimensions of the parent window and multiplies
         /// it by the ratio.
         /// </summary>
-        protected static double WINDOW_RATIO = 0.8;
+        protected static double WINDOW_RATIO = 0.85;
 
         private SelectLibraryViewModel viewModel;
 
