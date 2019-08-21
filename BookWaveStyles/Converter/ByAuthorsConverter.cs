@@ -20,7 +20,7 @@ namespace BookWave.Styles.Converter
 
             if (value != null)
             {
-                if (!value.ToString().Equals(string.Empty))
+                if (!string.IsNullOrEmpty(value.ToString()))
                 {
                     authorString = "by " + value.ToString();
                 }

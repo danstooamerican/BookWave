@@ -98,7 +98,7 @@ namespace BookWave.Desktop.AudiobookManagement
             List<string> list = new List<string>();
             foreach (string name in split)
             {
-                if (!name.Trim().Equals(string.Empty)
+                if (!string.IsNullOrEmpty(name.Trim())
                     && !list.Contains(name.Trim()))
                 {
                     list.Add(name.Trim());

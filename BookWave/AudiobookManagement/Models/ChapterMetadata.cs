@@ -12,11 +12,18 @@ namespace BookWave.Desktop.AudiobookManagement
     {
         #region Public Properties
 
-        private int mTrackNumber;
-        public int TrackNumber
+        private string mTrackNumber;
+        public string TrackNumber
         {
             get { return mTrackNumber; }
-            set { Set<int>(() => this.TrackNumber, ref mTrackNumber, value); }
+            set
+            {
+                int trackNumber;
+                if (string.IsNullOrEmpty(value) || int.TryParse(value, out trackNumber))
+                {
+                    Set<string>(() => this.TrackNumber, ref mTrackNumber, value);
+                }
+            }
         }
 
         #endregion
@@ -31,12 +38,12 @@ namespace BookWave.Desktop.AudiobookManagement
         {
             Title = string.Empty;
             Description = string.Empty;
-            TrackNumber = -1;
+            TrackNumber = string.Empty;
 
             if (track != null)
             {
                 Title = track.Title;
-                TrackNumber = track.TrackNumber;
+                TrackNumber = track.TrackNumber.ToString();
                 Description = track.Description;
             }
         }
@@ -45,7 +52,7 @@ namespace BookWave.Desktop.AudiobookManagement
         {
             XElement metadataXML = base.ToXML();
 
-            if (TrackNumber != 0)
+            if (!string.IsNullOrEmpty(TrackNumber))
             {
                 metadataXML.Add(new XElement("TrackNumber", TrackNumber));
             }
@@ -57,12 +64,7 @@ namespace BookWave.Desktop.AudiobookManagement
         {
             base.FromXML(xmlElement);
 
-            // TODO regex move to GetSingleElement
-            string strTrackNumber = XMLHelper.GetSingleValue(xmlElement, "TrackNumber");
-            if (Regex.IsMatch(strTrackNumber, "[0-9]+"))
-            {
-                TrackNumber = int.Parse(strTrackNumber);
-            }
+            TrackNumber = XMLHelper.GetSingleIntValue(xmlElement, "TrackNumber");
         }
 
         public override object Clone()

@@ -360,12 +360,12 @@ namespace BookWave.Desktop.AudiobookManagement
         {
             var libraryXML = new XElement("Library");
 
-            if (!Name.Equals(string.Empty))
+            if (!string.IsNullOrEmpty(Name))
             {
                 libraryXML.Add(new XElement("Name", Name));
             }
 
-            if (!LibraryPath.Equals(string.Empty))
+            if (!string.IsNullOrEmpty(LibraryPath))
             {
                 libraryXML.Add(new XElement("Path", LibraryPath));
             }

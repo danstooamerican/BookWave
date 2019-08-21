@@ -227,7 +227,7 @@ namespace BookWave.ViewModel
             {
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    if (!Audiobook.Metadata.Path.Equals(string.Empty))
+                    if (!string.IsNullOrEmpty(Audiobook.Metadata.Path))
                     {
                         openFileDialog.InitialDirectory = Audiobook.Metadata.Path;
                     }

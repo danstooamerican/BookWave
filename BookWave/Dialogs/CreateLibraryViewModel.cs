@@ -31,9 +31,9 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
                 }
                 else
                 {
-                    if (value != null && value.Equals(string.Empty))
+                    if (value != null && string.IsNullOrEmpty(value))
                     {
-                        Set<string>(() => this.Destination, ref mDestination, value);
+                        Set<string>(() => this.Destination, ref mDestination, string.Empty);
                     }
                 }
             }

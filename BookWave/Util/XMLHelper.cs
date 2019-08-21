@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace BookWave.Desktop.Util
@@ -46,6 +47,25 @@ namespace BookWave.Desktop.Util
             {
                 return descendents.First().Value;
             }
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Returns a single element of an XML document if it is an integer.
+        /// </summary>
+        /// <param name="element">Element the property is searched in</param>
+        /// <param name="name">Name of the property</param>
+        /// <returns>the element. Returns string.empty if it doesn't exist or isn't an integer.</returns>
+        public static string GetSingleIntValue(XElement element, string name)
+        {
+            string value = GetSingleValue(element, name);
+            int intValue;
+            if (string.IsNullOrEmpty(value) || int.TryParse(value, out intValue))
+            {
+                return value;
+            }
+
             return string.Empty;
         }
 

@@ -56,12 +56,12 @@ namespace BookWave.Desktop.AudiobookManagement
         {
             XElement metadataXML = new XElement("Metadata");
 
-            if (!Title.Equals(string.Empty)) //TODO maybe != null?
+            if (!string.IsNullOrEmpty(Title))
             {
                 metadataXML.Add(new XElement("Title", Title));
             }
 
-            if (!Description.Equals(string.Empty))
+            if (!string.IsNullOrEmpty(Description))
             {
                 metadataXML.Add(new XElement("Description", Description));
             }
