@@ -152,7 +152,8 @@ namespace BookWave.ViewModel
 
         private void ResolveChapterPathWarning(Chapter chapter)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog(); // TODO only allow audio files
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = ConfigurationManager.AppSettings.Get("allowed_audio_extensions_filter");
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 chapter.AudioPath.Path = openFileDialog.FileName; // TODO perform integrity checks
@@ -231,7 +232,7 @@ namespace BookWave.ViewModel
                     {
                         openFileDialog.InitialDirectory = Audiobook.Metadata.Path;
                     }
-                    openFileDialog.Filter = ConfigurationManager.AppSettings.Get("allowed_image_extensions");
+                    openFileDialog.Filter = ConfigurationManager.AppSettings.Get("allowed_image_extensions_filter");
                     openFileDialog.Title = "Choose a cover image";
                     openFileDialog.RestoreDirectory = true;
 

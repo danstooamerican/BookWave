@@ -114,7 +114,7 @@ namespace BookWave.Desktop.AudiobookManagement.Scanner
         /// <returns>list of paths to all audio files in the folder</returns>
         protected ICollection<string> GetAllAudioFilesFrom(string path, SearchOption searchOption)
         {
-            var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_extensions").Split(',');
+            var allowedExtensions = ConfigurationManager.AppSettings.Get("allowed_audio_extensions").Split(',');
 
             List<string> files = Directory
                     .GetFiles(path, "*.*", searchOption)

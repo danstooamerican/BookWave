@@ -143,12 +143,12 @@ namespace BookWave.Desktop.AudiobookManagement
         {
             XElement metadataXML = base.ToXML();
 
-            if (!Path.Equals(string.Empty))
+            if (!string.IsNullOrEmpty(Path))
             {
                 metadataXML.Add(new XElement("Path", Path));
             }
 
-            if (!Genre.Equals(string.Empty))
+            if (!string.IsNullOrEmpty(Genre))
             {
                 metadataXML.Add(new XElement("Genre", Genre));
             }
@@ -162,7 +162,7 @@ namespace BookWave.Desktop.AudiobookManagement
                 }
             }
 
-            if (!ReleaseYear.Equals(string.Empty))
+            if (!string.IsNullOrEmpty(ReleaseYear))
             {
                 metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
             }

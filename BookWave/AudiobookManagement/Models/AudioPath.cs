@@ -104,7 +104,7 @@ namespace BookWave.Desktop.AudiobookManagement
         {
             var pathXML = new XElement("AudioPath");
 
-            if (!Path.Equals(string.Empty))
+            if (!string.IsNullOrEmpty(Path))
             {
                 pathXML.Add(new XElement("FilePath", Path));
             }
