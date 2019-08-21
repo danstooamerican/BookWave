@@ -535,8 +535,8 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="185" />
                                 <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
 
                             <Image Grid.Column="0" Grid.Row="0"         
@@ -554,7 +554,7 @@
                             <TextBlock Grid.Column="0" Grid.Row="2"
                                 Margin="0, 5, 0, 0" MaxHeight="40"
                                 Text="{Binding Metadata.Contributors.AuthorString, Converter={StaticResource ByAuthorsConverter}}"
-                                Foreground="{StaticResource TextColorBrush}"
+                                Foreground="{StaticResource TextColorBrush}" VerticalAlignment="Bottom"
                                 FontSize="13" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
 
                             <Image Grid.Column="0" Grid.Row="3"         

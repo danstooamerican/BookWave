@@ -71,7 +71,7 @@
             HorizontalAlignment="Right">
             <TextBlock
                 VerticalAlignment="Center" HorizontalAlignment="Right"
-                Style="{StaticResource InputMaskText}" Text="Filter:" 
+                Style="{StaticResource InputMaskText}" Text="Sort by:" 
                 TextTrimming="WordEllipsis" />
 
             <ComboBox Margin="10,0"

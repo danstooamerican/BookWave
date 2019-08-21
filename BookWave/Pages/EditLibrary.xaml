@@ -192,9 +192,9 @@
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0"
+                                    <DoubleAnimation Duration="0:0:0.1"
                                         Storyboard.TargetProperty="Width" From="40" To="45" />
-                                    <DoubleAnimation Duration="0:0:0"
+                                    <DoubleAnimation Duration="0:0:0.1"
                                         Storyboard.TargetProperty="Height" From="40" To="45" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -202,9 +202,9 @@
                         <EventTrigger RoutedEvent="MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Duration="0:0:0"
+                                    <DoubleAnimation Duration="0:0:0.1"
                                         Storyboard.TargetProperty="Width" From="45" To="40" />
-                                    <DoubleAnimation Duration="0:0:0"
+                                    <DoubleAnimation Duration="0:0:0.1"
                                         Storyboard.TargetProperty="Height" From="45" To="40" />
                                 </Storyboard>
                             </BeginStoryboard>
