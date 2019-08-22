@@ -1,18 +1,21 @@
-<Application x:Class="BookWave.Desktop.App" 
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="Views/MainWindow.xaml" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             d1p1:Ignorable="d" 
-             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+<util:SkinnedApplication x:Class="BookWave.Desktop.App" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Startup="Application_Startup"
+    xmlns:util="clr-namespace:BookWave.Desktop.Util"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    d1p1:Ignorable="d" 
+    xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DefaultSkinName="DarkTheme">
     
     <Application.Resources>        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/BookWave.Styles;component/BookWaveDesign.xaml" />
+                <util:SkinResourceDictionary SkinName="DarkTheme" SkinContent="Everything" Source="/BookWave.Styles;component/BookWaveDesign.xaml" />
+                
                 <ResourceDictionary Source="/BookWave.Controls;component/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>        
     </Application.Resources>
     
-</Application>
+</util:SkinnedApplication>

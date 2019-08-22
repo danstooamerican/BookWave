@@ -222,5 +222,8 @@
   <ItemGroup>
     <Resource Include="Resources\Misc\pencil_pressed.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Skins\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -107,6 +107,8 @@
     <Compile Include="Models\AudiobookManagement\Scanner\AudiobooksTopScanner.cs" />
     <Compile Include="Models\AudiobookManagement\Scanner\LibraryScanner.cs" />
     <Compile Include="Models\AudiobookManagement\Scanner\LibraryScannerFactory.cs" />
+    <Compile Include="Util\SkinnedApplication.cs" />
+    <Compile Include="Util\SkinResourceDictionary.cs" />
     <Compile Include="Views\Dialogs\CreateLibraryDialog.xaml.cs">
       <DependentUpon>CreateLibraryDialog.xaml</DependentUpon>
     </Compile>
