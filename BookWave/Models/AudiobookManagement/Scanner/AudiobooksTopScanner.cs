@@ -1,25 +1,23 @@
-﻿using BookWave.Desktop.Models.AudiobookManagement;
-using BookWave.Desktop.Models.AudiobookManagement.Scanner;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
-namespace BookWave.Desktop.AudiobookManagement.Scanner
+namespace BookWave.Desktop.Models.AudiobookManagement.Scanner
 {
     class AudiobooksTopScanner : LibraryScanner
     {
         public override string GetDescription()
         {
-            return "Makker Scanner Description";
+            return "Default Scanner";
         }
 
         public override string GetIdentifier()
         {
-            return "Other.Scanner.Makker";
+            return "BookWave.Scanner.AudiobooksTopScanner";
         }
 
         public override string GetName()
         {
-            return "Makker Scanner";
+            return "Audiobook Top Scanner";
         }
 
         protected override ICollection<string> GetAudiobookFolders(string path)
@@ -29,7 +27,7 @@ namespace BookWave.Desktop.AudiobookManagement.Scanner
 
         protected override void UpdateAudiobookInfo(Audiobook audiobook)
         {
-            audiobook.Metadata.Title = "Makker " + audiobook.Metadata.Title;
+            // NOP
         }
     }
 }
