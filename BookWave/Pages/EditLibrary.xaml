@@ -38,14 +38,21 @@
 
             <!-- Options -->
             <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
-                Orientation="Horizontal">
-
+                Orientation="Horizontal">                
+                
                 <Button Content="Browse Library" 
                     x:Name="btnBrowseLibrary"
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0" 
                     Style="{StaticResource RoundedButton}"
                     Command="{Binding BrowseLibraryCommand}" />
+
+                <Button Content="Import"
+                    MinHeight="28" MinWidth="130" MaxWidth="130"
+                    Margin="0, 0, 20, 0" 
+                    Style="{StaticResource RoundedButton}"
+                    Visibility="{Binding LibrarySelected, Converter={StaticResource BoolVisibilityConverter}}"
+                    Command="{Binding ImportAudiobookCommand}" />
 
                 <Button 
                     Content="Update" 

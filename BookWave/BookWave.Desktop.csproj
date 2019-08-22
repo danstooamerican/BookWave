@@ -110,7 +110,11 @@
     <Compile Include="Dialogs\CreateLibraryDialog.xaml.cs">
       <DependentUpon>CreateLibraryDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ImportAudiobookViewModel.cs" />
     <Compile Include="Dialogs\DialogWindow.cs" />
+    <Compile Include="Dialogs\ImportDialog.xaml.cs">
+      <DependentUpon>ImportDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SelectLibraryItemDialog.xaml.cs">
       <DependentUpon>SelectLibraryItemDialog.xaml</DependentUpon>
     </Compile>
@@ -162,6 +166,10 @@
     <Compile Include="Dialogs\SelectLibraryViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Dialogs\CreateLibraryDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ImportDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

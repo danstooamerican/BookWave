@@ -34,6 +34,7 @@ namespace BookWave.ViewModel
             SimpleIoc.Default.Register<BrowseViewModel>();
             SimpleIoc.Default.Register<SplitChapterViewModel>();
             SimpleIoc.Default.Register<CreateLibraryViewModel>();
+            SimpleIoc.Default.Register<ImportAudiobookViewModel>();
 
             //preload computation intensive view models
             ServiceLocator.Current.GetInstance<BrowseViewModel>();
@@ -61,6 +62,14 @@ namespace BookWave.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<CreateLibraryViewModel>();
+            }
+        }
+
+        public ImportAudiobookViewModel ImportAudiobookViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ImportAudiobookViewModel>();
             }
         }
 

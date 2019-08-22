@@ -45,9 +45,14 @@ namespace BookWave.ViewModel
         public Library Library
         {
             get { return mLibrary; }
-            set { Set<Library>(() => this.Library, ref mLibrary, value); }
+            set
+            {
+                Set<Library>(() => this.Library, ref mLibrary, value);
+                RaisePropertyChanged(nameof(LibrarySelected));
+            }
         }
 
+        public bool LibrarySelected { get { return Library != null; } }
 
         private Audiobook mAudiobook;
         public Audiobook Audiobook
@@ -91,6 +96,8 @@ namespace BookWave.ViewModel
 
         public ICommand ResolveChapterPathWarningCommand { private set; get; }
 
+        public ICommand ImportAudiobookCommand { private set; get; }
+
         public ICommand SaveAudiobookCommand { private set; get; }
 
         public ICommand RemoveAudiobookCommand { private set; get; }
@@ -117,6 +124,7 @@ namespace BookWave.ViewModel
 
             ResolveAudiobookPathWarningCommand = new RelayCommand(ResolveAudiobookPathWarning);
             ResolveChapterPathWarningCommand = new RelayCommand<Chapter>((c) => ResolveChapterPathWarning(c));
+            ImportAudiobookCommand = new RelayCommand(ImportAudiobook);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
             SelectCoverImageCommand = new RelayCommand(SelectCoverImage, CanSelectCoverImage);
             RemoveCoverImageCommand = new RelayCommand(RemoveCoverImage, CanRemoveCoverImage);
@@ -150,6 +158,9 @@ namespace BookWave.ViewModel
 
         }
 
+        /// <summary>
+        /// Opens a OpenFileDialog and sets the Path property of the chapter.
+        /// </summary>
         private void ResolveChapterPathWarning(Chapter chapter)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -162,7 +173,7 @@ namespace BookWave.ViewModel
         }
 
         /// <summary>
-        /// Opens a FolderBrowserDialog and sets the Destination property.
+        /// Opens a FolderBrowserDialog and sets the Destination property of the audiobook.
         /// </summary>
         private void ResolveAudiobookPathWarning()
         {
@@ -174,11 +185,21 @@ namespace BookWave.ViewModel
             }
         }
 
+        private void ImportAudiobook()
+        {
+            ImportDialog dialog = new ImportDialog(Page);
+
+            if (dialog.ShowDialog() == true)
+            {
+                
+            }
+        }
+
         private void BrowseLibrary()
         {
             SelectLibraryItemDialog dialog = new SelectLibraryItemDialog(Page);
 
-            if (dialog.ShowDialog() == SelectLibraryItemDialog.ITEM_SELECTED)
+            if (dialog.ShowDialog() == true)
             {
                 Audiobook = (Audiobook)dialog.Selected.Clone();
             }

@@ -11,8 +11,6 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
     /// </summary>
     public partial class SelectLibraryItemDialog : DialogWindow
     {
-        public static bool ITEM_SELECTED = true;
-
         /// <summary>
         /// Window always takes the dimensions of the parent window and multiplies
         /// it by the ratio.
@@ -69,7 +67,7 @@ namespace BookWave.Desktop.AudiobookManagement.Dialogs
         {
             if (Selected != null)
             {
-                this.DialogResult = ITEM_SELECTED;
+                this.DialogResult = true;
             }
         }
     }
