@@ -17,6 +17,9 @@
             </BeginStoryboard>
         </EventTrigger>
     </Page.Triggers>
-    
-      <Rectangle MinHeight="2000" Fill="{StaticResource CharlestonGreenBrush}" />
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+            FontSize="30" Foreground="White">Start</TextBlock>
+    </Grid>
 </Page>

@@ -83,13 +83,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Colors\TestTheme.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Skins\DarkTheme.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Colors\colors.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Skins\LightTheme.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ComboBoxStyle.xaml">
       <SubType>Designer</SubType>
@@ -242,9 +242,7 @@
   <ItemGroup>
     <Resource Include="Resources\Misc\pencil_pressed.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Skins\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BookWaveCustomControls\BookWave.Controls.csproj">
       <Project>{3c911c9e-41cb-4aca-8f0f-c69a311014f3}</Project>

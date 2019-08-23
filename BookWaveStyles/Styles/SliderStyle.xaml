@@ -6,11 +6,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Ellipse x:Name="ThumbNob" Fill="{StaticResource GrayBrush}" Height="12" Width="12"/>
+                    <Ellipse x:Name="ThumbNob" Fill="{StaticResource SliderThumbBrush}" Height="12" Width="12"/>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="ThumbNob" Property="Fill" Value="{StaticResource LightGrayBrush}" />
+                            <Setter TargetName="ThumbNob" Property="Fill" Value="{StaticResource SliderThumbHoverBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -37,8 +37,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border x:Name="TrackBackground" 
-                        Background="{StaticResource GrayBrush}"
-                        BorderBrush="{StaticResource GrayBrush}"                                        
+                        Background="{StaticResource SliderTrackBackgroundBrush}"
+                        BorderBrush="{StaticResource SliderTrackBorderBrush}"                                        
                         BorderThickness="1" CornerRadius="1"
                         VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
                     </Border>
@@ -53,8 +53,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border x:Name="TrackBackground" 
-                        Background="{StaticResource AccentBrush}"
-                        BorderBrush="{StaticResource AccentBrush}"                                        
+                        Background="{StaticResource SliderThumbPressedBrush}"
+                        BorderBrush="{StaticResource SliderThumbBorderPressedBrush}"                                        
                         BorderThickness="1" CornerRadius="1"
                         VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
                     </Border>
@@ -76,8 +76,8 @@
                             </Grid.RowDefinitions>
                             
                             <Border x:Name="TrackBackground" 
-                                 Background="{StaticResource DarkGrayBrush}"
-                                 BorderBrush="{StaticResource DarkGrayBrush}"                                        
+                                 Background="{StaticResource SliderUnusedTrackBackgroundBrush}"
+                                 BorderBrush="{StaticResource SliderUnusedTrackBorderBrush}"                                        
                                  BorderThickness="1" CornerRadius="1"
                                  Margin="0, 0, 6, 0"
                                  VerticalAlignment="Center" Height="4.0" Grid.Row="0" >

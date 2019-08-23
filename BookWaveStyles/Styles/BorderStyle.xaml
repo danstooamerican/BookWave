@@ -2,12 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="HorizontalSeparator" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource GrayBrush}" />
+        <Setter Property="Background" Value="{StaticResource SeperatorBrush}" />
         <Setter Property="Height" Value="1" />
     </Style>
 
     <Style x:Key="VerticalSeparator" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource GrayBrush}" />
+        <Setter Property="Background" Value="{StaticResource SeperatorBrush}" />
         <Setter Property="Width" Value="1" />
     </Style>
 
@@ -16,14 +16,14 @@
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
-    <Style x:Key="DropArea" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource GridBackgroundSelectedBrush}" />
+    <Style x:Key="Overlay" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource OverlayBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource OverlayBorderBrush}" />
         <Setter Property="Opacity" Value="0.8" />
     </Style>
 
     <Style x:Key="DarkenEffect" TargetType="Control">
-        <Setter Property="Background" Value="Black" />
+        <Setter Property="Background" Value="{StaticResource DarkenEffectBrush}" />
         <Setter Property="Opacity" Value="0" />
         <Setter Property="Visibility" Value="Collapsed" />
         

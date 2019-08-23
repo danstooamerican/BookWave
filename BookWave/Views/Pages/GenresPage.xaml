@@ -17,6 +17,9 @@
             </BeginStoryboard>
         </EventTrigger>
     </Page.Triggers>
-    
-    <Rectangle MinHeight="2000" Fill="{StaticResource DarkJungleGreenBrush}" />
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+            FontSize="30" Foreground="White">Genres</TextBlock>
+    </Grid>
 </Page>

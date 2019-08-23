@@ -12,9 +12,9 @@
         AllowsTransparency="True"
         Loaded="Window_Loaded"
         Closed="Window_Closed"
-        Background="{StaticResource Background2ColorBrush}"
+        Background="{StaticResource DialogBackgroundBrush}"
         BorderThickness="1"
-        BorderBrush="{StaticResource TextHighlightColorBrush}"
+        BorderBrush="{StaticResource DialogBorderBrush}"
         WindowStartupLocation="CenterOwner"
         Title="Import Audiobook" Height="235" Width="500">
 

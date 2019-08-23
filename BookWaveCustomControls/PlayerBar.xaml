@@ -147,8 +147,6 @@
                         Converter={StaticResource SecondsToTimeConverter}}"/>
 
             </Grid>
-        </Border>
-        
-        
+        </Border>       
     </Grid>
 </UserControl>

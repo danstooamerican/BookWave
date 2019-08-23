@@ -33,41 +33,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="OptionButton" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontWeight" Value="DemiBold" />
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border 
-                        Padding="0 3 10 3"                           
-                        Background="{TemplateBinding Background}">
-
-                        <Grid >
-                            <TextBlock HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextTrimming="WordEllipsis"/>
-                        </Grid>
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextPressedColorBrush}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="Background" Value="{StaticResource RoundedButtonBackgroundBrush}" />
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="FontSize" Value="14" />
@@ -94,8 +61,8 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}" />
-                            <Setter Property="Background" Value="{StaticResource GridBackgroundHoverBrush}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource RoundedButtonBorderHoverBrush}" />
+                            <Setter Property="Background" Value="{StaticResource RoundedButtonBackgroundHoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Foreground" Value="{StaticResource TextPressedColorBrush}" />                            

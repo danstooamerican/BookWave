@@ -36,7 +36,7 @@
                 </Grid.RowDefinitions>
 
                 <Rectangle Width="150" Height="150"
-                           Fill="{StaticResource CharlestonGreenBrush}"/>
+                           Fill="{StaticResource AccentColorBrush}"/>
 
                 <TextBlock Grid.Row="1" HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"

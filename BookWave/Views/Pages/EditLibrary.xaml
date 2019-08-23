@@ -4,8 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
-      xmlns:util="clr-namespace:BookWave.Desktop.Util"      
-      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:util="clr-namespace:BookWave.Desktop.Util"
       mc:Ignorable="d"       
       d:DesignHeight="450" d:DesignWidth="720"
       Title="AuthorsPage">
@@ -182,7 +181,7 @@
                 <Rectangle x:Name="coverDarken" Opacity="0"
                     Width="{Binding ActualWidth, ElementName=imgCover}"
                     Height="{Binding ActualHeight, ElementName=imgCover}"
-                    Fill="{StaticResource GridBackgroundBrush}" />
+                    Fill="{StaticResource OverlayBrush}" />
 
                 <!-- Edit Icon -->
                 <Image RenderOptions.BitmapScalingMode="HighQuality"
@@ -374,7 +373,7 @@
 
                 <Border Visibility="{Binding Audiobook.Chapters.Count, 
                         Converter={StaticResource ChaptersToVisibleConverter}}"
-                    Style="{StaticResource DropArea}" MinHeight="200">
+                    Style="{StaticResource Overlay}" MinHeight="200">
                     <TextBlock Text="Select an Audiobook" Style="{StaticResource DropText}" />
                 </Border>
             </Grid>            

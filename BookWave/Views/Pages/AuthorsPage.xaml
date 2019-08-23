@@ -20,6 +20,6 @@
     
     <Grid>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="30" Foreground="White">Authors</TextBlock>
+            FontSize="30" Foreground="White">Authors</TextBlock>
     </Grid>
 </Page>
