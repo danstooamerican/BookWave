@@ -2,6 +2,7 @@
 
 namespace BookWave.Desktop.Exceptions
 {
+    [Serializable]
     public class DeleteMetadataException : Exception
     {
         public DeleteMetadataException(string message) : base(message)

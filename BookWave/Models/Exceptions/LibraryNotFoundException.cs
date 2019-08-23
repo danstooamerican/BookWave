@@ -2,6 +2,7 @@
 
 namespace BookWave.Desktop.Exceptions
 {
+    [Serializable]
     class LibraryNotFoundException : Exception
     {
         public LibraryNotFoundException(string message) : base(message)

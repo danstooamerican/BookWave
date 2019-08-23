@@ -7,7 +7,7 @@
 
     <Style x:Key="ComboBoxButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}" />
         <Setter Property="FontSize" Value="14" />
 
         <Setter Property="Template">
@@ -25,7 +25,7 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextHighlightColorBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -34,8 +34,8 @@
     </Style>
 
     <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{StaticResource RoundedButtonBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource RoundedButtonBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="DemiBold" />
@@ -60,12 +60,12 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource RoundedButtonBorderHoverBrush}" />
-                            <Setter Property="Background" Value="{StaticResource RoundedButtonBackgroundHoverBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextHighlightColorBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource RoundedButtonBorderHoverBrush}" />
+                            <Setter Property="Background" Value="{DynamicResource RoundedButtonBackgroundHoverBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextPressedColorBrush}" />                            
+                            <Setter Property="Foreground" Value="{DynamicResource TextPressedColorBrush}" />                            
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.4" />

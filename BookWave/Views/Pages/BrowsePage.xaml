@@ -32,23 +32,23 @@
             Margin="27, 10">            
             <TextBlock
                 VerticalAlignment="Center"
-                Style="{StaticResource InputMaskText}" Text="Library:" 
+                Style="{DynamicResource InputMaskText}" Text="Library:" 
                 TextTrimming="WordEllipsis" />
 
             <ComboBox Margin="10,0"
                 MinWidth="250"
                 VerticalAlignment="Center"
                 ItemsSource="{Binding Libraries}"
-                Style="{StaticResource ComboBoxStyle}"
-                ItemTemplate="{StaticResource LibraryContentTemplate}"
+                Style="{DynamicResource ComboBoxStyle}"
+                ItemTemplate="{DynamicResource LibraryContentTemplate}"
                 SelectedItem="{Binding Library}" />
 
-            <Button Style="{StaticResource RoundedButton}" Content="Scan Library"
+            <Button Style="{DynamicResource RoundedButton}" Content="Scan Library"
                 x:Name="btnScanLibrary" ContextMenuService.Placement="Bottom"
                 Command="{Binding ScanLibraryCommand}">
 
                 <Button.ContextMenu>
-                    <ContextMenu Style="{StaticResource ContextMenuStyle}">
+                    <ContextMenu Style="{DynamicResource ContextMenuStyle}">
                         <MenuItem Header="Hard Scan" 
                             Command="{Binding HardScanLibraryCommand}"/>
                     </ContextMenu>
@@ -61,14 +61,14 @@
             HorizontalAlignment="Right">
             <TextBlock
                 VerticalAlignment="Center" HorizontalAlignment="Right"
-                Style="{StaticResource InputMaskText}" Text="Sort by:" 
+                Style="{DynamicResource InputMaskText}" Text="Sort by:" 
                 TextTrimming="WordEllipsis" />
 
             <ComboBox Margin="10,0"
                 MinWidth="120"
                 VerticalAlignment="Center" HorizontalAlignment="Right"
                 ItemsSource="{Binding FilterOptions}"
-                Style="{StaticResource ComboBoxStyle}"
+                Style="{DynamicResource ComboBoxStyle}"
                 SelectedItem="{Binding SelectedFilterOption}" />
         </StackPanel>
 
@@ -85,7 +85,7 @@
             Padding="20">
 
             <ListView.Resources>
-                <ContextMenu x:Key="ItemContextMenu" Style="{StaticResource ContextMenuStyle}">
+                <ContextMenu x:Key="ItemContextMenu" Style="{DynamicResource ContextMenuStyle}">
                     <MenuItem Header="Edit" 
                         Command="{Binding DataContext.EditSelectedCommand, 
                             RelativeSource={RelativeSource AncestorType=Page}}"
@@ -95,7 +95,7 @@
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource LibraryItemStyle}">
-                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+                    <Setter Property="ContextMenu" Value="{DynamicResource ItemContextMenu}" />
                 </Style>
             </ListView.ItemContainerStyle>
             

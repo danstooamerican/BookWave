@@ -137,7 +137,7 @@ namespace BookWave.ViewModel
             SplitChapterViewModel splitChapterViewModel = ViewModelLocator.Instance.SplitChapterViewModel;
             splitChapterViewModel.AudioFilePath = chapter.AudioPath.Path;
 
-            MainWindow.OpenInvisiblePage("/Pages/SplitChapterPage.xaml", "Split Chapter");
+            MainWindow.OpenInvisiblePage("/Views/Pages/SplitChapterPage.xaml", "Split Chapter");
         }
 
         #endregion

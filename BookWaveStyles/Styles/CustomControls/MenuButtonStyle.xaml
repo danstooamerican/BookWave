@@ -5,7 +5,7 @@
     <!-- Style for MenuButton -->
     <Style TargetType="{x:Type lib:MenuButton}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}" />
         <Setter Property="FontSize" Value="18" />
         <Setter Property="FontWeight" Value="DemiBold" />
 
@@ -28,7 +28,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <Rectangle x:Name="ClickedRect" Width="5" Fill="{StaticResource AccentColorBrush}" 
+                            <Rectangle x:Name="ClickedRect" Width="5" Fill="{DynamicResource AccentColorBrush}" 
                                        Grid.Column="0" Grid.Row="0" Visibility="{TemplateBinding ClickedRectVisibility}"/>
 
                             <TextBlock HorizontalAlignment="Left"
@@ -49,10 +49,10 @@
                             </Trigger.EnterActions>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextHighlightColorBrush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource TextPressedColorBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextPressedColorBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

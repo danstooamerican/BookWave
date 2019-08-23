@@ -2,6 +2,7 @@
 
 namespace BookWave.Desktop.Exceptions
 {
+    [Serializable]
     class ScannerNotFoundException : Exception
     {
         public ScannerNotFoundException(string message) : base(message)

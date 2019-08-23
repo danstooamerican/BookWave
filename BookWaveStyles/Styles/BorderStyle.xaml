@@ -2,12 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="HorizontalSeparator" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource SeperatorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SeperatorBrush}" />
         <Setter Property="Height" Value="1" />
     </Style>
 
     <Style x:Key="VerticalSeparator" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource SeperatorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SeperatorBrush}" />
         <Setter Property="Width" Value="1" />
     </Style>
 
@@ -17,13 +17,13 @@
     </Style>
 
     <Style x:Key="Overlay" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource OverlayBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource OverlayBorderBrush}" />
+        <Setter Property="Background" Value="{DynamicResource OverlayBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource OverlayBorderBrush}" />
         <Setter Property="Opacity" Value="0.8" />
     </Style>
 
     <Style x:Key="DarkenEffect" TargetType="Control">
-        <Setter Property="Background" Value="{StaticResource DarkenEffectBrush}" />
+        <Setter Property="Background" Value="{DynamicResource DarkenEffectBrush}" />
         <Setter Property="Opacity" Value="0" />
         <Setter Property="Visibility" Value="Collapsed" />
         

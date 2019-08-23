@@ -43,13 +43,13 @@
                     x:Name="btnBrowseLibrary"
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0" 
-                    Style="{StaticResource RoundedButton}"
+                    Style="{DynamicResource RoundedButton}"
                     Command="{Binding BrowseLibraryCommand}" />
 
                 <Button Content="Import"
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0" 
-                    Style="{StaticResource RoundedButton}"
+                    Style="{DynamicResource RoundedButton}"
                     Visibility="{Binding LibrarySelected, Converter={StaticResource BoolVisibilityConverter}}"
                     Command="{Binding ImportAudiobookCommand}" />
 
@@ -57,7 +57,7 @@
                     Content="Update" 
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Margin="0, 0, 20, 0"
-                    Style="{StaticResource RoundedButton}"
+                    Style="{DynamicResource RoundedButton}"
                     Visibility="{Binding AudiobookSelected, Converter={StaticResource BoolVisibilityConverter}}"
                     Command="{Binding SaveAudiobookCommand}"/>
 
@@ -65,14 +65,14 @@
                     Content="Remove" 
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Visibility="{Binding IsInLibrary, Converter={StaticResource BoolVisibilityConverter}}"
-                    Style="{StaticResource RoundedButton}"
+                    Style="{DynamicResource RoundedButton}"
                     Command="{Binding RemoveAudiobookCommand}"/>
             </StackPanel>
             
             <!-- Advanced Options -->
             <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"
-                Style="{StaticResource AnimatedExpander}"
-                Header="Advanced" Foreground="{StaticResource TextHighlightColorBrush}">
+                Style="{DynamicResource AnimatedExpander}"
+                Header="Advanced" Foreground="{DynamicResource TextHighlightColorBrush}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -90,27 +90,27 @@
                     <TextBlock  Grid.Column="0" Grid.Row="0"
                         VerticalAlignment="Center" HorizontalAlignment="Right"
                         Margin="0, 10, 0, 0"
-                        Style="{StaticResource InputMaskText}" Text="Author:" 
+                        Style="{DynamicResource InputMaskText}" Text="Author:" 
                         TextTrimming="WordEllipsis" />
 
                     <TextBox Grid.Column="1" Grid.Row="0"
                         Margin="10,10,10,0"
                         VerticalAlignment="Center"
                         Text="{Binding Audiobook.Metadata.Contributors.AuthorString, Mode=TwoWay}"
-                        Style="{StaticResource MaskTextBox}" />
+                        Style="{DynamicResource MaskTextBox}" />
 
                     <!-- Readers -->
                     <TextBlock  Grid.Column="0" Grid.Row="1"
                         VerticalAlignment="Center" HorizontalAlignment="Right"
                         Margin="0, 10, 0, 0"
-                        Style="{StaticResource InputMaskText}" Text="Reader:" 
+                        Style="{DynamicResource InputMaskText}" Text="Reader:" 
                         TextTrimming="WordEllipsis" />
 
                     <TextBox Grid.Column="1" Grid.Row="1"
                         Margin="10,10,10,0" MinWidth="400"
                         VerticalAlignment="Center"
                         Text="{Binding Audiobook.Metadata.Contributors.ReaderString, Mode=TwoWay}"
-                        Style="{StaticResource MaskTextBox}" />
+                        Style="{DynamicResource MaskTextBox}" />
 
                     <!-- ReleaseYear -->
                     <TextBlock  Grid.Column="0" Grid.Row="2"
@@ -123,26 +123,26 @@
                         Margin="10,10,10,0" MinWidth="400"
                         VerticalAlignment="Center"
                         Text="{Binding Audiobook.Metadata.ReleaseYear, Mode=TwoWay}"
-                        Style="{StaticResource MaskTextBox}" />
+                        Style="{DynamicResource MaskTextBox}" />
                     
                     <!-- Genre -->
                     <TextBlock  Grid.Column="0" Grid.Row="3"
                         VerticalAlignment="Center" HorizontalAlignment="Right"
                         Margin="0, 10, 0, 0"
-                        Style="{StaticResource InputMaskText}" Text="Genre:" 
+                        Style="{DynamicResource InputMaskText}" Text="Genre:" 
                         TextTrimming="WordEllipsis" />
 
                     <TextBox Grid.Column="1" Grid.Row="3"
                         Margin="10,10,10,0" MinWidth="400"
                         VerticalAlignment="Center"
                         Text="{Binding Audiobook.Metadata.Genre, Mode=TwoWay}"
-                        Style="{StaticResource MaskTextBox}" />
+                        Style="{DynamicResource MaskTextBox}" />
 
                     <!-- Description -->
                     <TextBlock  Grid.Column="0" Grid.Row="4"
                         VerticalAlignment="Top" HorizontalAlignment="Right"
                         Margin="0, 10, 0, 0"
-                        Style="{StaticResource InputMaskText}" Text="Description:" 
+                        Style="{DynamicResource InputMaskText}" Text="Description:" 
                         TextTrimming="WordEllipsis" />
 
                     <TextBox Grid.Column="1" Grid.Row="4"
@@ -153,7 +153,7 @@
                         VerticalAlignment="Center" VerticalContentAlignment="Top"
                         TextWrapping="Wrap"
                         Text="{Binding Audiobook.Metadata.Description, Mode=TwoWay}"
-                        Style="{StaticResource MaskTextBox}" />
+                        Style="{DynamicResource MaskTextBox}" />
                 </Grid>
             </Expander>            
             
@@ -164,7 +164,7 @@
                 MouseLeftButtonUp="ImgCoverImage_MouseUp">
 
                 <Grid.ContextMenu>
-                    <ContextMenu Style="{StaticResource ContextMenuStyle}">
+                    <ContextMenu Style="{DynamicResource ContextMenuStyle}">
                         <MenuItem Header="Select" 
                             Command="{Binding SelectCoverImageCommand}" />
                         <MenuItem Header="From Clipboard" 
@@ -181,7 +181,7 @@
                 <Rectangle x:Name="coverDarken" Opacity="0"
                     Width="{Binding ActualWidth, ElementName=imgCover}"
                     Height="{Binding ActualHeight, ElementName=imgCover}"
-                    Fill="{StaticResource OverlayBrush}" />
+                    Fill="{DynamicResource OverlayBrush}" />
 
                 <!-- Edit Icon -->
                 <Image RenderOptions.BitmapScalingMode="HighQuality"
@@ -259,7 +259,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="1"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
-                    Style="{StaticResource InputMaskText}" Text="Library:" 
+                    Style="{DynamicResource InputMaskText}" Text="Library:" 
                     TextTrimming="WordEllipsis" />
 
                 <ComboBox Grid.Column="1" Grid.Row="1" 
@@ -267,14 +267,14 @@
                     Width="{Binding ElementName=txbTitle, Path=ActualWidth}"
                     HorizontalAlignment="Left" MaxWidth="450"
                     VerticalAlignment="Center"
-                    Style="{StaticResource ComboBoxStyle}"
+                    Style="{DynamicResource ComboBoxStyle}"
                     SelectedItem="{Binding Library}">
 
                     <ComboBox.ItemsSource>
                         <CompositeCollection>
                             <!-- reference DataContext of another control which doesn't reference this one -->
                             <CollectionContainer Collection="{Binding DataContext.Libraries, Source={x:Reference btnBrowseLibrary}}" />
-                            <Button Style="{StaticResource ComboBoxButton}" Content="Create New"
+                            <Button Style="{DynamicResource ComboBoxButton}" Content="Create New"
                                 Command="{Binding DataContext.CreateLibraryCommand, Source={x:Reference btnBrowseLibrary}}"/>
                         </CompositeCollection>
                     </ComboBox.ItemsSource>
@@ -284,26 +284,26 @@
                 <TextBlock Grid.Column="0" Grid.Row="2"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
-                    Style="{StaticResource InputMaskText}" Text="Title:" 
+                    Style="{DynamicResource InputMaskText}" Text="Title:" 
                     TextTrimming="WordEllipsis" />
 
                 <TextBox Grid.Column="1" Grid.Row="2"
                     Margin="10,10,0,0" x:Name="txbTitle"
                     VerticalAlignment="Center"
                     Text="{Binding Audiobook.Metadata.Title}"
-                    Style="{StaticResource MaskTextBox}" />
+                    Style="{DynamicResource MaskTextBox}" />
 
                 <!-- Destination -->
                 <TextBlock Grid.Column="0" Grid.Row="3"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
-                    Style="{StaticResource InputMaskText}" Text="Destination:" 
+                    Style="{DynamicResource InputMaskText}" Text="Destination:" 
                     TextTrimming="WordEllipsis" />
 
                 <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"
                         Margin="10, 10, 0, 0"
-                        Style="{StaticResource InformationText}" 
+                        Style="{DynamicResource InformationText}" 
                         Text="{Binding Destination}" ToolTip="{Binding Destination}"
                         TextTrimming="WordEllipsis" />
 
@@ -328,15 +328,15 @@
                     CanUserReorderColumns="False"
                     HorizontalScrollBarVisibility="Hidden"
                     PreviewMouseWheel="DtgChapters_PreviewMouseWheel"
-                    Style="{StaticResource DataGrid}"
+                    Style="{DynamicResource DataGrid}"
                     Width="{Binding Path=ActualWidth, 
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
                     AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
 
                     <DataGrid.Resources>
                         <util:BindingProxy x:Key="proxy" Data="{Binding}" />
-                        
-                        <ContextMenu x:Key="RowMenu" Style="{StaticResource ContextMenuStyle}">
+
+                        <ContextMenu x:Key="RowMenu" Style="{DynamicResource ContextMenuStyle}">
                             <MenuItem Header="Split Chapter" 
                                 Command="{Binding Data.SplitChapterCommand,
                                     Source={StaticResource proxy}}"
@@ -346,24 +346,24 @@
 
                     <DataGrid.RowStyle>
                         <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource DataGridRow}">
-                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                            <Setter Property="ContextMenu" Value="{DynamicResource RowMenu}" />
                         </Style>
                     </DataGrid.RowStyle>
                     
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="TrackNumber"
                             Header="#"
-                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
-                            ElementStyle="{StaticResource InformationText}"
+                            EditingElementStyle="{DynamicResource DataGridTextBoxStyle}"
+                            ElementStyle="{DynamicResource InformationText}"
                             Binding="{Binding Metadata.TrackNumber}" 
                             Width="auto"
                             MinWidth="20"
                             MaxWidth="55" />
 
                         <DataGridTextColumn Header="Title" 
-                            EditingElementStyle="{StaticResource DataGridTextBoxStyle}"
-                            ElementStyle="{StaticResource InformationText}"
-                            CellStyle="{StaticResource ChapterCellStyle}"
+                            EditingElementStyle="{DynamicResource DataGridTextBoxStyle}"
+                            ElementStyle="{DynamicResource InformationText}"
+                            CellStyle="{DynamicResource ChapterCellStyle}"
                             Binding="{Binding Metadata.Title}" 
                             MinWidth="80" 
                             Width="2*" />
@@ -373,8 +373,8 @@
 
                 <Border Visibility="{Binding Audiobook.Chapters.Count, 
                         Converter={StaticResource ChaptersToVisibleConverter}}"
-                    Style="{StaticResource Overlay}" MinHeight="200">
-                    <TextBlock Text="Select an Audiobook" Style="{StaticResource DropText}" />
+                    Style="{DynamicResource Overlay}" MinHeight="200">
+                    <TextBlock Text="Select an Audiobook" Style="{DynamicResource DropText}" />
                 </Border>
             </Grid>            
         </Grid>

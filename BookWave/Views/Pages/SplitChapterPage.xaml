@@ -16,7 +16,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" 
-                Style="{StaticResource InformationText}"
+                Style="{DynamicResource InformationText}"
                 Text="{Binding AudioFileName, StringFormat='Editing {0}'}"/>
         </Grid>
     </Border>

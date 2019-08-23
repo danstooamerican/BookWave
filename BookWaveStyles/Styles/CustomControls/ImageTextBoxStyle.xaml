@@ -11,7 +11,7 @@
                         Padding="{TemplateBinding Padding}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        Background="{StaticResource TextBoxBackgroundColorBrush}">
+                        Background="{DynamicResource TextBoxBackgroundColorBrush}">
 
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -43,7 +43,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter Property="Background" TargetName="Border"
-                                Value="{StaticResource TextBoxFocusedColorBrush}"/>
+                                Value="{DynamicResource TextBoxFocusedColorBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

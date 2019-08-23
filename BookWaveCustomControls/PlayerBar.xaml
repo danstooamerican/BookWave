@@ -21,7 +21,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource HorizontalSeparator}" 
+        <Border Style="{DynamicResource HorizontalSeparator}" 
                 Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="0"/>
 
         <StackPanel Orientation="Horizontal" 
@@ -34,7 +34,7 @@
 
             <StackPanel Orientation="Vertical" Margin="0, 10, 0, 10" VerticalAlignment="Center">
 
-                <TextBlock Style="{StaticResource InformationTextHighlight}" Text="Audiobook Title" 
+                <TextBlock Style="{DynamicResource InformationTextHighlight}" Text="Audiobook Title" 
                            TextTrimming="WordEllipsis">
                     
                     <TextBlock.RenderTransform>
@@ -55,10 +55,10 @@
                         </EventTrigger>
                     </TextBlock.Triggers>
                 </TextBlock>
-                
-                <TextBlock Style="{StaticResource InformationText}" Text="IamAnAuthor, MeToo" 
+
+                <TextBlock Style="{DynamicResource InformationText}" Text="IamAnAuthor, MeToo" 
                            TextTrimming="WordEllipsis" />
-                <TextBlock Style="{StaticResource InformationText}" Text="Read by: xxxxx, yyyyy" 
+                <TextBlock Style="{DynamicResource InformationText}" Text="Read by: xxxxx, yyyyy" 
                            TextTrimming="WordEllipsis" />
 
             </StackPanel>
@@ -67,19 +67,19 @@
         <StackPanel Orientation="Horizontal" 
                     Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Margin="53,0">
 
-            <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
+            <local:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
                 NormalImage="/BookWave.Styles;component/Resources/Player/rewind30.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/rewind30_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/rewind30_pressed.png"/>
 
-            <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
+            <local:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
                 NormalImage="/BookWave.Styles;component/Resources/Player/previous.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/previous_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/previous_pressed.png"/>
 
-            <local:ToggleImageButton Style="{StaticResource PlayerBarSpacing}"
+            <local:ToggleImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
                 NormalImage="/BookWave.Styles;component/Resources/Player/play.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/play_hover.png"
@@ -88,13 +88,13 @@
                 HoverImageToggled="/BookWave.Styles;component/Resources/Player/pause_hover.png"
                 PressedImageToggled="/BookWave.Styles;component/Resources/Player/pause_pressed.png"/>
 
-            <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
+            <local:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
                 NormalImage="/BookWave.Styles;component/Resources/Player/next.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/next_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/next_pressed.png"/>
 
-            <local:ImageButton Style="{StaticResource PlayerBarSpacing}"
+            <local:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
                 NormalImage="/BookWave.Styles;component/Resources/Player/skip30.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/skip30_hover.png"
@@ -118,7 +118,7 @@
                 IsChecked="{Binding ElementName=sldVolume, Path=Value, Mode=OneWay, 
                     Converter={StaticResource DoubleToBoolConverter}}"/>
 
-            <Slider x:Name="sldVolume" Style="{StaticResource HighlightedSlider}"  Value="1" Maximum="1" MinWidth="80"
+            <Slider x:Name="sldVolume" Style="{DynamicResource HighlightedSlider}"  Value="1" Maximum="1" MinWidth="80"
                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         </StackPanel>
@@ -132,16 +132,16 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Style="{StaticResource InformationText}" 
+                <TextBlock Grid.Column="0" Style="{DynamicResource InformationText}" 
                     MinWidth="50" MaxWidth="50" TextAlignment="Center"
                     Margin="0, 0, 5, 0" Text="{Binding Value, ElementName=sldMedia, 
                         Converter={StaticResource SecondsToTimeConverter}}"/>
 
-                <Slider Grid.Column="1" x:Name="sldMedia" Style="{StaticResource HighlightedSlider}"
+                <Slider Grid.Column="1" x:Name="sldMedia" Style="{DynamicResource HighlightedSlider}"
                 Value="0" Minimum="0" Maximum="3544" MinWidth="300"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center" />
 
-                <TextBlock Grid.Column="2" Style="{StaticResource InformationText}" 
+                <TextBlock Grid.Column="2" Style="{DynamicResource InformationText}" 
                     MinWidth="50" MaxWidth="50" TextAlignment="Center" 
                        Text="{Binding Maximum, ElementName=sldMedia, 
                         Converter={StaticResource SecondsToTimeConverter}}"/>
