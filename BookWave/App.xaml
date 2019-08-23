@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <util:SkinResourceDictionary SkinName="DarkTheme" SkinContent="Skins" Source="/BookWave.Styles;component/Skins/DarkTheme.xaml" />
                 <util:SkinResourceDictionary SkinName="LightTheme" SkinContent="Skins" Source="/BookWave.Styles;component/Skins/LightTheme.xaml" />
+                <util:SkinResourceDictionary SkinName="TestTheme" SkinContent="Skins" Source="/BookWave.Styles;component/Skins/TestTheme.xaml" />
 
                 <ResourceDictionary Source="/BookWave.Styles;component/BookWaveDesign.xaml" />
 

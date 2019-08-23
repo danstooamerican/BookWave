@@ -25,5 +25,12 @@ namespace BookWave.Desktop.Pages
 
             app.ActiveSkin = "DarkTheme";
         }
+
+        private void Button_Click_2(object sender, System.Windows.RoutedEventArgs e)
+        {
+            App app = App.Current as App;
+
+            app.ActiveSkin = "TestTheme";
+        }
     }
 }
