@@ -14,8 +14,7 @@
             <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
             <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
         </ResourceDictionary>
-
-        <ResourceDictionary Source="Colors/colors.xaml" />
+        
         <ResourceDictionary Source="Styles/TextStyle.xaml" />
         <ResourceDictionary Source="Styles/ContainerStyle.xaml" />
         <ResourceDictionary Source="Styles/TextBoxStyle.xaml" />
@@ -28,6 +27,10 @@
         <ResourceDictionary Source="Styles/ContextMenuStyle.xaml" />
         <ResourceDictionary Source="Styles/ComboBoxStyle.xaml" />
         
+        <ResourceDictionary Source="Styles/CustomControls/MenuButtonStyle.xaml" />
+        <ResourceDictionary Source="Styles/CustomControls/ImageTextBoxStyle.xaml" />
+        <ResourceDictionary Source="Styles/CustomControls/ImageButtonStyle.xaml" />
+        <ResourceDictionary Source="Styles/CustomControls/ToggleImageButtonStyle.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 

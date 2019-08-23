@@ -5,7 +5,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/BookWave.Styles;component/BookWaveDesign.xaml"/>
+        <ResourceDictionary Source="/BookWave.Controls;component/Themes/colors.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Style for MenuButton -->

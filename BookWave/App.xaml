@@ -6,13 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     d1p1:Ignorable="d" 
     xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    DefaultSkinName="DarkTheme">
+    DefaultSkinName="TestTheme">
     
     <Application.Resources>        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <util:SkinResourceDictionary SkinName="DarkTheme" SkinContent="Everything" Source="/BookWave.Styles;component/BookWaveDesign.xaml" />
-                
+                <util:SkinResourceDictionary SkinName="DarkTheme" SkinContent="Skins" Source="/BookWave.Styles;component/Colors/colors.xaml" />
+                <util:SkinResourceDictionary SkinName="TestTheme" SkinContent="Skins" Source="/BookWave.Styles;component/Colors/TestTheme.xaml" />
+
+                <ResourceDictionary Source="/BookWave.Styles;component/BookWaveDesign.xaml" />
+
                 <ResourceDictionary Source="/BookWave.Controls;component/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>        

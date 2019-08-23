@@ -2,13 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BookWave.Styles.Styles">
 
-    <ResourceDictionary.MergedDictionaries>
-
-        <ResourceDictionary Source="/BookWave.Styles;component/Colors/colors.xaml"/>
-
-    </ResourceDictionary.MergedDictionaries>
-
-    
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Grid>
             <Grid.ColumnDefinitions>

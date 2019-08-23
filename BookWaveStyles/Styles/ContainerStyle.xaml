@@ -7,7 +7,6 @@
             <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
             <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
         </ResourceDictionary>
-        <ResourceDictionary Source="/BookWave.Styles;component/Colors/colors.xaml"/>
         <ResourceDictionary Source="/BookWave.Styles;component/Styles/BorderStyle.xaml"/>
 
     </ResourceDictionary.MergedDictionaries>
