@@ -1,8 +1,9 @@
-﻿using System;
+﻿using BookWave.Desktop;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BookWave.Controls
+namespace BookWave.Desktop.Controls
 {
     /// <summary>
     /// Interaction logic for PlayerBar.xaml
@@ -38,7 +39,7 @@ namespace BookWave.Controls
 
         public PlayerBar()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         private static void ImageSourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)

@@ -19,7 +19,18 @@
     </Page.Triggers>
 
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Content="Change to Light" Click="Button_Click"/>
+        <Button Grid.Row="1" Content="Change to Dark" Click="Button_Click_1"/>
+
+        <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
             FontSize="30" Foreground="White">Favorites</TextBlock>
+
+        
     </Grid>
 </Page>

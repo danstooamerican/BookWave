@@ -1,4 +1,5 @@
 ﻿using BookWave.Controls;
+using BookWave.Desktop.Controls;
 using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Models.AudiobookManagement.Scanner;
@@ -18,6 +19,7 @@ namespace BookWave.Desktop
     public partial class MainWindow : Window
     {
 
+        private App app = App.Current as App;
         private MainWindowViewModel viewModel;
 
         /// <summary>
@@ -36,8 +38,21 @@ namespace BookWave.Desktop
 
             viewModel.NavigationHistory.CurrentElementChangedEvent += UpdateNavigationUI;
 
+
+            app.SkinChangedEvent += SkinUpdated;
+
             //select btnStart by default
             MenuButton_Click(btnStart, new RoutedEventArgs(MenuButton.ClickEvent, btnStart));
+        }
+
+        private void SkinUpdated(object sender, object eventArgs)
+        {
+            PlayerBarContainer.Child = new PlayerBar();
+        }
+
+        public void Dispose()
+        {
+            app.SkinChangedEvent -= SkinUpdated;
         }
 
         /// <summary>

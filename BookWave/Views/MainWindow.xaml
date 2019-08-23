@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
+        xmlns:controls="clr-namespace:BookWave.Desktop.Controls"
         mc:Ignorable="d"
         Icon="/BookWave.Styles;component/Resources/icon.ico"
         Background="{DynamicResource MainBackground}"        
@@ -289,10 +290,14 @@
             </Grid>
         </ScrollViewer>        
 
-        <!-- Bottom Bar -->
-        <lib:PlayerBar Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
-            DataContext="{Binding PlayerViewModel}"
-            CoverImage="{Binding CoverImage}"/>
+        <!-- Playerbar -->
+        <Border x:Name="PlayerBarContainer"
+            Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <controls:PlayerBar x:Name="playerbar"             
+                DataContext="{Binding PlayerViewModel}"
+                CoverImage="{Binding CoverImage}"/>
+        </Border>
+        
 
     </Grid>
 </Window>

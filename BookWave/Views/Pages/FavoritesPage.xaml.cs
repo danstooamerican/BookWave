@@ -11,5 +11,19 @@ namespace BookWave.Desktop.Pages
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            App app = App.Current as App;
+
+            app.ActiveSkin = "LightTheme";
+        }
+
+        private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
+        {
+            App app = App.Current as App;
+
+            app.ActiveSkin = "DarkTheme";
+        }
     }
 }

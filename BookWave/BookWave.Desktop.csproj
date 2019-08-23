@@ -103,6 +103,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\PlayerBar.xaml.cs">
+      <DependentUpon>PlayerBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AudiobookManagement\Models\AudiobookDummy.cs" />
     <Compile Include="Models\AudiobookManagement\Scanner\AudiobooksTopScanner.cs" />
     <Compile Include="Models\AudiobookManagement\Scanner\LibraryScanner.cs" />
@@ -167,6 +170,10 @@
     <Compile Include="ViewModels\BrowseViewModel.cs" />
     <Compile Include="Views\Dialogs\SelectLibraryViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Page Include="Controls\PlayerBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Dialogs\CreateLibraryDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -276,7 +283,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
     <Folder Include="Localization\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
