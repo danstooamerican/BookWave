@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using Infralution.Localization.Wpf;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Controls;
 
 namespace BookWave.Desktop.Pages
 {
@@ -31,6 +34,16 @@ namespace BookWave.Desktop.Pages
             App app = App.Current as App;
 
             app.ActiveSkin = "TestTheme";
+        }
+
+        private void Button_Click_3(object sender, System.Windows.RoutedEventArgs e)
+        {
+            CultureManager.UICulture = new CultureInfo("en-US");
+        }
+
+        private void Button_Click_4(object sender, System.Windows.RoutedEventArgs e)
+        {
+            CultureManager.UICulture = new CultureInfo("de-DE");
         }
     }
 }

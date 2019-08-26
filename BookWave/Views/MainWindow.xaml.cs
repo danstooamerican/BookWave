@@ -7,6 +7,8 @@ using BookWave.Desktop.Models.MenuNavigation;
 using BookWave.Desktop.Util;
 using BookWave.ViewModel;
 using System;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,6 +45,25 @@ namespace BookWave.Desktop
 
             //select btnStart by default
             MenuButton_Click(btnStart, new RoutedEventArgs(MenuButton.ClickEvent, btnStart));
+        }
+
+        private void AppWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("de-DE");
+
+            Task.Factory.StartNew(() =>
+            {
+                LibraryScannerFactory.LoadPlugins();
+
+                Progress<UpdateReport> progress = new Progress<UpdateReport>();
+                progress.ProgressChanged += (a, b) =>
+                {
+                    ViewModelLocator.Instance.BrowseViewModel.UpdateBrowseList();
+                    ViewModelLocator.Instance.SelectLibraryViewModel.UpdateBrowseList();
+                };
+
+                LibraryManager.Instance.LoadLibraries(progress);
+            });
         }
 
         private void SkinUpdated(object sender, object eventArgs)
@@ -174,23 +195,6 @@ namespace BookWave.Desktop
             viewModel.NavigationHistory.Forward();
 
             frmPage.GoForward();
-        }
-
-        private void AppWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            Task.Factory.StartNew(() =>
-            {
-                LibraryScannerFactory.LoadPlugins();
-
-                Progress<UpdateReport> progress = new Progress<UpdateReport>();
-                progress.ProgressChanged += (a, b) =>
-                {
-                    ViewModelLocator.Instance.BrowseViewModel.UpdateBrowseList();
-                    ViewModelLocator.Instance.SelectLibraryViewModel.UpdateBrowseList();
-                };
-
-                LibraryManager.Instance.LoadLibraries(progress);
-            });
         }
     }
 }

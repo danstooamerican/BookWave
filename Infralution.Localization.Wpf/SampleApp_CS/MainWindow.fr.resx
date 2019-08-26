@@ -112,27 +112,91 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Sidebar_MenuButton_Authors_Text" xml:space="preserve">
-    <value>Authors</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Window.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj0yLjAuMC4wLCBD
+dWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABNTeXN0
+ZW0uRHJhd2luZy5JY29uAgAAAAhJY29uRGF0YQhJY29uU2l6ZQcEAhNTeXN0ZW0uRHJhd2luZy5T
+aXplAgAAAAIAAAAJAwAAAAX8////E1N5c3RlbS5EcmF3aW5nLlNpemUCAAAABXdpZHRoBmhlaWdo
+dAAACAgCAAAAEAAAABAAAAAPAwAAAH4FAAACAAABAAEAEBAAAAAACABoBQAAFgAAACgAAAAQAAAA
+IAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAABAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACA
+gAAAwMDAAMDcwADwyqYABAQEAAgICAAMDAwAERERABYWFgAcHBwAIiIiACkpKQBVVVUATU1NAEJC
+QgA5OTkAgHz/AFBQ/wCTANYA/+zMAMbW7wDW5+cAkKmtAAAAMwAAAGYAAACZAAAAzAAAMwAAADMz
+AAAzZgAAM5kAADPMAAAz/wAAZgAAAGYzAABmZgAAZpkAAGbMAABm/wAAmQAAAJkzAACZZgAAmZkA
+AJnMAACZ/wAAzAAAAMwzAADMZgAAzJkAAMzMAADM/wAA/2YAAP+ZAAD/zAAzAAAAMwAzADMAZgAz
+AJkAMwDMADMA/wAzMwAAMzMzADMzZgAzM5kAMzPMADMz/wAzZgAAM2YzADNmZgAzZpkAM2bMADNm
+/wAzmQAAM5kzADOZZgAzmZkAM5nMADOZ/wAzzAAAM8wzADPMZgAzzJkAM8zMADPM/wAz/zMAM/9m
+ADP/mQAz/8wAM///AGYAAABmADMAZgBmAGYAmQBmAMwAZgD/AGYzAABmMzMAZjNmAGYzmQBmM8wA
+ZjP/AGZmAABmZjMAZmZmAGZmmQBmZswAZpkAAGaZMwBmmWYAZpmZAGaZzABmmf8AZswAAGbMMwBm
+zJkAZszMAGbM/wBm/wAAZv8zAGb/mQBm/8wAzAD/AP8AzACZmQAAmTOZAJkAmQCZAMwAmQAAAJkz
+MwCZAGYAmTPMAJkA/wCZZgAAmWYzAJkzZgCZZpkAmWbMAJkz/wCZmTMAmZlmAJmZmQCZmcwAmZn/
+AJnMAACZzDMAZsxmAJnMmQCZzMwAmcz/AJn/AACZ/zMAmcxmAJn/mQCZ/8wAmf//AMwAAACZADMA
+zABmAMwAmQDMAMwAmTMAAMwzMwDMM2YAzDOZAMwzzADMM/8AzGYAAMxmMwCZZmYAzGaZAMxmzACZ
+Zv8AzJkAAMyZMwDMmWYAzJmZAMyZzADMmf8AzMwAAMzMMwDMzGYAzMyZAMzMzADMzP8AzP8AAMz/
+MwCZ/2YAzP+ZAMz/zADM//8AzAAzAP8AZgD/AJkAzDMAAP8zMwD/M2YA/zOZAP8zzAD/M/8A/2YA
+AP9mMwDMZmYA/2aZAP9mzADMZv8A/5kAAP+ZMwD/mWYA/5mZAP+ZzAD/mf8A/8wAAP/MMwD/zGYA
+/8yZAP/MzAD/zP8A//8zAMz/ZgD//5kA///MAGZm/wBm/2YAZv//AP9mZgD/Zv8A//9mACEApQBf
+X18Ad3d3AIaGhgCWlpYAy8vLALKysgDX19cA3d3dAOPj4wDq6uoA8fHxAPj4+ADw+/8ApKCgAICA
+gAAAAP8AAP8AAAD//wD/AAAA/wD/AP//AAD///8ACgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoK
+CgoKCgoKCgoKCgoKCgoKCgoKCgoKrYuLi6YHB+/v7/cgICAgIK0JCQkJ8/Pz8/Ly4+Pj4yDPCQkJ
+CfPz8/Ly8hcXF+MgzwkJCQn08/Pz8vIXFxfjILQJCQkJ9PTz8/Py4xcX4yC0CQkJCfT08/Pz8+Pj
+F+MgtN0JCQn08/Pz8/Lj4+PjILTdCQkJ9PPz8/Py4+PjFiC03QkJCfPz8/Pz8hbj4xYgtN3d3d3/
+////9PSUlBYWILS0tLS08fHw8Ly8+fkgICAKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoK
+Cv//AAD//wAA//8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+//8AAP//AAAL</value>
   </data>
-  <data name="Sidebar_MenuButton_Browse_Text" xml:space="preserve">
-    <value>Browse</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Window.Title" type="System.String, mscorlib">
+    <value>Wpf App: Français</value>
   </data>
-  <data name="Sidebar_MenuButton_EditLibrary_Text" xml:space="preserve">
-    <value>Edit Library</value>
+  <data name="_aboutMenuItem.Header" type="System.String, mscorlib">
+    <value>A propos</value>
   </data>
-  <data name="Sidebar_MenuButton_Favorites_Text" xml:space="preserve">
-    <value>Favorites</value>
+  <data name="_addButton.Content" type="System.String, mscorlib">
+    <value>Ajouter</value>
   </data>
-  <data name="Sidebar_MenuButton_Genre_Text" xml:space="preserve">
-    <value>Genre</value>
+  <data name="_directoryTab.Header" type="System.String, mscorlib">
+    <value>Répertoire</value>
   </data>
-  <data name="Sidebar_MenuButton_Start/Text" xml:space="preserve">
-    <value>Start</value>
+  <data name="_englishMenuItem.Header" type="System.String, mscorlib">
+    <value>Anglais</value>
+  </data>
+  <data name="_exitMenuItem.Header" type="System.String, mscorlib">
+    <value>Quitter</value>
+  </data>
+  <data name="_fileMenuItem.Header" type="System.String, mscorlib">
+    <value>Fichier</value>
+  </data>
+  <data name="_fileTab.Header" type="System.String, mscorlib">
+    <value>Fichier</value>
+  </data>
+  <data name="_frenchMenuItem.Header" type="System.String, mscorlib">
+    <value>Français</value>
+  </data>
+  <data name="_helpMenuItem.Header" type="System.String, mscorlib">
+    <value>Aide</value>
+  </data>
+  <data name="_languageMenuItem.Header" type="System.String, mscorlib">
+    <value>Langage</value>
+  </data>
+  <data name="_newMenuItem.Header" type="System.String, mscorlib">
+    <value>Nouveau</value>
+  </data>
+  <data name="_openMenuItem.Header" type="System.String, mscorlib">
+    <value>Ouvrir</value>
+  </data>
+  <data name="_removeButton.Content" type="System.String, mscorlib">
+    <value>Supprimer</value>
+  </data>
+  <data name="_selectedTextBlock.NullText" xml:space="preserve">
+    <value>l'élément sélectionné: nul</value>
+  </data>
+  <data name="_selectedTextBlock.Text" xml:space="preserve">
+    <value>l'élément sélectionné: {0}</value>
   </data>
 </root>

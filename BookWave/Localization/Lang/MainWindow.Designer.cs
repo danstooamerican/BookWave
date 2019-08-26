@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BookWave.Desktop.Properties {
+namespace BookWave.Desktop.Localization.Lang {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace BookWave.Desktop.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class MainWindow {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal MainWindow() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BookWave.Desktop.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BookWave.Desktop.Localization.Lang.MainWindow", typeof(MainWindow).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace BookWave.Desktop.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,56 +61,11 @@ namespace BookWave.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authors.
+        ///   Looks up a localized string similar to Start DE.
         /// </summary>
-        public static string Sidebar_MenuButton_Authors_Text {
+        internal static string MenuButton_Start {
             get {
-                return ResourceManager.GetString("Sidebar_MenuButton_Authors_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Browse.
-        /// </summary>
-        public static string Sidebar_MenuButton_Browse_Text {
-            get {
-                return ResourceManager.GetString("Sidebar_MenuButton_Browse_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Library.
-        /// </summary>
-        public static string Sidebar_MenuButton_EditLibrary_Text {
-            get {
-                return ResourceManager.GetString("Sidebar_MenuButton_EditLibrary_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Favorites.
-        /// </summary>
-        public static string Sidebar_MenuButton_Favorites_Text {
-            get {
-                return ResourceManager.GetString("Sidebar_MenuButton_Favorites_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genre.
-        /// </summary>
-        public static string Sidebar_MenuButton_Genre_Text {
-            get {
-                return ResourceManager.GetString("Sidebar_MenuButton_Genre_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start.
-        /// </summary>
-        public static string Sidebar_MenuButton_Start_Text {
-            get {
-                return ResourceManager.GetString("Sidebar_MenuButton_Start/Text", resourceCulture);
+                return ResourceManager.GetString("MenuButton_Start", resourceCulture);
             }
         }
     }

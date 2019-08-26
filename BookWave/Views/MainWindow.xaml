@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
+        xmlns:lang="clr-namespace:BookWave.Desktop.Properties"
         xmlns:controls="clr-namespace:BookWave.Desktop.Controls"
         mc:Ignorable="d"
         Icon="/BookWave.Styles;component/Resources/icon.ico"
@@ -15,6 +16,7 @@
         Loaded="AppWindow_Loaded"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
+        ResxExtension.DefaultResxName="BookWave.Desktop.Localization.Lang.MainWindow" Language="{UICulture}"
         x:Name="AppWindow">
 
     <WindowChrome.WindowChrome>
@@ -84,7 +86,7 @@
                 <StackPanel Grid.Row="0" Orientation="Vertical"
                 lib:MenuButton.Click="MenuButton_Click">
 
-                    <lib:MenuButton Name="btnStart" Content="Start" 
+                    <lib:MenuButton Name="btnStart" Content="{Resx MenuButton_Start}" 
                         Page="/Views/Pages/StartPage.xaml" PageTitle="Start"
                         TitleBarTemplate="DetailPageTitle"/>
 
@@ -108,8 +110,8 @@
                 <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom"
                     lib:MenuButton.Click="MenuButton_Click"
                     Margin="0,0,0,5">
-                    
-                    <lib:MenuButton Name="btnEditLibrary" Content="Edit Library"
+
+                    <lib:MenuButton Name="btnEditLibrary" Content="{x:Static lang:Resources.Sidebar_MenuButton_EditLibrary_Text}"
                         Page="/Views/Pages/EditLibrary.xaml" PageTitle="Edit Library" />
                 </StackPanel>
             </Grid>

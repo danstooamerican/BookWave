@@ -195,9 +195,6 @@
     <Resource Include="Resources\Player\skip30_pressed.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Navigation\pageBack.png" />
     <Resource Include="Resources\Navigation\pageBack_hover.png" />
     <Resource Include="Resources\Navigation\pageBack_pressed.png" />
@@ -246,7 +243,9 @@
   <ItemGroup>
     <Resource Include="Resources\Misc\pencil_pressed.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\icon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookWaveCustomControls\BookWave.Controls.csproj">
       <Project>{3c911c9e-41cb-4aca-8f0f-c69a311014f3}</Project>

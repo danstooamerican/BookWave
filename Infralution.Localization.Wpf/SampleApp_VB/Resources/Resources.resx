@@ -112,27 +112,24 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Sidebar_MenuButton_Authors_Text" xml:space="preserve">
-    <value>Authors</value>
+  <data name="SampleEnum_Large" xml:space="preserve">
+    <value>Large</value>
   </data>
-  <data name="Sidebar_MenuButton_Browse_Text" xml:space="preserve">
-    <value>Browse</value>
+  <data name="SampleEnum_Medium" xml:space="preserve">
+    <value>Medium</value>
   </data>
-  <data name="Sidebar_MenuButton_EditLibrary_Text" xml:space="preserve">
-    <value>Edit Library</value>
+  <data name="SampleEnum_Small" xml:space="preserve">
+    <value>Small</value>
   </data>
-  <data name="Sidebar_MenuButton_Favorites_Text" xml:space="preserve">
-    <value>Favorites</value>
+  <data name="SampleEnum_VeryLarge" xml:space="preserve">
+    <value>Very Large</value>
   </data>
-  <data name="Sidebar_MenuButton_Genre_Text" xml:space="preserve">
-    <value>Genre</value>
-  </data>
-  <data name="Sidebar_MenuButton_Start/Text" xml:space="preserve">
-    <value>Start</value>
+  <data name="SampleEnum_VerySmall" xml:space="preserve">
+    <value>Very Small</value>
   </data>
 </root>

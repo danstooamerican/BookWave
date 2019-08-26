@@ -117,22 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Sidebar_MenuButton_Authors_Text" xml:space="preserve">
-    <value>Authors</value>
-  </data>
-  <data name="Sidebar_MenuButton_Browse_Text" xml:space="preserve">
-    <value>Browse</value>
-  </data>
-  <data name="Sidebar_MenuButton_EditLibrary_Text" xml:space="preserve">
-    <value>Edit Library</value>
-  </data>
-  <data name="Sidebar_MenuButton_Favorites_Text" xml:space="preserve">
-    <value>Favorites</value>
-  </data>
-  <data name="Sidebar_MenuButton_Genre_Text" xml:space="preserve">
-    <value>Genre</value>
-  </data>
-  <data name="Sidebar_MenuButton_Start/Text" xml:space="preserve">
-    <value>Start</value>
+  <data name="MenuButton_Start" xml:space="preserve">
+    <value>Start DE</value>
   </data>
 </root>

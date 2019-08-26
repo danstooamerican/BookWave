@@ -106,6 +106,21 @@
     <Compile Include="Controls\PlayerBar.xaml.cs">
       <DependentUpon>PlayerBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Localization\Lang\MainWindow.en-US.Designer.cs">
+      <DependentUpon>MainWindow.en-US.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Localization\Lang\MainWindow.de-DE.Designer.cs">
+      <DependentUpon>MainWindow.de-DE.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Localization\Lang\MainWindow.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainWindow.resx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AudiobookManagement\Models\AudiobookDummy.cs" />
     <Compile Include="Models\AudiobookManagement\Scanner\AudiobooksTopScanner.cs" />
     <Compile Include="Models\AudiobookManagement\Scanner\LibraryScanner.cs" />
@@ -247,8 +262,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Localization\Lang\MainWindow.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindow.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Lang\MainWindow.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindow.de-DE.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Lang\MainWindow.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindow.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -281,9 +308,11 @@
       <Project>{ef5f5f8b-4fef-4019-8cec-28354b90fd82}</Project>
       <Name>BookWave.Styles</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infralution.Localization.Wpf\Infralution.Localization.Wpf.csproj">
+      <Project>{e3d700d5-bdfb-4777-8e9c-53e8f943ac58}</Project>
+      <Name>Infralution.Localization.Wpf</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Localization\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

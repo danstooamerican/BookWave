@@ -23,14 +23,18 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0" Content="Change to Light" Click="Button_Click"/>
         <Button Grid.Row="1" Content="Change to Dark" Click="Button_Click_1"/>
         <Button Grid.Row="2" Content="Change to Test" Click="Button_Click_2"/>
+        <Button Grid.Row="3" Content="Change English" Click="Button_Click_3"/>
+        <Button Grid.Row="4" Content="Change German" Click="Button_Click_4"/>
 
-        <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <TextBlock Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"
             FontSize="30" Foreground="White">Favorites</TextBlock>
 
         
