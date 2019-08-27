@@ -22,7 +22,7 @@ namespace BookWave.Desktop.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace BookWave.Desktop.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BookWave.Desktop.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,66 @@ namespace BookWave.Desktop.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authors.
+        /// </summary>
+        public static string Sidebar_MenuButton_Authors_Text {
+            get {
+                return ResourceManager.GetString("Sidebar_MenuButton_Authors_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string Sidebar_MenuButton_Browse_Text {
+            get {
+                return ResourceManager.GetString("Sidebar_MenuButton_Browse_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Library.
+        /// </summary>
+        public static string Sidebar_MenuButton_EditLibrary_Text {
+            get {
+                return ResourceManager.GetString("Sidebar_MenuButton_EditLibrary_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favorites.
+        /// </summary>
+        public static string Sidebar_MenuButton_Favorites_Text {
+            get {
+                return ResourceManager.GetString("Sidebar_MenuButton_Favorites_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre.
+        /// </summary>
+        public static string Sidebar_MenuButton_Genre_Text {
+            get {
+                return ResourceManager.GetString("Sidebar_MenuButton_Genre_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Sidebar_MenuButton_Start_Text {
+            get {
+                return ResourceManager.GetString("Sidebar_MenuButton_Start/Text", resourceCulture);
             }
         }
     }

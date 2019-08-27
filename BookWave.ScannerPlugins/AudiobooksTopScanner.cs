@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BookWave.Desktop.Models.AudiobookManagement;
+using BookWave.Desktop.Models.AudiobookManagement.Scanner;
+using System.Collections.Generic;
 using System.IO;
 
 namespace BookWave.Desktop.AudiobookManagement.Scanner

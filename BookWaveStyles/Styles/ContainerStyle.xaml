@@ -7,7 +7,6 @@
             <converters:ByAuthorsConverter x:Key="ByAuthorsConverter" />
             <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
         </ResourceDictionary>
-        <ResourceDictionary Source="/BookWave.Styles;component/Colors/colors.xaml"/>
         <ResourceDictionary Source="/BookWave.Styles;component/Styles/BorderStyle.xaml"/>
 
     </ResourceDictionary.MergedDictionaries>
@@ -28,8 +27,8 @@
 
     <Style x:Key="DataGridRow" TargetType="{x:Type DataGridRow}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
-        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource GridBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextHighlightColorBrush}" />
         <Setter Property="FontSize" Value="12"/>
 
         <Setter Property="Template">
@@ -58,21 +57,19 @@
         </Setter>
 
         <Style.Triggers>
-            <!-- Highlight a grid row as the mouse passes over -->
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource GridBackgroundSelectedBrush}" />
+                <Setter Property="Background" Value="{DynamicResource GridBackgroundSelectedBrush}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource GridBackgroundHoverBrush}" />
+                <Setter Property="Background" Value="{DynamicResource GridBackgroundHoverBrush}" />
             </Trigger>            
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="DataGrid" TargetType="DataGrid">       
-        <!-- Make the border and grid lines a little less imposing -->
-        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
-        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource TextPressedColorBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource GridBackgroundSelectedBrush}" />
+    <Style x:Key="DataGrid" TargetType="DataGrid">
+        <Setter Property="Background" Value="{DynamicResource GridBackgroundBrush}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource GridLinesBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GridBackgroundSelectedBrush}" />
         <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
 
         <Setter Property="ColumnHeaderStyle">
@@ -83,7 +80,7 @@
                     <Setter Property="MinHeight" Value="28" />
                     <Setter Property="FontWeight" Value="SemiBold" />
                     <Setter Property="FontSize" Value="14" />
-                    <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}" />
                     <Setter Property="Cursor" Value="Hand" />
                     <Setter Property="Template">
                         <Setter.Value>
@@ -97,24 +94,24 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="auto" />
                                     </Grid.RowDefinitions>
-                                    
-                                    <Border x:Name="BackgroundBorder"
-                                        Background="{StaticResource GridBackgroundBrush}"
-                                        Grid.ColumnSpan="2" />       
-                                    
-                                    <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
-                                    
-                                    <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
-                                        Grid.Column="1" Width="8" Height="6" Fill="{StaticResource AccentColorBrush}" Margin="0,0,8,0" 
-                                        VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
-                                    
-                                    <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" 
-                                        Style="{StaticResource ColumnHeaderGripperStyle}"/>
-                                    
-                                    <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" 
-                                        Style="{StaticResource ColumnHeaderGripperStyle}"/>
 
-                                    <Rectangle Grid.Row="1" Height="1" HorizontalAlignment="Stretch" Stroke="{StaticResource TextPressedColorBrush}"/>
+                                    <Border x:Name="BackgroundBorder"
+                                        Background="{DynamicResource GridBackgroundBrush}"
+                                        Grid.ColumnSpan="2" />
+
+                                    <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center" />
+
+                                    <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill" 
+                                        Grid.Column="1" Width="8" Height="6" Fill="{DynamicResource GridSortArrowBrush}" Margin="0,0,8,0" 
+                                        VerticalAlignment="Center" RenderTransformOrigin="0.5,0.4" />
+
+                                    <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" 
+                                        Style="{DynamicResource ColumnHeaderGripperStyle}"/>
+
+                                    <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" 
+                                        Style="{DynamicResource ColumnHeaderGripperStyle}"/>
+
+                                    <Rectangle Grid.Row="1" Height="1" HorizontalAlignment="Stretch" Stroke="{DynamicResource GridLinesBrush}"/>
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="SortDirection" Value="Ascending">
@@ -140,13 +137,11 @@
             </Setter.Value>
         </Setter>
 
-        <Setter Property="RowStyle" Value="{StaticResource DataGridRow}"/>
-        
+        <Setter Property="RowStyle" Value="{DynamicResource DataGridRow}"/>
+
         <Setter Property="CellStyle">
             <Setter.Value>
                 <Style TargetType="DataGridCell">
-
-                    <!-- Add some padding around the contents of a cell -->
                     <Setter Property="Padding" Value="4, 9" />
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Template">
@@ -154,7 +149,7 @@
                             <ControlTemplate TargetType="DataGridCell">
                                 <Border Padding="{TemplateBinding Padding}" 
                                     Background="{TemplateBinding Background}">
-                                    
+
                                     <ContentPresenter />
                                 </Border>
                             </ControlTemplate>
@@ -185,12 +180,12 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Ellipse HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="19"
-                                    Height="19" Fill="{DynamicResource ButtonNormalBackgroundFill}" Stroke="DarkGray" />
+                                    Height="19" Fill="{DynamicResource ButtonNormalBackgroundFill}" Stroke="{DynamicResource HeaderStrokeBrush}" />
                             <Ellipse Visibility="Hidden" HorizontalAlignment="Center" x:Name="shadow"
                                     VerticalAlignment="Center" Width="17" Height="17"
                                     Fill="{DynamicResource ExpanderShadowFill}" />
                             <Path SnapsToDevicePixels="false" HorizontalAlignment="Center" x:Name="arrow"
-                                    VerticalAlignment="Center" Stroke="#666" StrokeThickness="2"
+                                    VerticalAlignment="Center" Stroke="{DynamicResource HeaderStrokeBrush}" StrokeThickness="2"
                                     Data="M 1,1.5 L 4.5,5 L 8,1.5" />
                             <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Left" Margin="4,0,0,0"
                                     VerticalAlignment="Center" Grid.Column="1" RecognizesAccessKey="True" />
@@ -201,8 +196,8 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource TextHighlightColorBrush}" />
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextHighlightColorBrush}" />
+                            <Setter Property="Stroke" TargetName="circle" Value="{DynamicResource ExpanderButtonForegroundHighlightBrush}" />
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource ExpanderButtonForegroundHighlightBrush}" />
                             <Setter Property="Visibility" TargetName="shadow" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -232,12 +227,12 @@
                                 </Grid.LayoutTransform>
                                 <Ellipse HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center"
                                         Width="19" Height="19" Fill="{DynamicResource ButtonNormalBackgroundFill}"
-                                        Stroke="DarkGray" />
+                                        Stroke="{DynamicResource HeaderStrokeBrush}" />
                                 <Ellipse Visibility="Hidden" HorizontalAlignment="Center" x:Name="shadow"
                                         VerticalAlignment="Center" Width="17" Height="17"
                                         Fill="{DynamicResource ExpanderShadowFill}" />
                                 <Path SnapsToDevicePixels="false" HorizontalAlignment="Center" x:Name="arrow"
-                                        VerticalAlignment="Center" Stroke="#666" StrokeThickness="2"
+                                        VerticalAlignment="Center" Stroke="{DynamicResource HeaderStrokeBrush}" StrokeThickness="2"
                                         Data="M 1,1.5  L 4.5,5  L 8,1.5" />
                             </Grid>
                             <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Center" Margin="0,4,0,0"
@@ -249,8 +244,8 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource TextHighlightColorBrush}" />
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextHighlightColorBrush}" />
+                            <Setter Property="Stroke" TargetName="circle" Value="{DynamicResource ExpanderButtonForegroundHighlightBrush}" />
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource ExpanderButtonForegroundHighlightBrush}" />
                             <Setter Property="Visibility" TargetName="shadow" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -280,12 +275,12 @@
                                 </Grid.LayoutTransform>
                                 <Ellipse HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center"
                                         Width="19" Height="19" Fill="{DynamicResource ButtonNormalBackgroundFill}"
-                                        Stroke="DarkGray" />
+                                        Stroke="{DynamicResource HeaderStrokeBrush}" />
                                 <Ellipse Visibility="Hidden" HorizontalAlignment="Center" x:Name="shadow"
                                         VerticalAlignment="Center" Width="17" Height="17"
                                         Fill="{DynamicResource ExpanderShadowFill}" />
                                 <Path SnapsToDevicePixels="false" HorizontalAlignment="Center" x:Name="arrow"
-                                        VerticalAlignment="Center" Stroke="#666" StrokeThickness="2"
+                                        VerticalAlignment="Center" Stroke="{DynamicResource HeaderStrokeBrush}" StrokeThickness="2"
                                         Data="M 1,1.5  L 4.5,5  L 8,1.5" />
                             </Grid>
                             <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Left" Margin="4,0,0,0"
@@ -297,8 +292,8 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource TextHighlightColorBrush}" />
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextHighlightColorBrush}" />
+                            <Setter Property="Stroke" TargetName="circle" Value="{DynamicResource ExpanderButtonForegroundHighlightBrush}" />
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource ExpanderButtonForegroundHighlightBrush}" />
                             <Setter Property="Visibility" TargetName="shadow" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -328,12 +323,12 @@
                                 </Grid.LayoutTransform>
                                 <Ellipse HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center"
                                         Width="19" Height="19" Fill="{DynamicResource ButtonNormalBackgroundFill}"
-                                        Stroke="DarkGray" />
+                                        Stroke="{DynamicResource HeaderStrokeBrush}" />
                                 <Ellipse Visibility="Hidden" HorizontalAlignment="Center" x:Name="shadow"
                                         VerticalAlignment="Center" Width="17" Height="17"
                                         Fill="{DynamicResource ExpanderShadowFill}" />
                                 <Path SnapsToDevicePixels="false" HorizontalAlignment="Center" x:Name="arrow"
-                                        VerticalAlignment="Center" Stroke="#666" StrokeThickness="2"
+                                        VerticalAlignment="Center" Stroke="{DynamicResource HeaderStrokeBrush}" StrokeThickness="2"
                                         Data="M 1,1.5 L 4.5,5 L 8,1.5" />
                             </Grid>
                             <ContentPresenter SnapsToDevicePixels="True" HorizontalAlignment="Center" Margin="0,4,0,0"
@@ -345,8 +340,8 @@
                             <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Stroke" TargetName="circle" Value="{StaticResource TextHighlightColorBrush}" />
-                            <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextHighlightColorBrush}" />
+                            <Setter Property="Stroke" TargetName="circle" Value="{DynamicResource ExpanderButtonForegroundHighlightBrush}" />
+                            <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource ExpanderButtonForegroundHighlightBrush}" />
                             <Setter Property="Visibility" TargetName="shadow" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -368,11 +363,11 @@
                     <TextBlock Grid.Column="0" Text="{Binding}" 
                             Margin="0, 0, 10, 0"
                             FontSize="12" FontWeight="SemiBold"
-                            Foreground="{StaticResource TextColorBrush}"/>
+                            Foreground="{DynamicResource TextColorBrush}"/>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-        
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
@@ -409,20 +404,20 @@
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            
+
                             <ToggleButton Grid.Column="0" Grid.Row="0"
                                 HorizontalAlignment="Stretch"
 								IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
 								Margin="1" MinHeight="0" MinWidth="0" x:Name="HeaderSite"
-								Style="{StaticResource ExpanderDownHeaderStyle}">
+								Style="{DynamicResource ExpanderDownHeaderStyle}">
                                 <ContentPresenter Content="{TemplateBinding Header}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
 									ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Margin="1"
 									Focusable="false" />
                             </ToggleButton>
 
-                            <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource HorizontalSeparator}"
-                                BorderBrush="{StaticResource TextPressedColorBrush}"/>
+                            <Border Grid.Column="1" Grid.Row="0" Style="{DynamicResource HorizontalSeparator}"
+                                BorderBrush="{DynamicResource HeaderStrokeBrush}"/>
 
                             <ContentPresenter x:Name="ExpandSite" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
 								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -434,7 +429,7 @@
                             </ContentPresenter>
                         </Grid>
                     </Border>
-                    
+
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -523,7 +518,7 @@
     
     <!-- Library Item -->
     <Style x:Key="LibraryItemStyle" TargetType="ListViewItem">
-        <Setter Property="Background" Value="{StaticResource GridBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource LibraryItemBackgroundBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
@@ -535,8 +530,8 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="185" />
                                 <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
 
                             <Image Grid.Column="0" Grid.Row="0"         
@@ -547,14 +542,14 @@
 
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Metadata.Title}" 
                                 x:Name="lblTitle" Margin="0, 8, 0, 0"
-                                Foreground="{StaticResource TextHighlightColorBrush}"
+                                Foreground="{DynamicResource TextHighlightColorBrush}"
                                 TextTrimming="WordEllipsis" MaxHeight="80"
                                 FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap" />
 
                             <TextBlock Grid.Column="0" Grid.Row="2"
                                 Margin="0, 5, 0, 0" MaxHeight="40"
                                 Text="{Binding Metadata.Contributors.AuthorString, Converter={StaticResource ByAuthorsConverter}}"
-                                Foreground="{StaticResource TextColorBrush}"
+                                Foreground="{DynamicResource TextColorBrush}" VerticalAlignment="Bottom"
                                 FontSize="13" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
 
                             <Image Grid.Column="0" Grid.Row="3"         
@@ -572,7 +567,7 @@
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation From="{StaticResource GridBackgroundColor}" To="{StaticResource GridBackgroundHoverColor}" 
+                                        <ColorAnimation From="{StaticResource LibraryItemBackgroundColor}" To="{StaticResource LibraryItemBackgroundHoverColor}" 
                                             Duration="0:0:0.15" Storyboard.TargetProperty="Background.Color"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -580,7 +575,7 @@
                             <Trigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation From="{StaticResource GridBackgroundHoverColor}" To="{StaticResource GridBackgroundColor}"  
+                                        <ColorAnimation From="{StaticResource LibraryItemBackgroundHoverColor}" To="{StaticResource LibraryItemBackgroundColor}"  
                                             Duration="0:0:0.15" Storyboard.TargetProperty="Background.Color"/>
                                     </Storyboard>
                                 </BeginStoryboard>

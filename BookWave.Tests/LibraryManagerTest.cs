@@ -1,4 +1,4 @@
-﻿using BookWave.Desktop.AudiobookManagement;
+﻿using BookWave.Desktop.Models.AudiobookManagement;
 using Xunit;
 
 namespace BookWave.Tests

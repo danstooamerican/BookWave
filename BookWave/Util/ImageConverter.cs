@@ -1,12 +1,19 @@
-﻿using System.Drawing;
+﻿using System.Configuration;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace BookWave.Desktop.Util
 {
     public class ImageConverter
     {
+        public static bool FileIsValid(string path)
+        {
+            return Regex.IsMatch(Path.GetExtension(path), ConfigurationManager.AppSettings.Get("allowed_image_extensions_regex"));
+        }
+
         public static void SaveCompressedImage(Image image, string saveToPath, int quality=80)
         {
             ImageCodecInfo jpegCodec = GetEncoder(System.Drawing.Imaging.ImageFormat.Jpeg);

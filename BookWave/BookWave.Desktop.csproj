@@ -78,6 +78,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -102,72 +103,105 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AudiobookManagement\Scanner\AudiobooksTopScanner.cs" />
-    <Compile Include="AudiobookManagement\Scanner\LibraryScanner.cs" />
-    <Compile Include="AudiobookManagement\Scanner\LibraryScannerFactory.cs" />
-    <Compile Include="Dialogs\CreateLibraryDialog.xaml.cs">
+    <Compile Include="Controls\PlayerBar.xaml.cs">
+      <DependentUpon>PlayerBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\Lang\MainWindow.en-US.Designer.cs">
+      <DependentUpon>MainWindow.en-US.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Localization\Lang\MainWindow.de-DE.Designer.cs">
+      <DependentUpon>MainWindow.de-DE.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Localization\Lang\MainWindow.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainWindow.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AudiobookManagement\Models\AudiobookDummy.cs" />
+    <Compile Include="Models\AudiobookManagement\Scanner\AudiobooksTopScanner.cs" />
+    <Compile Include="Models\AudiobookManagement\Scanner\LibraryScanner.cs" />
+    <Compile Include="Models\AudiobookManagement\Scanner\LibraryScannerFactory.cs" />
+    <Compile Include="Util\SkinnedApplication.cs" />
+    <Compile Include="Util\SkinResourceDictionary.cs" />
+    <Compile Include="Views\Dialogs\CreateLibraryDialog.xaml.cs">
       <DependentUpon>CreateLibraryDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogWindow.cs" />
-    <Compile Include="Dialogs\SelectLibraryItemDialog.xaml.cs">
+    <Compile Include="Views\Dialogs\ImportAudiobookViewModel.cs" />
+    <Compile Include="Views\Dialogs\DialogWindow.cs" />
+    <Compile Include="Views\Dialogs\ImportDialog.xaml.cs">
+      <DependentUpon>ImportDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SelectLibraryItemDialog.xaml.cs">
       <DependentUpon>SelectLibraryItemDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\CreateLibraryViewModel.cs" />
-    <Compile Include="Exceptions\DeleteMetadataException.cs" />
-    <Compile Include="Exceptions\ScannerNotFoundException.cs" />
-    <Compile Include="Exceptions\LibraryNotFoundException.cs" />
-    <Compile Include="Exceptions\InvalidArgumentException.cs" />
-    <Compile Include="AudiobookManagement\LibraryManager.cs" />
-    <Compile Include="AudiobookManagement\AudiobookManager.cs" />
-    <Compile Include="AudiobookManagement\Models\Audiobook.cs" />
-    <Compile Include="AudiobookManagement\Models\AudiobookMetadata.cs" />
-    <Compile Include="AudiobookManagement\Models\AudioPath.cs" />
-    <Compile Include="AudiobookManagement\Models\Chapter.cs" />
-    <Compile Include="AudiobookManagement\Models\Contributors.cs" />
-    <Compile Include="AudiobookManagement\Models\ChapterMetadata.cs" />
-    <Compile Include="AudiobookManagement\Models\Library.cs" />
-    <Compile Include="AudiobookManagement\Models\Metadata.cs" />
-    <Compile Include="Pages\SplitChapterPage.xaml.cs">
+    <Compile Include="Views\Dialogs\CreateLibraryViewModel.cs" />
+    <Compile Include="Models\Exceptions\DeleteMetadataException.cs" />
+    <Compile Include="Models\Exceptions\ScannerNotFoundException.cs" />
+    <Compile Include="Models\Exceptions\LibraryNotFoundException.cs" />
+    <Compile Include="Models\Exceptions\InvalidArgumentException.cs" />
+    <Compile Include="Models\AudiobookManagement\LibraryManager.cs" />
+    <Compile Include="Models\AudiobookManagement\AudiobookManager.cs" />
+    <Compile Include="Models\AudiobookManagement\Models\Audiobook.cs" />
+    <Compile Include="Models\AudiobookManagement\Models\AudiobookMetadata.cs" />
+    <Compile Include="Models\AudiobookManagement\Models\AudioPath.cs" />
+    <Compile Include="Models\AudiobookManagement\Models\Chapter.cs" />
+    <Compile Include="Models\AudiobookManagement\Models\Contributors.cs" />
+    <Compile Include="Models\AudiobookManagement\Models\ChapterMetadata.cs" />
+    <Compile Include="Models\AudiobookManagement\Models\Library.cs" />
+    <Compile Include="Models\AudiobookManagement\Models\Metadata.cs" />
+    <Compile Include="Views\Pages\SplitChapterPage.xaml.cs">
       <DependentUpon>SplitChapterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditLibrary.xaml.cs">
+    <Compile Include="Views\Pages\EditLibrary.xaml.cs">
       <DependentUpon>EditLibrary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AuthorsPage.xaml.cs">
+    <Compile Include="Views\Pages\AuthorsPage.xaml.cs">
       <DependentUpon>AuthorsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\FavoritesPage.xaml.cs">
+    <Compile Include="Views\Pages\FavoritesPage.xaml.cs">
       <DependentUpon>FavoritesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GenresPage.xaml.cs">
+    <Compile Include="Views\Pages\GenresPage.xaml.cs">
       <DependentUpon>GenresPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\BindingProxy.cs" />
-    <Compile Include="Util\HistoryList.cs" />
-    <Compile Include="Util\HistoryListElement.cs" />
+    <Compile Include="Models\MenuNavigation\HistoryList.cs" />
+    <Compile Include="Models\MenuNavigation\HistoryListElement.cs" />
     <Compile Include="Util\ImageConverter.cs" />
-    <Compile Include="Util\PageItem.cs" />
+    <Compile Include="Models\MenuNavigation\PageItem.cs" />
     <Compile Include="Util\UpdateReport.cs" />
     <Compile Include="Util\WindowResizer.cs" />
     <Compile Include="Util\XMLHelper.cs" />
     <Compile Include="Util\XMLSaveObject.cs" />
-    <Compile Include="ViewModel\BrowseViewModelBase.cs" />
-    <Compile Include="ViewModel\SplitChapterViewModel.cs" />
-    <Compile Include="ViewModel\EditLibraryViewModel.cs" />
-    <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="ViewModel\PlayerViewModel.cs" />
-    <Compile Include="ViewModel\BrowseViewModel.cs" />
-    <Compile Include="Dialogs\SelectLibraryViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="Dialogs\CreateLibraryDialog.xaml">
+    <Compile Include="ViewModels\BrowseViewModelBase.cs" />
+    <Compile Include="ViewModels\SplitChapterViewModel.cs" />
+    <Compile Include="ViewModels\EditLibraryViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\PlayerViewModel.cs" />
+    <Compile Include="ViewModels\BrowseViewModel.cs" />
+    <Compile Include="Views\Dialogs\SelectLibraryViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Page Include="Controls\PlayerBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\CreateLibraryDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\SelectLibraryItemDialog.xaml">
+    <Page Include="Views\Dialogs\ImportDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\Dialogs\SelectLibraryItemDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -175,44 +209,44 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\SplitChapterPage.xaml">
+    <Page Include="Views\Pages\SplitChapterPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\EditLibrary.xaml">
+    <Page Include="Views\Pages\EditLibrary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\AuthorsPage.xaml">
+    <Page Include="Views\Pages\AuthorsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\BrowsePage.xaml">
+    <Page Include="Views\Pages\BrowsePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\FavoritesPage.xaml">
+    <Page Include="Views\Pages\FavoritesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\GenresPage.xaml">
+    <Page Include="Views\Pages\GenresPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\StartPage.xaml">
+    <Page Include="Views\Pages\StartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\BrowsePage.xaml.cs">
+    <Compile Include="Views\Pages\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\StartPage.xaml.cs">
+    <Compile Include="Views\Pages\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -228,8 +262,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Localization\Lang\MainWindow.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindow.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Lang\MainWindow.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindow.de-DE.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Lang\MainWindow.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindow.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -262,6 +308,11 @@
       <Project>{ef5f5f8b-4fef-4019-8cec-28354b90fd82}</Project>
       <Name>BookWave.Styles</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infralution.Localization.Wpf\Infralution.Localization.Wpf.csproj">
+      <Project>{e3d700d5-bdfb-4777-8e9c-53e8f943ac58}</Project>
+      <Name>Infralution.Localization.Wpf</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

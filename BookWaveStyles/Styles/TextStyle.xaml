@@ -1,14 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <ResourceDictionary.MergedDictionaries>
-
-        <ResourceDictionary Source="/BookWave.Styles;component/Colors/colors.xaml"/>
-
-    </ResourceDictionary.MergedDictionaries>
-
     <Style x:Key="BaseText" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}" />
         <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
 
@@ -21,19 +15,19 @@
     </Style>
 
     <Style x:Key="InformationTextHighlight" TargetType="TextBlock" BasedOn="{StaticResource BaseText}">
-        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextHighlightColorBrush}" />
         <Setter Property="FontSize" Value="14" />
     </Style>
 
     <Style x:Key="TopbarPageTitle" TargetType="TextBlock" BasedOn="{StaticResource BaseText}">
-        <Setter Property="Foreground" Value="{StaticResource TextHighlightColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextHighlightColorBrush}" />
         <Setter Property="FontSize" Value="26" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Margin" Value="15, 0, 0, 0" />
     </Style>
 
     <Style x:Key="DropText" TargetType="TextBlock" BasedOn="{StaticResource BaseText}">
-        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}" />
         <Setter Property="FontSize" Value="34" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />

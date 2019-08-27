@@ -49,7 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\ByAuthorsConverter.cs" />
-    <Compile Include="Converter\AddUpdateConverter.cs" />
     <Compile Include="Converter\ChaptersToVisibleConverter.cs" />
     <Compile Include="Converter\BoolVisibilityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetOpacityConverter.cs" />
@@ -84,15 +83,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Colors\colors.xaml">
+    <Page Include="Skins\TestTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Skins\DarkTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\LightTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ComboBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ContextMenuStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CustomControls\ImageButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CustomControls\ImageTextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CustomControls\MenuButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CustomControls\ToggleImageButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,9 +195,6 @@
     <Resource Include="Resources\Player\skip30_pressed.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Navigation\pageBack.png" />
     <Resource Include="Resources\Navigation\pageBack_hover.png" />
     <Resource Include="Resources\Navigation\pageBack_pressed.png" />
@@ -222,6 +242,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Misc\pencil_pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BookWaveCustomControls\BookWave.Controls.csproj">
+      <Project>{3c911c9e-41cb-4aca-8f0f-c69a311014f3}</Project>
+      <Name>BookWave.Controls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,305 @@
+﻿<Window x:Class="BookWave.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
+        xmlns:lang="clr-namespace:BookWave.Desktop.Properties"
+        xmlns:controls="clr-namespace:BookWave.Desktop.Controls"
+        mc:Ignorable="d"
+        Icon="/BookWave.Styles;component/Resources/icon.ico"
+        Background="{DynamicResource MainBackground}"        
+        Title="Audiobook Player"
+        MinWidth="{Binding WindowMinimumWidth}"
+        MinHeight="{Binding WindowMinimumHeight}"
+        WindowStyle="None"
+        Loaded="AppWindow_Loaded"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        ResxExtension.DefaultResxName="BookWave.Desktop.Localization.Lang.MainWindow" Language="{UICulture}"
+        x:Name="AppWindow">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="20" />
+    </WindowChrome.WindowChrome>
+
+    <Window.Effect>
+        <BlurEffect KernelType="Gaussian" Radius="0" />
+    </Window.Effect>
+
+    <!-- Blur Effect -->
+    <Window.Style>
+        <Style>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DarkenBackground}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
+                                            From="0" To="4" Duration="0:0:0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(Effect).Radius"
+                                            From="4" To="0" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    
+    <Grid Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="90" MaxWidth="300" SharedSizeGroup="sidebar"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Darken Effect -->
+        <Control Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"
+            Panel.ZIndex="2" Style="{DynamicResource DarkenEffect}"
+            IsEnabled="{Binding DarkenBackground}" />
+
+        <!-- Sidebar -->
+        <Border Padding="0, 5, 0, 0"
+                Grid.Column="0" Grid.Row="1"
+                Background="{DynamicResource SideBarBackgroundBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Sidebar top -->
+                <StackPanel Grid.Row="0" Orientation="Vertical"
+                lib:MenuButton.Click="MenuButton_Click">
+
+                    <lib:MenuButton Name="btnStart" Content="{Resx MenuButton_Start}" 
+                        Page="/Views/Pages/StartPage.xaml" PageTitle="Start"
+                        TitleBarTemplate="DetailPageTitle"/>
+
+                    <lib:MenuButton Name="btnBrowse" Content="Browse" 
+                        Page="/Views/Pages/BrowsePage.xaml" PageTitle="Browse" />
+
+                    <Border Style="{DynamicResource HorizontalSeparator}" 
+                        Margin="5, 2, 5, 2"/>
+
+                    <lib:MenuButton Name="btnAuthors" Content="Authors" 
+                        Page="/Views/Pages/AuthorsPage.xaml" PageTitle="Authors" />
+
+                    <lib:MenuButton Name="btnGenres" Content="Genre" 
+                        Page="/Views/Pages/GenresPage.xaml" PageTitle="Genre" />
+
+                    <lib:MenuButton Name="btnFavorites" Content="Favorites" 
+                        Page="/Views/Pages/FavoritesPage.xaml" PageTitle="Favorites" />
+                </StackPanel>
+                
+                <!-- Sidebar bottom -->
+                <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom"
+                    lib:MenuButton.Click="MenuButton_Click"
+                    Margin="0,0,0,5">
+
+                    <lib:MenuButton Name="btnEditLibrary" Content="{x:Static lang:Resources.Sidebar_MenuButton_EditLibrary_Text}"
+                        Page="/Views/Pages/EditLibrary.xaml" PageTitle="Edit Library" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Resize Sidebar -->
+        <GridSplitter Grid.Column="0" Grid.Row="1"
+                      Style="{DynamicResource VerticalSplitter}"
+                      VerticalAlignment="Stretch" />
+
+        <!-- Topbar -->
+        <Border Grid.Column="1" Grid.Row="0" 
+                Background="{DynamicResource TopBarBackgroundBrush}">
+
+            <Border.Opacity>
+                <MultiBinding Converter="{StaticResource VerticalOffsetOpacityConverter}">
+                    <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                    <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                </MultiBinding>
+            </Border.Opacity>
+        </Border>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+              ButtonBase.Click="MenuButton_Click"
+              Panel.ZIndex="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="sidebar"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0" Padding="0 5 0 5"
+                Background="{DynamicResource TopBarBackgroundBrush}">
+                
+                <StackPanel Orientation="Horizontal">
+                    <lib:ImageButton
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/pageBack.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/pageBack_hover.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/pageBack_pressed.png"
+                        DisabledImage="/BookWave.Styles;component/Resources/Navigation/pageBack_pressed.png"
+                        ImageSize="20"
+                        Click="PageBack_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoBack}"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
+
+                    <lib:ImageButton
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/pageForward.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/pageForward_hover.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/pageForward_pressed.png"
+                        DisabledImage="/BookWave.Styles;component/Resources/Navigation/pageForward_pressed.png"
+                        ImageSize="20"
+                        Click="PageForward_Click" IsEnabled="{Binding ElementName=frmPage, Path=CanGoForward}"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Shared Page Title Top -->
+            <Grid Grid.Column="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0"
+                    Opacity="0"
+                    x:Name="lblSelectedPageTitle"
+                    Text="{Binding SelectedPageTitle}">
+
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource TopbarPageTitle}">
+                            <Style.Triggers>
+                                <DataTrigger Value="0">
+                                    <DataTrigger.Binding>
+                                        <MultiBinding Converter="{StaticResource VerticalOffsetTopBarVisibilityConverter}">
+                                            <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                                            <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                                        </MultiBinding>
+                                    </DataTrigger.Binding>
+
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                From="0" To="1" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                                From="1" To="0" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <lib:ImageButton
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/minimize.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/minimize_hover.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/minimize_pressed.png"
+                        ImageSize="20"
+                        Command="{Binding MinimizeCommand}"
+                        Margin="0, 0, 10, 0"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
+                    <lib:ImageButton
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/maximize.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/maximize_hover.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/maximize_pressed.png"
+                        ImageSize="20"
+                        Command="{Binding MaximizeCommand}"
+                        Margin="0, 0, 10, 0"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
+                    <lib:ImageButton
+                        NormalImage="/BookWave.Styles;component/Resources/Navigation/close.png"
+                        HoverImage="/BookWave.Styles;component/Resources/Navigation/close_pressed.png"
+                        PressedImage="/BookWave.Styles;component/Resources/Navigation/close_pressed.png"
+                        ImageSize="20"
+                        Command="{Binding CloseCommand}"
+                        Margin="0, 0, 5, 0"
+                        WindowChrome.IsHitTestVisibleInChrome="True"/>
+                </StackPanel>
+            </Grid>
+
+
+            <Border Style="{DynamicResource HorizontalSeparator}" 
+                    Grid.Row="1" />
+
+            <Border Grid.Column="1" Grid.Row="1"                      
+                    Style="{DynamicResource HorizontalSeparator}">
+
+                <Border.Opacity>
+                    <MultiBinding Converter="{StaticResource VerticalOffsetOpacityConverter}">
+                        <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                        <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                    </MultiBinding>
+                </Border.Opacity>
+            </Border>
+
+        </Grid>
+
+        <!-- Main Display -->
+        <ScrollViewer Grid.Column="2" Grid.Row="1"
+                      x:Name="scrollViewer" Panel.ZIndex="0"
+                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" 
+                      Style="{DynamicResource CustomScrollViewer}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Shared Page Title Main -->
+
+                <lib:SharedPageTitle Grid.Row="1" Template="{Binding SharedPageTitleTemplate}" 
+                    Margin="0, 0, 0, 30"                 
+                    x:Name="sharedPageTitle">
+
+                    <lib:SharedPageTitle.Opacity>
+                        <MultiBinding Converter="{StaticResource VerticalOffsetTopBarVisibilityConverter}">
+                            <Binding Path="ActualHeight" ElementName="sharedPageTitle"/>
+                            <Binding Path="VerticalOffset" ElementName="scrollViewer"/>
+                        </MultiBinding>
+                    </lib:SharedPageTitle.Opacity>
+
+                </lib:SharedPageTitle>
+                
+                <!-- Main Frame -->
+                <Frame Grid.Row="2" x:Name="frmPage" Style="{DynamicResource PageFrame}"/>
+            </Grid>
+        </ScrollViewer>        
+
+        <!-- Playerbar -->
+        <Border x:Name="PlayerBarContainer"
+            Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <controls:PlayerBar x:Name="playerbar"             
+                DataContext="{Binding PlayerViewModel}"
+                CoverImage="{Binding CoverImage}"/>
+        </Border>
+        
+
+    </Grid>
+</Window>

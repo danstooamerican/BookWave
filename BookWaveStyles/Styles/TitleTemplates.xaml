@@ -3,7 +3,6 @@
 
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="/BookWave.Styles;component/Colors/colors.xaml"/>
         <ResourceDictionary Source="/BookWave.Styles;component/Styles/TextStyle.xaml"/>
         
     </ResourceDictionary.MergedDictionaries>
@@ -18,7 +17,7 @@
                 <TextBlock HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedPageTitle}" 
-                    Style="{StaticResource TopbarPageTitle}"/>
+                    Style="{DynamicResource TopbarPageTitle}"/>
             </Grid>
         </Border>
 
@@ -37,12 +36,12 @@
                 </Grid.RowDefinitions>
 
                 <Rectangle Width="150" Height="150"
-                           Fill="{StaticResource CharlestonGreenBrush}"/>
+                           Fill="{DynamicResource AccentColorBrush}"/>
 
                 <TextBlock Grid.Row="1" HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.SelectedPageTitle}" 
-                    Style="{StaticResource TopbarPageTitle}" FontSize="40"/>
+                    Style="{DynamicResource TopbarPageTitle}" FontSize="40"/>
             </Grid>
         </Border>
 

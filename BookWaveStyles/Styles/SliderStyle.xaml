@@ -1,22 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <ResourceDictionary.MergedDictionaries>
-
-        <ResourceDictionary Source="/BookWave.Styles;component/Colors/colors.xaml"/>
-
-    </ResourceDictionary.MergedDictionaries>
-
     <Style x:Key="CustomThumbForSlider" TargetType="{x:Type Thumb}">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Ellipse x:Name="ThumbNob" Fill="{StaticResource GrayBrush}" Height="12" Width="12"/>
+                    <Ellipse x:Name="ThumbNob" Fill="{DynamicResource SliderThumbBrush}" Height="12" Width="12"/>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="ThumbNob" Property="Fill" Value="{StaticResource LightGrayBrush}" />
+                            <Setter TargetName="ThumbNob" Property="Fill" Value="{DynamicResource SliderThumbHoverBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -43,8 +37,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border x:Name="TrackBackground" 
-                        Background="{StaticResource GrayBrush}"
-                        BorderBrush="{StaticResource GrayBrush}"                                        
+                        Background="{DynamicResource SliderTrackBackgroundBrush}"
+                        BorderBrush="{DynamicResource SliderTrackBorderBrush}"                                        
                         BorderThickness="1" CornerRadius="1"
                         VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
                     </Border>
@@ -59,8 +53,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border x:Name="TrackBackground" 
-                        Background="{StaticResource AccentBrush}"
-                        BorderBrush="{StaticResource AccentBrush}"                                        
+                        Background="{DynamicResource SliderThumbPressedBrush}"
+                        BorderBrush="{DynamicResource SliderThumbBorderPressedBrush}"                                        
                         BorderThickness="1" CornerRadius="1"
                         VerticalAlignment="Center" Height="4.0" Grid.Row="1" >
                     </Border>
@@ -82,8 +76,8 @@
                             </Grid.RowDefinitions>
                             
                             <Border x:Name="TrackBackground" 
-                                 Background="{StaticResource DarkGrayBrush}"
-                                 BorderBrush="{StaticResource DarkGrayBrush}"                                        
+                                 Background="{DynamicResource SliderUnusedTrackBackgroundBrush}"
+                                 BorderBrush="{DynamicResource SliderUnusedTrackBorderBrush}"                                        
                                  BorderThickness="1" CornerRadius="1"
                                  Margin="0, 0, 6, 0"
                                  VerticalAlignment="Center" Height="4.0" Grid.Row="0" >
@@ -91,13 +85,13 @@
                             
                             <Track x:Name="PART_Track" Grid.Row="0">
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton x:Name="SelectedPart" Style="{StaticResource SliderRepeatButtonStyleColor}"/>
+                                    <RepeatButton x:Name="SelectedPart" Style="{DynamicResource SliderRepeatButtonStyleColor}"/>
                                 </Track.DecreaseRepeatButton>
                                 <Track.IncreaseRepeatButton>
                                     <RepeatButton Style="{StaticResource SliderRepeatButtonStyle}"/>
                                 </Track.IncreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb x:Name="Thumb" Visibility="Hidden" Style="{StaticResource CustomThumbForSlider}" 
+                                    <Thumb x:Name="Thumb" Visibility="Hidden" Style="{DynamicResource CustomThumbForSlider}" 
                                            Background="Transparent" Margin="-6, 0, 0, 0"/>
                                 </Track.Thumb>
                             </Track>
@@ -108,7 +102,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Thumb" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="SelectedPart" Property="Style" Value="{StaticResource SliderRepeatButtonStyleColorHighlight}" />
+                            <Setter TargetName="SelectedPart" Property="Style" Value="{DynamicResource SliderRepeatButtonStyleColorHighlight}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
