@@ -31,7 +31,7 @@
                             <Rectangle x:Name="ClickedRect" Width="5" Fill="{DynamicResource AccentColorBrush}" 
                                        Grid.Column="0" Grid.Row="0" Visibility="{TemplateBinding ClickedRectVisibility}"/>
 
-                            <TextBlock HorizontalAlignment="Left"
+                            <TextBlock HorizontalAlignment="Left" x:Name="lblContent"
                                 VerticalAlignment="Center" Margin="10 0 0 0"
                                 Grid.Column="1" Grid.Row="0" Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextTrimming="WordEllipsis"/>
                         </Grid>
@@ -49,7 +49,24 @@
                             </Trigger.EnterActions>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource TextHighlightColorBrush}" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            Storyboard.TargetName="lblContent"
+                                            From="{StaticResource TextColor}" To="{StaticResource TextHighlightColor}" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            Storyboard.TargetName="lblContent"
+                                            From="{StaticResource TextHighlightColor}" To="{StaticResource TextColor}" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource TextPressedColorBrush}" />

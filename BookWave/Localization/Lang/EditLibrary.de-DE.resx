@@ -138,7 +138,7 @@
   <data name="Expander_Advanced" xml:space="preserve">
     <value>Erweitert</value>
   </data>
-  <data name="Label_Authors" xml:space="preserve">
+  <data name="Label_Author" xml:space="preserve">
     <value>Autor:</value>
   </data>
   <data name="Label_Description" xml:space="preserve">
