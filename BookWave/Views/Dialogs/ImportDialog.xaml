@@ -16,6 +16,7 @@
         BorderThickness="1"
         BorderBrush="{DynamicResource DialogBorderBrush}"
         WindowStartupLocation="CenterOwner"
+        ResxExtension.DefaultResxName="BookWave.Desktop.Localization.Lang.ImportDialog" Language="{UICulture}"
         Title="Import Audiobook" Height="235" Width="500">
 
     <Grid>
@@ -53,13 +54,13 @@
             <!-- Information -->
             <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
                 Style="{DynamicResource InformationText}" Margin="0, 0, 0, 15"
-                Text="This operation copies the selected audiobook folder into the selected library." />
+                Text="{Resx Information}" />
             
             <!-- Destination -->
             <TextBlock Grid.Column="0" Grid.Row="1"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
-                    Style="{DynamicResource InputMaskText}" Text="Import from:" 
+                    Style="{DynamicResource InputMaskText}" Text="{Resx ImportFrom}" 
                     TextTrimming="WordEllipsis" />
 
             <TextBox Grid.Column="1" Grid.Row="1"
@@ -79,7 +80,7 @@
             <TextBlock Grid.Column="0" Grid.Row="2" x:Name="lblImportTo"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
-                    Style="{DynamicResource InputMaskText}" Text="to:" 
+                    Style="{DynamicResource InputMaskText}" Text="{Resx ImportTo}" 
                     TextTrimming="WordEllipsis" />
 
             <ComboBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
@@ -91,7 +92,7 @@
                 SelectedItem="{Binding Scanner}"/>
 
             <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
-                    Content="Import" HorizontalAlignment="Right"
+                    Content="{Resx Button_Import}" HorizontalAlignment="Right"
                     Margin="0, 10, 0, 0"
                     MinHeight="28" MinWidth="130" MaxWidth="130"
                     Style="{DynamicResource RoundedButton}"

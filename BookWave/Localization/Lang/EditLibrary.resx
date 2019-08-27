@@ -138,8 +138,8 @@
   <data name="Expander_Advanced" xml:space="preserve">
     <value>Advanced</value>
   </data>
-  <data name="Label_Authors" xml:space="preserve">
-    <value>Auhtor:</value>
+  <data name="Label_Author" xml:space="preserve">
+    <value>Author:</value>
   </data>
   <data name="Label_Description" xml:space="preserve">
     <value>Description:</value>
@@ -153,7 +153,7 @@
   <data name="Label_Library" xml:space="preserve">
     <value>Library:</value>
   </data>
-  <data name="Label_Readers" xml:space="preserve">
+  <data name="Label_Reader" xml:space="preserve">
     <value>Reader:</value>
   </data>
   <data name="Label_ReleaseYear" xml:space="preserve">

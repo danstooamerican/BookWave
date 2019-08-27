@@ -117,52 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Button_Browse" xml:space="preserve">
-    <value>Browse Library</value>
-  </data>
   <data name="Button_Import" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="Button_Remove" xml:space="preserve">
-    <value>Remove</value>
+  <data name="ImportFrom" xml:space="preserve">
+    <value>Import from</value>
   </data>
-  <data name="Button_Update" xml:space="preserve">
-    <value>Update</value>
+  <data name="ImportTo" xml:space="preserve">
+    <value>to</value>
   </data>
-  <data name="DataGrid_Title" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="DataGrid_TrackNumber" xml:space="preserve">
-    <value>#</value>
-  </data>
-  <data name="Expander_Advanced" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
-  <data name="Label_Author" xml:space="preserve">
-    <value>Author:</value>
-  </data>
-  <data name="Label_Description" xml:space="preserve">
-    <value>Description:</value>
-  </data>
-  <data name="Label_Destination" xml:space="preserve">
-    <value>Destination:</value>
-  </data>
-  <data name="Label_Genre" xml:space="preserve">
-    <value>Genre:</value>
-  </data>
-  <data name="Label_Library" xml:space="preserve">
-    <value>Library:</value>
-  </data>
-  <data name="Label_Reader" xml:space="preserve">
-    <value>Reader:</value>
-  </data>
-  <data name="Label_ReleaseYear" xml:space="preserve">
-    <value>Release Year:</value>
-  </data>
-  <data name="Label_Title" xml:space="preserve">
-    <value>Title:</value>
-  </data>
-  <data name="Overlay_Text" xml:space="preserve">
-    <value>Select an Audiobook</value>
+  <data name="Information" xml:space="preserve">
+    <value>This operation copies the selected audiobook folder into the selected library.</value>
   </data>
 </root>

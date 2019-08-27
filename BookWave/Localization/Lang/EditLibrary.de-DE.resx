@@ -145,7 +145,7 @@
     <value>Beschreibung:</value>
   </data>
   <data name="Label_Destination" xml:space="preserve">
-    <value>Ort:</value>
+    <value>Ziel:</value>
   </data>
   <data name="Label_Genre" xml:space="preserve">
     <value>Genre:</value>
@@ -153,7 +153,7 @@
   <data name="Label_Library" xml:space="preserve">
     <value>Bibliothek:</value>
   </data>
-  <data name="Label_Readers" xml:space="preserve">
+  <data name="Label_Reader" xml:space="preserve">
     <value>Gelesen von:</value>
   </data>
   <data name="Label_ReleaseYear" xml:space="preserve">

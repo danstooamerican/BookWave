@@ -124,11 +124,11 @@ namespace BookWave.Desktop.Localization.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auhtor:.
+        ///   Looks up a localized string similar to Author:.
         /// </summary>
-        internal static string Label_Authors {
+        internal static string Label_Author {
             get {
-                return ResourceManager.GetString("Label_Authors", resourceCulture);
+                return ResourceManager.GetString("Label_Author", resourceCulture);
             }
         }
         
@@ -171,9 +171,9 @@ namespace BookWave.Desktop.Localization.Lang {
         /// <summary>
         ///   Looks up a localized string similar to Reader:.
         /// </summary>
-        internal static string Label_Readers {
+        internal static string Label_Reader {
             get {
-                return ResourceManager.GetString("Label_Readers", resourceCulture);
+                return ResourceManager.GetString("Label_Reader", resourceCulture);
             }
         }
         
