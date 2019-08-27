@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
-        xmlns:lang="clr-namespace:BookWave.Desktop.Properties"
         xmlns:controls="clr-namespace:BookWave.Desktop.Controls"
         mc:Ignorable="d"
         Icon="/BookWave.Styles;component/Resources/icon.ico"
@@ -90,19 +89,19 @@
                         Page="/Views/Pages/StartPage.xaml" PageTitle="Start"
                         TitleBarTemplate="DetailPageTitle"/>
 
-                    <lib:MenuButton Name="btnBrowse" Content="Browse" 
+                    <lib:MenuButton Name="btnBrowse" Content="{Resx MenuButton_Browse}" 
                         Page="/Views/Pages/BrowsePage.xaml" PageTitle="Browse" />
 
                     <Border Style="{DynamicResource HorizontalSeparator}" 
-                        Margin="5, 2, 5, 2"/>
+                        Margin="5, 2"/>
 
-                    <lib:MenuButton Name="btnAuthors" Content="Authors" 
+                    <lib:MenuButton Name="btnAuthors" Content="{Resx MenuButton_Authors}" 
                         Page="/Views/Pages/AuthorsPage.xaml" PageTitle="Authors" />
 
-                    <lib:MenuButton Name="btnGenres" Content="Genre" 
+                    <lib:MenuButton Name="btnGenres" Content="{Resx MenuButton_Genre}" 
                         Page="/Views/Pages/GenresPage.xaml" PageTitle="Genre" />
 
-                    <lib:MenuButton Name="btnFavorites" Content="Favorites" 
+                    <lib:MenuButton Name="btnFavorites" Content="{Resx MenuButton_Favorites}" 
                         Page="/Views/Pages/FavoritesPage.xaml" PageTitle="Favorites" />
                 </StackPanel>
                 
@@ -111,7 +110,8 @@
                     lib:MenuButton.Click="MenuButton_Click"
                     Margin="0,0,0,5">
 
-                    <lib:MenuButton Name="btnEditLibrary" Content="{x:Static lang:Resources.Sidebar_MenuButton_EditLibrary_Text}"
+                    <lib:MenuButton Name="btnEditLibrary" 
+                        Content="{Resx MenuButton_EditLibrary}"
                         Page="/Views/Pages/EditLibrary.xaml" PageTitle="Edit Library" />
                 </StackPanel>
             </Grid>

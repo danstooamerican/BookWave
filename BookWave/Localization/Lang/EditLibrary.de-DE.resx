@@ -117,22 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MenuButton_Authors" xml:space="preserve">
-    <value>Autoren</value>
+  <data name="Button_Browse" xml:space="preserve">
+    <value>Durchsuchen</value>
   </data>
-  <data name="MenuButton_Browse" xml:space="preserve">
-    <value>Browse</value>
+  <data name="Button_Import" xml:space="preserve">
+    <value>Importieren</value>
   </data>
-  <data name="MenuButton_EditLibrary" xml:space="preserve">
-    <value>Bibliothek</value>
+  <data name="Button_Remove" xml:space="preserve">
+    <value>Entfernen</value>
   </data>
-  <data name="MenuButton_Favorites" xml:space="preserve">
-    <value>Favoriten</value>
+  <data name="Button_Update" xml:space="preserve">
+    <value>Speichern</value>
   </data>
-  <data name="MenuButton_Genre" xml:space="preserve">
-    <value>Genre</value>
+  <data name="DataGrid_Title" xml:space="preserve">
+    <value>Titel</value>
   </data>
-  <data name="MenuButton_Start" xml:space="preserve">
-    <value>Start</value>
+  <data name="DataGrid_TrackNumber" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Expander_Advanced" xml:space="preserve">
+    <value>Erweitert</value>
+  </data>
+  <data name="Label_Authors" xml:space="preserve">
+    <value>Autor:</value>
+  </data>
+  <data name="Label_Description" xml:space="preserve">
+    <value>Beschreibung:</value>
+  </data>
+  <data name="Label_Destination" xml:space="preserve">
+    <value>Ort:</value>
+  </data>
+  <data name="Label_Genre" xml:space="preserve">
+    <value>Genre:</value>
+  </data>
+  <data name="Label_Library" xml:space="preserve">
+    <value>Bibliothek:</value>
+  </data>
+  <data name="Label_Readers" xml:space="preserve">
+    <value>Gelesen von:</value>
+  </data>
+  <data name="Label_ReleaseYear" xml:space="preserve">
+    <value>Jahr:</value>
+  </data>
+  <data name="Label_Title" xml:space="preserve">
+    <value>Titel:</value>
+  </data>
+  <data name="Overlay_Text" xml:space="preserve">
+    <value>Hörbuch auswählen</value>
   </data>
 </root>

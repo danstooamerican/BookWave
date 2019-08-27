@@ -61,7 +61,52 @@ namespace BookWave.Desktop.Localization.Lang {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start DE.
+        ///   Looks up a localized string similar to Authors.
+        /// </summary>
+        internal static string MenuButton_Authors {
+            get {
+                return ResourceManager.GetString("MenuButton_Authors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        internal static string MenuButton_Browse {
+            get {
+                return ResourceManager.GetString("MenuButton_Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Library.
+        /// </summary>
+        internal static string MenuButton_EditLibrary {
+            get {
+                return ResourceManager.GetString("MenuButton_EditLibrary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favorites.
+        /// </summary>
+        internal static string MenuButton_Favorites {
+            get {
+                return ResourceManager.GetString("MenuButton_Favorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre.
+        /// </summary>
+        internal static string MenuButton_Genre {
+            get {
+                return ResourceManager.GetString("MenuButton_Genre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string MenuButton_Start {
             get {
