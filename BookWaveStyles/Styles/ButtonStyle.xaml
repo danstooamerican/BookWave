@@ -36,6 +36,7 @@
     <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource RoundedButtonBackgroundBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource RoundedButtonBorderBrush}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="DemiBold" />
@@ -44,7 +45,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border 
+                    <Border x:Name="brdBackground"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         Padding="{TemplateBinding Padding}"     
@@ -53,16 +54,43 @@
 
                         <Grid >
                             <TextBlock HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Center" x:Name="lblContent"
                                 Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" TextTrimming="WordEllipsis"/>
                         </Grid>
                     </Border>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource TextHighlightColorBrush}" />
-                            <Setter Property="BorderBrush" Value="{DynamicResource RoundedButtonBorderHoverBrush}" />
-                            <Setter Property="Background" Value="{DynamicResource RoundedButtonBackgroundHoverBrush}" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            Storyboard.TargetName="lblContent"
+                                            From="{StaticResource TextColor}" To="{StaticResource TextHighlightColor}" Duration="0:0:0.1"/>
+                                        <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" 
+                                            Storyboard.TargetName="brdBackground"
+                                            From="{StaticResource RoundedButtonBorderColor}" To="{StaticResource RoundedButtonBorderHoverColor}" Duration="0:0:0.1"/>
+                                        <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                            Storyboard.TargetName="brdBackground"
+                                            From="{StaticResource RoundedButtonBackgroundColor}" To="{StaticResource RoundedButtonBackgroundHoverColor}" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
+                                            Storyboard.TargetName="lblContent"
+                                            From="{StaticResource TextHighlightColor}" To="{StaticResource TextColor}" Duration="0:0:0.1"/>
+                                        <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" 
+                                            Storyboard.TargetName="brdBackground"
+                                            From="{StaticResource RoundedButtonBorderHoverColor}" To="{StaticResource RoundedButtonBorderColor}" Duration="0:0:0.1"/>
+                                        <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                            Storyboard.TargetName="brdBackground"
+                                            From="{StaticResource RoundedButtonBackgroundHoverColor}" To="{StaticResource RoundedButtonBackgroundColor}" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource TextPressedColorBrush}" />                            

@@ -203,5 +203,14 @@ namespace BookWave.Desktop.Localization.Lang {
                 return ResourceManager.GetString("Overlay_Text", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Library.
+        /// </summary>
+        internal static string Page_Title {
+            get {
+                return ResourceManager.GetString("Page_Title", resourceCulture);
+            }
+        }
     }
 }

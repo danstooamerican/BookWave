@@ -112,7 +112,8 @@
 
                     <lib:MenuButton Name="btnEditLibrary" 
                         Content="{Resx MenuButton_EditLibrary}"
-                        Page="/Views/Pages/EditLibrary.xaml" PageTitle="Edit Library" />
+                        Page="/Views/Pages/EditLibrary.xaml" 
+                        PageTitle="{Resx ResxName=BookWave.Desktop.Localization.Lang.EditLibrary, Key=Page_Title}" />
                 </StackPanel>
             </Grid>
         </Border>

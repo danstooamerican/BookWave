@@ -113,7 +113,11 @@
     <Color x:Key="RoundedButtonBackgroundHoverColor">#282828</Color>
     <SolidColorBrush x:Key="RoundedButtonBackgroundHoverBrush" Color="{StaticResource RoundedButtonBackgroundHoverColor}" />
 
-    <SolidColorBrush x:Key="RoundedButtonBorderHoverBrush" Color="{StaticResource AccentColor}" />
+    <Color x:Key="RoundedButtonBorderColor">#707070</Color>
+    <SolidColorBrush x:Key="RoundedButtonBorderBrush" Color="{StaticResource RoundedButtonBorderColor}" />
+
+    <Color x:Key="RoundedButtonBorderHoverColor">Pink</Color>
+    <SolidColorBrush x:Key="RoundedButtonBorderHoverBrush" Color="{StaticResource RoundedButtonBorderHoverColor}" />
 
     <!-- Combobox Colors -->
     <Color x:Key="ComboboxToggleButtonBackgroundColor">#181818</Color>

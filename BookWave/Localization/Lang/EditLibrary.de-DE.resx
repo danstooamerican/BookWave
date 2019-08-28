@@ -165,4 +165,7 @@
   <data name="Overlay_Text" xml:space="preserve">
     <value>Hörbuch auswählen</value>
   </data>
+  <data name="Page_Title" xml:space="preserve">
+    <value>Bibliothek bearbeiten</value>
+  </data>
 </root>
