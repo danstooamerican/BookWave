@@ -166,8 +166,19 @@ namespace BookWave.ViewModel
             openFileDialog.Filter = ConfigurationManager.AppSettings.Get("allowed_audio_extensions_filter");
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                chapter.AudioPath.Path = openFileDialog.FileName; // TODO perform integrity checks
-                RaiseAudiobookChanged();
+                try
+                {
+                    Audiobook.SetChapterPath(chapter, openFileDialog.FileName);
+                    RaiseAudiobookChanged();
+                }
+                catch (FileNotFoundException)
+                {
+                    Console.WriteLine("File not found");
+                }
+                catch (InvalidArgumentException)
+                {
+                    Console.WriteLine("Path could not be set");
+                }
             }
         }
 
@@ -179,8 +190,15 @@ namespace BookWave.ViewModel
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                Audiobook.Metadata.Path = folderBrowserDialog.SelectedPath; // TODO perform integrity checks
-                RaiseAudiobookChanged();
+                try
+                {
+                    Audiobook.SetPath(folderBrowserDialog.SelectedPath);
+                    RaiseAudiobookChanged();
+                }
+                catch (FileNotFoundException)
+                {
+                    Console.WriteLine("File not found");
+                }               
             }
         }
 
