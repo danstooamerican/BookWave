@@ -66,13 +66,13 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
                                             Storyboard.TargetName="lblContent"
-                                            From="{StaticResource TextColor}" To="{StaticResource TextHighlightColor}" Duration="0:0:0.1"/>
+                                            From="{StaticResource TextColor}" To="{StaticResource TextHighlightColor}" Duration="0:0:0.06"/>
                                         <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" 
                                             Storyboard.TargetName="brdBackground"
-                                            From="{StaticResource RoundedButtonBorderColor}" To="{StaticResource RoundedButtonBorderHoverColor}" Duration="0:0:0.1"/>
+                                            From="{StaticResource RoundedButtonBorderColor}" To="{StaticResource RoundedButtonBorderHoverColor}" Duration="0:0:0.06"/>
                                         <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
                                             Storyboard.TargetName="brdBackground"
-                                            From="{StaticResource RoundedButtonBackgroundColor}" To="{StaticResource RoundedButtonBackgroundHoverColor}" Duration="0:0:0.1"/>
+                                            From="{StaticResource RoundedButtonBackgroundColor}" To="{StaticResource RoundedButtonBackgroundHoverColor}" Duration="0:0:0.06"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -81,13 +81,13 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
                                             Storyboard.TargetName="lblContent"
-                                            From="{StaticResource TextHighlightColor}" To="{StaticResource TextColor}" Duration="0:0:0.1"/>
+                                            From="{StaticResource TextHighlightColor}" To="{StaticResource TextColor}" Duration="0:0:0.06"/>
                                         <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" 
                                             Storyboard.TargetName="brdBackground"
-                                            From="{StaticResource RoundedButtonBorderHoverColor}" To="{StaticResource RoundedButtonBorderColor}" Duration="0:0:0.1"/>
+                                            From="{StaticResource RoundedButtonBorderHoverColor}" To="{StaticResource RoundedButtonBorderColor}" Duration="0:0:0.06"/>
                                         <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
                                             Storyboard.TargetName="brdBackground"
-                                            From="{StaticResource RoundedButtonBackgroundHoverColor}" To="{StaticResource RoundedButtonBackgroundColor}" Duration="0:0:0.1"/>
+                                            From="{StaticResource RoundedButtonBackgroundHoverColor}" To="{StaticResource RoundedButtonBackgroundColor}" Duration="0:0:0.06"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>

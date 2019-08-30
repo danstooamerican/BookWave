@@ -54,7 +54,7 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
                                             Storyboard.TargetName="lblContent"
-                                            From="{StaticResource TextColor}" To="{StaticResource TextHighlightColor}" Duration="0:0:0.1"/>
+                                            From="{StaticResource TextColor}" To="{StaticResource TextHighlightColor}" Duration="0:0:0.06"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -63,7 +63,7 @@
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" 
                                             Storyboard.TargetName="lblContent"
-                                            From="{StaticResource TextHighlightColor}" To="{StaticResource TextColor}" Duration="0:0:0.1"/>
+                                            From="{StaticResource TextHighlightColor}" To="{StaticResource TextColor}" Duration="0:0:0.06"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
