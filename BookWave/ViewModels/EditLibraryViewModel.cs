@@ -1,5 +1,6 @@
 ﻿using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Models.AudiobookManagement;
+using BookWave.Desktop.Notifications;
 using BookWave.Desktop.Views.Dialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -189,11 +190,11 @@ namespace BookWave.ViewModel
                 }
                 catch (FileNotFoundException)
                 {
-                    Console.WriteLine("File not found");
+                    NotificationManager.DisplayException("File not found.");
                 }
                 catch (InvalidArgumentException)
                 {
-                    Console.WriteLine("Path could not be set");
+                    NotificationManager.DisplayException("Path could not be set.");
                 }
             }
         }
@@ -213,7 +214,7 @@ namespace BookWave.ViewModel
                 }
                 catch (FileNotFoundException)
                 {
-                    Console.WriteLine("File not found");
+                    NotificationManager.DisplayException("File not found.");
                 }               
             }
         }

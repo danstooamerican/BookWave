@@ -135,6 +135,9 @@
     <Compile Include="Models\AudiobookManagement\Scanner\AudiobooksTopScanner.cs" />
     <Compile Include="Models\AudiobookManagement\Scanner\LibraryScanner.cs" />
     <Compile Include="Models\AudiobookManagement\Scanner\LibraryScannerFactory.cs" />
+    <Compile Include="Notifications\BaseNotification.cs" />
+    <Compile Include="Notifications\BasicNotification.cs" />
+    <Compile Include="Notifications\NotificationManager.cs" />
     <Compile Include="Util\SkinnedApplication.cs" />
     <Compile Include="Util\SkinResourceDictionary.cs" />
     <Compile Include="Views\Dialogs\CreateLibraryDialog.xaml.cs">
