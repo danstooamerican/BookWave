@@ -243,7 +243,8 @@ namespace BookWave.ViewModel
                 else
                 {
                     NotificationManager.DisplayException("File not found.");
-                }               
+                }
+
             }
         }
 

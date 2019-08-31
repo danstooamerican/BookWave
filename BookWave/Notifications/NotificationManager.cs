@@ -10,7 +10,7 @@ namespace BookWave.Desktop.Notifications
 {
     public class NotificationManager
     {
-        public static readonly string NotificationIdentifier = "BookWave Notifications";
+        public static readonly string NotificationIdentifier = "BookWave";
         
 
         private static IDictionary<string, CancellationTokenSource> activeNotifications = new Dictionary<string, CancellationTokenSource>();
