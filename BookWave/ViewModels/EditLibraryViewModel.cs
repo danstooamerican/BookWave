@@ -79,11 +79,11 @@ namespace BookWave.ViewModel
             set { mPage = value; }
         }
 
-        private ICollectionView mChapters;
-        public ICollectionView Chapters
+        private ListCollectionView mChapters;
+        public ListCollectionView Chapters
         {
             get { return mChapters; }
-            set { Set<ICollectionView>(() => this.Chapters, ref mChapters, value); }
+            set { Set<ListCollectionView>(() => this.Chapters, ref mChapters, value); }
         }
 
 
@@ -149,12 +149,28 @@ namespace BookWave.ViewModel
             {
                 System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    Chapters = CollectionViewSource.GetDefaultView(Audiobook.Chapters);
-                    Chapters.SortDescriptions.Clear();
-                    Chapters.SortDescriptions.Add(new SortDescription("Metadata.TrackNumber", ListSortDirection.Ascending));
+                    Chapters = CollectionViewSource.GetDefaultView(Audiobook.Chapters) as ListCollectionView;
+                    Chapters.CustomSort = Comparer<Chapter>.Create((x, y) =>
+                    {
+                        var xnumber = x.Metadata.TrackNumber;
+                        var ynumber = y.Metadata.TrackNumber;
+                        if (string.IsNullOrEmpty(xnumber))
+                        {
+                            return -1;
+                        }
+                        if (string.IsNullOrEmpty(ynumber))
+                        {
+                            return 1;
+                        }
+                        int xint;
+                        int yint;
+
+                        int.TryParse(xnumber, out xint);
+                        int.TryParse(ynumber, out yint);
+                        return xint.CompareTo(yint);
+                    });
                 }));
             });
-
         }
 
         /// <summary>
