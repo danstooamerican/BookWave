@@ -19,7 +19,6 @@ namespace BookWave.Desktop.Models.AudiobookManagement
                 Library = LibraryManager.Instance.GetLibraries().ElementAt(0);
             }
         }
-
     }
 
     public class AudiobookMetadataDummy : AudiobookMetadata

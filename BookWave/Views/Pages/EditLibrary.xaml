@@ -301,14 +301,25 @@
                     Style="{DynamicResource InputMaskText}" Text="{Resx Label_Destination}" 
                     TextTrimming="WordEllipsis" />
 
-                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"
-                        Margin="10, 10, 0, 0"
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" 
+                        MaxWidth="{Binding ElementName=txbTitle, Path=ActualWidth}">
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                        Margin="10, 10, 0, 0"                        
                         Style="{DynamicResource InformationText}" 
                         Text="{Binding Destination}" ToolTip="{Binding Destination}"
-                        TextTrimming="WordEllipsis" />
+                        TextTrimming="WordEllipsis">
 
-                    <lib:ImageButton
+                        <TextBlock.ContextMenu>
+                            <ContextMenu Style="{DynamicResource ContextMenuStyle}">
+                                <MenuItem Header="{Resx ResxName=BookWave.Desktop.Localization.Lang.EditLibrary, 
+                                        Key=ContextMenu_ShowInExplorer}" 
+                                    Command="{Binding ShowAudiobookInExplorerCommand}" />
+                            </ContextMenu>
+                        </TextBlock.ContextMenu>
+                        
+                    </TextBlock>
+
+                    <lib:ImageButton Grid.Column="1"
                         NormalImage="/BookWave.Styles;component/Resources/Misc/warning.png"
                         HoverImage="/BookWave.Styles;component/Resources/Misc/warning.png"
                         PressedImage="/BookWave.Styles;component/Resources/Misc/warning.png"
@@ -318,7 +329,8 @@
                         Visibility="{Binding Audiobook.Metadata.PathNotValid, 
                             Converter={StaticResource BoolVisibilityConverter}}"
                         Command="{Binding ResolveAudiobookPathWarningCommand}"/>
-                </StackPanel>                
+                </StackPanel>
+
             </Grid>
             
             <!-- Drag Area -->
@@ -342,6 +354,11 @@
                                 Command="{Binding Data.SplitChapterCommand,
                                     Source={StaticResource proxy}}"
                                 CommandParameter="{Binding}"/>
+                            <MenuItem Header="{Resx ResxName=BookWave.Desktop.Localization.Lang.EditLibrary, 
+                                    Key=ContextMenu_ShowInExplorer}" 
+                                Command="{Binding Data.ShowChapterInExplorerCommand,
+                                    Source={StaticResource proxy}}"
+                                    CommandParameter="{Binding}"/>
                         </ContextMenu>
                     </DataGrid.Resources>
 

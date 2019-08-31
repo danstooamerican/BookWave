@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -96,6 +97,10 @@ namespace BookWave.ViewModel
 
         public ICommand ResolveChapterPathWarningCommand { private set; get; }
 
+        public ICommand ShowAudiobookInExplorerCommand { private set; get; }
+
+        public ICommand ShowChapterInExplorerCommand { private set; get; }
+
         public ICommand ImportAudiobookCommand { private set; get; }
 
         public ICommand SaveAudiobookCommand { private set; get; }
@@ -124,6 +129,8 @@ namespace BookWave.ViewModel
 
             ResolveAudiobookPathWarningCommand = new RelayCommand(ResolveAudiobookPathWarning);
             ResolveChapterPathWarningCommand = new RelayCommand<Chapter>((c) => ResolveChapterPathWarning(c));
+            ShowAudiobookInExplorerCommand = new RelayCommand(ShowInExplorer, CanShowInExplorer);
+            ShowChapterInExplorerCommand = new RelayCommand<Chapter>((c) => ShowInExplorer(c), (c) => CanShowInExplorer(c));
             ImportAudiobookCommand = new RelayCommand(ImportAudiobook);
             SaveAudiobookCommand = new RelayCommand(SaveAudiobook, CanSaveAudiobook);
             SelectCoverImageCommand = new RelayCommand(SelectCoverImage, CanSelectCoverImage);
@@ -143,6 +150,8 @@ namespace BookWave.ViewModel
         {
             Destination = Audiobook.Metadata.Path;
             Library = Audiobook.Library;
+
+            Audiobook.UpdateProperties();
 
             RaisePropertyChanged(nameof(IsInLibrary));
             RaisePropertyChanged(nameof(AudiobookSelected));
@@ -183,18 +192,22 @@ namespace BookWave.ViewModel
             openFileDialog.Filter = ConfigurationManager.AppSettings.Get("allowed_audio_extensions_filter");
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                try
+                var path = openFileDialog.FileName;
+                if (File.Exists(path))
                 {
-                    Audiobook.SetChapterPath(chapter, openFileDialog.FileName);
-                    RaiseAudiobookChanged();
+                    if (Path.GetDirectoryName(path).Equals(Audiobook.Metadata.Path))
+                    {
+                        chapter.AudioPath.Path = path;
+                        RaiseAudiobookChanged();
+                    }
+                    else
+                    {
+                        NotificationManager.DisplayException("Path could not be set.");
+                    }
                 }
-                catch (FileNotFoundException)
+                else
                 {
                     NotificationManager.DisplayException("File not found.");
-                }
-                catch (InvalidArgumentException)
-                {
-                    NotificationManager.DisplayException("Path could not be set.");
                 }
             }
         }
@@ -207,16 +220,41 @@ namespace BookWave.ViewModel
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                try
+                var path = folderBrowserDialog.SelectedPath;
+                if (Directory.Exists(path))
                 {
-                    Audiobook.SetPath(folderBrowserDialog.SelectedPath);
-                    RaiseAudiobookChanged();
+                    if (path.StartsWith(Library.LibraryPath))
+                    {
+                        Audiobook.Metadata.Path = path;
+
+                        foreach (Chapter c in Chapters)
+                        {
+                            string fileName = Path.GetFileName(c.AudioPath.Path);
+
+                            c.AudioPath.Path = Path.Combine(path, fileName);
+                        }
+                        RaiseAudiobookChanged();
+                    }
+                    else
+                    {
+                        NotificationManager.DisplayException("Audiobook is not in correct library.");
+                    }
                 }
-                catch (FileNotFoundException)
+                else
                 {
                     NotificationManager.DisplayException("File not found.");
                 }               
             }
+        }
+
+        private void ShowInExplorer()
+        {
+            Process.Start("explorer.exe", Audiobook.Metadata.Path);
+        }
+
+        private void ShowInExplorer(Chapter c)
+        {
+            Process.Start("explorer.exe", "/select, \"" + c.AudioPath.Path + "\"");
         }
 
         private void ImportAudiobook()
@@ -346,6 +384,21 @@ namespace BookWave.ViewModel
             {
                 ChangeCoverImage(image);
             }
+        }
+
+        private bool CanShowInExplorer()
+        {
+            return Directory.Exists(Audiobook.Metadata.Path);
+        }
+
+        private bool CanShowInExplorer(Chapter c)
+        {
+            if (c == null)
+            {
+                return false;
+            }
+
+            return File.Exists(c.AudioPath.Path);
         }
 
         private bool CanBrowseLibrary()

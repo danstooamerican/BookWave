@@ -97,6 +97,15 @@ namespace BookWave.Desktop.Localization.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show in Explorer.
+        /// </summary>
+        internal static string ContextMenu_ShowInExplorer {
+            get {
+                return ResourceManager.GetString("ContextMenu_ShowInExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         internal static string DataGrid_Title {

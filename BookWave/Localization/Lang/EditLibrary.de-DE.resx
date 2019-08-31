@@ -129,6 +129,9 @@
   <data name="Button_Update" xml:space="preserve">
     <value>Speichern</value>
   </data>
+  <data name="ContextMenu_ShowInExplorer" xml:space="preserve">
+    <value>Ordner öffnen</value>
+  </data>
   <data name="DataGrid_Title" xml:space="preserve">
     <value>Titel</value>
   </data>
@@ -145,7 +148,7 @@
     <value>Beschreibung:</value>
   </data>
   <data name="Label_Destination" xml:space="preserve">
-    <value>Ziel:</value>
+    <value>Speicherort:</value>
   </data>
   <data name="Label_Genre" xml:space="preserve">
     <value>Genre:</value>

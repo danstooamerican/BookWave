@@ -139,6 +139,12 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             RaisePropertyChanged(nameof(CoverSource));
         }
 
+        public void UpdateProperties()
+        {
+            RaiseCoverChanged();
+            RaisePropertyChanged(nameof(PathNotValid));
+        }
+
         public new XElement ToXML()
         {
             XElement metadataXML = base.ToXML();

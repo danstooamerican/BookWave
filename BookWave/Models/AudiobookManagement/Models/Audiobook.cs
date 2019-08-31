@@ -77,57 +77,6 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         #region Methods
 
         /// <summary>
-        /// Sets the path of the audiobook if it exists. All chapters in the audiobook
-        /// get updated to be in the given directory without checking if they exist.
-        /// </summary>
-        /// <param name="path">audiobook directory</param>
-        /// <exception cref="FileNotFoundException">is thrown if the path does not exists</exception>
-        public void SetPath(string path)
-        {
-            if (Directory.Exists(path))
-            {
-                Metadata.Path = path;
-
-                foreach (Chapter c in Chapters)
-                {
-                    string fileName = Path.GetFileName(c.AudioPath.Path);
-
-                    c.AudioPath.Path = Path.Combine(path, fileName);
-                }
-            } else
-            {
-                throw new FileNotFoundException("the directory does not exist", path);
-            }        
-        }
-
-        /// <summary>
-        /// Sets the path of the chapter if it exists and points to a file within the 
-        /// audiobook folder.
-        /// </summary>
-        /// <param name="chapter">chapter to be updated</param>
-        /// <param name="path">path to the audio file of the chapter</param>
-        /// <exception cref="FileNotFoundException">is thrown if the file does not exist</exception>
-        /// <exception cref="InvalidArgumentException">if the file is not in the audiobook folder</exception>
-        public void SetChapterPath(Chapter chapter, string path)
-        {
-            if (chapter == null) return;
-
-            if (File.Exists(path))
-            {
-                if (Path.GetDirectoryName(path).Equals(Metadata.Path))
-                {
-                    chapter.AudioPath.Path = path;
-                } else
-                {
-                    throw new InvalidArgumentException(path, "is not in the audiobook folder.");
-                }
-            } else
-            {
-                throw new FileNotFoundException("the file does not exist", path);
-            }
-        }
-
-        /// <summary>
         /// Replaces all chapters of the audiobook with the given ones. If the parameter is null
         /// all current chapters are cleared.
         /// </summary>
@@ -142,6 +91,11 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             {
                 Chapters.Clear();
             }
+        }
+
+        public void UpdateProperties()
+        {
+            Metadata.UpdateProperties();
         }
 
         public XElement ToXML()
