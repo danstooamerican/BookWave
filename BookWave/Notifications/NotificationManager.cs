@@ -1,8 +1,13 @@
-﻿using System;
+﻿using BookWave.Desktop.Notifications.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
@@ -11,11 +16,26 @@ namespace BookWave.Desktop.Notifications
     public class NotificationManager
     {
         public static readonly string NotificationIdentifier = "BookWave";
-        
+
+        private static Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.BottomRight,
+                offsetX: 5,
+                offsetY: 100);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(4),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(4));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
+
 
         private static IDictionary<string, CancellationTokenSource> activeNotifications = new Dictionary<string, CancellationTokenSource>();
 
-        public static void DisplayNotification(BaseNotification notification)
+        public static void DisplayWindowsNotification(BaseNotification notification)
         {
             string notificationID = notification.Group + "/" + notification.Tag;
 
@@ -64,15 +84,8 @@ namespace BookWave.Desktop.Notifications
 
         public static void DisplayException(string errorMessage)
         {
-            BaseNotification notif = new BasicNotification("BookWave.Exceptions/error-notification", "BookWave.Exceptions")
-            {
-                Title = "Something went wrong :(",
-                FirstLine = errorMessage,
-                SecondLine = string.Empty,
-                DisplayTime = 7000
-            };
-
-            DisplayNotification(notif);
+            //notifier.ShowError("Test");
+            notifier.ShowErrorNotification(errorMessage);
         }
 
     }

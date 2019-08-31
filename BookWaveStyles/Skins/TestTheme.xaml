@@ -23,6 +23,12 @@
 
     <SolidColorBrush x:Key="TextBoxBorderBrush" Color="{StaticResource ControlBorderColor}" />
 
+    <!-- Notifications -->
+    <Color x:Key="NotificationBackgroundColor">#181818</Color>
+    <SolidColorBrush x:Key="NotificationBackgroundBrush" Color="{StaticResource NotificationBackgroundColor}" />
+
+    <SolidColorBrush x:Key="NotificationBorderBrush" Color="{StaticResource ControlBorderColor}" />
+
     <!-- Seperator Colors -->
     <Color x:Key="SeperatorColor">Purple</Color>
     <SolidColorBrush x:Key="SeperatorBrush" Color="{StaticResource SeperatorColor}" />

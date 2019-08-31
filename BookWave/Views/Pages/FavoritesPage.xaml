@@ -26,6 +26,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -35,8 +36,9 @@
         <Button Grid.Row="3" Content="Change English" Click="Button_Click_3"/>
         <Button Grid.Row="4" Content="Change German" Click="Button_Click_4"/>
         <Button Grid.Row="5" Content="Notification" Click="Button_Click_5"/>
+        <Button Grid.Row="6" Content="App Notification" Click="Button_Click_6"/>
 
-        <TextBlock Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <TextBlock Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"
             FontSize="30" Foreground="White">Favorites</TextBlock>
 
         

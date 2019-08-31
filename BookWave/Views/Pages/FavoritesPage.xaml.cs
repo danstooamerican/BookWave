@@ -56,7 +56,12 @@ namespace BookWave.Desktop.Pages
                 DisplayTime = 2000
             };
 
-            NotificationManager.DisplayNotification(notif);
+            NotificationManager.DisplayWindowsNotification(notif);
+        }
+
+        private void Button_Click_6(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NotificationManager.DisplayException("I am an exception.");
         }
     }
 }

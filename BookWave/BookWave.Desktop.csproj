@@ -83,6 +83,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Notifications\Templates\ErrorNotificationDisplayPart.xaml.cs">
+      <DependentUpon>ErrorNotificationDisplayPart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PlayerBar.xaml.cs">
       <DependentUpon>PlayerBar.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,8 @@
     <Compile Include="Models\AudiobookManagement\Scanner\LibraryScannerFactory.cs" />
     <Compile Include="Notifications\BaseNotification.cs" />
     <Compile Include="Notifications\BasicNotification.cs" />
+    <Compile Include="Notifications\ErrorNotification.cs" />
+    <Compile Include="Notifications\Extensions\ErrorNotificationExtension.cs" />
     <Compile Include="Notifications\NotificationManager.cs" />
     <Compile Include="Util\SkinnedApplication.cs" />
     <Compile Include="Util\SkinResourceDictionary.cs" />
@@ -198,6 +203,10 @@
     <Compile Include="ViewModels\BrowseViewModel.cs" />
     <Compile Include="Views\Dialogs\SelectLibraryViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Page Include="Notifications\Templates\ErrorNotificationDisplayPart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\PlayerBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -370,6 +379,12 @@
     </PackageReference>
     <PackageReference Include="System.Runtime.WindowsRuntime.UI.Xaml">
       <Version>4.6.0-preview8.19405.3</Version>
+    </PackageReference>
+    <PackageReference Include="ToastNotifications">
+      <Version>2.5.1</Version>
+    </PackageReference>
+    <PackageReference Include="ToastNotifications.Messages">
+      <Version>2.5.1</Version>
     </PackageReference>
     <PackageReference Include="z440.atl.core">
       <Version>2.12.0</Version>
