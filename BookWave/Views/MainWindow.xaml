@@ -13,6 +13,7 @@
         MinHeight="{Binding WindowMinimumHeight}"
         WindowStyle="None"
         Loaded="AppWindow_Loaded"
+        Closing="AppWindow_Closing"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         ResxExtension.DefaultResxName="BookWave.Desktop.Localization.Lang.MainWindow" Language="{UICulture}"

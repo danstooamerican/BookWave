@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
+using ToastNotifications.Lifetime.Clear;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
 using Windows.Data.Xml.Dom;
@@ -84,8 +85,13 @@ namespace BookWave.Desktop.Notifications
 
         public static void DisplayException(string errorMessage)
         {
-            //notifier.ShowError("Test");
             notifier.ShowErrorNotification(errorMessage);
+        }
+
+        public static void Dispose()
+        {
+            notifier.ClearMessages(new ClearAll());
+            notifier.Dispose();
         }
 
     }

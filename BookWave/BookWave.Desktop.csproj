@@ -83,6 +83,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Notifications\Templates\BookWaveNotificationAnimator.cs" />
+    <Compile Include="Notifications\Templates\BookWaveNotificationDisplayPart.cs" />
     <Compile Include="Notifications\Templates\ErrorNotificationDisplayPart.xaml.cs">
       <DependentUpon>ErrorNotificationDisplayPart.xaml</DependentUpon>
     </Compile>

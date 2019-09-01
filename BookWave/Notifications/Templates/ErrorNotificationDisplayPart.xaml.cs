@@ -6,7 +6,7 @@ namespace BookWave.Desktop.Notifications.Templates
     /// <summary>
     /// Interaction logic for ErrorNotificationDisplayPart.xaml
     /// </summary>
-    public partial class ErrorNotificationDisplayPart : NotificationDisplayPart
+    public partial class ErrorNotificationDisplayPart : BookWaveNotificationDisplayPart
     {
 
         public ErrorNotificationDisplayPart(ErrorNotification customNotification)

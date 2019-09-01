@@ -4,6 +4,7 @@ using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Models.AudiobookManagement.Scanner;
 using BookWave.Desktop.Models.MenuNavigation;
+using BookWave.Desktop.Notifications;
 using BookWave.Desktop.Util;
 using BookWave.ViewModel;
 using System;
@@ -195,6 +196,11 @@ namespace BookWave.Desktop
             viewModel.NavigationHistory.Forward();
 
             frmPage.GoForward();
+        }
+
+        private void AppWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            NotificationManager.Dispose();
         }
     }
 }
