@@ -62,6 +62,7 @@ namespace BookWave.ViewModel
             set
             {
                 Set<Audiobook>(() => this.Audiobook, ref mAudiobook, value);
+                InitFileSystemWatcher();
                 RaiseAudiobookChanged();
             }
         }
@@ -88,6 +89,7 @@ namespace BookWave.ViewModel
             set { Set<ListCollectionView>(() => this.Chapters, ref mChapters, value); }
         }
 
+        private FileSystemWatcher folderWatcher;
 
         #endregion
 
@@ -145,6 +147,27 @@ namespace BookWave.ViewModel
         #endregion
 
         #region Methods
+
+        private void InitFileSystemWatcher()
+        {
+            if (Directory.Exists(Audiobook.Library.LibraryPath))
+            {
+                folderWatcher = new FileSystemWatcher(Audiobook.Library.LibraryPath);
+                folderWatcher.IncludeSubdirectories = true;
+                
+                folderWatcher.Changed += FileSystemWatcherEvent;
+                folderWatcher.Created += FileSystemWatcherEvent;
+                folderWatcher.Deleted += FileSystemWatcherEvent;
+                folderWatcher.Renamed += FileSystemWatcherEvent;
+
+                folderWatcher.EnableRaisingEvents = true;
+            }            
+        }
+
+        private void FileSystemWatcherEvent(object sender, FileSystemEventArgs args)
+        {
+            RaiseAudiobookChanged();
+        }
 
         private void RaiseAudiobookChanged()
         {
