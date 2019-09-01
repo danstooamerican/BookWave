@@ -10,6 +10,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Drawing;
 
 namespace BookWave.Desktop.Models.AudiobookManagement
 {
@@ -110,9 +111,16 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         /// <summary>
         /// Adds an audiobook to the Library. If it is already added the audiobook is updated.
         /// Every audiobook that is new to the library gets a new metadata path.
+        /// If the audiobook belonged to another library before it is removed from the old one.
         /// </summary>
-        public void UpdateAudiobook(Audiobook audiobook)
+        /// <returns>updated audiobook</returns>
+        public Audiobook UpdateAudiobook(Audiobook audiobook)
         {
+            if (audiobook == null)
+            {
+                throw new ArgumentNullException("Cannot add null to library.");
+            }
+
             if (Contains(audiobook))
             {
                 ClearChapterMetadata(audiobook);
@@ -120,10 +128,54 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             }
             else
             {
-                audiobook.Metadata.MetadataPath = Path.Combine(MetadataFolder, Guid.NewGuid().ToString());
+                audiobook = MigrateAudiobook(audiobook);
             }
 
             AddAudiobook(audiobook);
+
+            return audiobook;
+        }
+
+        private Audiobook MigrateAudiobook(Audiobook audiobook)
+        {
+            Audiobook migratedAudiobook = (Audiobook)audiobook.Clone();
+            migratedAudiobook.Library = this;
+
+            migratedAudiobook.Metadata.MetadataPath = Path.Combine(MetadataFolder, Guid.NewGuid().ToString());
+
+            // migrate cover image before it is deleted
+            if (File.Exists(audiobook.Metadata.CoverPath))
+            {
+                Image coverImage = Image.FromFile(audiobook.Metadata.CoverPath);
+
+                migratedAudiobook.SetCoverImage(coverImage);
+
+                coverImage.Dispose();
+            }
+
+            // reset metadata paths so they can be generated again
+            foreach (Chapter chapter in migratedAudiobook.Chapters)
+            {
+                chapter.Metadata.MetadataPath = string.Empty;
+            }
+
+            // move audiobook folder to the new library folder
+            if (!audiobook.Metadata.Path.StartsWith(LibraryPath))
+            {
+                string migratedAudiobookFolderPath = Path.Combine(LibraryPath, Path.GetFileNameWithoutExtension(audiobook.Metadata.Path));
+                FileSystemHelper.DirectoryCopy(audiobook.Metadata.Path, migratedAudiobookFolderPath, true);
+                migratedAudiobook.SetPath(migratedAudiobookFolderPath);
+
+                FileSystemHelper.DeleteFolder(audiobook.Metadata.Path);
+            }            
+
+            // delete old audiobook
+            if (audiobook.Library != null)
+            {
+                audiobook.Library.RemoveAudiobook(audiobook);
+            }
+
+            return migratedAudiobook;
         }
 
         /// <summary>
@@ -132,12 +184,8 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         /// <param name="audiobook"></param>
         private void AddAudiobook(Audiobook audiobook)
         {
-            if ( !(audiobook == null || Contains(audiobook)) && audiobook.Chapters.Count > 0)
-            {
-                if (audiobook.Library != null)
-                {
-                    audiobook.Library.RemoveAudiobook(audiobook);
-                }
+            if (!(audiobook == null || Contains(audiobook)) && audiobook.Chapters.Count > 0)
+            {                
                 audiobook.Library = this;
 
                 Audiobooks.Add(audiobook.ID, audiobook);
@@ -161,7 +209,7 @@ namespace BookWave.Desktop.Models.AudiobookManagement
                 {
                     audiobook.Library = null;
                 }
-                DeleteMetadataFolder(audiobook.Metadata.MetadataPath);
+                FileSystemHelper.DeleteFolder(audiobook.Metadata.MetadataPath);
             }
         }
 
@@ -170,25 +218,13 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             string chapterMetadataPath = Path.Combine(audiobook.Metadata.MetadataPath, "chapters");
             try
             {
-                Directory.Delete(chapterMetadataPath, true);
+                FileSystemHelper.DeleteFolder(chapterMetadataPath);
             }
             catch (IOException)
             {
                 throw new DeleteMetadataException(chapterMetadataPath, "could not be cleared.");
             }
-        }
-
-        private void DeleteMetadataFolder(string metadataPath)
-        {
-            try
-            {
-                Directory.Delete(metadataPath, true);
-            }
-            catch (IOException)
-            {
-                throw new DeleteMetadataException(metadataPath, "could not be deleted.");
-            }
-        }
+        }        
 
         /// <summary>
         /// Uses the scanner object to scan the library folder for new files. If new files are found corresponding 

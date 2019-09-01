@@ -145,6 +145,7 @@
     <Compile Include="Notifications\ErrorNotification.cs" />
     <Compile Include="Notifications\Extensions\ErrorNotificationExtension.cs" />
     <Compile Include="Notifications\NotificationManager.cs" />
+    <Compile Include="Util\FileSystemHelper.cs" />
     <Compile Include="Util\SkinnedApplication.cs" />
     <Compile Include="Util\SkinResourceDictionary.cs" />
     <Compile Include="Views\Dialogs\CreateLibraryDialog.xaml.cs">

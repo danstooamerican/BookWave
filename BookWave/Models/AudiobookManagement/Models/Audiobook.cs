@@ -4,7 +4,9 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace BookWave.Desktop.Models.AudiobookManagement
@@ -93,9 +95,50 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             }
         }
 
+        public void SetPath(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                if (path.StartsWith(Library.LibraryPath))
+                {
+                    Metadata.Path = path;
+
+                    foreach (Chapter c in Chapters)
+                    {
+                        string fileName = Path.GetFileName(c.AudioPath.Path);
+
+                        c.AudioPath.Path = Path.Combine(path, fileName);
+                    }
+                }
+                else
+                {
+                    throw new InvalidArgumentException("audiobook path must be in library folder.");
+                }
+            }
+            else
+            {
+                throw new FileNotFoundException("path not found", path);
+            }
+        }
+
         public void UpdateProperties()
         {
             Metadata.UpdateProperties();
+        }
+
+        public void SetCoverImage(Image image)
+        {
+            string saveToPath = Path.Combine(Metadata.MetadataPath, "cover.jpg");
+
+            Image resized = Util.ImageConverter.Resize(image, 512, 512);
+
+            Task.Factory.StartNew(() =>
+            {
+                Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
+            }).ContinueWith((e) =>
+            {
+                Metadata.RaiseCoverChanged();
+            });
         }
 
         public XElement ToXML()

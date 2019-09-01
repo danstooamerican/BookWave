@@ -114,12 +114,14 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             return chapter;
         }
 
-        public void UpdateAudiobook(Library library, Audiobook audiobook)
+        public Audiobook UpdateAudiobook(Library library, Audiobook audiobook)
         {
-            if (library != null)
+            if (library != null && audiobook != null)
             {
-                library.UpdateAudiobook(audiobook);
+                return library.UpdateAudiobook(audiobook);
             }
+
+            throw new ArgumentNullException("Library and audiobook cannot be null.");
         }
 
         public void RemoveAudiobook(Audiobook audiobook)

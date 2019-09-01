@@ -14,6 +14,9 @@
     <Color x:Key="TextPressedColor">#656667</Color>
     <SolidColorBrush x:Key="TextPressedColorBrush" Color="{StaticResource TextPressedColor}" />
 
+    <Color x:Key="TextDisabledColor">#BABBBC</Color>
+    <SolidColorBrush x:Key="TextDisabledBrush" Color="{StaticResource TextDisabledColor}" />
+
     <!-- Textbox Colors -->
     <Color x:Key="TextBoxBackgroundColor">#282828</Color>
     <SolidColorBrush x:Key="TextBoxBackgroundColorBrush" Color="{StaticResource TextBoxBackgroundColor}" />

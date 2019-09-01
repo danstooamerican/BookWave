@@ -28,6 +28,9 @@ namespace BookWave.Desktop.Util
             {
                 File.Delete(saveToPath);
             }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(saveToPath));
+
             image.Save(saveToPath, jpegCodec, codecParameter);
         }
 

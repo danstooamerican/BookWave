@@ -6,7 +6,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -154,14 +153,14 @@ namespace BookWave.ViewModel
             {
                 folderWatcher = new FileSystemWatcher(Audiobook.Library.LibraryPath);
                 folderWatcher.IncludeSubdirectories = true;
-                
+
                 folderWatcher.Changed += FileSystemWatcherEvent;
                 folderWatcher.Created += FileSystemWatcherEvent;
                 folderWatcher.Deleted += FileSystemWatcherEvent;
                 folderWatcher.Renamed += FileSystemWatcherEvent;
 
                 folderWatcher.EnableRaisingEvents = true;
-            }            
+            }
         }
 
         private void FileSystemWatcherEvent(object sender, FileSystemEventArgs args)
@@ -244,30 +243,19 @@ namespace BookWave.ViewModel
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 var path = folderBrowserDialog.SelectedPath;
-                if (Directory.Exists(path))
+
+                try
                 {
-                    if (path.StartsWith(Library.LibraryPath))
-                    {
-                        Audiobook.Metadata.Path = path;
-
-                        foreach (Chapter c in Chapters)
-                        {
-                            string fileName = Path.GetFileName(c.AudioPath.Path);
-
-                            c.AudioPath.Path = Path.Combine(path, fileName);
-                        }
-                        RaiseAudiobookChanged();
-                    }
-                    else
-                    {
-                        NotificationManager.DisplayException("Audiobook is not in correct library.");
-                    }
+                    Audiobook.SetPath(path);
                 }
-                else
+                catch (FileNotFoundException)
                 {
-                    NotificationManager.DisplayException("File not found.");
+                    NotificationManager.DisplayException("Selected file not found.");
                 }
-
+                catch (InvalidArgumentException)
+                {
+                    NotificationManager.DisplayException("Audiobook must be in correct library folder.");
+                }
             }
         }
 
@@ -318,14 +306,12 @@ namespace BookWave.ViewModel
         {
             if (!Audiobook.Metadata.Title.Equals(string.Empty))
             {
-                AudiobookManager.Instance.UpdateAudiobook(Library, Audiobook);
+                Audiobook = AudiobookManager.Instance.UpdateAudiobook(Library, Audiobook);
             }
             else
             {
                 throw new InvalidArgumentException("audiobook title is required");
             }
-
-            RaiseAudiobookChanged();
         }
 
         /// <summary>
@@ -363,17 +349,7 @@ namespace BookWave.ViewModel
 
         private void ChangeCoverImage(Image image)
         {
-            string saveToPath = Path.Combine(Audiobook.Metadata.MetadataPath, "cover.jpg");
-
-            Image resized = BookWave.Desktop.Util.ImageConverter.Resize(image, 512, 512);
-
-            Task.Factory.StartNew(() =>
-            {
-                BookWave.Desktop.Util.ImageConverter.SaveCompressedImage(resized, saveToPath);
-            }).ContinueWith((e) =>
-            {
-                Audiobook.Metadata.RaiseCoverChanged();
-            });
+            Audiobook.SetCoverImage(image);
         }
 
         private void RemoveCoverImage()
@@ -443,7 +419,8 @@ namespace BookWave.ViewModel
         private bool CanSaveAudiobook()
         {
             return Audiobook.Chapters.Count > 0
-                && Library != null && !string.IsNullOrEmpty(Audiobook.Metadata.Title);
+                && Library != null 
+                && !string.IsNullOrEmpty(Audiobook.Metadata.Title);
         }
 
         private bool CanCopyCoverImageFromClipboard()
