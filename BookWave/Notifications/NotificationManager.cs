@@ -83,9 +83,14 @@ namespace BookWave.Desktop.Notifications
             }
         }
 
-        public static void DisplayException(string errorMessage)
+        public static void DisplayException(string message)
         {
-            notifier.ShowErrorNotification(errorMessage);
+            notifier.ShowErrorNotification(message);
+        }
+
+        public static void DisplayInfo(string message)
+        {
+            notifier.ShowInfoNotification(message);
         }
 
         public static void Dispose()

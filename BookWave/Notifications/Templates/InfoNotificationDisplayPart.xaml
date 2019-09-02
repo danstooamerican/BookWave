@@ -1,4 +1,4 @@
-﻿<templates:BookWaveNotificationDisplayPart x:Class="BookWave.Desktop.Notifications.Templates.ErrorNotificationDisplayPart"
+﻿<templates:BookWaveNotificationDisplayPart x:Class="BookWave.Desktop.Notifications.Templates.InfoNotificationDisplayPart"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -27,7 +27,7 @@
                 Margin="3, 0, 10, 0"
                 Source="/BookWave.Styles;component/Resources/Misc/warning.png" />
 
-            <TextBlock x:Name="Title" Text="Error" Grid.Row="0" Grid.Column="1" 
+            <TextBlock x:Name="Title" Text="Information" Grid.Row="0" Grid.Column="1" 
                 Margin="0, 3, 0, 3" TextWrapping="Wrap"
                 Style="{StaticResource InformationTextHighlight}" />
 

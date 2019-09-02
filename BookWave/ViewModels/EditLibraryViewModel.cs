@@ -306,11 +306,29 @@ namespace BookWave.ViewModel
         {
             if (!Audiobook.Metadata.Title.Equals(string.Empty))
             {
-                Audiobook = AudiobookManager.Instance.UpdateAudiobook(Library, Audiobook);
+                bool migrated = !Library.Equals(Audiobook.Library);
+
+                try
+                {
+                    Audiobook = AudiobookManager.Instance.UpdateAudiobook(Library, Audiobook);
+
+                    if (migrated)
+                    {
+                        NotificationManager.DisplayInfo("Migrated audiobook to the new library folder.");
+                    }
+                }
+                catch (FileExistsException)
+                {
+                    NotificationManager.DisplayException("A folder with the same name already exists in the library folder.");
+                }
+                catch (IOException)
+                {
+                    NotificationManager.DisplayException("Save unsuccessful.\nIs the audiobook folder open somewhere else?");
+                }
             }
             else
             {
-                throw new InvalidArgumentException("audiobook title is required");
+                NotificationManager.DisplayException("Audiobook title is required.");
             }
         }
 

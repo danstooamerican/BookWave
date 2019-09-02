@@ -138,6 +138,8 @@ namespace BookWave.Desktop.Models.AudiobookManagement
 
         private Audiobook MigrateAudiobook(Audiobook audiobook)
         {
+            CheckMigratePossible(audiobook);
+
             Audiobook migratedAudiobook = (Audiobook)audiobook.Clone();
             migratedAudiobook.Library = this;
 
@@ -145,12 +147,13 @@ namespace BookWave.Desktop.Models.AudiobookManagement
 
             Directory.CreateDirectory(migratedAudiobook.Metadata.MetadataPath);
 
-            // migrate cover image before it is deleted
-            if (File.Exists(audiobook.Metadata.CoverPath))
-            {
-                string saveToPath = Path.Combine(migratedAudiobook.Metadata.MetadataPath, ConfigurationManager.AppSettings.Get("audiobook_cover_filename_with_extension"));
+            bool movedCover = File.Exists(audiobook.Metadata.CoverPath);
+            string coverPath = Path.Combine(migratedAudiobook.Metadata.MetadataPath, ConfigurationManager.AppSettings.Get("audiobook_cover_filename_with_extension"));
 
-                File.Move(audiobook.Metadata.CoverPath, saveToPath);
+            // migrate cover image before it is deleted
+            if (movedCover)
+            {
+                File.Move(audiobook.Metadata.CoverPath, coverPath);
                 migratedAudiobook.Metadata.RaiseCoverChanged();
             }
 
@@ -160,13 +163,31 @@ namespace BookWave.Desktop.Models.AudiobookManagement
                 chapter.Metadata.MetadataPath = string.Empty;
             }
 
-            // move audiobook folder to the new library folder
-            if (!audiobook.Metadata.Path.StartsWith(LibraryPath))
+            try
             {
-                string migratedAudiobookFolderPath = Path.Combine(LibraryPath, Path.GetFileNameWithoutExtension(audiobook.Metadata.Path));
-                FileSystemHelper.DirectoryMove(audiobook.Metadata.Path, migratedAudiobookFolderPath);
-                migratedAudiobook.SetPath(migratedAudiobookFolderPath);
-            }            
+                // move audiobook folder to the new library folder
+                if (!audiobook.Metadata.Path.StartsWith(LibraryPath))
+                {
+                    string migratedAudiobookFolderPath = Path.Combine(LibraryPath, Path.GetFileNameWithoutExtension(audiobook.Metadata.Path));
+                    FileSystemHelper.DirectoryMove(audiobook.Metadata.Path, migratedAudiobookFolderPath);
+                    migratedAudiobook.SetPath(migratedAudiobookFolderPath);
+                }
+            }
+            catch (IOException ex)
+            {
+                // undo migration work to this point
+                if (movedCover)
+                {
+                    string oldCoverPath = Path.Combine(audiobook.Metadata.MetadataPath, ConfigurationManager.AppSettings.Get("audiobook_cover_filename_with_extension"));
+                    File.Move(coverPath, oldCoverPath);
+                    audiobook.Metadata.RaiseCoverChanged();
+                }
+
+                Directory.Delete(migratedAudiobook.Metadata.MetadataPath);
+
+                throw new IOException("migration failed.", ex);
+            }
+                      
 
             // delete old audiobook
             if (audiobook.Library != null)
@@ -175,6 +196,16 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             }
 
             return migratedAudiobook;
+        }
+
+        private void CheckMigratePossible(Audiobook audiobook)
+        {
+            string migratedAudiobookFolderPath = Path.Combine(LibraryPath, Path.GetFileNameWithoutExtension(audiobook.Metadata.Path));
+
+            if (Directory.Exists(migratedAudiobookFolderPath))
+            {
+                throw new FileExistsException(migratedAudiobookFolderPath, "already exists.");
+            }
         }
 
         /// <summary>

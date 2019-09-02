@@ -83,10 +83,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Exceptions\FileExistsException.cs" />
+    <Compile Include="Notifications\InfoNotification.cs" />
     <Compile Include="Notifications\Templates\BookWaveNotificationAnimator.cs" />
     <Compile Include="Notifications\Templates\BookWaveNotificationDisplayPart.cs" />
     <Compile Include="Notifications\Templates\ErrorNotificationDisplayPart.xaml.cs">
       <DependentUpon>ErrorNotificationDisplayPart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications\Templates\InfoNotificationDisplayPart.xaml.cs">
+      <DependentUpon>InfoNotificationDisplayPart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlayerBar.xaml.cs">
       <DependentUpon>PlayerBar.xaml</DependentUpon>
@@ -143,7 +148,7 @@
     <Compile Include="Notifications\BaseNotification.cs" />
     <Compile Include="Notifications\BasicNotification.cs" />
     <Compile Include="Notifications\ErrorNotification.cs" />
-    <Compile Include="Notifications\Extensions\ErrorNotificationExtension.cs" />
+    <Compile Include="Notifications\Extensions\NotificationExtensions.cs" />
     <Compile Include="Notifications\NotificationManager.cs" />
     <Compile Include="Util\FileSystemHelper.cs" />
     <Compile Include="Util\SkinnedApplication.cs" />
@@ -207,6 +212,10 @@
     <Compile Include="Views\Dialogs\SelectLibraryViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Page Include="Notifications\Templates\ErrorNotificationDisplayPart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Notifications\Templates\InfoNotificationDisplayPart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
