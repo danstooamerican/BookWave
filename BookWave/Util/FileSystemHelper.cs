@@ -60,5 +60,9 @@ namespace BookWave.Desktop.Util
             }
         }
 
+        public static void DirectoryMove(string sourceDirName, string destDirName)
+        {
+            Directory.Move(sourceDirName, destDirName);
+        }
     }
 }

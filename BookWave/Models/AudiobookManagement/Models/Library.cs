@@ -163,10 +163,8 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             if (!audiobook.Metadata.Path.StartsWith(LibraryPath))
             {
                 string migratedAudiobookFolderPath = Path.Combine(LibraryPath, Path.GetFileNameWithoutExtension(audiobook.Metadata.Path));
-                FileSystemHelper.DirectoryCopy(audiobook.Metadata.Path, migratedAudiobookFolderPath, true);
+                FileSystemHelper.DirectoryMove(audiobook.Metadata.Path, migratedAudiobookFolderPath);
                 migratedAudiobook.SetPath(migratedAudiobookFolderPath);
-
-                FileSystemHelper.DeleteFolder(audiobook.Metadata.Path);
             }            
 
             // delete old audiobook
