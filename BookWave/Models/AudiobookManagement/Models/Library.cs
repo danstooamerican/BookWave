@@ -143,14 +143,15 @@ namespace BookWave.Desktop.Models.AudiobookManagement
 
             migratedAudiobook.Metadata.MetadataPath = Path.Combine(MetadataFolder, Guid.NewGuid().ToString());
 
+            Directory.CreateDirectory(migratedAudiobook.Metadata.MetadataPath);
+
             // migrate cover image before it is deleted
             if (File.Exists(audiobook.Metadata.CoverPath))
             {
-                Image coverImage = Image.FromFile(audiobook.Metadata.CoverPath);
+                string saveToPath = Path.Combine(migratedAudiobook.Metadata.MetadataPath, ConfigurationManager.AppSettings.Get("audiobook_cover_filename_with_extension"));
 
-                migratedAudiobook.SetCoverImage(coverImage);
-
-                coverImage.Dispose();
+                File.Move(audiobook.Metadata.CoverPath, saveToPath);
+                migratedAudiobook.Metadata.RaiseCoverChanged();
             }
 
             // reset metadata paths so they can be generated again

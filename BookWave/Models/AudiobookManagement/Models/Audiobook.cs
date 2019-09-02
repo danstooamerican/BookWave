@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
@@ -128,7 +129,7 @@ namespace BookWave.Desktop.Models.AudiobookManagement
 
         public void SetCoverImage(Image image)
         {
-            string saveToPath = Path.Combine(Metadata.MetadataPath, "cover.jpg");
+            string saveToPath = Path.Combine(Metadata.MetadataPath, ConfigurationManager.AppSettings.Get("audiobook_cover_filename_with_extension"));
 
             Image resized = Util.ImageConverter.Resize(image, 512, 512);
 

@@ -1,5 +1,6 @@
 ﻿using BookWave.Desktop.Util;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -80,7 +81,7 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         {
             get
             {
-                string coverPath = System.IO.Path.Combine(MetadataPath, "cover.jpg");
+                string coverPath = System.IO.Path.Combine(MetadataPath, ConfigurationManager.AppSettings.Get("audiobook_cover_filename_with_extension"));
 
                 return File.Exists(coverPath) ? coverPath : StandardCover;
             }
@@ -171,11 +172,6 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             if (!string.IsNullOrEmpty(ReleaseYear))
             {
                 metadataXML.Add(new XElement("ReleaseYear", ReleaseYear));
-            }
-
-            if (!CoverPath.Equals(StandardCover))
-            {
-                metadataXML.Add(new XElement("Cover", CoverPath));
             }
 
             return metadataXML;
