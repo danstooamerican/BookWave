@@ -1,4 +1,5 @@
-﻿using BookWave.Desktop.Exceptions;
+﻿using BookWave.Controls;
+using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Notifications;
 using BookWave.Desktop.Views.Dialogs;
