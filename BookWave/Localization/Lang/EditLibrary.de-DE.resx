@@ -141,6 +141,9 @@
   <data name="Expander_Advanced" xml:space="preserve">
     <value>Erweitert</value>
   </data>
+  <data name="FileDialog_SelectCover" xml:space="preserve">
+    <value>Cover Bild auswählen</value>
+  </data>
   <data name="Label_Author" xml:space="preserve">
     <value>Autor:</value>
   </data>

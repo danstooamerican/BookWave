@@ -61,7 +61,7 @@ namespace BookWave.Desktop.Pages
 
         private void Button_Click_6(object sender, System.Windows.RoutedEventArgs e)
         {
-            NotificationManager.DisplayException("I am an exception.");
+            NotificationManager.DisplayInfo("I am an exception.");
         }
     }
 }

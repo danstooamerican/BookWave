@@ -15,7 +15,7 @@ namespace BookWave.Desktop.Notifications
 
         public ErrorNotification(string message, MessageOptions options) : base(message, options)
         {
-            
+            Message = message;
         }
 
         public ErrorNotification(string message) : base(message, new MessageOptions())

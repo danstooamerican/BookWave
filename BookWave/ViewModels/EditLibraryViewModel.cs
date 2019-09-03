@@ -1,7 +1,9 @@
 ﻿using BookWave.Controls;
 using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Localization.Lang;
 using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Notifications;
+using BookWave.Desktop.Properties;
 using BookWave.Desktop.Views.Dialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -186,25 +188,33 @@ namespace BookWave.ViewModel
                 System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     Chapters = CollectionViewSource.GetDefaultView(Audiobook.Chapters) as ListCollectionView;
-                    Chapters.CustomSort = Comparer<Chapter>.Create((x, y) =>
-                    {
-                        var xnumber = x.Metadata.TrackNumber;
-                        var ynumber = y.Metadata.TrackNumber;
-                        if (string.IsNullOrEmpty(xnumber))
-                        {
-                            return -1;
-                        }
-                        if (string.IsNullOrEmpty(ynumber))
-                        {
-                            return 1;
-                        }
-                        int xint;
-                        int yint;
 
-                        int.TryParse(xnumber, out xint);
-                        int.TryParse(ynumber, out yint);
-                        return xint.CompareTo(yint);
-                    });
+                    try
+                    {
+                        Chapters.CustomSort = Comparer<Chapter>.Create((x, y) =>
+                        {
+                            var xnumber = x.Metadata.TrackNumber;
+                            var ynumber = y.Metadata.TrackNumber;
+                            if (string.IsNullOrEmpty(xnumber))
+                            {
+                                return -1;
+                            }
+                            if (string.IsNullOrEmpty(ynumber))
+                            {
+                                return 1;
+                            }
+                            int xint;
+                            int yint;
+
+                            int.TryParse(xnumber, out xint);
+                            int.TryParse(ynumber, out yint);
+                            return xint.CompareTo(yint);
+                        });
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        NotificationManager.DisplayException("Can't perform operation while editing.");
+                    }                    
                 }));
             });
         }
@@ -281,7 +291,7 @@ namespace BookWave.ViewModel
 
         private void ImportAudiobook()
         {
-            ImportDialog dialog = new ImportDialog(Page);
+            Desktop.Views.Dialogs.ImportDialog dialog = new Desktop.Views.Dialogs.ImportDialog(Page);
 
             if (dialog.ShowDialog() == true)
             {
@@ -364,7 +374,7 @@ namespace BookWave.ViewModel
                         openFileDialog.InitialDirectory = Audiobook.Metadata.Path;
                     }
                     openFileDialog.Filter = ConfigurationManager.AppSettings.Get("allowed_image_extensions_filter");
-                    openFileDialog.Title = "Choose a cover image";
+                    openFileDialog.Title = EditLibrary.FileDialog_SelectCover;
                     openFileDialog.RestoreDirectory = true;
 
                     if (openFileDialog.ShowDialog() == DialogResult.OK)

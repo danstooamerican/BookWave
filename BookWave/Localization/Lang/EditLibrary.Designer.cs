@@ -133,6 +133,15 @@ namespace BookWave.Desktop.Localization.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose a cover image.
+        /// </summary>
+        internal static string FileDialog_SelectCover {
+            get {
+                return ResourceManager.GetString("FileDialog_SelectCover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author:.
         /// </summary>
         internal static string Label_Author {
