@@ -344,7 +344,8 @@
                     Style="{DynamicResource DataGrid}"
                     Width="{Binding Path=ActualWidth, 
                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}"
-                    AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
+                    CanUserSortColumns="False">
 
                     <DataGrid.Resources>
                         <util:BindingProxy x:Key="proxy" Data="{Binding}" />
