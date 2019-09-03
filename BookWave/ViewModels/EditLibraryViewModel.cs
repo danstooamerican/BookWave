@@ -99,6 +99,8 @@ namespace BookWave.ViewModel
 
         public ICommand ResolveChapterPathWarningCommand { private set; get; }
 
+        public ICommand DeleteChapterCommand { private set; get; }
+
         public ICommand ShowAudiobookInExplorerCommand { private set; get; }
 
         public ICommand ShowChapterInExplorerCommand { private set; get; }
@@ -131,6 +133,7 @@ namespace BookWave.ViewModel
 
             ResolveAudiobookPathWarningCommand = new RelayCommand(ResolveAudiobookPathWarning);
             ResolveChapterPathWarningCommand = new RelayCommand<Chapter>((c) => ResolveChapterPathWarning(c));
+            DeleteChapterCommand = new RelayCommand<Chapter>((c) => DeleteChapter(c));
             ShowAudiobookInExplorerCommand = new RelayCommand(ShowInExplorer, CanShowInExplorer);
             ShowChapterInExplorerCommand = new RelayCommand<Chapter>((c) => ShowInExplorer(c), (c) => CanShowInExplorer(c));
             ImportAudiobookCommand = new RelayCommand(ImportAudiobook);
@@ -204,6 +207,12 @@ namespace BookWave.ViewModel
                     });
                 }));
             });
+        }
+
+        private void DeleteChapter(Chapter chapter)
+        {
+            Audiobook.Chapters.Remove(chapter);
+            RaiseAudiobookChanged();
         }
 
         /// <summary>

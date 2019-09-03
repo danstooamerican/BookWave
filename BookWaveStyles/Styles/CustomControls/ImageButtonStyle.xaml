@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
-                    xmlns:local="clr-namespace:BookWave.Styles.Styles.CustomControls">
+                    xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls">
 
     <Style TargetType="{x:Type lib:ImageButton}">
         <Setter Property="Template">
