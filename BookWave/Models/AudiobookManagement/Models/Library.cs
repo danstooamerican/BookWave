@@ -121,14 +121,20 @@ namespace BookWave.Desktop.Models.AudiobookManagement
                 throw new ArgumentNullException("Cannot add null to library.");
             }
 
-            if (Contains(audiobook))
+            if (Contains(audiobook)) // audiobook is already contained in this library
             {
                 ClearChapterMetadata(audiobook);
                 Audiobooks.Remove(audiobook.ID);
             }
-            else
+            else if (audiobook.Library != null) // audiobook was in another library
             {
                 audiobook = MigrateAudiobook(audiobook);
+            }
+            else // audiobook is new and new metadata path needs to be created
+            {
+                audiobook.Metadata.MetadataPath = Path.Combine(MetadataFolder, Guid.NewGuid().ToString());
+
+                Directory.CreateDirectory(audiobook.Metadata.MetadataPath);
             }
 
             AddAudiobook(audiobook);
