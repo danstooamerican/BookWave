@@ -297,7 +297,7 @@ namespace BookWave.ViewModel
 
             if (dialog.ShowDialog() == true)
             {
-                Console.WriteLine("Import finished.");
+                NotificationManager.DisplayInfo("Import completed successfully.");
             }
         }
 

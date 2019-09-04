@@ -2,7 +2,7 @@
 using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -80,8 +80,7 @@ namespace BookWave.Desktop.Views.Dialogs
         public ImportAudiobookViewModel()
         {
             SelectFolderCommand = new RelayCommand(SelectFolder);
-            //ImportCommand = new RelayCommand(Import, CanImport);
-            ImportCommand = new RelayCommand(Import); // TODO make CanImport work
+            ImportCommand = new RelayCommand(Import, CanImport);
         }
 
         #endregion
@@ -113,6 +112,7 @@ namespace BookWave.Desktop.Views.Dialogs
             {
                 if (folderPath.StartsWith(library.LibraryPath))
                 {
+                    // TODO display error message instead of throwing an exception
                     throw new AudiobookAlreadyInLibraryException(folderPath + " is already in library " + library.Name);
                 }
             }
@@ -125,9 +125,9 @@ namespace BookWave.Desktop.Views.Dialogs
             ImportedEvent();
         }
 
-        public bool CanImport()
+        private bool CanImport()
         {
-            return LibrarySelected && !string.IsNullOrEmpty(Destination) && !string.IsNullOrEmpty(AudiobookPath);
+            return LibrarySelected && Directory.Exists(AudiobookPath) && !string.IsNullOrEmpty(Destination);
         }
 
         #endregion
