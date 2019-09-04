@@ -99,6 +99,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Models\Exceptions\FileExistsException.cs" />
+    <Compile Include="Notifications\DecisionNotification.cs" />
     <Compile Include="Notifications\InfoNotification.cs" />
     <Compile Include="Notifications\Templates\BookWaveNotificationAnimator.cs" />
     <Compile Include="Notifications\Templates\BookWaveNotificationDisplayPart.cs" />
@@ -107,6 +108,9 @@
     </Compile>
     <Compile Include="Notifications\Templates\InfoNotificationDisplayPart.xaml.cs">
       <DependentUpon>InfoNotificationDisplayPart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Notifications\Templates\DecisionNotificationDisplayPart.xaml.cs">
+      <DependentUpon>DecisionNotificationDisplayPart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlayerBar.xaml.cs">
       <DependentUpon>PlayerBar.xaml</DependentUpon>
@@ -231,6 +235,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Notifications\Templates\InfoNotificationDisplayPart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Notifications\Templates\DecisionNotificationDisplayPart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -403,6 +411,9 @@
     </PackageReference>
     <PackageReference Include="Expression.Blend.Sdk">
       <Version>1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.Contracts">
       <Version>10.0.18362.2002-preview</Version>

@@ -221,8 +221,10 @@ namespace BookWave.ViewModel
 
         private void DeleteChapter(Chapter chapter)
         {
-            Audiobook.Chapters.Remove(chapter);
-            RaiseAudiobookChanged();
+            NotificationManager.DisplayDecision(() => {
+                Audiobook.Chapters.Remove(chapter);
+                RaiseAudiobookChanged();
+            });            
         }
 
         /// <summary>
