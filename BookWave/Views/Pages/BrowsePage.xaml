@@ -6,6 +6,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Loaded="Page_Loaded"
+      ResxExtension.DefaultResxName="BookWave.Desktop.Localization.Lang.Browse" Language="{UICulture}"
       Title="BrowsePage">
 
     <Page.Triggers>
@@ -32,7 +33,7 @@
             Margin="27, 10">            
             <TextBlock
                 VerticalAlignment="Center"
-                Style="{DynamicResource InputMaskText}" Text="Library:" 
+                Style="{DynamicResource InputMaskText}" Text="{Resx Label_Library}" 
                 TextTrimming="WordEllipsis" />
 
             <ComboBox Margin="10,0"
@@ -43,7 +44,7 @@
                 ItemTemplate="{DynamicResource LibraryContentTemplate}"
                 SelectedItem="{Binding Library}" />
 
-            <Button Style="{DynamicResource RoundedButton}" Content="Scan Library"
+            <Button Style="{DynamicResource RoundedButton}" Content="{Resx Button_ScanLibrary}"
                 x:Name="btnScanLibrary" ContextMenuService.Placement="Bottom"
                 Command="{Binding ScanLibraryCommand}">
 
@@ -61,7 +62,7 @@
             HorizontalAlignment="Right">
             <TextBlock
                 VerticalAlignment="Center" HorizontalAlignment="Right"
-                Style="{DynamicResource InputMaskText}" Text="Sort by:" 
+                Style="{DynamicResource InputMaskText}" Text="{Resx Label_SortBy}" 
                 TextTrimming="WordEllipsis" />
 
             <ComboBox Margin="10,0"

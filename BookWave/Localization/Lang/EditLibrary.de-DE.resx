@@ -129,8 +129,20 @@
   <data name="Button_Update" xml:space="preserve">
     <value>Speichern</value>
   </data>
+  <data name="ContextMenu_FromClipboard" xml:space="preserve">
+    <value>Aus Zwischenablage</value>
+  </data>
+  <data name="ContextMenu_Remove" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="ContextMenu_Select" xml:space="preserve">
+    <value>Auswählen</value>
+  </data>
   <data name="ContextMenu_ShowInExplorer" xml:space="preserve">
     <value>Ordner öffnen</value>
+  </data>
+  <data name="ContextMenu_SplitChapter" xml:space="preserve">
+    <value>Kapitel aufteilen</value>
   </data>
   <data name="DataGrid_Title" xml:space="preserve">
     <value>Titel</value>

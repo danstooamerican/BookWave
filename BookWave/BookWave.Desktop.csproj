@@ -83,6 +83,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Localization\Lang\Browse.de-DE.Designer.cs">
+      <DependentUpon>Browse.de-DE.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Localization\Lang\Browse.en-US.Designer.cs">
+      <DependentUpon>Browse.en-US.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Localization\Lang\Browse.Designer.cs">
+      <DependentUpon>Browse.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Models\Exceptions\FileExistsException.cs" />
     <Compile Include="Notifications\InfoNotification.cs" />
     <Compile Include="Notifications\Templates\BookWaveNotificationAnimator.cs" />
@@ -296,6 +311,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Localization\Lang\Browse.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Browse.de-DE.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Lang\Browse.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Browse.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\Lang\Browse.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Browse.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\Lang\EditLibrary.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EditLibrary.en-US.Designer.cs</LastGenOutput>

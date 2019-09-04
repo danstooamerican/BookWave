@@ -129,8 +129,20 @@
   <data name="Button_Update" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="ContextMenu_FromClipboard" xml:space="preserve">
+    <value>From Clipboard</value>
+  </data>
+  <data name="ContextMenu_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ContextMenu_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
   <data name="ContextMenu_ShowInExplorer" xml:space="preserve">
     <value>Show in Explorer</value>
+  </data>
+  <data name="ContextMenu_SplitChapter" xml:space="preserve">
+    <value>Split Chapter</value>
   </data>
   <data name="DataGrid_Title" xml:space="preserve">
     <value>Title</value>

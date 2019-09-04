@@ -97,11 +97,47 @@ namespace BookWave.Desktop.Localization.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From Clipboard.
+        /// </summary>
+        internal static string ContextMenu_FromClipboard {
+            get {
+                return ResourceManager.GetString("ContextMenu_FromClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string ContextMenu_Remove {
+            get {
+                return ResourceManager.GetString("ContextMenu_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string ContextMenu_Select {
+            get {
+                return ResourceManager.GetString("ContextMenu_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show in Explorer.
         /// </summary>
         internal static string ContextMenu_ShowInExplorer {
             get {
                 return ResourceManager.GetString("ContextMenu_ShowInExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Split Chapter.
+        /// </summary>
+        internal static string ContextMenu_SplitChapter {
+            get {
+                return ResourceManager.GetString("ContextMenu_SplitChapter", resourceCulture);
             }
         }
         

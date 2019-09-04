@@ -166,11 +166,14 @@
 
                 <Grid.ContextMenu>
                     <ContextMenu Style="{DynamicResource ContextMenuStyle}">
-                        <MenuItem Header="Select" 
+                        <MenuItem Header="{Resx ResxName=BookWave.Desktop.Localization.Lang.EditLibrary, 
+                                        Key=ContextMenu_Select}" 
                             Command="{Binding SelectCoverImageCommand}" />
-                        <MenuItem Header="From Clipboard" 
+                        <MenuItem Header="{Resx ResxName=BookWave.Desktop.Localization.Lang.EditLibrary, 
+                                        Key=ContextMenu_FromClipboard}" 
                             Command="{Binding CopyCoverImageFromClipboardCommand}" />
-                        <MenuItem Header="Remove"
+                        <MenuItem Header="{Resx ResxName=BookWave.Desktop.Localization.Lang.EditLibrary, 
+                                        Key=ContextMenu_Remove}"
                             Command="{Binding RemoveCoverImageCommand}"/>
                     </ContextMenu>
                 </Grid.ContextMenu>
@@ -351,7 +354,8 @@
                         <util:BindingProxy x:Key="proxy" Data="{Binding}" />
 
                         <ContextMenu x:Key="RowMenu" Style="{DynamicResource ContextMenuStyle}">
-                            <MenuItem Header="Split Chapter" 
+                            <MenuItem Header="{Resx ResxName=BookWave.Desktop.Localization.Lang.EditLibrary, 
+                                    Key=ContextMenu_SplitChapter}" 
                                 Command="{Binding Data.SplitChapterCommand,
                                     Source={StaticResource proxy}}"
                                 CommandParameter="{Binding}"/>
