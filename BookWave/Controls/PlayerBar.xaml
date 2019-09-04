@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
+             xmlns:viewmodels="clr-namespace:BookWave.ViewModel"
              mc:Ignorable="d" 
              Background="{StaticResource PlayerBarBackground}"
-             d:DesignHeight="70" d:DesignWidth="830">
+             d:DesignHeight="70" d:DesignWidth="830"
+             d:DataContext="{d:DesignInstance viewmodels:PlayerViewModel, IsDesignTimeCreatable=False}">
     
     <Grid Grid.IsSharedSizeScope="True">
         <Grid.ColumnDefinitions>
@@ -86,7 +88,8 @@
                 PressedImage="/BookWave.Styles;component/Resources/Player/play_pressed.png"
                 NormalImageToggled="/BookWave.Styles;component/Resources/Player/pause.png" 
                 HoverImageToggled="/BookWave.Styles;component/Resources/Player/pause_hover.png"
-                PressedImageToggled="/BookWave.Styles;component/Resources/Player/pause_pressed.png"/>
+                PressedImageToggled="/BookWave.Styles;component/Resources/Player/pause_pressed.png"
+                Command="{Binding TogglePlayCommand}"/>
 
             <lib:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"

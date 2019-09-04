@@ -1,4 +1,8 @@
-﻿using GalaSoft.MvvmLight;
+﻿using BookWave.Desktop.Models.AudiobookManagement;
+using BookWave.Desktop.Models.AudiobookPlayer;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using System.Windows.Input;
 
 namespace BookWave.ViewModel
 {
@@ -7,24 +11,53 @@ namespace BookWave.ViewModel
 
         #region Public Properties
 
-        private string mCoverImage;
-
         public string CoverImage
         {
-            get { return mCoverImage; }
-            set { mCoverImage = value; }
+            get
+            {
+                if (player.Audiobook != null)
+                {
+                    return player.Audiobook.Metadata.CoverPath;
+                } else
+                {
+                    return AudiobookMetadata.StandardCover;
+                }                
+            }
         }
+
+        private Player player;
+
+        #endregion
+
+        #region Commands
+
+        public ICommand TogglePlayCommand { private set; get; }
 
         #endregion
 
         #region Constructor
 
         public PlayerViewModel()
-        {
-            CoverImage = "/BookWave.Styles;component/Resources/Player/sampleCover.png";
+        {            
+            player = new Player();
+            TogglePlayCommand = new RelayCommand(TogglePlay);
         }
 
         #endregion
 
+        #region Methods
+
+        public void SelectAudiobook(Audiobook audiobook)
+        {
+            player.SelectAudiobook(audiobook);
+            RaisePropertyChanged(nameof(CoverImage));
+        }
+
+        private void TogglePlay()
+        {
+            player.TogglePlay();
+        }
+
+        #endregion
     }
 }

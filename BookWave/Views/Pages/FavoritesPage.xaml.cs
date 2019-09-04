@@ -1,6 +1,9 @@
-﻿using BookWave.Desktop.Notifications;
+﻿using BookWave.Desktop.Models.AudiobookManagement;
+using BookWave.Desktop.Notifications;
+using BookWave.ViewModel;
 using Infralution.Localization.Wpf;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Controls;
 
 namespace BookWave.Desktop.Pages
@@ -62,6 +65,11 @@ namespace BookWave.Desktop.Pages
         private void Button_Click_6(object sender, System.Windows.RoutedEventArgs e)
         {
             NotificationManager.DisplayInfo("I am an exception.");
+        }
+
+        private void Button_Click_7(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ViewModelLocator.Instance.PlayerViewModel.SelectAudiobook(LibraryManager.Instance.Libraries[1].GetAudiobooks().ElementAt(0));
         }
     }
 }

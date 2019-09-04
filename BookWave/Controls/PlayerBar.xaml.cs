@@ -10,21 +10,6 @@ namespace BookWave.Desktop.Controls
     /// </summary>
     public partial class PlayerBar : UserControl
     {
-
-        #region DependencyProperties
-
-        public string CoverImage
-        {
-            get { return (string)GetValue(CoverImageProperty); }
-            set { SetValue(CoverImageProperty, value); }
-        }
-
-        public static readonly DependencyProperty CoverImageProperty =
-            DependencyProperty.Register("CoverImage", typeof(string), typeof(PlayerBar),
-                new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
-
-        #endregion
-
         #region Public Properties
 
         private double mLastVolume;
@@ -44,7 +29,7 @@ namespace BookWave.Desktop.Controls
 
         private static void ImageSourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            Application.GetResourceStream(new Uri("pack://application:,,," + (string)e.NewValue));
+            Application.GetResourceStream(new Uri("pack://application:,,," + (string)e.NewValue, UriKind.RelativeOrAbsolute));
         }
 
         private void BtnToggleVolume_Click(object sender, RoutedEventArgs e)
