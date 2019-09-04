@@ -21,13 +21,13 @@ namespace BookWave.Desktop.Views.Dialogs
             InitializeComponent();
 
             viewModel = ViewModelLocator.Instance.ImportAudiobookViewModel;
-            viewModel.LibraryCreatedEvent += CloseDialog;
+            viewModel.ImportedEvent += CloseDialog;
             this.DataContext = viewModel;
         }
 
         private void CloseDialog()
         {
-            viewModel.LibraryCreatedEvent -= CloseDialog;
+            viewModel.ImportedEvent -= CloseDialog;
             this.DialogResult = true;
         }
 

@@ -98,6 +98,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Models\Exceptions\AudiobookAlreadyInLibraryException.cs" />
     <Compile Include="Models\Exceptions\FileExistsException.cs" />
     <Compile Include="Notifications\DecisionNotification.cs" />
     <Compile Include="Notifications\InfoNotification.cs" />

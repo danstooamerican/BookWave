@@ -120,13 +120,16 @@
   <data name="Button_Import" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="ImportFrom" xml:space="preserve">
+  <data name="Label_ImportFrom" xml:space="preserve">
     <value>Import from</value>
   </data>
-  <data name="ImportTo" xml:space="preserve">
+  <data name="Label_ImportTo" xml:space="preserve">
     <value>to</value>
   </data>
-  <data name="Information" xml:space="preserve">
+  <data name="Label_Information" xml:space="preserve">
     <value>This operation copies the selected audiobook folder into the selected library.</value>
+  </data>
+  <data name="Label_Library" xml:space="preserve">
+    <value>Library</value>
   </data>
 </root>
