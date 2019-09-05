@@ -84,6 +84,43 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             }
         }
 
+        private int mCurrentChapterIndex;
+
+        private int CurrentChapterIndex
+        {
+            get
+            {
+                return mCurrentChapterIndex;
+            }
+            set
+            {
+                if (Audiobook != null && value < Audiobook.Chapters.Count)
+                {
+                    mCurrentChapterIndex = value;
+                    LoadChapter();
+                }
+                else
+                {
+                    mCurrentChapterIndex = -1;
+                }
+
+                ChapterChangedEvent?.Invoke(this, null);
+            }
+        }
+
+        public Chapter CurrentChapter
+        {
+            get
+            {
+                if (Audiobook != null)
+                {
+                    return Audiobook.GetChapter(CurrentChapterIndex);
+                }
+                return null;
+            }
+        }
+
+
         private IWavePlayer mediaPlayer;
 
         private WaveStream mediaReader;
@@ -92,14 +129,13 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
 
         #region Events
 
-        public delegate void PlaybackStopped();
-        public event PlaybackStopped PlaybackStoppedEvent;
+        public event EventHandler PlaybackStoppedEvent;
 
-        public delegate void PlaybackStarted();
-        public event PlaybackStarted PlaybackStartedEvent;
+        public event EventHandler PlaybackStartedEvent;
 
-        public delegate void PlaybackPaused();
-        public event PlaybackPaused PlaybackPausedEvent;
+        public event EventHandler PlaybackPausedEvent;
+
+        public event EventHandler ChapterChangedEvent;
 
         #endregion
 
@@ -109,6 +145,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         {
             IsPlaying = false;
             Volume = 1;
+            CurrentChapterIndex = 0;
         }
 
         #endregion
@@ -116,26 +153,39 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         #region Methods
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
-        {            
-            Stop();
-            SecondsPlayed = 0;
-            PlaybackStoppedEvent();
+        {         
+            if (sender == mediaPlayer)
+            {
+                PlaybackStoppedEvent?.Invoke(this, null);
+
+                CurrentChapterIndex++;
+                Play();
+            }            
         }
 
         public void SelectAudiobook(Audiobook audiobook)
         {
-            Stop();
-
             Audiobook = audiobook;
 
             if (Audiobook != null)
             {
+                if (mediaPlayer != null)
+                {
+                    mediaPlayer.Stop();
+                    mediaPlayer.Dispose();
+                }
+                if (mediaReader != null)
+                {
+                    mediaReader.Dispose();
+                    mediaReader = null;
+                }                
+
+                IsPlaying = false;
                 mediaPlayer = new WaveOutEvent();
                 mediaPlayer.Volume = mVolume;
                 mediaPlayer.PlaybackStopped += OnPlaybackStopped;
 
-                mediaReader = new MediaFoundationReader(audiobook.Chapters.ElementAt(0).AudioPath.Path);
-                mediaPlayer.Init(mediaReader);
+                CurrentChapterIndex = 0;
             }
             else
             {
@@ -148,6 +198,16 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                     mediaReader.Dispose();
                 }                
             }           
+        }
+
+        private void LoadChapter()
+        {
+            if (mediaPlayer != null)
+            {
+                SecondsPlayed = 0;
+                mediaReader = new MediaFoundationReader(CurrentChapter.AudioPath.Path);
+                mediaPlayer.Init(mediaReader);
+            }            
         }
 
         public void TogglePlay(bool isPlayingUpdate = true)
@@ -166,14 +226,17 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         {
             if (Audiobook != null)
             {
-                mediaPlayer.Play();
-
-                if (isPlayingUpdate)
+                if (CurrentChapter != null)
                 {
-                    IsPlaying = true;
-                }
+                    mediaPlayer.Play();
 
-                PlaybackStartedEvent();
+                    if (isPlayingUpdate)
+                    {
+                        IsPlaying = true;
+                    }
+
+                    PlaybackStartedEvent?.Invoke(this, null);
+                }                
             }            
         }
 
@@ -188,7 +251,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                     IsPlaying = false;
                 }
 
-                PlaybackPausedEvent();
+                PlaybackPausedEvent?.Invoke(this, null);
             }            
         }
 
@@ -197,11 +260,6 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             if (Audiobook != null)
             {
                 mediaPlayer.Stop();
-
-                if (isPlayingUpdate)
-                {
-                    IsPlaying = false;
-                }
             }            
         }
 

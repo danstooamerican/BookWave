@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -78,6 +79,16 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         #endregion
 
         #region Methods
+
+        public Chapter GetChapter(int index)
+        {
+            if (index >= 0 && index < Chapters.Count)
+            {
+                return Chapters.ElementAt(index);
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Replaces all chapters of the audiobook with the given ones. If the parameter is null

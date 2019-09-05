@@ -91,14 +91,19 @@ namespace BookWave.ViewModel
         {
             timeLineUpdater = new DispatcherTimer();
             timeLineUpdater.Interval = TimeSpan.FromSeconds(1);
-            timeLineUpdater.Tick += (e, a) => {
+            timeLineUpdater.Tick += (e, a) => 
+            {
                 RaisePropertyChanged(nameof(SecondsPlayed));
             };
 
             player = new Player();
             player.PlaybackStoppedEvent += OnPlaybackStopped;
-            player.PlaybackStartedEvent += () => { timeLineUpdater.Start(); };
-            player.PlaybackPausedEvent += () => { timeLineUpdater.Stop(); };
+            player.PlaybackStartedEvent += OnPlaybackStarted;
+            player.PlaybackPausedEvent += (e, a) => { timeLineUpdater.Stop(); };
+            player.ChapterChangedEvent += (e, a) =>
+            {
+                RaisePropertyChanged(nameof(MaxSeconds));
+            };
 
             TogglePlayCommand = new RelayCommand(TogglePlay);
             SkipToStartCommand = new RelayCommand(SkipToStart);
@@ -111,7 +116,14 @@ namespace BookWave.ViewModel
 
         #region Methods
 
-        private void OnPlaybackStopped()
+        private void OnPlaybackStarted(object sender, object args)
+        {
+            RaisePropertyChanged(nameof(SecondsPlayed));
+            RaisePropertyChanged(nameof(IsPlaying));
+            timeLineUpdater.Start();
+        }
+
+        private void OnPlaybackStopped(object sender, object args)
         {
             RaisePropertyChanged(nameof(SecondsPlayed));
             RaisePropertyChanged(nameof(IsPlaying));
