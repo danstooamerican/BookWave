@@ -71,12 +71,14 @@
 
             <lib:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
+                Command="{Binding Rewind30Command}"
                 NormalImage="/BookWave.Styles;component/Resources/Player/rewind30.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/rewind30_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/rewind30_pressed.png"/>
 
             <lib:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
+                Command="{Binding SkipToStartCommand}"
                 NormalImage="/BookWave.Styles;component/Resources/Player/previous.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/previous_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/previous_pressed.png"/>
@@ -89,16 +91,19 @@
                 NormalImageToggled="/BookWave.Styles;component/Resources/Player/pause.png" 
                 HoverImageToggled="/BookWave.Styles;component/Resources/Player/pause_hover.png"
                 PressedImageToggled="/BookWave.Styles;component/Resources/Player/pause_pressed.png"
+                IsChecked="{Binding IsPlaying}"
                 Command="{Binding TogglePlayCommand}"/>
 
             <lib:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
+                Command="{Binding SkipToEndCommand}"
                 NormalImage="/BookWave.Styles;component/Resources/Player/next.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/next_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/next_pressed.png"/>
 
             <lib:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
+                Command="{Binding Forward30Command}"
                 NormalImage="/BookWave.Styles;component/Resources/Player/skip30.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/skip30_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/skip30_pressed.png"/>
@@ -121,8 +126,9 @@
                 IsChecked="{Binding ElementName=sldVolume, Path=Value, Mode=OneWay, 
                     Converter={StaticResource DoubleToBoolConverter}}"/>
 
-            <Slider x:Name="sldVolume" Style="{DynamicResource HighlightedSlider}"  Value="1" Maximum="1" MinWidth="80"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Slider x:Name="sldVolume" Style="{DynamicResource HighlightedSlider}"  Value="{Binding Volume}" 
+                Maximum="1" MinWidth="80"
+                HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         </StackPanel>
         <Border Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
@@ -141,7 +147,7 @@
                         Converter={StaticResource SecondsToTimeConverter}}"/>
 
                 <Slider Grid.Column="1" x:Name="sldMedia" Style="{DynamicResource HighlightedSlider}"
-                Value="0" Minimum="0" Maximum="3544" MinWidth="300"
+                Value="{Binding SecondsPlayed}" Minimum="0" Maximum="{Binding MaxSeconds}" MinWidth="300"
                     HorizontalAlignment="Stretch" VerticalAlignment="Center" />
 
                 <TextBlock Grid.Column="2" Style="{DynamicResource InformationText}" 

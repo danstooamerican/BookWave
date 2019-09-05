@@ -211,7 +211,7 @@ namespace BookWave.ViewModel
                             return xint.CompareTo(yint);
                         });
                     }
-                    catch (InvalidOperationException ex)
+                    catch (InvalidOperationException)
                     {
                         NotificationManager.DisplayException("Can't perform operation while editing.");
                     }                    

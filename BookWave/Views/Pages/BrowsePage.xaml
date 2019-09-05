@@ -91,6 +91,10 @@
                         Command="{Binding DataContext.EditSelectedCommand, 
                             RelativeSource={RelativeSource AncestorType=Page}}"
                         CommandParameter="{Binding}"/>
+                    <MenuItem Header="Play" 
+                        Command="{Binding DataContext.PlaySelectedCommand, 
+                            RelativeSource={RelativeSource AncestorType=Page}}"
+                        CommandParameter="{Binding}"/>
                 </ContextMenu>
             </ListView.Resources>
 

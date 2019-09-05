@@ -11,6 +11,8 @@ namespace BookWave.ViewModel
 
         public ICommand EditSelectedCommand { private set; get; }
 
+        public ICommand PlaySelectedCommand { private set; get; }
+
         #endregion
 
         #region Constructor
@@ -18,6 +20,7 @@ namespace BookWave.ViewModel
         public BrowseViewModel() : base()
         {
             EditSelectedCommand = new RelayCommand<Audiobook>((a) => EditSelected(a));
+            PlaySelectedCommand = new RelayCommand<Audiobook>((a) => PlaySelected(a));
         }
 
         #endregion
@@ -27,6 +30,12 @@ namespace BookWave.ViewModel
         private void EditSelected(Audiobook audiobook)
         {
             ViewModelLocator.Instance.MainViewModel.SwitchToEditLibraryPage(audiobook);
+        }
+
+        private void PlaySelected(Audiobook audiobook)
+        {
+            ViewModelLocator.Instance.PlayerViewModel.SelectAudiobook(audiobook);
+            ViewModelLocator.Instance.PlayerViewModel.TogglePlay();
         }
 
         #endregion
