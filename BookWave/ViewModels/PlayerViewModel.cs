@@ -65,6 +65,10 @@ namespace BookWave.ViewModel
             }
         }
 
+        public Audiobook Audiobook { get { return player.Audiobook; } }
+
+        public Chapter CurrentChapter { get { return player.CurrentChapter; } }
+
         private Player player;
 
         private DispatcherTimer timeLineUpdater;
@@ -103,6 +107,7 @@ namespace BookWave.ViewModel
             player.ChapterChangedEvent += (e, a) =>
             {
                 RaisePropertyChanged(nameof(MaxSeconds));
+                RaisePropertyChanged(nameof(CurrentChapter));
             };
 
             TogglePlayCommand = new RelayCommand(TogglePlay);
@@ -136,6 +141,8 @@ namespace BookWave.ViewModel
             RaisePropertyChanged(nameof(CoverImage));
             RaisePropertyChanged(nameof(MaxSeconds));
             RaisePropertyChanged(nameof(SecondsPlayed));
+            RaisePropertyChanged(nameof(Audiobook));
+            RaisePropertyChanged(nameof(CurrentChapter));
         }
         public void TogglePlay()
         {
