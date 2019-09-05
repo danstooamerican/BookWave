@@ -33,7 +33,7 @@
 
             <TextBlock x:Name="Text"  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
                 Margin="0, 0, 3, 3" TextWrapping="Wrap"
-                Text="{Binding Message, Mode=OneTime}" 
+                Text="{Binding NotificationMessage, Mode=OneTime}" 
                 Style="{StaticResource InformationText}" />
             
             <Button x:Name="CloseButton" Style="{StaticResource NotificationCloseButton}" 

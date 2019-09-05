@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Button_ScanLibrary" xml:space="preserve">
-    <value>Bibliothek scannen</value>
+    <value>Scannen</value>
   </data>
   <data name="Label_Library" xml:space="preserve">
     <value>Bibliothek:</value>
