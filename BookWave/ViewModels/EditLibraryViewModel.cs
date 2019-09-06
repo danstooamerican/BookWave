@@ -1,9 +1,7 @@
-﻿using BookWave.Controls;
-using BookWave.Desktop.Exceptions;
+﻿using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Localization.Lang;
 using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Notifications;
-using BookWave.Desktop.Properties;
 using BookWave.Desktop.Views.Dialogs;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -193,22 +191,7 @@ namespace BookWave.ViewModel
                     {
                         Chapters.CustomSort = Comparer<Chapter>.Create((x, y) =>
                         {
-                            var xnumber = x.Metadata.TrackNumber;
-                            var ynumber = y.Metadata.TrackNumber;
-                            if (string.IsNullOrEmpty(xnumber))
-                            {
-                                return -1;
-                            }
-                            if (string.IsNullOrEmpty(ynumber))
-                            {
-                                return 1;
-                            }
-                            int xint;
-                            int yint;
-
-                            int.TryParse(xnumber, out xint);
-                            int.TryParse(ynumber, out yint);
-                            return xint.CompareTo(yint);
+                            return x.CompareTo(y);
                         });
                     }
                     catch (InvalidOperationException)

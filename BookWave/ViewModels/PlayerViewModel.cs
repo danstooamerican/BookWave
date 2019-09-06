@@ -123,16 +123,16 @@ namespace BookWave.ViewModel
 
         private void OnPlaybackStarted(object sender, object args)
         {
-            RaisePropertyChanged(nameof(SecondsPlayed));
-            RaisePropertyChanged(nameof(IsPlaying));
             timeLineUpdater.Start();
+            RaisePropertyChanged(nameof(SecondsPlayed));
+            RaisePropertyChanged(nameof(IsPlaying));            
         }
 
         private void OnPlaybackStopped(object sender, object args)
         {
-            RaisePropertyChanged(nameof(SecondsPlayed));
-            RaisePropertyChanged(nameof(IsPlaying));
             timeLineUpdater.Stop();
+            RaisePropertyChanged(nameof(SecondsPlayed));
+            RaisePropertyChanged(nameof(IsPlaying));            
         }
 
         public void SelectAudiobook(Audiobook audiobook)

@@ -1,4 +1,4 @@
-﻿using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Util;
 using GalaSoft.MvvmLight;
 using System;
@@ -79,16 +79,6 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         #endregion
 
         #region Methods
-
-        public Chapter GetChapter(int index)
-        {
-            if (index >= 0 && index < Chapters.Count)
-            {
-                return Chapters.ElementAt(index);
-            }
-
-            return null;
-        }
 
         /// <summary>
         /// Replaces all chapters of the audiobook with the given ones. If the parameter is null

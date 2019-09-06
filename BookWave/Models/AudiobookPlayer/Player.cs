@@ -19,7 +19,14 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         public Audiobook Audiobook
         {
             get { return mAudiobook; }
-            private set { mAudiobook = value; }
+            private set
+            {
+                mAudiobook = value;
+                if (mAudiobook != null)
+                {
+                    chapters = new SortedSet<Chapter>(mAudiobook.Chapters);
+                }                
+            }
         }
 
         private bool mIsPlaying;
@@ -85,7 +92,6 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         }
 
         private int mCurrentChapterIndex;
-
         private int CurrentChapterIndex
         {
             get
@@ -98,23 +104,26 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                 {
                     mCurrentChapterIndex = value;
                     LoadChapter();
+                    ChapterChangedEvent?.Invoke(this, null);
                 }
                 else
                 {
                     mCurrentChapterIndex = -1;
-                }
-
-                ChapterChangedEvent?.Invoke(this, null);
+                }                
             }
         }
 
+        private SortedSet<Chapter> chapters;
         public Chapter CurrentChapter
         {
             get
             {
                 if (Audiobook != null)
                 {
-                    return Audiobook.GetChapter(CurrentChapterIndex);
+                    if (CurrentChapterIndex >= 0 && CurrentChapterIndex < chapters.Count)
+                    {
+                        return chapters.ElementAt(CurrentChapterIndex);
+                    }                    
                 }
                 return null;
             }

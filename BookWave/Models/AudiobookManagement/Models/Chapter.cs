@@ -9,7 +9,7 @@ namespace BookWave.Desktop.Models.AudiobookManagement
     /// <summary>
     /// A single chapter in an audiobook with a list of AudioPaths and Metadata.
     /// </summary>
-    public class Chapter : ObservableObject, XMLSaveObject, ICloneable
+    public class Chapter : ObservableObject, XMLSaveObject, ICloneable, IComparable<Chapter>
     {
 
         #region Public Properties
@@ -80,6 +80,31 @@ namespace BookWave.Desktop.Models.AudiobookManagement
             copy.AudioPath = (AudioPath)AudioPath.Clone();
 
             return copy;
+        }
+
+        public int CompareTo(Chapter other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            var xnumber = Metadata.TrackNumber;
+            var ynumber = other.Metadata.TrackNumber;
+            if (string.IsNullOrEmpty(xnumber))
+            {
+                return -1;
+            }
+            if (string.IsNullOrEmpty(ynumber))
+            {
+                return 1;
+            }
+            int xint;
+            int yint;
+
+            int.TryParse(xnumber, out xint);
+            int.TryParse(ynumber, out yint);
+            return xint.CompareTo(yint);
         }
 
         #endregion
