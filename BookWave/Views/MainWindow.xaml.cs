@@ -140,14 +140,14 @@ namespace BookWave.Desktop
         {
             if (!viewModel.NavigationHistory.IsRepeatedElement())
             {
-                HistoryListElement<PageItem> previousElement = viewModel.NavigationHistory.PreviousElement;
+                ListElement<PageItem> previousElement = viewModel.NavigationHistory.PreviousElement;
 
                 if (previousElement != null && previousElement.Element.MenuButton != null)
                 {
                     previousElement.Element.MenuButton.ClickedRectVisibility = Visibility.Hidden;
                 }
             }
-            HistoryListElement<PageItem> currentElement = viewModel.NavigationHistory.CurrentElement;
+            ListElement<PageItem> currentElement = viewModel.NavigationHistory.CurrentElement;
             if (currentElement != null && currentElement.Element.MenuButton != null)
             {
                 currentElement.Element.MenuButton.ClickedRectVisibility = Visibility.Visible;

@@ -45,25 +45,19 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                 {
                     return (int)mediaReader.TotalTime.TotalSeconds;
                 }
-                else
-                {
-                    return 0;
-                }                
+                return 0;                
             }
         }
 
-        public int SecondsPlayed
+        public double SecondsPlayed
         {
             get
             {
                 if (mediaReader != null)
                 {
-                    return (int)mediaReader.CurrentTime.TotalSeconds;
+                    return mediaReader.CurrentTime.TotalSeconds;
                 }
-                else
-                {
-                    return 0;
-                }                
+                return 0;
             }
             set
             {
@@ -187,7 +181,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                 {
                     mediaReader.Dispose();
                     mediaReader = null;
-                }                
+                }
 
                 IsPlaying = false;
                 mediaPlayer = new WaveOutEvent();
@@ -269,7 +263,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             if (Audiobook != null)
             {
                 mediaPlayer.Stop();
-            }            
+            }
         }
 
         public void SkipToStart()

@@ -98,7 +98,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Models\AudiobookPlayer\ChapterItem.cs" />
     <Compile Include="Models\AudiobookPlayer\Player.cs" />
+    <Compile Include="Models\AudiobookPlayer\PlayerList.cs" />
     <Compile Include="Models\Exceptions\FileExistsException.cs" />
     <Compile Include="Notifications\DecisionNotification.cs" />
     <Compile Include="Notifications\InfoNotification.cs" />
@@ -216,7 +218,7 @@
     </Compile>
     <Compile Include="Util\BindingProxy.cs" />
     <Compile Include="Models\MenuNavigation\HistoryList.cs" />
-    <Compile Include="Models\MenuNavigation\HistoryListElement.cs" />
+    <Compile Include="Util\ListElement.cs" />
     <Compile Include="Util\ImageConverter.cs" />
     <Compile Include="Models\MenuNavigation\PageItem.cs" />
     <Compile Include="Util\UpdateReport.cs" />

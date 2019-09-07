@@ -23,7 +23,7 @@ namespace BookWave.ViewModel
                 } else
                 {
                     return AudiobookMetadata.StandardCover;
-                }                
+                }
             }
         }
 
@@ -45,7 +45,7 @@ namespace BookWave.ViewModel
 
         public int MaxSeconds { get { return player.MaxSeconds; } }
 
-        public int SecondsPlayed
+        public double SecondsPlayed
         {
             get { return player.SecondsPlayed; }
             set
@@ -94,7 +94,7 @@ namespace BookWave.ViewModel
         public PlayerViewModel()
         {
             timeLineUpdater = new DispatcherTimer();
-            timeLineUpdater.Interval = TimeSpan.FromSeconds(1);
+            timeLineUpdater.Interval = TimeSpan.FromMilliseconds(200);
             timeLineUpdater.Tick += (e, a) => 
             {
                 RaisePropertyChanged(nameof(SecondsPlayed));

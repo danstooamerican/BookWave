@@ -1,4 +1,6 @@
-﻿namespace BookWave.Desktop.Models.MenuNavigation
+﻿using BookWave.Desktop.Util;
+
+namespace BookWave.Desktop.Models.MenuNavigation
 {
     /// <summary>
     /// Helper class which implements a simple linked list to keep track of elements
@@ -11,11 +13,11 @@
 
         #region Properties
 
-        private HistoryListElement<T> mCurrentElement;
+        private ListElement<T> mCurrentElement;
         /// <summary>
         /// Element which is currently selected in the list.
         /// </summary>
-        public HistoryListElement<T> CurrentElement
+        public ListElement<T> CurrentElement
         {
             get { return mCurrentElement; }
             private set
@@ -27,12 +29,12 @@
             }
         }
 
-        private HistoryListElement<T> mPreviousElement;
+        private ListElement<T> mPreviousElement;
         /// <summary>
         /// Previously selected element. This allows to check whether an entry
         /// gets added twice in a row. 
         /// </summary>
-        public HistoryListElement<T> PreviousElement
+        public ListElement<T> PreviousElement
         {
             get { return mPreviousElement; }
             private set { mPreviousElement = value; }
@@ -134,11 +136,11 @@
         {
             if (CurrentElement == null)
             {
-                CurrentElement = new HistoryListElement<T>(null, null, element);
+                CurrentElement = new ListElement<T>(null, null, element);
             }
             else
             {
-                CurrentElement.Next = new HistoryListElement<T>(null, CurrentElement, element);
+                CurrentElement.Next = new ListElement<T>(null, CurrentElement, element);
                 this.Forward();
             }
         }
