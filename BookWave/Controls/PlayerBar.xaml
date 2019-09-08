@@ -113,9 +113,10 @@
 
             <lib:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
-                Command="{Binding Rewind30Command}"
+                Command="{Binding RewindCommand}"
                 NormalImage="/BookWave.Styles;component/Resources/Player/rewind30.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/rewind30_hover.png"
+                DisabledImage="/BookWave.Styles;component/Resources/Player/rewind30_pressed.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/rewind30_pressed.png"/>
 
             <lib:ImageButton Style="{DynamicResource PlayerBarSpacing}"
@@ -145,7 +146,7 @@
 
             <lib:ImageButton Style="{DynamicResource PlayerBarSpacing}"
                 ImageSize="25"
-                Command="{Binding Forward30Command}"
+                Command="{Binding ForwardCommand}"
                 NormalImage="/BookWave.Styles;component/Resources/Player/skip30.png" 
                 HoverImage="/BookWave.Styles;component/Resources/Player/skip30_hover.png"
                 PressedImage="/BookWave.Styles;component/Resources/Player/skip30_pressed.png"/>

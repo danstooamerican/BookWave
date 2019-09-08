@@ -1,13 +1,9 @@
 ﻿using BookWave.Desktop.Models.AudiobookManagement;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookWave.Desktop.Models.AudiobookPlayer
 {
-    public class ChapterItem
+    public class ChapterItem : IComparable<ChapterItem>
     {
 
         private Chapter mChapter;
@@ -24,5 +20,19 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             Chapter = chapter;
         }
 
+        public int CompareTo(ChapterItem other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            if (other.Chapter == null)
+            {
+                return 1;
+            }
+
+            return other.Chapter.CompareTo(Chapter);
+        }
     }
 }

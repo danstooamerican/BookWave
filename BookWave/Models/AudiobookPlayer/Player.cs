@@ -18,10 +18,6 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             private set
             {
                 mAudiobook = value;
-                if (mAudiobook != null)
-                {
-                    chapters = new SortedSet<Chapter>(mAudiobook.Chapters);
-                }
             }
         }
 
@@ -73,7 +69,9 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             }
             set
             {
+                // keep value between 0 and 1
                 mVolume = Math.Min(Math.Max(value, 0), 1);
+
                 if (mediaPlayer != null)
                 {
                     mediaPlayer.Volume = mVolume;
@@ -81,44 +79,21 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             }
         }
 
-        private int mCurrentChapterIndex;
-        private int CurrentChapterIndex
-        {
-            get
-            {
-                return mCurrentChapterIndex;
-            }
-            set
-            {
-                if (Audiobook != null && value < Audiobook.Chapters.Count)
-                {
-                    mCurrentChapterIndex = value;
-                    LoadChapter();
-                    ChapterChangedEvent?.Invoke(this, null);
-                }
-                else
-                {
-                    mCurrentChapterIndex = -1;
-                }
-            }
-        }
-
-        private SortedSet<Chapter> chapters;
         public Chapter CurrentChapter
         {
             get
             {
-                if (Audiobook != null)
+                if (playerList.Current != null)
                 {
-                    if (CurrentChapterIndex >= 0 && CurrentChapterIndex < chapters.Count)
-                    {
-                        return chapters.ElementAt(CurrentChapterIndex);
-                    }
+                    return playerList.Current.Element.Chapter;
                 }
                 return null;
             }
         }
 
+        private bool chapterChanged;
+
+        private PlayerList<ChapterItem> playerList;
 
         private IWavePlayer mediaPlayer;
 
@@ -144,7 +119,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         {
             IsPlaying = false;
             Volume = 1;
-            CurrentChapterIndex = 0;
+            playerList = new PlayerList<ChapterItem>();
         }
 
         #endregion
@@ -153,11 +128,17 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
+            // make sure only the current mediaPlayer can fire this event
             if (sender == mediaPlayer)
             {
                 PlaybackStoppedEvent?.Invoke(this, null);
 
-                CurrentChapterIndex++;
+                if (!chapterChanged)
+                {
+                    NextChapter();
+                }
+                chapterChanged = false;
+
                 Play();
             }
         }
@@ -184,7 +165,15 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                 mediaPlayer.Volume = mVolume;
                 mediaPlayer.PlaybackStopped += OnPlaybackStopped;
 
-                CurrentChapterIndex = 0;
+                // add chapters from Audiobook as ChapterItems in sorted order to playerList
+                playerList.Clear();
+                List<ChapterItem> chapterItems = Audiobook.Chapters
+                    .Select(c => new ChapterItem(c))
+                    .ToList();
+                chapterItems.Sort();
+                playerList.AddRange(chapterItems);
+
+                LoadCurrentChapter();
             }
             else
             {
@@ -199,14 +188,33 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             }
         }
 
-        private void LoadChapter()
+        private void NextChapter()
         {
             if (mediaPlayer != null)
             {
-                SecondsPlayed = 0;
-                mediaReader = new MediaFoundationReader(CurrentChapter.AudioPath.Path);
-                mediaPlayer.Init(mediaReader);
+                playerList.Forward();
+                LoadCurrentChapter();
+                ChapterChangedEvent?.Invoke(this, null);
             }
+        }
+
+        private void PreviousChapter()
+        {
+            if (mediaPlayer != null)
+            {
+                playerList.Back();
+                LoadCurrentChapter();
+                ChapterChangedEvent?.Invoke(this, null);
+            }
+        }
+
+        private void LoadCurrentChapter()
+        {
+            Stop();
+            mediaReader?.Dispose();
+            mediaReader = new MediaFoundationReader(CurrentChapter.AudioPath.Path);           
+
+            mediaPlayer.Init(mediaReader);
         }
 
         public void TogglePlay(bool isPlayingUpdate = true)
@@ -243,7 +251,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         {
             if (Audiobook != null)
             {
-                mediaPlayer.Pause();
+                mediaPlayer?.Pause();
 
                 if (isPlayingUpdate)
                 {
@@ -256,30 +264,38 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
 
         public void Stop(bool isPlayingUpdate = true)
         {
-            if (Audiobook != null)
-            {
-                mediaPlayer.Stop();
-            }
+            mediaPlayer?.Stop();
         }
 
         public void SkipToStart()
         {
-            SecondsPlayed = 0;
+            const double timeToGoToPreviousChapter = 2;
+
+            if (SecondsPlayed < timeToGoToPreviousChapter)
+            {
+                chapterChanged = true;
+                PreviousChapter();
+            }
+            else
+            {
+                SecondsPlayed = 0;
+            }           
         }
 
         public void SkipToEnd()
         {
-            SecondsPlayed = MaxSeconds;
+            chapterChanged = true;
+            NextChapter();
         }
 
-        public void Rewind30()
+        public void Rewind(double amt)
         {
-            SecondsPlayed = Math.Max(0, SecondsPlayed - 30);
+            SecondsPlayed = Math.Max(0, SecondsPlayed - amt);
         }
 
-        public void Forward30()
+        public void Forward(double amt)
         {
-            SecondsPlayed = Math.Min(SecondsPlayed + 30, MaxSeconds);
+            SecondsPlayed = Math.Min(SecondsPlayed + amt, MaxSeconds);
         }
 
         #endregion

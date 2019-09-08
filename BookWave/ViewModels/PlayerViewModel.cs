@@ -83,9 +83,9 @@ namespace BookWave.ViewModel
 
         public ICommand SkipToStartCommand { private set; get; }
 
-        public ICommand Rewind30Command { private set; get; }
+        public ICommand RewindCommand { private set; get; }
 
-        public ICommand Forward30Command { private set; get; }
+        public ICommand ForwardCommand { private set; get; }
 
         #endregion
 
@@ -113,8 +113,8 @@ namespace BookWave.ViewModel
             TogglePlayCommand = new RelayCommand(TogglePlay);
             SkipToStartCommand = new RelayCommand(SkipToStart);
             SkipToEndCommand = new RelayCommand(SkipToEnd);
-            Rewind30Command = new RelayCommand(Rewind30);
-            Forward30Command = new RelayCommand(Forward30);
+            RewindCommand = new RelayCommand(Rewind);
+            ForwardCommand = new RelayCommand(Forward);
         }        
 
         #endregion
@@ -163,15 +163,15 @@ namespace BookWave.ViewModel
             RaisePropertyChanged(nameof(SecondsPlayed));
         }        
 
-        public void Forward30()
+        public void Forward()
         {
-            player.Forward30();
+            player.Forward(30);
             RaisePropertyChanged(nameof(SecondsPlayed));
         }
 
-        public void Rewind30()
+        public void Rewind()
         {
-            player.Rewind30();
+            player.Rewind(30);
             RaisePropertyChanged(nameof(SecondsPlayed));
         }
 

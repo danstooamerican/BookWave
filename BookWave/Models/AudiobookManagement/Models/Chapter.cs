@@ -104,7 +104,7 @@ namespace BookWave.Desktop.Models.AudiobookManagement
 
             int.TryParse(xnumber, out xint);
             int.TryParse(ynumber, out yint);
-            return xint.CompareTo(yint);
+            return yint.CompareTo(xint);
         }
 
         #endregion
