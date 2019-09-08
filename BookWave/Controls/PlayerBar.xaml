@@ -8,7 +8,7 @@
              xmlns:behaviors="clr-namespace:BookWave.Styles.AttachedBehaviors;assembly=BookWave.Styles"
              mc:Ignorable="d" 
              Background="{StaticResource PlayerBarBackground}"
-             d:DesignHeight="70" d:DesignWidth="830"
+             d:DesignHeight="70" d:DesignWidth="855"
              d:DataContext="{d:DesignInstance viewmodels:PlayerViewModel, IsDesignTimeCreatable=False}">
     
     <Grid Grid.IsSharedSizeScope="True">
@@ -28,7 +28,7 @@
                 Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="0"/>
 
         <StackPanel Orientation="Horizontal" 
-                    Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
+            Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
 
             <Image Source="{Binding CoverImage}" 
                 MinHeight="50" MinWidth="50" MaxHeight="50" MaxWidth="50"
@@ -175,31 +175,24 @@
                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         </StackPanel>
-        <Border Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center"
-            Margin="15,0,15,6">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*" MaxWidth="1920"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
+        <DockPanel  Grid.Column="1" Grid.Row="2" LastChildFill="True" MaxWidth="1100" Margin="15, 0, 15, 6">
+            <TextBlock DockPanel.Dock="Left"
+                Grid.Column="1" Style="{DynamicResource InformationText}" 
+                MinWidth="50" TextAlignment="Center"
+                Margin="0, 0, 5, 0" Text="{Binding Value, ElementName=sldMedia, 
+                    Converter={StaticResource SecondsToTimeConverter}}"/>
 
-                <TextBlock Grid.Column="0" Style="{DynamicResource InformationText}" 
-                    MinWidth="50" MaxWidth="50" TextAlignment="Center"
-                    Margin="0, 0, 5, 0" Text="{Binding Value, ElementName=sldMedia, 
-                        Converter={StaticResource SecondsToTimeConverter}}"/>
+            <TextBlock DockPanel.Dock="Right"
+                Grid.Column="1" Style="{DynamicResource InformationText}" 
+                MinWidth="50" TextAlignment="Center"
+                Text="{Binding Maximum, ElementName=sldMedia, 
+                    Converter={StaticResource SecondsToTimeConverter}}"/>
 
-                <Slider Grid.Column="1" x:Name="sldMedia" Style="{DynamicResource HighlightedSlider}"
-                Value="{Binding SecondsPlayed}" Minimum="0" Maximum="{Binding MaxSeconds}" MinWidth="300"
-                    HorizontalAlignment="Stretch" VerticalAlignment="Center" />
-
-                <TextBlock Grid.Column="2" Style="{DynamicResource InformationText}" 
-                    MinWidth="50" MaxWidth="50" TextAlignment="Center" 
-                       Text="{Binding Maximum, ElementName=sldMedia, 
-                        Converter={StaticResource SecondsToTimeConverter}}"/>
-
-            </Grid>
-        </Border>       
+            <Slider Grid.Column="1" x:Name="sldMedia" Style="{DynamicResource HighlightedSlider}"
+                Value="{Binding SecondsPlayed}" Minimum="0" Maximum="{Binding MaxSeconds}" 
+                MaxWidth="1000"                     
+                HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+        </DockPanel>
     </Grid>
 </UserControl>

@@ -94,7 +94,10 @@ namespace BookWave.ViewModel
         public PlayerViewModel()
         {
             timeLineUpdater = new DispatcherTimer();
-            timeLineUpdater.Interval = TimeSpan.FromMilliseconds(200);
+
+            // update timeLine with 30 FPS
+            timeLineUpdater.Interval = TimeSpan.FromMilliseconds(1000d/30);
+
             timeLineUpdater.Tick += (e, a) => 
             {
                 RaisePropertyChanged(nameof(SecondsPlayed));
