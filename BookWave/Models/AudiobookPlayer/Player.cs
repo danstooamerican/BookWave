@@ -1,4 +1,5 @@
 ﻿using BookWave.Desktop.Models.AudiobookManagement;
+using BookWave.Desktop.Properties;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
@@ -76,6 +77,9 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                 {
                     mediaPlayer.Volume = mVolume;
                 }
+
+                Settings.Default["Player_Volume"] = Volume;
+                Settings.Default.Save();
             }
         }
 
@@ -118,7 +122,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         public Player()
         {
             IsPlaying = false;
-            Volume = 1;
+            Volume = (float)Settings.Default["Player_Volume"];
             playerList = new PlayerList<ChapterItem>();
         }
 

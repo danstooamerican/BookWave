@@ -172,6 +172,7 @@
     <Compile Include="Notifications\ErrorNotification.cs" />
     <Compile Include="Notifications\Extensions\NotificationExtensions.cs" />
     <Compile Include="Notifications\NotificationManager.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Util\FileSystemHelper.cs" />
     <Compile Include="Util\SkinnedApplication.cs" />
     <Compile Include="Util\SkinResourceDictionary.cs" />
