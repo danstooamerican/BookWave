@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
              xmlns:viewmodels="clr-namespace:BookWave.ViewModel"
+             xmlns:behaviors="clr-namespace:BookWave.Styles.AttachedBehaviors;assembly=BookWave.Styles"
              mc:Ignorable="d" 
              Background="{StaticResource PlayerBarBackground}"
              d:DesignHeight="70" d:DesignWidth="830"
@@ -169,6 +170,7 @@
 
             <Slider x:Name="sldVolume" Style="{DynamicResource HighlightedSlider}"  Value="{Binding Volume}" 
                 Maximum="1" MinWidth="80"
+                behaviors:SliderMouseWheelBehavior.Value="120"
                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         </StackPanel>

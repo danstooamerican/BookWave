@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttachedBehaviors\ContextMenuLeftClickBehavior.cs" />
+    <Compile Include="AttachedBehaviors\SliderMouseWheelBehavior.cs" />
     <Compile Include="Converter\ByAuthorsConverter.cs" />
     <Compile Include="Converter\ChaptersToVisibleConverter.cs" />
     <Compile Include="Converter\BoolVisibilityConverter.cs" />
