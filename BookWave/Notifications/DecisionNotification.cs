@@ -30,6 +30,14 @@ namespace BookWave.Desktop.Notifications
             set { mNoCallback = value; }
         }
 
+        private string mDecisionText;
+        public string DecisionText
+        {
+            get { return mDecisionText; }
+            set { mDecisionText = value; }
+        }
+
+
         #endregion
 
         #region Commands
@@ -42,16 +50,18 @@ namespace BookWave.Desktop.Notifications
 
         #region Constructors
 
-        public DecisionNotification(Action yesCallback, Action noCallback, MessageOptions options) : base(string.Empty, options)
+        public DecisionNotification(string decisionText, Action yesCallback, Action noCallback, MessageOptions options) : base(string.Empty, options)
         {
+            DecisionText = decisionText;
             YesCallback = yesCallback;
             NoCallback = noCallback;
             YesCommand = new RelayCommand(YesAction);
             NoCommand = new RelayCommand(NoAction);
         }
 
-        public DecisionNotification(Action yesCallback, Action noCallback) : base(string.Empty, new MessageOptions())
+        public DecisionNotification(string decisionText, Action yesCallback, Action noCallback) : base(string.Empty, new MessageOptions())
         {
+            DecisionText = decisionText;
             YesCallback = yesCallback;
             NoCallback = noCallback;
             YesCommand = new RelayCommand(YesAction);

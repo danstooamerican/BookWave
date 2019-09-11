@@ -29,7 +29,7 @@
                 Margin="3, 0, 10, 0"
                 Source="/BookWave.Styles;component/Resources/Misc/warning.png" />
 
-            <TextBlock x:Name="Title" Text="Are you sure?" Grid.Row="0" Grid.Column="1" 
+            <TextBlock x:Name="Title" Text="{Binding DecisionText}" Grid.Row="0" Grid.Column="1" 
                 Margin="0, 3, 0, 10" TextWrapping="Wrap"
                 Style="{StaticResource InformationTextHighlight}" />
 

@@ -15,9 +15,9 @@ namespace BookWave.Desktop.Notifications.Extensions
             notifier.Notify<InfoNotification>(() => new InfoNotification(message));
         }
 
-        public static void ShowDecisionNotification(this Notifier notifier, Action yesCallback, Action noCallback = null)
+        public static void ShowDecisionNotification(this Notifier notifier, string decisionText, Action yesCallback, Action noCallback = null)
         {
-            notifier.Notify<DecisionNotification>(() => new DecisionNotification(yesCallback, noCallback));
+            notifier.Notify<DecisionNotification>(() => new DecisionNotification(decisionText, yesCallback, noCallback));
         }
     }
 }

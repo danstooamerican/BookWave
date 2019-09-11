@@ -93,9 +93,9 @@ namespace BookWave.Desktop.Notifications
             notifier.ShowInfoNotification(message);
         }
 
-        public static void DisplayDecision(Action yesCallback, Action noCallback = null)
+        public static void DisplayDecision(string decisionText, Action yesCallback, Action noCallback = null)
         {
-            notifier.ShowDecisionNotification(yesCallback, noCallback);
+            notifier.ShowDecisionNotification(decisionText, yesCallback, noCallback);
         }
 
         public static void Dispose()

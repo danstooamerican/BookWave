@@ -103,6 +103,7 @@
     <Compile Include="Models\AudiobookPlayer\Player.cs" />
     <Compile Include="Models\AudiobookPlayer\PlayerList.cs" />
     <Compile Include="Models\Exceptions\FileExistsException.cs" />
+    <Compile Include="Models\Exceptions\ChapterNotFoundException.cs" />
     <Compile Include="Notifications\DecisionNotification.cs" />
     <Compile Include="Notifications\InfoNotification.cs" />
     <Compile Include="Notifications\Templates\BookWaveNotificationAnimator.cs" />

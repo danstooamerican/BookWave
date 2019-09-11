@@ -1,5 +1,5 @@
-﻿using BookWave.Desktop.Models.AudiobookManagement;
-using BookWave.Desktop.Notifications;
+﻿using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Properties;
 using NAudio.Wave;
 using System;
@@ -50,10 +50,12 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             {
                 if (mediaReader != null)
                 {
-                    if (mediaReader.CurrentTime.TotalSeconds >= CurrentChapter.AudioPath.EndMark)
+                    double diffToEnd = Math.Min(mediaReader.TotalTime.TotalSeconds, CurrentChapter.AudioPath.EndMark) - mediaReader.CurrentTime.TotalSeconds;
+                    if (diffToEnd < 0.01)
                     {
-                        chapterChanged = true;
                         NextChapter();
+                        PlaybackStoppedEvent?.Invoke(this, null);
+                        Play();
                     }
                     return mediaReader.CurrentTime.TotalSeconds - CurrentChapter.AudioPath.StartMark;
                 }
@@ -102,8 +104,6 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             }
         }
 
-        private bool chapterChanged;
-
         private PlayerList<ChapterItem> playerList;
 
         private IWavePlayer mediaPlayer;
@@ -137,23 +137,6 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
 
         #region Methods
 
-        private void OnPlaybackStopped(object sender, StoppedEventArgs args)
-        {
-            // make sure only the current mediaPlayer can fire this event
-            if (sender == mediaPlayer)
-            {
-                PlaybackStoppedEvent?.Invoke(this, null);
-
-                if (!chapterChanged)
-                {
-                    NextChapter();
-                }
-                chapterChanged = false;
-
-                Play();
-            }
-        }
-
         public void SelectAudiobook(Audiobook audiobook)
         {
             Audiobook = audiobook;
@@ -174,7 +157,6 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                 IsPlaying = false;
                 mediaPlayer = new WaveOutEvent();
                 mediaPlayer.Volume = mVolume;
-                mediaPlayer.PlaybackStopped += OnPlaybackStopped;
 
                 // add chapters from Audiobook as ChapterItems in sorted order to playerList
                 playerList.Clear();
@@ -229,10 +211,12 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
                 mediaPlayer.Init(mediaReader);
 
                 mediaReader.CurrentTime = TimeSpan.FromSeconds(CurrentChapter.AudioPath.StartMark);
-            } catch (DirectoryNotFoundException)
+            }
+            catch (FileNotFoundException)
             {
-                NotificationManager.DisplayInfo("The current chapter was not found.");
-            }           
+                IsPlaying = false;
+                throw new ChapterNotFoundException(CurrentChapter, "was not found.");
+            }
         }
 
         public void TogglePlay(bool isPlayingUpdate = true)
@@ -291,19 +275,27 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
 
             if (SecondsPlayed < timeToGoToPreviousChapter)
             {
-                chapterChanged = true;
                 PreviousChapter();
+
+                if (IsPlaying)
+                {
+                    Play();
+                }
             }
             else
             {
                 SecondsPlayed = 0;
-            }           
+            }
         }
 
         public void SkipToEnd()
         {
-            chapterChanged = true;
             NextChapter();
+
+            if (IsPlaying)
+            {
+                Play();
+            }
         }
 
         public void Rewind(double amt)

@@ -1,5 +1,7 @@
-﻿using BookWave.Desktop.Models.AudiobookManagement;
+﻿using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Models.AudiobookPlayer;
+using BookWave.Desktop.Notifications;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -47,7 +49,19 @@ namespace BookWave.ViewModel
 
         public double SecondsPlayed
         {
-            get { return player.SecondsPlayed; }
+            get
+            {
+                try
+                {
+                    return player.SecondsPlayed;
+                }
+                catch (ChapterNotFoundException ex)
+                {
+                    HandleChapterNotFoundException(ex);
+                }
+
+                return 0;
+            }
             set
             {
                 player.SecondsPlayed = value;
@@ -100,7 +114,14 @@ namespace BookWave.ViewModel
 
             timeLineUpdater.Tick += (e, a) => 
             {
-                RaisePropertyChanged(nameof(SecondsPlayed));
+                try
+                {
+                    RaisePropertyChanged(nameof(SecondsPlayed));
+                }
+                catch (ChapterNotFoundException ex)
+                {
+                    HandleChapterNotFoundException(ex);
+                }
             };
 
             player = new Player();
@@ -140,7 +161,14 @@ namespace BookWave.ViewModel
 
         public void SelectAudiobook(Audiobook audiobook)
         {
-            player.SelectAudiobook(audiobook);
+            try
+            {
+                player.SelectAudiobook(audiobook);
+            } catch (ChapterNotFoundException ex)
+            {
+                HandleChapterNotFoundException(ex);
+            }
+            
             RaisePropertyChanged(nameof(CoverImage));
             RaisePropertyChanged(nameof(MaxSeconds));
             RaisePropertyChanged(nameof(SecondsPlayed));
@@ -155,14 +183,30 @@ namespace BookWave.ViewModel
 
         public void SkipToStart()
         {
-            player.SkipToStart();
+            try
+            {
+                player.SkipToStart();
+            }
+            catch (ChapterNotFoundException ex)
+            {
+                HandleChapterNotFoundException(ex);
+            }
+
             RaisePropertyChanged(nameof(SecondsPlayed));
 
         }
 
         public void SkipToEnd()
         {
-            player.SkipToEnd();
+            try
+            {
+                player.SkipToEnd();
+            }
+            catch (ChapterNotFoundException ex)
+            {
+                HandleChapterNotFoundException(ex);
+            }
+
             RaisePropertyChanged(nameof(SecondsPlayed));
         }        
 
@@ -176,6 +220,13 @@ namespace BookWave.ViewModel
         {
             player.Rewind(30);
             RaisePropertyChanged(nameof(SecondsPlayed));
+        }
+
+        private void HandleChapterNotFoundException(ChapterNotFoundException ex)
+        {
+            NotificationManager.DisplayDecision("Chapter not found. Do you want to fix it?", () => {
+                ViewModelLocator.Instance.MainViewModel.SwitchToEditLibraryPage(Audiobook);
+            });
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿using BookWave.Desktop.Exceptions;
+using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Localization.Lang;
 using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Notifications;
@@ -204,7 +204,7 @@ namespace BookWave.ViewModel
 
         private void DeleteChapter(Chapter chapter)
         {
-            NotificationManager.DisplayDecision(() => {
+            NotificationManager.DisplayDecision("Are you sure?", () => {
                 Audiobook.Chapters.Remove(chapter);
                 RaiseAudiobookChanged();
             });            
