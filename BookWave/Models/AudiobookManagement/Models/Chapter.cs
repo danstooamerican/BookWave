@@ -43,6 +43,8 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         internal Chapter(Track track)
         {
             AudioPath = new AudioPath(track.Path);
+            AudioPath.EndMark = track.Duration;
+
             Metadata = new ChapterMetadata(track);
         }
 

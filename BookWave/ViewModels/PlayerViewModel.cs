@@ -43,7 +43,7 @@ namespace BookWave.ViewModel
             }
         }
 
-        public int MaxSeconds { get { return player.MaxSeconds; } }
+        public double MaxSeconds { get { return player.MaxSeconds; } }
 
         public double SecondsPlayed
         {

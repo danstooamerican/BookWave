@@ -32,13 +32,13 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             private set { mIsPlaying = value; }
         }
 
-        public int MaxSeconds
+        public double MaxSeconds
         {
             get
             {
                 if (mediaReader != null)
                 {
-                    return (int)mediaReader.TotalTime.TotalSeconds;
+                    return Math.Min(mediaReader.TotalTime.TotalSeconds, CurrentChapter.AudioPath.EndMark);
                 }
                 return 0;
             }

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lib="clr-namespace:BookWave.Controls;assembly=BookWave.Controls"
              xmlns:viewmodels="clr-namespace:BookWave.ViewModel"
+             xmlns:converters="clr-namespace:BookWave.Styles.Converter;assembly=BookWave.Styles"
              xmlns:behaviors="clr-namespace:BookWave.Styles.AttachedBehaviors;assembly=BookWave.Styles"
              mc:Ignorable="d" 
              Background="{StaticResource PlayerBarBackground}"
@@ -37,27 +38,44 @@
 
             <StackPanel Orientation="Vertical" Margin="0, 10, 0, 10" VerticalAlignment="Center" MaxWidth="170">
 
-                <TextBlock Style="{DynamicResource InformationTextHighlight}" Text="{Binding CurrentChapter.Metadata.Title}" 
-                           TextTrimming="WordEllipsis">
-                    
-                    <TextBlock.RenderTransform>
-                        <TranslateTransform x:Name="translateTitle" />
-                    </TextBlock.RenderTransform>
-                    
-                    <TextBlock.Triggers>
-                        <EventTrigger RoutedEvent="MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                        From="20" To="-20"
-                                        Storyboard.TargetName="translateTitle"
-                                        Storyboard.TargetProperty="X"
-                                        Duration="0:0:9" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </TextBlock.Triggers>
-                </TextBlock>
+                <StackPanel Orientation="Horizontal"
+                    x:Name="stack" 
+                    Grid.Column="0"
+                    Margin="0"                        >
+
+                    <StackPanel.Resources>
+                        <converters:NegatingConverter x:Key="NegatingConverter" />
+                        <Storyboard x:Key="slide">
+                            <DoubleAnimation From="{Binding ActualWidth, ElementName=stack}" 
+                                To="{Binding ActualWidth, ElementName=txtKron, 
+                                    Converter={StaticResource NegatingConverter}}" 
+                                Duration="00:00:5"
+                                Storyboard.TargetProperty="X"
+                                Storyboard.TargetName="transferCurreny2"
+                                RepeatBehavior="1x"/>
+                        </Storyboard>
+                    </StackPanel.Resources>
+
+                    <TextBlock Text="{Binding CurrentChapter.Metadata.Title}"
+                        Style="{DynamicResource InformationText}" 
+                        x:Name="txtKron" 
+                        Canvas.Left="0"
+                        VerticalAlignment="Center">
+
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource slide}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Label.SizeChanged">
+                                <BeginStoryboard Storyboard="{StaticResource slide}"/>
+                            </EventTrigger>
+                        </TextBlock.Triggers>
+
+                        <TextBlock.RenderTransform>
+                            <TranslateTransform x:Name="transferCurreny2" X="0"/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </StackPanel>
 
                 <TextBlock Style="{DynamicResource InformationText}" 
                     Text="{Binding Audiobook.Metadata.Contributors.AuthorString, StringFormat=by {0}}" 

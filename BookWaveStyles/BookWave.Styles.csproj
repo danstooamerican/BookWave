@@ -53,6 +53,7 @@
     <Compile Include="Converter\ByAuthorsConverter.cs" />
     <Compile Include="Converter\ChaptersToVisibleConverter.cs" />
     <Compile Include="Converter\BoolVisibilityConverter.cs" />
+    <Compile Include="Converter\NegatingConverter.cs" />
     <Compile Include="Converter\VerticalOffsetOpacityConverter.cs" />
     <Compile Include="Converter\VerticalOffsetTopBarVisibilityConverter.cs" />
     <Compile Include="Converter\DoubleToBoolConverter.cs" />

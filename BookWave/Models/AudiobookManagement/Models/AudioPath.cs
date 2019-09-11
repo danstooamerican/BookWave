@@ -13,8 +13,8 @@ namespace BookWave.Desktop.Models.AudiobookManagement
     public class AudioPath : ObservableObject, XMLSaveObject, ICloneable
     {
 
-        private static readonly int DefaultStartMark = 0;
-        private static readonly int DefaultEndMark = -1;
+        private static readonly double DefaultStartMark = 0;
+        private static readonly double DefaultEndMark = -1;
 
         #region Public Properties
 
@@ -34,19 +34,19 @@ namespace BookWave.Desktop.Models.AudiobookManagement
 
         public bool PathNotValid { get { return !File.Exists(Path); } }
 
-        private int mStartMark;
+        private double mStartMark;
         /// <summary>
         /// StartMark of the audio file in seconds.
         /// This allows to split files into multiple AudioPaths.
         /// </summary>
-        public int StartMark
+        public double StartMark
         {
             get { return mStartMark; }
             set
             {
                 if (value >= 0)
                 {
-                    Set<int>(() => this.StartMark, ref mStartMark, value);
+                    Set<double>(() => this.StartMark, ref mStartMark, value);
                 }
                 else
                 {
@@ -63,15 +63,15 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         /// TODO: remove -1 and use the exact endMark of the set audio file to
         /// reduce unneccessary checks.
         /// </summary>
-        private int mEndMark;
-        public int EndMark
+        private double mEndMark;
+        public double EndMark
         {
             get { return mEndMark; }
             set
             {
                 if (value >= -1)
                 {
-                    Set<int>(() => this.EndMark, ref mEndMark, value);
+                    Set<double>(() => this.EndMark, ref mEndMark, value);
                 }
                 else
                 {
@@ -125,8 +125,8 @@ namespace BookWave.Desktop.Models.AudiobookManagement
         public void FromXML(XElement xmlElement)
         {
             Path = XMLHelper.GetSingleValue(xmlElement, "FilePath");
-            StartMark = int.Parse(XMLHelper.GetSingleValue(xmlElement, "StartMark", DefaultStartMark.ToString()));
-            EndMark = int.Parse(XMLHelper.GetSingleValue(xmlElement, "EndMark", DefaultEndMark.ToString()));
+            StartMark = double.Parse(XMLHelper.GetSingleValue(xmlElement, "StartMark", DefaultStartMark.ToString()));
+            EndMark = double.Parse(XMLHelper.GetSingleValue(xmlElement, "EndMark", DefaultEndMark.ToString()));
         }
 
         public object Clone()
