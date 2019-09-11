@@ -38,7 +38,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             {
                 if (mediaReader != null)
                 {
-                    return Math.Min(mediaReader.TotalTime.TotalSeconds, CurrentChapter.AudioPath.EndMark);
+                    return Math.Min(mediaReader.TotalTime.TotalSeconds, CurrentChapter.AudioPath.EndMark - CurrentChapter.AudioPath.StartMark);
                 }
                 return 0;
             }
@@ -50,7 +50,12 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             {
                 if (mediaReader != null)
                 {
-                    return mediaReader.CurrentTime.TotalSeconds;
+                    if (mediaReader.CurrentTime.TotalSeconds >= CurrentChapter.AudioPath.EndMark)
+                    {
+                        chapterChanged = true;
+                        NextChapter();
+                    }
+                    return mediaReader.CurrentTime.TotalSeconds - CurrentChapter.AudioPath.StartMark;
                 }
                 return 0;
             }
@@ -58,7 +63,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             {
                 if (mediaReader != null)
                 {
-                    mediaReader.CurrentTime = TimeSpan.FromSeconds(value);
+                    mediaReader.CurrentTime = TimeSpan.FromSeconds(value + CurrentChapter.AudioPath.StartMark);
                 }
             }
         }
@@ -222,13 +227,12 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             {
                 mediaReader = new MediaFoundationReader(CurrentChapter.AudioPath.Path);
                 mediaPlayer.Init(mediaReader);
-            } catch (DirectoryNotFoundException e)
+
+                mediaReader.CurrentTime = TimeSpan.FromSeconds(CurrentChapter.AudioPath.StartMark);
+            } catch (DirectoryNotFoundException)
             {
                 NotificationManager.DisplayInfo("The current chapter was not found.");
-            }
-            
-
-            
+            }           
         }
 
         public void TogglePlay(bool isPlayingUpdate = true)
@@ -283,7 +287,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
 
         public void SkipToStart()
         {
-            const double timeToGoToPreviousChapter = 2;
+            const double timeToGoToPreviousChapter = 2.5;
 
             if (SecondsPlayed < timeToGoToPreviousChapter)
             {
