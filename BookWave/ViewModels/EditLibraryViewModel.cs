@@ -1,4 +1,4 @@
-using BookWave.Desktop.Exceptions;
+﻿using BookWave.Desktop.Exceptions;
 using BookWave.Desktop.Localization.Lang;
 using BookWave.Desktop.Models.AudiobookManagement;
 using BookWave.Desktop.Notifications;
@@ -191,7 +191,7 @@ namespace BookWave.ViewModel
                     {
                         Chapters.CustomSort = Comparer<Chapter>.Create((x, y) =>
                         {
-                            return x.CompareTo(y);
+                            return y.CompareTo(x);
                         });
                     }
                     catch (InvalidOperationException)

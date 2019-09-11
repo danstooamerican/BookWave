@@ -208,7 +208,8 @@
                     Converter={StaticResource SecondsToTimeConverter}}"/>
 
             <Slider Grid.Column="1" x:Name="sldMedia" Style="{DynamicResource HighlightedSlider}"
-                Value="{Binding SecondsPlayed}" Minimum="0" Maximum="{Binding MaxSeconds}" 
+                Value="{Binding SecondsPlayed}"
+                Minimum="0" Maximum="{Binding MaxSeconds}" 
                 MaxWidth="1000"                     
                 HorizontalAlignment="Stretch" VerticalAlignment="Center" />
         </DockPanel>
