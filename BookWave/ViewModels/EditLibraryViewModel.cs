@@ -280,7 +280,7 @@ namespace BookWave.ViewModel
 
             if (dialog.ShowDialog() == true)
             {
-
+                NotificationManager.DisplayInfo("Import completed successfully.");
             }
         }
 

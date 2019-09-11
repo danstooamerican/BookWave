@@ -46,10 +46,5 @@ namespace BookWave.Desktop.Pages
         {
             viewModel.SelectCoverImage();
         }
-
-        public void Button_Clicked(object sender, MouseButtonEventArgs e)
-        {
-            System.Console.WriteLine("TEST");
-        }
     }
 }

@@ -15,16 +15,16 @@ namespace BookWave.Desktop.Notifications
 
         public ErrorNotification(string message, MessageOptions options) : base(message, options)
         {
-            Message = message;
+            NotificationMessage = message;
         }
 
         public ErrorNotification(string message) : base(message, new MessageOptions())
         {
-            Message = message;
+            NotificationMessage = message;
         }
 
         private string _message;
-        public string Message
+        public string NotificationMessage
         {
             get
             {

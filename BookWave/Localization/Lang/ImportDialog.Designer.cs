@@ -72,27 +72,36 @@ namespace BookWave.Desktop.Localization.Lang {
         /// <summary>
         ///   Looks up a localized string similar to Import from.
         /// </summary>
-        internal static string ImportFrom {
+        internal static string Label_ImportFrom {
             get {
-                return ResourceManager.GetString("ImportFrom", resourceCulture);
+                return ResourceManager.GetString("Label_ImportFrom", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to to.
         /// </summary>
-        internal static string ImportTo {
+        internal static string Label_ImportTo {
             get {
-                return ResourceManager.GetString("ImportTo", resourceCulture);
+                return ResourceManager.GetString("Label_ImportTo", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This operation copies the selected audiobook folder into the selected library..
         /// </summary>
-        internal static string Information {
+        internal static string Label_Information {
             get {
-                return ResourceManager.GetString("Information", resourceCulture);
+                return ResourceManager.GetString("Label_Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Library.
+        /// </summary>
+        internal static string Label_Library {
+            get {
+                return ResourceManager.GetString("Label_Library", resourceCulture);
             }
         }
     }

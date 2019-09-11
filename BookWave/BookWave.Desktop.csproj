@@ -98,6 +98,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Models\Exceptions\AudiobookAlreadyInLibraryException.cs" />
     <Compile Include="Models\AudiobookPlayer\ChapterItem.cs" />
     <Compile Include="Models\AudiobookPlayer\Player.cs" />
     <Compile Include="Models\AudiobookPlayer\PlayerList.cs" />
