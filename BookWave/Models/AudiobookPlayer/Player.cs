@@ -215,6 +215,8 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
             catch (FileNotFoundException)
             {
                 IsPlaying = false;
+                PlaybackStoppedEvent?.Invoke(this, null);
+                ChapterChangedEvent?.Invoke(this, null);
                 throw new ChapterNotFoundException(CurrentChapter, "was not found.");
             }
         }

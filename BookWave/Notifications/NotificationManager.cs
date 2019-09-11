@@ -7,7 +7,6 @@ using System.Windows;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Lifetime.Clear;
-using ToastNotifications.Messages;
 using ToastNotifications.Position;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
@@ -29,6 +28,20 @@ namespace BookWave.Desktop.Notifications
             cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
                 notificationLifetime: TimeSpan.FromSeconds(4),
                 maximumNotificationCount: MaximumNotificationCount.FromCount(4));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
+
+        private static Notifier keepOpenNotifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.BottomCenter,
+                offsetX: 0,
+                offsetY: 100);
+
+            cfg.LifetimeSupervisor = new CountBasedLifetimeSupervisor(
+                maximumNotificationCount: MaximumNotificationCount.FromCount(0));
 
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
@@ -95,13 +108,15 @@ namespace BookWave.Desktop.Notifications
 
         public static void DisplayDecision(string decisionText, Action yesCallback, Action noCallback = null)
         {
-            notifier.ShowDecisionNotification(decisionText, yesCallback, noCallback);
+            keepOpenNotifier.ShowDecisionNotification(decisionText, yesCallback, noCallback);
         }
 
         public static void Dispose()
         {
             notifier.ClearMessages(new ClearAll());
+            keepOpenNotifier.ClearMessages(new ClearAll());
             notifier.Dispose();
+            keepOpenNotifier.Dispose();
         }
 
     }
