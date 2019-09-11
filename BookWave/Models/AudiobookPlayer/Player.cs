@@ -1,8 +1,10 @@
 ﻿using BookWave.Desktop.Models.AudiobookManagement;
+using BookWave.Desktop.Notifications;
 using BookWave.Desktop.Properties;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace BookWave.Desktop.Models.AudiobookPlayer
@@ -216,9 +218,17 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         {
             Stop();
             mediaReader?.Dispose();
-            mediaReader = new MediaFoundationReader(CurrentChapter.AudioPath.Path);           
+            try
+            {
+                mediaReader = new MediaFoundationReader(CurrentChapter.AudioPath.Path);
+                mediaPlayer.Init(mediaReader);
+            } catch (DirectoryNotFoundException e)
+            {
+                NotificationManager.DisplayInfo("The current chapter was not found.");
+            }
+            
 
-            mediaPlayer.Init(mediaReader);
+            
         }
 
         public void TogglePlay(bool isPlayingUpdate = true)
@@ -237,7 +247,7 @@ namespace BookWave.Desktop.Models.AudiobookPlayer
         {
             if (Audiobook != null)
             {
-                if (CurrentChapter != null)
+                if (CurrentChapter != null && !CurrentChapter.AudioPath.PathNotValid)
                 {
                     mediaPlayer.Play();
 
