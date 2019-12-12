@@ -1,5 +1,4 @@
 # BookWave
-========
 
 BookWave is an audiobook player which can mange and play your local audiobook collection.
 
